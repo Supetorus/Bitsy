@@ -8,7 +8,7 @@ public class Hack : MonoBehaviour, IInteractable {
   public string InteractPrompt => _prompt;
 
   public bool Interact(Interactor interactor) {
-    Debug.Log("Hacking Computer");
+    Debug.Log(_prompt);
     return true;
   }
 }
