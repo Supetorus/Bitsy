@@ -11,14 +11,6 @@ public class Raycast : MonoBehaviour
 
   private void Update() {
     FrontPos = new Vector3(0, 0, vision.transform.localPosition.z + DistanceDetection);
-    Debug.Log("Object Postion: ");
-    Debug.Log(vision.transform.position.x);
-    Debug.Log(vision.transform.position.y);
-    Debug.Log(vision.transform.position.z);
-    Debug.Log("Looking Postion: ");
-    Debug.Log(FrontPos.x);
-    Debug.Log(FrontPos.y);
-    Debug.Log(FrontPos.z);
     Debug.DrawRay(vision.transform.position, FrontPos, Color.white, 1.0f);
   }
 }
