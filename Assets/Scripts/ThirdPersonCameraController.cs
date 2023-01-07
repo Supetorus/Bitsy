@@ -2,18 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class ThirdPersonCameraController : MonoBehaviour
 {
 	public Transform target;
+	[Min(0.01f)]
 	public float distance = 5;
+	[Range(-360, 360)]
+	public float yaw = 0;
+	[Range(-90, 90)]
 	public float pitch = 45;
+	[Range(-90, 90)]
 	public float maxPitch = 89.9f;
+	[Range(-90, 90)]
 	public float minPitch = -89.9f;
 	public float sensitivity = 1;
+	public Vector3 startDirection;
 	[Tooltip("Camera won't pass through objects on these layers.")]
 	public LayerMask ignoredLayers;
 
-	private float yaw = 0;
 	private new Camera camera;
 
 	private void Start()
@@ -26,7 +33,7 @@ public class ThirdPersonCameraController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		yaw += Input.GetAxis("Mouse X") * sensitivity;
+		yaw = (yaw + Input.GetAxis("Mouse X") * sensitivity) % 360;
 		pitch -= Input.GetAxis("Mouse Y") * sensitivity;
 		pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 		Quaternion qYaw = Quaternion.AngleAxis(yaw, Vector3.up);
