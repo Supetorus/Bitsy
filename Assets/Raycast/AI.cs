@@ -11,6 +11,9 @@ public class AI : MonoBehaviour {
   public AudioClip spottedSound;
 
   private void Update() {
+    findThePlayer();
+  }
+  bool findThePlayer() {
     if (Vector3.Distance(transform.position, playerPos.position) < viewDistance) {
       Vector3 directionToPlayer = (playerPos.position - transform.position).normalized;
       float angleBetweenGuardAndPlayer = Vector3.Angle(transform.forward, directionToPlayer);
@@ -25,10 +28,12 @@ public class AI : MonoBehaviour {
             audio.Play();
           }
           spotted.SetActive(true);
+          return true;
         }
       }
     }
     Debug.Log("Player Has not been seen");
     spotted.SetActive(false);
+    return false;
   }
 }
