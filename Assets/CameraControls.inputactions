@@ -1,0 +1,54 @@
+{
+    "name": "CameraControls",
+    "maps": [
+        {
+            "name": "Default",
+            "id": "88b834d1-c920-4f26-8af3-7925f09a7165",
+            "actions": [
+                {
+                    "name": "LookMouse",
+                    "type": "Value",
+                    "id": "b371ba54-7b5d-454d-abfb-ba33cb023aec",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LookStick",
+                    "type": "Value",
+                    "id": "8a542a36-2ea7-4204-8ef6-406300b539a7",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5896e218-1783-4363-990a-9f243ca76dd0",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "NormalizeVector2",
+                    "groups": "",
+                    "action": "LookMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d90225f6-b2e9-4408-9a23-ed5499b77d33",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "NormalizeVector2",
+                    "groups": "",
+                    "action": "LookStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
