@@ -6,11 +6,11 @@
             "id": "88b834d1-c920-4f26-8af3-7925f09a7165",
             "actions": [
                 {
-                    "name": "LookMouse",
+                    "name": "Look",
                     "type": "Value",
-                    "id": "b371ba54-7b5d-454d-abfb-ba33cb023aec",
+                    "id": "237ee929-33a2-4885-a40c-2b817940832c",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -22,9 +22,40 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "LookMouse",
+                    "type": "Value",
+                    "id": "b371ba54-7b5d-454d-abfb-ba33cb023aec",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
+                {
+                    "name": "",
+                    "id": "1d4200ee-3ce8-4f1a-b816-ea4727cfa007",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ecf2dc5f-be6e-405a-ae28-a69381e77b71",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
                 {
                     "name": "",
                     "id": "5896e218-1783-4363-990a-9f243ca76dd0",
