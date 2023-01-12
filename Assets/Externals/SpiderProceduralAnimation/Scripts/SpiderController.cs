@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 
 public class SpiderController : MonoBehaviour
 {
@@ -13,7 +13,10 @@ public class SpiderController : MonoBehaviour
     public float outerRaysOffset = 2f;
     public float innerRaysOffset = 25f;
 
-    private Vector3 velocity;
+	public InputActionReference sprintAction;
+    public InputActionReference moveAction;
+
+	private Vector3 velocity;
     private Vector3 lastVelocity;
     private Vector3 lastPosition;
     private Vector3 forward;
@@ -119,6 +122,9 @@ public class SpiderController : MonoBehaviour
         forward = transform.forward;
         upward = transform.up;
         lastRot = transform.rotation;
+
+        sprintAction.action.Enable();
+        moveAction.action.Enable();
     }
 
     // Update is called once per frame
@@ -131,14 +137,16 @@ public class SpiderController : MonoBehaviour
         lastPosition = transform.position;
         lastVelocity = velocity;
         
+        // Sprint
         float multiplier = 1f;
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (sprintAction.action.ReadValue<float>() > 0)
             multiplier = 2f;
 
-        float valueY = Input.GetAxis("Vertical");
+        Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
+        float valueY = moveInput.y;
         if (valueY != 0)
             transform.position += transform.forward * valueY * _speed * multiplier * Time.fixedDeltaTime;
-        float valueX = Input.GetAxis("Horizontal");
+        float valueX = moveInput.x;
         if (valueX != 0)
             transform.position += Vector3.Cross(transform.up, transform.forward) * valueX * _speed * multiplier * Time.fixedDeltaTime;
 
