@@ -2,7 +2,7 @@
     "name": "CameraControls",
     "maps": [
         {
-            "name": "Default",
+            "name": "GameControls",
             "id": "88b834d1-c920-4f26-8af3-7925f09a7165",
             "actions": [
                 {
@@ -15,18 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LookStick",
+                    "name": "Sprint",
                     "type": "Value",
-                    "id": "8a542a36-2ea7-4204-8ef6-406300b539a7",
-                    "expectedControlType": "Vector2",
+                    "id": "830599a5-f30b-4512-a9a6-24be11d745a3",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LookMouse",
+                    "name": "Move",
                     "type": "Value",
-                    "id": "b371ba54-7b5d-454d-abfb-ba33cb023aec",
+                    "id": "b5dfb35e-6bd2-4165-a9f1-25d8c3908a21",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -58,25 +58,69 @@
                 },
                 {
                     "name": "",
-                    "id": "5896e218-1783-4363-990a-9f243ca76dd0",
-                    "path": "<Mouse>/delta",
+                    "id": "6d27504b-77f4-499c-b9a4-1cf8d4aeded1",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
-                    "processors": "NormalizeVector2",
+                    "processors": "",
                     "groups": "",
-                    "action": "LookMouse",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "d90225f6-b2e9-4408-9a23-ed5499b77d33",
-                    "path": "<Gamepad>/rightStick",
+                    "name": "2D Vector",
+                    "id": "fd883113-e00b-4204-a93b-6baaebf64f68",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "NormalizeVector2",
                     "groups": "",
-                    "action": "LookStick",
-                    "isComposite": false,
+                    "action": "Move",
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "519a85a8-9c25-428b-8836-a13e1d546742",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "67e55021-fc4b-49cc-97bc-be21698df4aa",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "1c81b05c-29bd-45f9-8841-ef739e5ecd71",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "d221c9ee-cb5a-43e0-9653-87e0558eda67",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
