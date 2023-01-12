@@ -39,13 +39,12 @@ public class ThirdPersonCameraController : MonoBehaviour
 		// Capture and lock the cursor
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
+		inputActions.action.Enable();
 	}
 
 	void Update()
 	{
-		inputActions.action.Enable();
 		input = inputActions.action.ReadValue<Vector2>();
-		print(input);
 		yaw = (yaw + input.x) % 360;
 		pitch = Mathf.Clamp(pitch - input.y, minPitch, maxPitch);
 		Quaternion qYaw = Quaternion.AngleAxis(yaw, Vector3.up);
