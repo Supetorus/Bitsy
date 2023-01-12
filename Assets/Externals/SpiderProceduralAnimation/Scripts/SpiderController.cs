@@ -16,6 +16,8 @@ public class SpiderController : MonoBehaviour
 	public InputActionReference sprintAction;
     public InputActionReference moveAction;
 
+    public Transform spiderCenter;
+
 	private Vector3 velocity;
     private Vector3 lastVelocity;
     private Vector3 lastPosition;

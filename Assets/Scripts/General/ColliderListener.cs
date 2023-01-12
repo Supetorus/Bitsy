@@ -7,10 +7,13 @@ public class ColliderListener : MonoBehaviour
     [SerializeField] Enemy me;
     private void Awake()
     {
-        Collider collider = GetComponentInChildren<Collider>();
+
+        MeshCollider collider = GetComponentInChildren<MeshCollider>();
         if (collider.gameObject != gameObject)
         {
             ColliderBridge cb = collider.gameObject.AddComponent<ColliderBridge>();
+            cb.Initialize(this);
+            print(collider.gameObject.name);
         }
     }
 
@@ -18,6 +21,18 @@ public class ColliderListener : MonoBehaviour
     {
         if(other.tag == "Player")
         {
+            print("player seen");
+            GameObject player = other.gameObject;
+            Vector3 playerDirection = (player.transform.position - transform.position).normalized;
+            me.CheckSightlines(playerDirection);
+        }
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            print("player seen");
             GameObject player = other.gameObject;
             Vector3 playerDirection = (player.transform.position - transform.position).normalized;
             me.CheckSightlines(playerDirection);
