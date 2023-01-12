@@ -156,8 +156,6 @@ public class SpiderController : MonoBehaviour
             Quaternion q = Quaternion.LookRotation(forward, upward);
             transform.rotation = Quaternion.Lerp(lastRot, q, 1f / (1f + smoothness));
         }
-
         lastRot = transform.rotation;
-
     }
 }
