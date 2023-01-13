@@ -15,6 +15,7 @@ public class SpiderController : MonoBehaviour
 
 	public InputActionReference sprintAction;
     public InputActionReference moveAction;
+    public InputActionReference abilityAction;
 
     public Transform spiderCenter;
 
@@ -143,6 +144,8 @@ public class SpiderController : MonoBehaviour
         float multiplier = 1f;
         if (sprintAction.action.ReadValue<float>() > 0)
             multiplier = 2f;
+
+        //if(abilityAction.action.ReadValue<float>() > 0)
 
         Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
         float valueY = moveInput.y;
