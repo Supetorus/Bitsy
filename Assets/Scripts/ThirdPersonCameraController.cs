@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
+[ExecuteInEditMode]
 public class ThirdPersonCameraController : MonoBehaviour
 {
 	[Header("Camera Settings")]
