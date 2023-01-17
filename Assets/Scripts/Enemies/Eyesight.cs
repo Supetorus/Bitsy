@@ -14,7 +14,6 @@ public class Eyesight : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            print("player seen");
             SpiderController player = other.gameObject.GetComponent<SpiderController>();
             me.player = player;
             Vector3 playerDirection = (player.spiderCenter.transform.position - transform.position).normalized;
@@ -26,7 +25,6 @@ public class Eyesight : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            print("player seen");
             SpiderController player = other.gameObject.GetComponent<SpiderController>();
             me.player = player;
             Vector3 playerDirection = (player.spiderCenter.transform.position - transform.position).normalized;

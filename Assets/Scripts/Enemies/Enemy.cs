@@ -58,14 +58,13 @@ public class Enemy : MonoBehaviour
 
     public void CheckSightlines(Vector3 playerDirection)
     {
-        print("check Lines");
         Physics.Linecast(eyes.position, player.spiderCenter.transform.position, out RaycastHit hit, LayerMask.NameToLayer("Enemy"));
-        if (hit.collider.gameObject.tag == "Player") awareness += 0.33f;
+        if (hit.collider.gameObject.tag == "Player" && player.isVisible) awareness += 0.33f;
     }
 
     public void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
-        Gizmos.DrawLine(eyes.position, player.spiderCenter.transform.position);
+        if(player != null) Gizmos.DrawLine(eyes.position, player.spiderCenter.transform.position);
     }
 }

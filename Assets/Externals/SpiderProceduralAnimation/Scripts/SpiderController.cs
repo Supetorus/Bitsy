@@ -12,10 +12,10 @@ public class SpiderController : MonoBehaviour
     public float raysEccentricity = 0.2f;
     public float outerRaysOffset = 2f;
     public float innerRaysOffset = 25f;
+    public bool isVisible = true;
 
 	public InputActionReference sprintAction;
     public InputActionReference moveAction;
-    public InputActionReference abilityAction;
 
     public Transform spiderCenter;
 
@@ -26,6 +26,8 @@ public class SpiderController : MonoBehaviour
     private Vector3 upward;
     private Quaternion lastRot;
     private Vector3[] pn;
+
+    private AbilityController abCont;
 
 
     Vector3[] GetIcoSphereCoords(int depth)
