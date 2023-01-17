@@ -115,7 +115,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8d140c75a26043f4097fe39b446c0d55, type: 2}
+  - {fileID: 2100000, guid: a878513f3483511408dd08e04fd4ee3e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -993,6 +993,10 @@ GameObject:
   - component: {fileID: 3731044827236641752}
   - component: {fileID: 321353406}
   - component: {fileID: 3731044827236641756}
+  - component: {fileID: 321353408}
+  - component: {fileID: 321353409}
+  - component: {fileID: 321353410}
+  - component: {fileID: 321353411}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1049,10 +1053,81 @@ MonoBehaviour:
   raysEccentricity: 0.2
   outerRaysOffset: 2
   innerRaysOffset: 25
-  isVisible: 0
+  isVisible: 1
   sprintAction: {fileID: -8714904812635025669, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   moveAction: {fileID: 4184646067059678515, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   spiderCenter: {fileID: 1568256693}
+--- !u!114 &321353408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731044827236641757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523f60ff3478a2947aeac9d25d54edfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeAA: {fileID: -6803343725179225609, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  cycleAbility: {fileID: -5845073736614372765, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  equippedAbilities:
+  - {fileID: 321353410}
+  - {fileID: 321353411}
+  - {fileID: 321353409}
+  activeAbility: {fileID: 0}
+  abilityIndex: 1
+--- !u!114 &321353409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731044827236641757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bdf120b1c8407d4f9b051a00d8018e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityTime: 0
+  cooldownTime: 0
+  abilityTimer: 0
+  cooldownTimer: 0
+--- !u!114 &321353410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731044827236641757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2d12af71992024baee046a98b94271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityTime: 0
+  cooldownTime: 0
+  abilityTimer: 0
+  cooldownTimer: 0
+--- !u!114 &321353411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731044827236641757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5055e65112646b4ea8d95491460f1cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityTime: 5
+  cooldownTime: 5
+  abilityTimer: 0
+  cooldownTimer: 0
+  materials:
+  - {fileID: 2100000, guid: a878513f3483511408dd08e04fd4ee3e, type: 2}
+  - {fileID: 2100000, guid: 7d19dcd6d4dccff4c88bae8459a6c35f, type: 2}
 --- !u!1 &3731044827495804473
 GameObject:
   m_ObjectHideFlags: 0
