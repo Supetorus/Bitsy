@@ -5,7 +5,7 @@ namespace BuildingMakerToolset.Demo {
     /// <summary>
     /// Demo script for opening doors.
     /// </summary>
-    public class Door : MonoBehaviour
+    public class EviroDoor : MonoBehaviour
     {
         float triggerDist = 2.2f;
         float openingSpeed = 1;
