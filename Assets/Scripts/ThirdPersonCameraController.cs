@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 [ExecuteInEditMode]
 public class ThirdPersonCameraController : MonoBehaviour
 {
+	[Header("Camera Settings")]
 	public Transform target;
 	[Min(0.01f)]
 	public float distance = 5;
@@ -16,33 +19,41 @@ public class ThirdPersonCameraController : MonoBehaviour
 	public float maxPitch = 89.9f;
 	[Range(-90, 90)]
 	public float minPitch = -89.9f;
-	public float sensitivity = 1;
-	public Vector3 startDirection;
 	[Tooltip("Camera won't pass through objects on these layers.")]
-	public LayerMask ignoredLayers;
+	public LayerMask hitLayers;
+
+	[Header("Controls Settings")]
+	public InputActionReference inputActions;
+	public float mouseSensitivity = 1;
+	public float stickSensitivity = 0.5f;
+	public bool invertMouseX = false;
+	public bool invertMouseY = false;
+	public bool invertStickX = false;
+	public bool invertStickY = false;
 
 	private new Camera camera;
+	private Vector2 input = Vector2.zero;
 
 	private void Start()
 	{
+		camera = GetComponent<Camera>();
+		// Capture and lock the cursor
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
-		camera = GetComponent<Camera>();
+		inputActions.action.Enable();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
-		yaw = (yaw + Input.GetAxis("Mouse X") * sensitivity) % 360;
-		pitch -= Input.GetAxis("Mouse Y") * sensitivity;
-		pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+		input = inputActions.action.ReadValue<Vector2>();
+		yaw = (yaw + input.x) % 360;
+		pitch = Mathf.Clamp(pitch - input.y, minPitch, maxPitch);
 		Quaternion qYaw = Quaternion.AngleAxis(yaw, Vector3.up);
 		Quaternion qPitch = Quaternion.AngleAxis(pitch, Vector3.right);
 		Quaternion rotation = qYaw * qPitch;
 
 		RaycastHit hit;
-
-		Physics.SphereCast(target.position, camera.nearClipPlane, rotation * Vector3.back, out hit, distance, ignoredLayers);
+		Physics.SphereCast(target.position, camera.nearClipPlane, rotation * Vector3.back, out hit, distance, hitLayers);
 		if (hit.collider)
 		{
 			transform.position = hit.point + (hit.normal * camera.nearClipPlane);
@@ -53,7 +64,6 @@ public class ThirdPersonCameraController : MonoBehaviour
 			transform.position = target.position + offset;
 		}
 		transform.rotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
-
 	}
 
 	private void OnDrawGizmosSelected()
