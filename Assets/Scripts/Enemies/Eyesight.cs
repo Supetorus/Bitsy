@@ -16,8 +16,8 @@ public class Eyesight : MonoBehaviour
         {
             SpiderController player = other.gameObject.GetComponent<SpiderController>();
             me.player = player;
-            Vector3 playerDirection = (player.spiderCenter.transform.position - transform.position).normalized;
-            me.CheckSightlines(playerDirection);
+            if(me.CheckSightlines()) me.awareness += 0.33f;
+
         }
     }
 
@@ -27,8 +27,12 @@ public class Eyesight : MonoBehaviour
         {
             SpiderController player = other.gameObject.GetComponent<SpiderController>();
             me.player = player;
-            Vector3 playerDirection = (player.spiderCenter.transform.position - transform.position).normalized;
-            me.CheckSightlines(playerDirection);
+            if(me.CheckSightlines()) me.awareness += 0.33f;
         }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Player") me.player = null;
     }
 }

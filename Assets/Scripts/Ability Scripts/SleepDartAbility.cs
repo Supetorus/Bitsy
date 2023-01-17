@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class SleepDartAbility : Ability
 {
+    [SerializeField] GameObject sleepDart;
+
     public override void DeactivateAbility()
     {
-        print("Deactive");
+
     }
 
     public override void UseAbility()
