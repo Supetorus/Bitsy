@@ -43,7 +43,15 @@ public class Enemy : MonoBehaviour
                 awareness -= 5;
                 fullAwareDelay = fullAwareTimer;
             }
+			player.Detected = true;
         }
+		else if (awareness <= 0)
+		{
+			if (player != null)
+			{
+				player.Detected = false;
+			}
+		}
         else
         {
             timer -= Time.deltaTime;
