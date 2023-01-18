@@ -5,6 +5,8 @@ using UnityEngine;
 public class SleepDartAbility : Ability
 {
     [SerializeField] GameObject sleepDart;
+    [SerializeField] Transform projectileSpawn;
+    [SerializeField] float dartSpeed;
 
     public override void DeactivateAbility()
     {
@@ -13,7 +15,8 @@ public class SleepDartAbility : Ability
 
     public override void UseAbility()
     {
-        print("Sleep");
+        GameObject dart = Instantiate(sleepDart, projectileSpawn.position, projectileSpawn.rotation);
+        dart.GetComponent<Rigidbody>().AddForce(dart.transform.forward * dartSpeed, ForceMode.Acceleration);
     }
 
     // Start is called before the first frame update
