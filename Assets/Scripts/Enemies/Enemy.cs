@@ -35,19 +35,20 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (awareness == 100)
+        if (awareness == 100 && !CheckSightlines())
         {
             fullAwareTimer -= Time.deltaTime;
+
             if (fullAwareTimer <= 0)
             {
                 awareness -= 5;
-                fullAwareDelay = fullAwareTimer;
-            }
+                fullAwareTimer = fullAwareDelay;
+            }           
         }
         else
         {
             timer -= Time.deltaTime;
-            if (timer <= 0)
+            if (timer <= 0 && !CheckSightlines())
             {
                 awareness -= 5;
                 timer = time;
@@ -56,16 +57,22 @@ public class Enemy : MonoBehaviour
         print(awareness);
     }
 
-    public void CheckSightlines(Vector3 playerDirection)
+    public bool CheckSightlines()
     {
-        print("check Lines");
+        if (player == null) return false;
+
         Physics.Linecast(eyes.position, player.spiderCenter.transform.position, out RaycastHit hit, LayerMask.NameToLayer("Enemy"));
-        if (hit.collider.gameObject.tag == "Player") awareness += 0.33f;
+        if (hit.collider.gameObject.tag == "Player" && player.isVisible) return true;
+        else
+        {
+            player = null;
+            return false;
+        }
     }
 
     public void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
-        Gizmos.DrawLine(eyes.position, player.spiderCenter.transform.position);
+        if(player != null) Gizmos.DrawLine(eyes.position, player.spiderCenter.transform.position);
     }
 }
