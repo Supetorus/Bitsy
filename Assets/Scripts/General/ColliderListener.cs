@@ -24,7 +24,7 @@ public class ColliderListener : MonoBehaviour
             print("player seen");
             GameObject player = other.gameObject;
             Vector3 playerDirection = (player.transform.position - transform.position).normalized;
-            me.CheckSightlines(playerDirection);
+            
         }
     }
 
@@ -35,7 +35,7 @@ public class ColliderListener : MonoBehaviour
             print("player seen");
             GameObject player = other.gameObject;
             Vector3 playerDirection = (player.transform.position - transform.position).normalized;
-            me.CheckSightlines(playerDirection);
+            
         }
     }
 }
