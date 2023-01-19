@@ -11,8 +11,13 @@ public class ClingState : MovementState
 	public float sideSpeed = 1;
 	[Tooltip("This must be less than the State Data's attachment distance.")]
 	public float height = 0.5f;
+	public float maxVelocity = 1;
+	public float drag;
 
-	//private float checkDistance = 1.5f;
+	private bool isActive = false;
+	private Vector3 targetPosition;
+	private Vector3 velocity;
+	private float rotationalVelocity;
 
 	public override void EnterState()
 	{
@@ -21,6 +26,9 @@ public class ClingState : MovementState
 		c.move.action.Enable();
 		rigidbody.isKinematic = true;
 		rigidbody.useGravity = false;
+		isActive = true;
+		velocity = Vector3.zero;
+		rotationalVelocity = 0;
 	}
 
 	public override void ExitState()
@@ -28,6 +36,7 @@ public class ClingState : MovementState
 		c.jump.action.Disable();
 		c.sprint.action.Disable();
 		c.move.action.Disable();
+		isActive = false;
 	}
 
 	public override void FixedUpdateState()
@@ -39,9 +48,8 @@ public class ClingState : MovementState
 		}
 
 		Vector2 input = c.move.action.ReadValue<Vector2>();
-		print(input);
-
 		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
+		velocity *= drag;
 
 		if (closestPoint != null)
 		{
@@ -52,15 +60,18 @@ public class ClingState : MovementState
 			float y = height - distance;
 			float z = input.y > 0 ? input.y * forwardSpeed : input.y * backSpeed;
 			Vector3 direction = transform.rotation * new Vector3(x * Time.fixedDeltaTime, y, z * Time.fixedDeltaTime);
+			velocity = Vector3.ClampMagnitude(direction + velocity, maxVelocity);
 
-			rigidbody.MovePosition(direction + transform.position);
-			//transform.position = (direction + transform.position);
+			targetPosition = velocity + transform.position;
+			rigidbody.MovePosition(targetPosition);
 
 			// Rotation
 			// https://discord.com/channels/489222168727519232/885300730104250418/1063576660051501136
 			Vector3 up = transform.position - (Vector3)closestPoint;
 			Vector3 forward = Vector3.ProjectOnPlane(sd.camera.forward, up);
-			rigidbody.MoveRotation(Quaternion.LookRotation(forward, up));
+			Quaternion targetRotation = Quaternion.LookRotation(forward, up);
+			Quaternion finalRotation = Quaternion.Slerp(transform.rotation, targetRotation, Quaternion.Angle(transform.rotation, targetRotation) / 360);
+			rigidbody.MoveRotation(finalRotation);
 		}
 		else
 		{
@@ -72,5 +83,12 @@ public class ClingState : MovementState
 	{
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawWireSphere(transform.position, height);
+
+		if (isActive)
+		{
+			Gizmos.color = Color.red;
+			Gizmos.DrawSphere(targetPosition, 0.01f);
+			Gizmos.DrawLine(transform.position, targetPosition);
+		}
 	}
 }
