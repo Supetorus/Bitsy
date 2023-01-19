@@ -52,8 +52,7 @@ public class ThirdPersonCameraController : MonoBehaviour
 		Quaternion qPitch = Quaternion.AngleAxis(pitch, Vector3.right);
 		Quaternion rotation = qYaw * qPitch;
 
-		RaycastHit hit;
-		Physics.SphereCast(target.position, camera.nearClipPlane, rotation * Vector3.back, out hit, distance, hitLayers);
+		Physics.SphereCast(target.position, camera.nearClipPlane, rotation * Vector3.back, out RaycastHit hit, distance, hitLayers);
 		if (hit.collider)
 		{
 			transform.position = hit.point + (hit.normal * camera.nearClipPlane);
@@ -68,9 +67,9 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
-		if (!Application.isPlaying) return;
-		Gizmos.DrawSphere(target.position, 0.1f);
-		Gizmos.DrawLine(target.position, transform.position);
 		Gizmos.DrawSphere(transform.position, camera.nearClipPlane);
+		if (!Application.isPlaying) return;
+		Gizmos.DrawSphere(target.position, camera.nearClipPlane);
+		Gizmos.DrawLine(target.position, transform.position);
 	}
 }
