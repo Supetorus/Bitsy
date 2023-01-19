@@ -32,9 +32,9 @@ public class ClingState : MovementState
 
 	public override void FixedUpdateState()
 	{
-		if (height < sd.attachmentDistance)
+		if (height > sd.attachmentDistance)
 		{
-			Debug.Log("Cling State height cannot be less than State Data's attachment distance.");
+			Debug.Log("Cling State height cannot be greater than State Data's attachment distance.");
 			return;
 		}
 
