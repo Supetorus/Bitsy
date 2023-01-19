@@ -8,6 +8,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class MovementController : MonoBehaviour
 {
+	public TMPro.TMP_Text debugText;
 	private MovementState currentMovementState;
 	public MovementState CurrentMovementState
 	{
@@ -30,11 +31,13 @@ public class MovementController : MonoBehaviour
 	public InputActionReference sprint;
 	public InputActionReference jump;
 
-	private ClingState clingState;
+	[HideInInspector] public ClingState clingState;
+	[HideInInspector] public FallState fallState;
 
 	private void Awake()
 	{
 		clingState = GetComponent<ClingState>();
+		fallState = GetComponent<FallState>();
 	}
 
 	private void Start()
@@ -45,6 +48,7 @@ public class MovementController : MonoBehaviour
 	private void Update()
 	{
 		CurrentMovementState.UpdateState();
+		debugText.text = CurrentMovementState.GetType().Name;
 	}
 
 	private void FixedUpdate()
