@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public class StateData : MonoBehaviour
 {
-	[SerializeField, Tooltip("How far from the center of the spider it should check for ground. This should match or be less than the farthest a leg can reach.")]
-	public float groundCheckDistance;
+	[SerializeField, Tooltip("How far from the center of the spider it should check for clingable surfaces. This should match or be less than the farthest a leg can reach.")]
+	public float attachmentDistance;
 	[SerializeField, Tooltip("What layers should be considered walkable.")]
 	public LayerMask walkableLayers;
 	[SerializeField, Tooltip("The main camera")]
@@ -52,7 +52,7 @@ public class StateData : MonoBehaviour
 	{
 		// This draws all of the gizmo lines which show the orientation of this object.
 		Gizmos.color = Color.white;
-		Gizmos.DrawWireSphere(transform.position, groundCheckDistance);
+		Gizmos.DrawWireSphere(transform.position, attachmentDistance);
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawLine(transform.position, closestPoint != null ? (Vector3)closestPoint : transform.position);
 		Gizmos.color = Color.green;

@@ -9,6 +9,7 @@ public class ClingState : MovementState
 	public float forwardSpeed = 1;
 	public float backSpeed = 1;
 	public float sideSpeed = 1;
+	[Tooltip("This must be less than the State Data's attachment distance.")]
 	public float height = 0.5f;
 
 	//private float checkDistance = 1.5f;
@@ -31,10 +32,16 @@ public class ClingState : MovementState
 
 	public override void FixedUpdateState()
 	{
+		if (height < sd.attachmentDistance)
+		{
+			Debug.Log("Cling State height cannot be less than State Data's attachment distance.");
+			return;
+		}
+
 		Vector2 input = c.move.action.ReadValue<Vector2>();
 		print(input);
 
-		Vector3? closestPoint = sd.GetClosestPoint(sd.groundCheckDistance);
+		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
 
 		if (closestPoint != null)
 		{
@@ -59,5 +66,11 @@ public class ClingState : MovementState
 		{
 			c.CurrentMovementState = c.fallState;
 		}
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.yellow;
+		Gizmos.DrawWireSphere(transform.position, height);
 	}
 }

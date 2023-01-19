@@ -67,9 +67,9 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
+		Gizmos.DrawSphere(transform.position, camera.nearClipPlane);
 		if (!Application.isPlaying) return;
 		Gizmos.DrawSphere(target.position, camera.nearClipPlane);
 		Gizmos.DrawLine(target.position, transform.position);
-		Gizmos.DrawSphere(transform.position, camera.nearClipPlane);
 	}
 }
