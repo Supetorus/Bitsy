@@ -17,7 +17,7 @@ public class FallState : MovementState
 	{
 		transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up); // Todo this should be a slerp from the original position to facing upright.
 
-		if (sd.GetClosestPoint(sd.attachmentDistance) != null)
+		if (sd.GetClosestPoint() != null)
 		{
 			c.CurrentMovementState = c.clingState;
 		}

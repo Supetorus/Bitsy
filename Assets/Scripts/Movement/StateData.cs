@@ -13,9 +13,18 @@ public class StateData : MonoBehaviour
 	public LayerMask walkableLayers;
 	[SerializeField, Tooltip("The main camera")]
 	public new Transform camera;
+	[SerializeField, Tooltip("The density of points on the icosphere, ")]
+	public int icosphereDensity = 2;
+
+	private Mesh icosphere;
+
+	private void Start()
+	{
+	}
 
 	private void Update()
 	{
+		icosphere = IcosphereCreator.Create(icosphereDensity, attachmentDistance);
 		closestPointCalculatedThisFrame = false;
 	}
 
@@ -27,15 +36,22 @@ public class StateData : MonoBehaviour
 	/// </summary>
 	/// <param name="radius">The spherical radius to check for nearby objects.</param>
 	/// <returns></returns>
-	public Vector3? GetClosestPoint(float radius)
+	public Vector3? GetClosestPoint()
 	{
 		if (closestPointCalculatedThisFrame) return closestPoint;
+		if (icosphere == null) return null;
 		closestPoint = null;
-		Collider[] hits = Physics.OverlapSphere(transform.position, radius, walkableLayers);
-		float closestPointSqrDistance = float.MaxValue;
-		foreach (Collider collider in hits)
+		List<RaycastHit> hits = new List<RaycastHit>();
+		foreach (var v in icosphere.vertices)
 		{
-			Vector3 point = collider.ClosestPoint(transform.position);
+			Physics.Raycast(transform.position, v, out RaycastHit hit, attachmentDistance, walkableLayers);
+			hits.Add(hit);
+		}
+
+		float closestPointSqrDistance = float.MaxValue;
+		foreach (RaycastHit hit in hits)
+		{
+			Vector3 point = hit.point;
 			float distance = (transform.position - point).sqrMagnitude;
 			if (distance < closestPointSqrDistance)
 			{
@@ -50,16 +66,23 @@ public class StateData : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		// This draws all of the gizmo lines which show the orientation of this object.
-		Gizmos.color = Color.white;
-		Gizmos.DrawWireSphere(transform.position, attachmentDistance);
+		if (icosphere == null) return;
 		Gizmos.color = Color.yellow;
-		Gizmos.DrawLine(transform.position, closestPoint != null ? (Vector3)closestPoint : transform.position);
-		Gizmos.color = Color.green;
-		Gizmos.DrawLine(transform.position, transform.position + transform.up * 0.1f);
-		Gizmos.color = Color.red;
-		Gizmos.DrawLine(transform.position, transform.position + transform.right * 0.1f);
-		Gizmos.color = Color.blue;
-		Gizmos.DrawLine(transform.position, transform.position + transform.forward * 0.1f);
+		foreach (Vector3 v in icosphere.vertices)
+		{
+			Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + v);
+			Gizmos.DrawSphere(transform.position + v, 0.005f);
+		}
+		// This draws all of the gizmo lines which show the orientation of this object.
+		//Gizmos.color = Color.white;
+		//Gizmos.DrawWireSphere(transform.position, attachmentDistance);
+		//Gizmos.color = Color.yellow;
+		//Gizmos.DrawLine(transform.position, closestPoint != null ? (Vector3)closestPoint : transform.position);
+		//Gizmos.color = Color.green;
+		//Gizmos.DrawLine(transform.position, transform.position + transform.up * 0.1f);
+		//Gizmos.color = Color.red;
+		//Gizmos.DrawLine(transform.position, transform.position + transform.right * 0.1f);
+		//Gizmos.color = Color.blue;
+		//Gizmos.DrawLine(transform.position, transform.position + transform.forward * 0.1f);
 	}
 }

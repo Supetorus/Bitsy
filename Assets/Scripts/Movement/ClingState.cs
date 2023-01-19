@@ -17,7 +17,6 @@ public class ClingState : MovementState
 	private bool isActive = false;
 	private Vector3 targetPosition;
 	private Vector3 velocity;
-	private float rotationalVelocity;
 
 	public override void EnterState()
 	{
@@ -28,7 +27,6 @@ public class ClingState : MovementState
 		rigidbody.useGravity = false;
 		isActive = true;
 		velocity = Vector3.zero;
-		rotationalVelocity = 0;
 	}
 
 	public override void ExitState()
@@ -48,7 +46,7 @@ public class ClingState : MovementState
 		}
 
 		Vector2 input = c.move.action.ReadValue<Vector2>();
-		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
+		Vector3? closestPoint = sd.GetClosestPoint();
 		velocity *= drag;
 
 		if (closestPoint != null)
@@ -82,13 +80,15 @@ public class ClingState : MovementState
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.yellow;
-		Gizmos.DrawWireSphere(transform.position, height);
+		//Gizmos.DrawWireSphere(transform.position, height);
 
-		if (isActive)
-		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawSphere(targetPosition, 0.01f);
-			Gizmos.DrawLine(transform.position, targetPosition);
-		}
+		//if (isActive)
+		//{
+		//	Gizmos.color = Color.red;
+		//	Gizmos.DrawSphere(targetPosition, 0.01f);
+		//	Gizmos.DrawLine(transform.position, targetPosition);
+		//}
+		//Gizmos.color = Color.red;
+
 	}
 }
