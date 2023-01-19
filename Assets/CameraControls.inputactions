@@ -33,9 +33,27 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Use Ability",
+                    "type": "Button",
+                    "id": "928c3327-c2dc-49c5-8181-757520734ec8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cycle Ability",
+                    "type": "Value",
+                    "id": "1eaa545c-e9df-415f-993b-1d01e50da9ae",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Jump",
                     "type": "Value",
-                    "id": "1fca9309-a719-476d-a2aa-f9b92b8ea228",
+                    "id": "21e82381-5039-4343-aaad-f2cd2dd2c05d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -133,7 +151,51 @@
                 },
                 {
                     "name": "",
-                    "id": "c24d2592-07cb-4d37-bda6-85d63472b1c4",
+                    "id": "1e5ea542-bc65-41df-bb47-646723cd8a10",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "42c83567-5bf2-4fc9-82eb-75ff32e40569",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cycle Ability",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "aa725077-2878-4780-9378-b653ba96d587",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cycle Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "50780d5a-eabc-41f9-b74e-fdc53dc64198",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cycle Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "e1b7057a-329d-4d39-8c1c-28d8876385f8",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
