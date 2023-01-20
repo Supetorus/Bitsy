@@ -10,6 +10,7 @@ public class AbilityController : MonoBehaviour
     public InputActionReference activeAA;
     //Switch to the ability on the left of the UI
     public InputActionReference cycleAbility;
+    public Transform spiderCenter;
 
     [SerializeField] private Ability[] equippedAbilities = new Ability[3];
     public Ability activeAbility;
@@ -17,6 +18,7 @@ public class AbilityController : MonoBehaviour
     bool abilityTimerActive;
     bool cooldownActive;
     public int abilityIndex = 1;
+    [HideInInspector] public bool isVisible = true;
 
     // Start is called before the first frame update
     void Start()
