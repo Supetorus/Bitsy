@@ -141,6 +141,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prompt: This Computer has been hacked into
+--- !u!64 &316113507
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316113499}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: f2678f35f5f886a4bb86ab5152116294, type: 3}
 --- !u!1 &419743001
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfcfcd2c35e21984281806642a1da364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: 
+  _prompt: Key Has Been Picked Up
   itemKey: doorKey1
 --- !u!4 &573987012
 Transform:
@@ -1187,7 +1201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875e848de401f834cbbeff16a1abc2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: 
+  _prompt: You Have Opened The Door
   requiredItemKey: doorKey1
 --- !u!4 &1347199851
 Transform:
