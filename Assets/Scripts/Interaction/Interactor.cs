@@ -12,9 +12,15 @@ public class Interactor : MonoBehaviour
 	[SerializeField] private LayerMask _interactableMask;
 	[SerializeField] private int _numFound;
 
+	public InputActionReference interact;
+
 	private readonly Collider[] _colliders = new Collider[3];
 
-	private void Update()
+  private void Start() {
+		interact.action.Enable();
+  }
+
+  private void Update()
 	{
 
 	}
@@ -23,25 +29,20 @@ public class Interactor : MonoBehaviour
 	{
 		_numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders, _interactableMask);
 
+		if(interact.action.WasPressedThisFrame() && _numFound > 0) {
+			Debug.Log("SOMETHING WAS HIT");
+
+			var interactable = _colliders[0].GetComponent<IInteractable>();
+
+			if (interactable != null) {
+				interactable.Interact(this);
+			}
+		}
 	}
 
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(_interactionPoint.position, _interactionPointRadius);
-	}
-
-	public void OnInteract(InputValue inputValue)
-	{
-		if (_numFound > 0)
-		{
-			Debug.Log(_numFound);
-			var interactable = _colliders[0].GetComponent<IInteractable>();
-
-			if (interactable != null)
-			{
-				interactable.Interact(this);
-			}
-		}
 	}
 }
