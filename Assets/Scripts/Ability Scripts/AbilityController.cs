@@ -44,19 +44,15 @@ public class AbilityController : MonoBehaviour
         }
         else if (cycleAbility.action.ReadValue<float>() > 0)
         {
-            print("Cycle Left");
             if (abilityIndex == 0) abilityIndex = 2;
             else abilityIndex--;
             activeAbility = equippedAbilities[abilityIndex];
-            print(activeAbility.name);
         }
         else if (cycleAbility.action.ReadValue<float>() < 0)
         {
-            print("Cycle Right");
             if (abilityIndex == 2) abilityIndex = 0;
             else abilityIndex++;
             activeAbility = equippedAbilities[abilityIndex];
-            print(activeAbility.name);
         }
 
         if(abilityActive && activeAA.action.ReadValue<float>() == 0) abilityActive = false;
@@ -69,7 +65,6 @@ public class AbilityController : MonoBehaviour
         if (abilityTimerActive)
         {
             activeAbility.abilityTimer -= Time.deltaTime;
-            print(activeAbility.abilityTimer);
             if (activeAbility.abilityTimer <= 0)
             {
                 abilityTimerActive = false;
@@ -83,7 +78,6 @@ public class AbilityController : MonoBehaviour
         if (cooldownActive)
         {
             activeAbility.cooldownTimer -= Time.deltaTime;
-            print(activeAbility.cooldownTimer);
             if (activeAbility.cooldownTimer <= 0) cooldownActive = false;
         }
     }

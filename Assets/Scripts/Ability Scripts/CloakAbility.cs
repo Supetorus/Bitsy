@@ -6,14 +6,14 @@ public class CloakAbility : Ability
 {
     [SerializeField] List<Material> materials;
 
-    SpiderController controller;
+    MovementController controller;
     SkinnedMeshRenderer render;
     bool isVisible = true;
 
     public void Start()
     {
         abCon = GetComponent<AbilityController>();
-        controller = GetComponent<SpiderController>();
+        controller = GetComponent<MovementController>();
         render = GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
