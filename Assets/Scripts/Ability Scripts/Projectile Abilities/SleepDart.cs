@@ -8,7 +8,6 @@ public class SleepDart : Projectile
     {
         print(collision.gameObject.name);
         if (collision.gameObject.TryGetComponent<Enemy>(out Enemy hit)) hit.KnockOut();
-        gameObject.transform.SetParent(collision.gameObject.transform);
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         gameObject.GetComponent<DestroyDelay>().hasHitSometing = true;
         gameObject.GetComponent<DestroyDelay>().destroyTimer = d_Time;

@@ -26,12 +26,12 @@ public class MovementController : MonoBehaviour
 	}
 	[HideInInspector] public bool isGrounded;
 	[HideInInspector] public bool wasGrounded;
-	[HideInInspector] public bool isVisible = true;
+
 
 	public InputActionReference move;
 	public InputActionReference sprint;
 	public InputActionReference jump;
-	public Transform spiderCenter;
+
 
 	[HideInInspector] public ClingState clingState;
 	[HideInInspector] public FallState fallState;

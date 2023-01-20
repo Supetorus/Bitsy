@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     private float fullAwareDelay = 5.0f;
     public float fullAwareTimer;
 
-    public MovementController player;
+    public AbilityController player;
 
     public enum Mode
     {
@@ -62,6 +62,7 @@ public class Enemy : MonoBehaviour
         if (player == null) return false;
 
         Physics.Linecast(eyes.position, player.spiderCenter.transform.position, out RaycastHit hit, LayerMask.NameToLayer("Enemy"));
+        if (hit.collider.gameObject.tag == "Smoke") return false;
         if (hit.collider.gameObject.tag == "Player" && player.isVisible) return true;
         else
         {
