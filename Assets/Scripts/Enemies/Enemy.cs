@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     private float fullAwareDelay = 5.0f;
     public float fullAwareTimer;
 
-    public SpiderController player;
+    public MovementController player;
 
     public enum Mode
     {
