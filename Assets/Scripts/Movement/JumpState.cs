@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JumpState : MovementState
 {
-	[SerializeField, Tooltip("The amount of force applied to the rigidbody when it jumps.")]
+	[SerializeField, Tooltip("The amount of force applied to the rigidbody when it jumps."), Range(0.0001f, 10)]
 	private float jumpForce = 1;
 
 	public override void EnterState()

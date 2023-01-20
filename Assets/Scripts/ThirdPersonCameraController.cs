@@ -23,13 +23,14 @@ public class ThirdPersonCameraController : MonoBehaviour
 	public LayerMask hitLayers;
 
 	[Header("Controls Settings")]
-	public InputActionReference inputActions;
-	public float mouseSensitivity = 1;
-	public float stickSensitivity = 0.5f;
-	public bool invertMouseX = false;
-	public bool invertMouseY = false;
-	public bool invertStickX = false;
-	public bool invertStickY = false;
+	[Tooltip("")]
+	public InputActionReference cameraInput;
+	[Tooltip("")]
+	public float sensitivity = 1;
+	[Tooltip("")]
+	public bool invertX = false;
+	[Tooltip("")]
+	public bool invertY = false;
 
 	private new Camera camera;
 	private Vector2 input = Vector2.zero;
@@ -37,15 +38,18 @@ public class ThirdPersonCameraController : MonoBehaviour
 	private void Start()
 	{
 		camera = GetComponent<Camera>();
+		cameraInput.action.Enable();
 		// Capture and lock the cursor
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
-		inputActions.action.Enable();
 	}
 
 	void Update()
 	{
-		input = inputActions.action.ReadValue<Vector2>();
+		input = cameraInput.action.ReadValue<Vector2>();
+		if (invertX) input *= Vector2.right * -1;
+		if (invertY) input *= Vector2.up * -1;
+		input *= sensitivity;
 		yaw = (yaw + input.x) % 360;
 		pitch = Mathf.Clamp(pitch - input.y, minPitch, maxPitch);
 		Quaternion qYaw = Quaternion.AngleAxis(yaw, Vector3.up);

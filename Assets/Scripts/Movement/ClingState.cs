@@ -6,19 +6,26 @@ using UnityEngine.InputSystem;
 
 public class ClingState : MovementState
 {
-	public float forwardSpeed = 1;
-	public float backSpeed = 1;
-	public float sideSpeed = 1;
-	[Tooltip("This must be less than the State Data's attachment distance.")]
-	public float height = 0.5f;
-	public float maxVelocity = 1;
-	public float drag;
+	[SerializeField, Tooltip("How fast the spider moves forward.")]
+	private float forwardSpeed = 1;
+	[SerializeField, Tooltip("How fast the spider moves backward.")]
+	private float backSpeed = 1;
+	[SerializeField, Tooltip("How fast the spider moves sideways.")]
+	private float sideSpeed = 1;
+	[SerializeField, Tooltip("This defines how far the spider keeps itself above a surface. Adjust this to make the legs line up with the ground. Must be less than the State Data's attachment distance.")]
+	private float height = 0.5f;
+	[SerializeField]
+	private float maxVelocity = 1;
+	[SerializeField]
+	private float drag;
 
-	private Vector3 targetPosition;
 	private Vector3 velocity;
 
 	public override void EnterState()
 	{
+		if (c.jump == null) Debug.LogError("Jump action was not assigned.");
+		if (c.sprint == null) Debug.LogError("Sprint action was not assigned.");
+		if (c.move == null) Debug.LogError("Move action was not assigned.");
 		c.jump.action.Enable();
 		c.sprint.action.Enable();
 		c.move.action.Enable();
@@ -57,12 +64,11 @@ public class ClingState : MovementState
 			// Movement
 			float distance = ((Vector3)(transform.position - closestPoint)).magnitude;
 			float x = input.x * sideSpeed;
-			//todo interpolate y to smooth position change.
 			float y = height - distance;
 			float z;
 			if (input.y > 0)
 			{
-				z = input.y * forwardSpeed; // sprinting
+				z = input.y * forwardSpeed;
 			}
 			else
 			{
@@ -71,8 +77,7 @@ public class ClingState : MovementState
 			Vector3 direction = transform.rotation * new Vector3(x * Time.fixedDeltaTime, y, z * Time.fixedDeltaTime);
 			velocity = Vector3.ClampMagnitude(direction + velocity, maxVelocity);
 
-			targetPosition = velocity + transform.position;
-			rigidbody.MovePosition(targetPosition);
+			rigidbody.MovePosition(velocity + transform.position);
 
 			// Rotation
 			// https://discord.com/channels/489222168727519232/885300730104250418/1063576660051501136
@@ -83,23 +88,8 @@ public class ClingState : MovementState
 			rigidbody.MoveRotation(finalRotation);
 		}
 		else
-		{
+		{ // Not near any walkable surfaces.
 			c.CurrentMovementState = c.fallState;
 		}
-	}
-
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.yellow;
-		//Gizmos.DrawWireSphere(transform.position, height);
-
-		//if (isActive)
-		//{
-		//	Gizmos.color = Color.red;
-		//	Gizmos.DrawSphere(targetPosition, 0.01f);
-		//	Gizmos.DrawLine(transform.position, targetPosition);
-		//}
-		//Gizmos.color = Color.red;
-
 	}
 }
