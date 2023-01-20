@@ -33,11 +33,13 @@ public class MovementController : MonoBehaviour
 
 	[HideInInspector] public ClingState clingState;
 	[HideInInspector] public FallState fallState;
+	[HideInInspector] public JumpState jumpState;
 
 	private void Awake()
 	{
 		clingState = GetComponent<ClingState>();
 		fallState = GetComponent<FallState>();
+		jumpState = GetComponent<JumpState>();
 	}
 
 	private void Start()

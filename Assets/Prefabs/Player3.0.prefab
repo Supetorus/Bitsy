@@ -660,8 +660,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350034061294017}
-  m_LocalRotation: {x: 0.06975656, y: -0, z: -0, w: 0.997564}
-  m_LocalPosition: {x: 0, y: 0.32783467, z: -0.19805361}
+  m_LocalRotation: {x: 0.06975649, y: -0, z: -0, w: 0.9975641}
+  m_LocalPosition: {x: 0, y: 0.027834624, z: -0.19805361}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1139,6 +1139,7 @@ GameObject:
   - component: {fileID: 2683350035233568995}
   - component: {fileID: 2683350035233568993}
   - component: {fileID: 2683350035233568994}
+  - component: {fileID: 5510854112619284885}
   - component: {fileID: 2683350035233569023}
   m_Layer: 3
   m_Name: Player
@@ -1155,7 +1156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350035233569020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1186,6 +1187,7 @@ MonoBehaviour:
   jump: {fileID: 866015529340218118, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   clingState: {fileID: 0}
   fallState: {fileID: 0}
+  jumpState: {fileID: 0}
 --- !u!114 &2683350035233568995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1199,6 +1201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentDistance: 0.15
+  lesserAttachmentDistance: 0
   walkableLayers:
     serializedVersion: 2
     m_Bits: 241
@@ -1234,6 +1237,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96a5a2806aec5143ae6c1e43928f3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5510854112619284885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f22f99005ed9644384ca269fc541c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 100
 --- !u!54 &2683350035233569023
 Rigidbody:
   m_ObjectHideFlags: 0

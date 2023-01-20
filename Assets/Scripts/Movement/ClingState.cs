@@ -45,8 +45,13 @@ public class ClingState : MovementState
 			return;
 		}
 
+		if (c.jump.action.ReadValue<float>() > 0)
+		{
+			c.CurrentMovementState = c.jumpState;
+		}
+
 		Vector2 input = c.move.action.ReadValue<Vector2>();
-		Vector3? closestPoint = sd.GetClosestPoint();
+		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
 		velocity *= drag;
 
 		if (closestPoint != null)

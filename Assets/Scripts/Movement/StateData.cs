@@ -9,6 +9,8 @@ public class StateData : MonoBehaviour
 {
 	[SerializeField, Tooltip("How far from the center of the spider it should check for clingable surfaces. This should match or be less than the farthest a leg can reach.")]
 	public float attachmentDistance;
+	[SerializeField, Tooltip("The distance which the spider attaches from when it is falling. Must be less than attachment distance or else spider will instantly attach again when it falls or jumps.")]
+	public float lesserAttachmentDistance;
 	[SerializeField, Tooltip("What layers should be considered walkable.")]
 	public LayerMask walkableLayers;
 	[SerializeField, Tooltip("The main camera")]
@@ -20,11 +22,13 @@ public class StateData : MonoBehaviour
 
 	private void Start()
 	{
+		icosphere = IcosphereCreator.Create(icosphereDensity, 1);
 	}
+
+	private float lastCheckDistance;
 
 	private void Update()
 	{
-		icosphere = IcosphereCreator.Create(icosphereDensity, attachmentDistance);
 		closestPointCalculatedThisFrame = false;
 	}
 
@@ -36,16 +40,17 @@ public class StateData : MonoBehaviour
 	/// </summary>
 	/// <param name="radius">The spherical radius to check for nearby objects.</param>
 	/// <returns></returns>
-	public Vector3? GetClosestPoint()
+	public Vector3? GetClosestPoint(float checkDistance)
 	{
-		if (closestPointCalculatedThisFrame) return closestPoint;
+		//if (closestPointCalculatedThisFrame) return closestPoint;
+		lastCheckDistance = checkDistance;
 		if (icosphere == null) return null;
 		closestPoint = null;
 		List<RaycastHit> hits = new List<RaycastHit>();
 		foreach (var v in icosphere.vertices)
 		{
-			Physics.Raycast(transform.position, v, out RaycastHit hit, attachmentDistance, walkableLayers);
-			hits.Add(hit);
+			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
+			if (hit.collider != null) hits.Add(hit);
 		}
 
 		float closestPointSqrDistance = float.MaxValue;
@@ -70,19 +75,10 @@ public class StateData : MonoBehaviour
 		Gizmos.color = Color.yellow;
 		foreach (Vector3 v in icosphere.vertices)
 		{
-			Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + v);
-			Gizmos.DrawSphere(transform.position + v, 0.005f);
+			Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + v * lastCheckDistance);
+			Gizmos.DrawSphere(transform.position + v * lastCheckDistance, 0.005f);
 		}
-		// This draws all of the gizmo lines which show the orientation of this object.
-		//Gizmos.color = Color.white;
-		//Gizmos.DrawWireSphere(transform.position, attachmentDistance);
-		//Gizmos.color = Color.yellow;
-		//Gizmos.DrawLine(transform.position, closestPoint != null ? (Vector3)closestPoint : transform.position);
-		//Gizmos.color = Color.green;
-		//Gizmos.DrawLine(transform.position, transform.position + transform.up * 0.1f);
-		//Gizmos.color = Color.red;
-		//Gizmos.DrawLine(transform.position, transform.position + transform.right * 0.1f);
-		//Gizmos.color = Color.blue;
-		//Gizmos.DrawLine(transform.position, transform.position + transform.forward * 0.1f);
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(transform.position, closestPoint != null ? (Vector3)closestPoint : transform.position);
 	}
 }
