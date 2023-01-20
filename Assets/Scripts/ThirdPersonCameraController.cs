@@ -23,13 +23,13 @@ public class ThirdPersonCameraController : MonoBehaviour
 	public LayerMask hitLayers;
 
 	[Header("Controls Settings")]
-	[Tooltip("")]
+	[Tooltip("Drag in the 'Look' action here.")]
 	public InputActionReference cameraInput;
-	[Tooltip("")]
+	[Tooltip("How quickly the camera moves when you move mouse or stick.")]
 	public float sensitivity = 1;
-	[Tooltip("")]
+	[Tooltip("Whether or not to invert the horizontal camera movement.")]
 	public bool invertX = false;
-	[Tooltip("")]
+	[Tooltip("Whether or not to invert the vertical camera movement.")]
 	public bool invertY = false;
 
 	private new Camera camera;
@@ -37,8 +37,13 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 	private void Start()
 	{
+		if (cameraInput == null)
+		{
+			Debug.LogError("You haven't set the input action for camera control.");
+		}
 		camera = GetComponent<Camera>();
 		cameraInput.action.Enable();
+
 		// Capture and lock the cursor
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
