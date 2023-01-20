@@ -135,7 +135,7 @@ public class SpiderController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        print("IsVisible: " + isVisible);
         velocity = (smoothness * velocity + (transform.position - lastPosition)) / (1f + smoothness);
         if (velocity.magnitude < 0.00025f)
             velocity = lastVelocity;

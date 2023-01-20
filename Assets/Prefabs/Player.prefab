@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1074063078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1074063079}
+  m_Layer: 0
+  m_Name: ProjectileSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1074063079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074063078}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3731044827236641752}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1568256692
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +492,15 @@ MonoBehaviour:
   m_RigLayers:
   - m_Rig: {fileID: 3731044828576338086}
     m_Active: 1
-  m_Effectors: []
+  m_Effectors:
+  - m_Transform: {fileID: 3735432870852790315}
+    m_Style:
+      shape: {fileID: 4300000, guid: c6793350c150f456688e39a81f97364a, type: 2}
+      color: {r: 1, g: 0, b: 0, a: 0.5}
+      size: 0.1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+    m_Visible: 1
 --- !u!114 &3729579064303156557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,9 +1033,9 @@ GameObject:
   - component: {fileID: 321353406}
   - component: {fileID: 3731044827236641756}
   - component: {fileID: 321353408}
-  - component: {fileID: 321353409}
   - component: {fileID: 321353410}
   - component: {fileID: 321353411}
+  - component: {fileID: 3332249076278848312}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1019,6 +1058,7 @@ Transform:
   - {fileID: 3735432870852790315}
   - {fileID: 3731044828041971134}
   - {fileID: 1568256693}
+  - {fileID: 1074063079}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1074,25 +1114,9 @@ MonoBehaviour:
   equippedAbilities:
   - {fileID: 321353410}
   - {fileID: 321353411}
-  - {fileID: 321353409}
+  - {fileID: 3332249076278848312}
   activeAbility: {fileID: 0}
   abilityIndex: 1
---- !u!114 &321353409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3731044827236641757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bdf120b1c8407d4f9b051a00d8018e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityTime: 0
-  cooldownTime: 0
-  abilityTimer: 0
-  cooldownTimer: 0
 --- !u!114 &321353410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,9 +1130,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityTime: 0
-  cooldownTime: 0
+  cooldownTime: 3
   abilityTimer: 0
   cooldownTimer: 0
+  projectile: {fileID: 367192396155354748, guid: b99edb2b6b215f142b7452fcda0a8dd6, type: 3}
+  projectileSpawn: {fileID: 1074063079}
+  speed: 1000
+  mode: 5
 --- !u!114 &321353411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1128,6 +1156,26 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: a878513f3483511408dd08e04fd4ee3e, type: 2}
   - {fileID: 2100000, guid: 7d19dcd6d4dccff4c88bae8459a6c35f, type: 2}
+--- !u!114 &3332249076278848312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731044827236641757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beaccb37a09abcc409364b6ec8a6fda2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityTime: 0
+  cooldownTime: 5
+  abilityTimer: 0
+  cooldownTimer: 0
+  projectile: {fileID: 3442810844120767547, guid: c9e3fd1f9cd651a45a0598432ecc1076, type: 3}
+  projectileSpawn: {fileID: 1074063079}
+  speed: 1000
+  mode: 0
 --- !u!1 &3731044827495804473
 GameObject:
   m_ObjectHideFlags: 0

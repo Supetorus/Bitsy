@@ -70,6 +70,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void KnockOut()
+    {
+
+    }
+
     public void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
