@@ -1,5 +1,5 @@
 {
-    "name": "CameraControls",
+    "name": "Controls",
     "maps": [
         {
             "name": "GameControls",
@@ -18,7 +18,7 @@
                     "name": "Sprint",
                     "type": "Value",
                     "id": "830599a5-f30b-4512-a9a6-24be11d745a3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -87,6 +87,17 @@
                     "name": "",
                     "id": "6d27504b-77f4-499c-b9a4-1cf8d4aeded1",
                     "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "05b5dc9b-092b-47b8-9978-eb569fed0bae",
+                    "path": "<Gamepad>/leftStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

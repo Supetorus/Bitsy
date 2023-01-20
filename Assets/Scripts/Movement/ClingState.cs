@@ -14,7 +14,6 @@ public class ClingState : MovementState
 	public float maxVelocity = 1;
 	public float drag;
 
-	private bool isActive = false;
 	private Vector3 targetPosition;
 	private Vector3 velocity;
 
@@ -25,7 +24,6 @@ public class ClingState : MovementState
 		c.move.action.Enable();
 		rigidbody.isKinematic = true;
 		rigidbody.useGravity = false;
-		isActive = true;
 		velocity = Vector3.zero;
 	}
 
@@ -34,7 +32,6 @@ public class ClingState : MovementState
 		c.jump.action.Disable();
 		c.sprint.action.Disable();
 		c.move.action.Disable();
-		isActive = false;
 	}
 
 	public override void FixedUpdateState()
@@ -45,6 +42,7 @@ public class ClingState : MovementState
 			return;
 		}
 
+		// Jump
 		if (c.jump.action.ReadValue<float>() > 0)
 		{
 			c.CurrentMovementState = c.jumpState;
@@ -61,7 +59,15 @@ public class ClingState : MovementState
 			float x = input.x * sideSpeed;
 			//todo interpolate y to smooth position change.
 			float y = height - distance;
-			float z = input.y > 0 ? input.y * forwardSpeed : input.y * backSpeed;
+			float z;
+			if (input.y > 0)
+			{
+				z = input.y * forwardSpeed; // sprinting
+			}
+			else
+			{
+				z = input.y * backSpeed;
+			}
 			Vector3 direction = transform.rotation * new Vector3(x * Time.fixedDeltaTime, y, z * Time.fixedDeltaTime);
 			velocity = Vector3.ClampMagnitude(direction + velocity, maxVelocity);
 
