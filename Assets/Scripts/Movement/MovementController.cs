@@ -15,6 +15,11 @@ public class MovementController : MonoBehaviour
 		get { return currentMovementState; }
 		set
 		{
+			if (value == null)
+			{
+				Debug.LogError("You cannot set CurrentMovementState to null. You may have forgotten to add a state component.");
+				return;
+			}
 			if (value != null && value != currentMovementState)
 			{
 				//print(CurrentMState + " : " + newState);
@@ -24,9 +29,6 @@ public class MovementController : MonoBehaviour
 			}
 		}
 	}
-	[HideInInspector] public bool isGrounded;
-	[HideInInspector] public bool wasGrounded;
-
 
 	public InputActionReference move;
 	public InputActionReference sprint;

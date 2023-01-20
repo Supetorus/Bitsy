@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(StateData))]
 public class MovementState : MonoBehaviour
 {
-
 	protected MovementController c;
 	protected new Rigidbody rigidbody;
 	protected StateData sd;
