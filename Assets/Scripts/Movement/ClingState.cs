@@ -18,10 +18,13 @@ public class ClingState : MovementState
 	[SerializeField, Tooltip("Influences how quickly the spider slows down when input stops." +
 		" Higher numbers apply less drag."), Range(0, 1)]
 	private float drag;
+	[SerializeField, Tooltip("Multiplies with the player acceleration and maxVelocity")]
+	private float sprintMultiplier = 1.5f;
 
 	// The velocity of the spider, this is used to make the movement smoother so
 	// it accelerates and decelerates over time instead of instantly.
 	private Vector3 velocity;
+	private float movementMultiplier;
 
 	public override void EnterState()
 	{
@@ -45,9 +48,9 @@ public class ClingState : MovementState
 
 	public override void FixedUpdateState()
 	{
-		if (height > sd.lesserAttachmentDistance)
+		if (height > sd.attachmentDistance)
 		{
-			Debug.Log("Cling State height cannot be greater than State Data's lesser attachment distance.");
+			Debug.Log("Cling State height cannot be greater than State Data's attachment distance.");
 			return;
 		}
 
@@ -60,6 +63,14 @@ public class ClingState : MovementState
 		Vector2 input = c.move.action.ReadValue<Vector2>();
 		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
 		if (input == Vector2.zero) velocity *= drag;
+		if (c.sprint.action.ReadValue<float>() > 0)
+		{
+			movementMultiplier = sprintMultiplier;
+		}
+		else
+		{
+			movementMultiplier = Mathf.Clamp(movementMultiplier * drag, 1, sprintMultiplier);
+		}
 
 		// Near a walkable surface
 		if (closestPoint != null)
@@ -71,11 +82,11 @@ public class ClingState : MovementState
 			float distance = up.magnitude;
 			input = Vector3.ClampMagnitude(input, 1);
 			Vector3 direction = transform.rotation * new Vector3(
-				input.x * Time.deltaTime * acceleration,
+				input.x * Time.fixedDeltaTime * acceleration * movementMultiplier,
 				height - distance,
-				input.y * Time.deltaTime * acceleration
+				input.y * Time.fixedDeltaTime * acceleration * movementMultiplier
 				);
-			velocity = Vector3.ClampMagnitude(velocity + direction, maxVelocity);
+			velocity = Vector3.ClampMagnitude(velocity + direction, maxVelocity * movementMultiplier);
 			rigidbody.MovePosition(velocity + transform.position);
 
 			// Rotation
