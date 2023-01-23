@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float fullAwareDelay = 5.0f;
     public float fullAwareTimer;
 
-    public SpiderController player;
+    public AbilityController player;
 
     public enum Mode
     {
@@ -77,14 +77,19 @@ public class Enemy : MonoBehaviour
     public bool CheckSightlines()
     {
         if (player == null) return false;
+        if (playerInVision)
+        {
 
-		if (playerInVision)
-		{
-			//Debug.DrawRay(eyes.position, player.spiderCenter.transform.position, Color.red);
-			Physics.Linecast(eyes.position, player.spiderCenter.transform.position, out RaycastHit hit, LayerMask.NameToLayer("Enemy"));
-			return (hit.collider.gameObject.tag == "Player" && player.isVisible);
-		}
-		return false;
+        Physics.Linecast(eyes.position, player.spiderCenter.transform.position, out RaycastHit hit, LayerMask.NameToLayer("Enemy"));
+        if (hit.collider.gameObject.tag == "Smoke") return false;
+        return (hit.collider.gameObject.tag == "Player" && player.isVisible);
+        }
+            return false;
+    }
+
+    public void KnockOut()
+    {
+
     }
 
     public void OnDrawGizmos()
