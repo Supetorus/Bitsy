@@ -5,7 +5,7 @@ using UnityEngine;
 public class WarningDirection : MonoBehaviour
 {
   public GameObject target;
-  public Transform transform;
+  public new Transform transform;
 
     // Update is called once per frame
     void Update()

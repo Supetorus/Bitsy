@@ -27,10 +27,13 @@ public class SpiderController : MonoBehaviour
     private Quaternion lastRot;
     private Vector3[] pn;
 
+	public AudioManager audioManager;
+
     private AbilityController abCont;
+	[SerializeField] private bool detected;
+	public bool Detected { get { return detected; } set { detected = value; audioManager.PlayerDetected = value; } }
 
-
-    Vector3[] GetIcoSphereCoords(int depth)
+	Vector3[] GetIcoSphereCoords(int depth)
     {
         Vector3[] res = new Vector3[(int)Mathf.Pow(4, depth) * 12];
         float t = (1f + Mathf.Sqrt(5f)) / 2f;

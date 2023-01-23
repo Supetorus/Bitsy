@@ -10,6 +10,7 @@ public class AbilityController : MonoBehaviour
     public InputActionReference activeAA;
     //Switch to the ability on the left of the UI
     public InputActionReference cycleAbility;
+    public Transform spiderCenter;
 
     [SerializeField] private Ability[] equippedAbilities = new Ability[3];
     public Ability activeAbility;
@@ -17,9 +18,14 @@ public class AbilityController : MonoBehaviour
     bool abilityTimerActive;
     bool cooldownActive;
     public int abilityIndex = 1;
+    [HideInInspector] public bool isVisible = true;
 
-    // Start is called before the first frame update
-    void Start()
+	public AudioManager audioManager;
+	[SerializeField] private bool detected;
+	public bool Detected { get { return detected; } set { detected = value; audioManager.PlayerDetected = value; } }
+
+	// Start is called before the first frame update
+	void Start()
     {
         activeAA.action.Enable();
         cycleAbility.action.Enable();
@@ -44,19 +50,15 @@ public class AbilityController : MonoBehaviour
         }
         else if (cycleAbility.action.ReadValue<float>() > 0)
         {
-            print("Cycle Left");
             if (abilityIndex == 0) abilityIndex = 2;
             else abilityIndex--;
             activeAbility = equippedAbilities[abilityIndex];
-            print(activeAbility.name);
         }
         else if (cycleAbility.action.ReadValue<float>() < 0)
         {
-            print("Cycle Right");
             if (abilityIndex == 2) abilityIndex = 0;
             else abilityIndex++;
             activeAbility = equippedAbilities[abilityIndex];
-            print(activeAbility.name);
         }
 
         if(abilityActive && activeAA.action.ReadValue<float>() == 0) abilityActive = false;
@@ -69,7 +71,6 @@ public class AbilityController : MonoBehaviour
         if (abilityTimerActive)
         {
             activeAbility.abilityTimer -= Time.deltaTime;
-            print(activeAbility.abilityTimer);
             if (activeAbility.abilityTimer <= 0)
             {
                 abilityTimerActive = false;
@@ -83,7 +84,6 @@ public class AbilityController : MonoBehaviour
         if (cooldownActive)
         {
             activeAbility.cooldownTimer -= Time.deltaTime;
-            print(activeAbility.cooldownTimer);
             if (activeAbility.cooldownTimer <= 0) cooldownActive = false;
         }
     }

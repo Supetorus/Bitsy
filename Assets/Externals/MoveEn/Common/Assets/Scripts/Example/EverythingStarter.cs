@@ -36,7 +36,8 @@ namespace moveen.example {
             }
             for (int i = 0; i < startables.Length; i++) {
                 Startable startable = startables[i];
-                if (startable != this && ((MonoBehaviour)startable).isActiveAndEnabled) startable.start();
+                //if (startable != this && ((MonoBehaviour)startable).isActiveAndEnabled) startable.start();
+                if ((object)startable != this && ((MonoBehaviour)startable).isActiveAndEnabled) startable.start();
             }
         }
     }

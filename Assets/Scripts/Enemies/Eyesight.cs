@@ -14,7 +14,7 @@ public class Eyesight : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            SpiderController player = other.gameObject.GetComponent<SpiderController>();
+            AbilityController player = other.gameObject.GetComponent<AbilityController>();
             me.player = player;
             if(me.CheckSightlines()) me.awareness += 0.33f;
 
@@ -25,14 +25,16 @@ public class Eyesight : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            SpiderController player = other.gameObject.GetComponent<SpiderController>();
+            AbilityController player = other.gameObject.GetComponent<AbilityController>();
             me.player = player;
+			me.playerInVision = true;
             if(me.CheckSightlines()) me.awareness += 0.33f;
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player") me.player = null;
+		me.playerInVision = false;
+        //if(other.tag == "Player") me.player = null;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace moveen.example {
     public class CamControl1 : MonoBehaviour {
-        public Camera camera;
+        public new Camera camera;
         public Transform input;
         private Vector3 dif;
 
