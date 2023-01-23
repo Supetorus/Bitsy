@@ -7,14 +7,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] Health health;
     [SerializeField] GameObject lineOfSight;
     [SerializeField] Transform eyes;
-	public bool playerInVision;
-
     [SerializeField] private float time = 1f;
-    public float timer;
     [SerializeField] private float fullAwareDelay = 5.0f;
-    public float fullAwareTimer;
+	
+    [HideInInspector] public bool playerInVision;
+    [HideInInspector] public float timer;
+    [HideInInspector] public float fullAwareTimer;
+    [HideInInspector] public AbilityController player;
 
-    public AbilityController player;
+    private float Awareness = 0;
+    [HideInInspector]public float awareness { get { return Awareness; } set { Awareness = Mathf.Clamp(value, 0, 100);} }
 
     public enum Mode
     {
@@ -24,8 +26,6 @@ public class Enemy : MonoBehaviour
         AWARE
     }
 
-    [SerializeField] private float Awareness = 0;
-    public float awareness { get { return Awareness; } set { Awareness = Mathf.Clamp(value, 0, 100);} }
     // Start is called before the first frame update
     void Start()
     {
