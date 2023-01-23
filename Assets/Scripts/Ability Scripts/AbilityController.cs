@@ -20,8 +20,12 @@ public class AbilityController : MonoBehaviour
     public int abilityIndex = 1;
     [HideInInspector] public bool isVisible = true;
 
-    // Start is called before the first frame update
-    void Start()
+	public AudioManager audioManager;
+	[SerializeField] private bool detected;
+	public bool Detected { get { return detected; } set { detected = value; audioManager.PlayerDetected = value; } }
+
+	// Start is called before the first frame update
+	void Start()
     {
         activeAA.action.Enable();
         cycleAbility.action.Enable();
