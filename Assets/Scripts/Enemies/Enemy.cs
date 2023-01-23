@@ -79,10 +79,9 @@ public class Enemy : MonoBehaviour
         if (player == null) return false;
         if (playerInVision)
         {
-
-        Physics.Linecast(eyes.position, player.spiderCenter.transform.position, out RaycastHit hit, LayerMask.NameToLayer("Enemy"));
-        if (hit.collider.gameObject.tag == "Smoke") return false;
-        return (hit.collider.gameObject.tag == "Player" && player.isVisible);
+            Physics.Linecast(eyes.position, player.spiderCenter.transform.position, out RaycastHit hit, LayerMask.NameToLayer("Enemy"));
+            if (hit.collider.gameObject.tag == "Smoke") return false;
+            return (hit.collider.gameObject.tag == "Player" && player.isVisible);
         }
             return false;
     }
