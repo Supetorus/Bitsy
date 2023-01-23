@@ -85,7 +85,7 @@ public class StateData : MonoBehaviour
 	{
 		// If the program isn't running I can't get the icosphere mesh in order to calculate the raycast points,
 		// so here are some consolation spheres.
-		if (Icosphere == null)
+		if (!Application.isPlaying)
 		{
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawWireSphere(transform.position, attachmentDistance);

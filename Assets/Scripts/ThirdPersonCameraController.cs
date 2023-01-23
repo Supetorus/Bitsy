@@ -73,12 +73,4 @@ public class ThirdPersonCameraController : MonoBehaviour
 		}
 		transform.rotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
 	}
-
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.DrawSphere(transform.position, camera.nearClipPlane);
-		if (!Application.isPlaying) return;
-		Gizmos.DrawSphere(target.position, camera.nearClipPlane);
-		Gizmos.DrawLine(target.position, transform.position);
-	}
 }
