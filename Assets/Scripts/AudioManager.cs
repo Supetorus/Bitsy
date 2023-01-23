@@ -10,8 +10,8 @@ public class AudioManager : MonoBehaviour
 	[SerializeField] AudioMixer audioMixer;
 
 	[SerializeField] AudioSource playerAudio;
-	private int stealthIndex;
-	private int detectedIndex;
+	private int stealthIndex = 0;
+	private int detectedIndex = 0;
 
 	public bool playerDetected;
 	public bool PlayerDetected
