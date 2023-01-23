@@ -116,8 +116,8 @@ namespace moveen.descs {
         }
 
         public bool stepperIsTurnedOn() {
-            for (int i = 0; i < cache1.Length; i++) return cache1[i].transition == 0;
-            for (int i = 0; i < cache2.Length; i++) return cache2[i].transition == 0;
+            if (cache1.Length > 0) return cache1[0].transition == 0;
+            if (cache2.Length > 0) return cache2[0].transition == 0;
             return true;
         }
 

@@ -200,7 +200,7 @@ namespace moveen.utils {
 
         //     https://github.com/Kent-H/blue3D/blob/master/Blue3D/src/blue3D/type/QuaternionF.java
         public static Quaternion ln(this Quaternion THIS) {
-            Quaternion result = new Quaternion();
+            //Quaternion result = new Quaternion();
             float r = (float) Math.Sqrt(THIS.x * THIS.x + THIS.y * THIS.y + THIS.z * THIS.z);
             float t = r > 0.00001f ? (float) Math.Atan2(r, THIS.w) / r : 0.0f;
             return new Quaternion(THIS.x * t, THIS.y * t, THIS.z * t,
