@@ -27,7 +27,7 @@ public class SpiderController : MonoBehaviour
     private Quaternion lastRot;
     private Vector3[] pn;
 
-	public AudioManager audioManager;
+	public MusicManager audioManager;
 
     private AbilityController abCont;
 	[SerializeField] private bool detected;

@@ -20,9 +20,10 @@ public class AbilityController : MonoBehaviour
     public int abilityIndex = 1;
     [HideInInspector] public bool isVisible = true;
 
+	public MusicManager music;
 	public AudioManager audioManager;
 	[SerializeField] private bool detected;
-	public bool Detected { get { return detected; } set { detected = value; audioManager.PlayerDetected = value; } }
+	public bool Detected { get { return detected; } set { detected = value; music.PlayerDetected = value; } }
 
 	// Start is called before the first frame update
 	void Start()

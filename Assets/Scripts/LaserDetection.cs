@@ -7,7 +7,7 @@ public class LaserDetection : MonoBehaviour
   public bool doesDamage;
 
   private void OnTriggerEnter(Collider other) {
-    if (other.gameObject.tag == "Player") {
+    if (other.gameObject.CompareTag("Player")) {
       if (doesDamage) {
         //Lower the players Health
         Debug.Log("You have taken damage");
