@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class Interactor : MonoBehaviour
 {
     [SerializeField] private FeedNotification feedNotification;
+    [SerializeField] private QuestItem questItem;
 
     public InventoryManager inventory;
 
@@ -50,6 +51,7 @@ public class Interactor : MonoBehaviour
                 {
                     interactable.Interact(this);
                 }
+                
             }
         }
     }
