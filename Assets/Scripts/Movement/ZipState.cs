@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ZipState : MovementState
 {
-    public float zipSpeed = 5.0f;
+    public const float ZIP_SPEED = 50f;
     [HideInInspector]public RaycastHit attachedObject;
     [HideInInspector]public Quaternion originalRot;
     [HideInInspector]public Quaternion targetRot;
@@ -17,7 +17,7 @@ public class ZipState : MovementState
         rigidbody.useGravity = false;
 
         Vector3 direction = (attachedObject.point - transform.position).normalized;
-        GetComponent<Rigidbody>().AddForce(direction * zipSpeed, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(direction * ZIP_SPEED, ForceMode.VelocityChange);
     }
 
     public override void UpdateState()
