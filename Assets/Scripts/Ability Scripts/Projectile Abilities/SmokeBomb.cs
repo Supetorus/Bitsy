@@ -8,11 +8,12 @@ public class SmokeBomb : Projectile
     [SerializeField] float explosionRad;
 
     bool hasExploded = false;
-    public float startSpeed = 0f;
+    [HideInInspector]public float startSpeed = 0f;
 
 
     public override void OnCollisionEnter(Collision collision)
     {
+
         if (!hasExploded && collision.gameObject.tag == "Ground" && gameObject.GetComponent<Rigidbody>().velocity.sqrMagnitude < startSpeed * 0.25f)
         {
             hasExploded = true;

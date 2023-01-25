@@ -15,6 +15,11 @@ public class MovementController : MonoBehaviour
 		get { return currentMovementState; }
 		set
 		{
+			if (value == null)
+			{
+				Debug.LogError("You cannot set CurrentMovementState to null. You may have forgotten to add a state component.");
+				return;
+			}
 			if (value != null && value != currentMovementState)
 			{
 				//print(CurrentMState + " : " + newState);
@@ -24,14 +29,18 @@ public class MovementController : MonoBehaviour
 			}
 		}
 	}
-	[HideInInspector] public bool isGrounded;
-	[HideInInspector] public bool wasGrounded;
-	[HideInInspector] public bool isVisible = true;
 
 	public InputActionReference move;
 	public InputActionReference sprint;
 	public InputActionReference jump;
-	public Transform spiderCenter;
+
+	[SerializeField, Tooltip("The maximum lateral speed of the spider."), Min(0)]
+	public float maxVelocity = 1;
+	[SerializeField, Tooltip("Influences how quickly the spider gets to max velocity.")]
+	public float acceleration = 1;
+	[SerializeField, Tooltip("Influences how quickly the spider slows down when input stops." +
+		" Higher numbers apply less drag."), Range(0, 1)]
+	public float drag;
 
 	[HideInInspector] public ClingState clingState;
 	[HideInInspector] public FallState fallState;

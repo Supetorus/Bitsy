@@ -7,7 +7,7 @@ using UnityEngine;
 namespace moveen.utils {
     public static class MUtil {
         private static bool UNITY_EVENTS_LOG = false;
-        private static bool UNITY_EVENTS_LOG_FILE = false;
+        //private static bool UNITY_EVENTS_LOG_FILE = false;
 
         /// <summary>
         /// 

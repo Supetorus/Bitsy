@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &87781447 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1152317632, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+  m_PrefabInstance: {fileID: 1995512782}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &581112834
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +616,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2290
+  m_Name: pb_Mesh-84748
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -776,9 +781,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 797285236, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: spiderCenter
+      value: 
+      objectReference: {fileID: 87781447}
+    - target: {fileID: 797285238, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: m_Radius
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 797285238, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: m_Center.z
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949232470, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949232470, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9914449
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949232470, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.13052624
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949232470, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -15
+      objectReference: {fileID: 0}
     - target: {fileID: 100605345239028752, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_Name
       value: Player3.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683350035233568995, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: walkableLayers.m_Bits
+      value: 81
       objectReference: {fileID: 0}
     - target: {fileID: 7319786380372986492, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_RootOrder
@@ -907,7 +944,7 @@ PrefabInstance:
       objectReference: {fileID: 1480961625}
     - target: {fileID: 7197347337161974130, guid: 77cd50006bc47214c85fadf9a49a6613, type: 3}
       propertyPath: m_VersionIndex
-      value: 6940
+      value: 6943
       objectReference: {fileID: 0}
     - target: {fileID: 7197347337161974134, guid: 77cd50006bc47214c85fadf9a49a6613, type: 3}
       propertyPath: m_Mesh

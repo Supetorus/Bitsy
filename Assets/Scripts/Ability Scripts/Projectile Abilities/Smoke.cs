@@ -14,7 +14,7 @@ public class Smoke : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.TryGetComponent<MovementController>(out MovementController controller))
+        if(other.gameObject.TryGetComponent<AbilityController>(out AbilityController controller))
         {
             print("Set Invis");
             controller.isVisible = false;
@@ -23,7 +23,7 @@ public class Smoke : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.TryGetComponent<MovementController>(out MovementController controller))
+        if (other.gameObject.TryGetComponent<AbilityController>(out AbilityController controller))
         {
             print("Set Vis");
             controller.isVisible = true;
@@ -32,6 +32,6 @@ public class Smoke : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (playerHasEntered) player.GetComponent<MovementController>().isVisible = true;
+        if (playerHasEntered) player.GetComponent<AbilityController>().isVisible = true;
     }
 }

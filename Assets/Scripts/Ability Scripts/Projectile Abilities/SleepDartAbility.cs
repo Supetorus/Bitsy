@@ -16,7 +16,7 @@ public class SleepDartAbility : Ability
 
     public override void UseAbility()
     {
-        GameObject proj = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
-        proj.GetComponent<Rigidbody>().AddForce(proj.transform.forward * speed, mode);
+        GameObject proj = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation * Quaternion.AngleAxis(-90, transform.up));
+        proj.GetComponent<Rigidbody>().AddForce(proj.transform.right * speed, mode);
     }
 }

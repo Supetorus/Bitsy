@@ -6,25 +6,28 @@ using UnityEngine.InputSystem;
 
 public class ClingState : MovementState
 {
-	public float forwardSpeed = 1;
-	public float backSpeed = 1;
-	public float sideSpeed = 1;
-	[Tooltip("This must be less than the State Data's attachment distance.")]
-	public float height = 0.5f;
-	public float maxVelocity = 1;
-	public float drag;
+	[SerializeField, Tooltip("This defines how far the spider keeps itself above a surface. " +
+		"Adjust this to make the legs line up with the ground. Must be less than the State " +
+		"Data's attachment distance."), Min(0)]
+	private float height = 0.5f;
+	[SerializeField, Tooltip("Influences how quickly the spider slows down when input stops." +
+		" Higher numbers apply less drag."), Range(0, 1)]
+	private float drag;
+	[SerializeField, Tooltip("Multiplies with the player acceleration and maxVelocity")]
+	private float sprintMultiplier = 1.5f;
 
-	private Vector3 targetPosition;
-	private Vector3 velocity;
+	private float movementMultiplier;
 
 	public override void EnterState()
 	{
+		if (c.jump == null) Debug.LogError("Jump action was not assigned.");
+		if (c.sprint == null) Debug.LogError("Sprint action was not assigned.");
+		if (c.move == null) Debug.LogError("Move action was not assigned.");
 		c.jump.action.Enable();
 		c.sprint.action.Enable();
 		c.move.action.Enable();
 		rigidbody.isKinematic = true;
 		rigidbody.useGravity = false;
-		velocity = Vector3.zero;
 	}
 
 	public override void ExitState()
@@ -49,57 +52,54 @@ public class ClingState : MovementState
 		}
 
 		Vector2 input = c.move.action.ReadValue<Vector2>();
-		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
-		velocity *= drag;
+		// Drag is only applied if there is no input.
+		if (input == Vector2.zero) sd.velocity *= c.drag;
 
+		// Sprint
+		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
+		else movementMultiplier = Mathf.Clamp(movementMultiplier, 1, sprintMultiplier);
+
+		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
+		// Near a walkable surface
 		if (closestPoint != null)
 		{
 			// Movement
-			float distance = ((Vector3)(transform.position - closestPoint)).magnitude;
-			float x = input.x * sideSpeed;
-			//todo interpolate y to smooth position change.
-			float y = height - distance;
-			float z;
-			if (input.y > 0)
-			{
-				z = input.y * forwardSpeed; // sprinting
-			}
-			else
-			{
-				z = input.y * backSpeed;
-			}
-			Vector3 direction = transform.rotation * new Vector3(x * Time.fixedDeltaTime, y, z * Time.fixedDeltaTime);
-			velocity = Vector3.ClampMagnitude(direction + velocity, maxVelocity);
+			// This is intentionally not normalized.
+			Vector3 up = transform.position - (Vector3)closestPoint;
+			// distance from the center of object to the ground.
+			float distance = up.magnitude;
+			input = Vector3.ClampMagnitude(input, 1);
+			Vector3 direction = transform.rotation * new Vector3(
+				input.x * Time.fixedDeltaTime * c.acceleration * movementMultiplier,
+				height - distance,
+				input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
+			);
+			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
+			rigidbody.MovePosition(sd.velocity + transform.position);
 
-			targetPosition = velocity + transform.position;
-			rigidbody.MovePosition(targetPosition);
+			//if (Vector2.Dot(input, Vector2.up) > 0) { input *= movementMultiplier; }
+			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
+			//float  scale = Vector3.Dot(transform.forward, direction) + 1;
+			rigidbody.MovePosition(sd.velocity + transform.position);
 
 			// Rotation
 			// https://discord.com/channels/489222168727519232/885300730104250418/1063576660051501136
-			Vector3 up = transform.position - (Vector3)closestPoint;
+			// Sets the forward direction of the spider based on camera.
 			Vector3 forward = Vector3.ProjectOnPlane(sd.camera.forward, up);
 			Quaternion targetRotation = Quaternion.LookRotation(forward, up);
-			Quaternion finalRotation = Quaternion.Slerp(transform.rotation, targetRotation, Quaternion.Angle(transform.rotation, targetRotation) / 360);
-			rigidbody.MoveRotation(finalRotation);
+			// Slerp is used to make the rotation more gradual so it doesn't instantly snap.
+			rigidbody.MoveRotation(
+				Quaternion.Slerp(
+					transform.rotation,
+					targetRotation,
+					Quaternion.Angle(transform.rotation, targetRotation) / 360
+					)
+				);
 		}
+		// Not near any walkable surfaces.
 		else
 		{
 			c.CurrentMovementState = c.fallState;
 		}
-	}
-
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.yellow;
-		//Gizmos.DrawWireSphere(transform.position, height);
-
-		//if (isActive)
-		//{
-		//	Gizmos.color = Color.red;
-		//	Gizmos.DrawSphere(targetPosition, 0.01f);
-		//	Gizmos.DrawLine(transform.position, targetPosition);
-		//}
-		//Gizmos.color = Color.red;
-
 	}
 }

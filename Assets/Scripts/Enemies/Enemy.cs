@@ -7,13 +7,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] Health health;
     [SerializeField] GameObject lineOfSight;
     [SerializeField] Transform eyes;
+	public bool playerInVision;
 
-    private float time = 1f;
+    [SerializeField] private float time = 1f;
     public float timer;
-    private float fullAwareDelay = 5.0f;
+    [SerializeField] private float fullAwareDelay = 5.0f;
     public float fullAwareTimer;
 
-    public MovementController player;
+    public AbilityController player;
 
     public enum Mode
     {
@@ -23,7 +24,7 @@ public class Enemy : MonoBehaviour
         AWARE
     }
 
-    private float Awareness = 0;
+    [SerializeField] private float Awareness = 0;
     public float awareness { get { return Awareness; } set { Awareness = Mathf.Clamp(value, 0, 100);} }
     // Start is called before the first frame update
     void Start()
@@ -35,16 +36,32 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (awareness == 100 && !CheckSightlines())
+        if (awareness == 100)
         {
-            fullAwareTimer -= Time.deltaTime;
+			if (player != null) player.Detected = true;
+			if (!CheckSightlines())
+			{
+				fullAwareTimer -= Time.deltaTime;
 
-            if (fullAwareTimer <= 0)
-            {
-                awareness -= 5;
-                fullAwareTimer = fullAwareDelay;
-            }           
+				if (fullAwareTimer <= 0)
+				{
+					awareness -= 5;
+					fullAwareTimer = fullAwareDelay;
+				}
+			}
         }
+		else if (awareness <= 0)
+		{
+			//Debug.Log("Awareness: 0");
+			if (player != null)
+			{
+				//Debug.Log("Player not null");
+				player.Detected = false;
+				//Debug.Log("Detected set to false");
+				player = null;
+				//Debug.Log("Player set to null");
+			}
+		}
         else
         {
             timer -= Time.deltaTime;
@@ -60,14 +77,13 @@ public class Enemy : MonoBehaviour
     public bool CheckSightlines()
     {
         if (player == null) return false;
-
-        Physics.Linecast(eyes.position, player.spiderCenter.transform.position, out RaycastHit hit, LayerMask.NameToLayer("Enemy"));
-        if (hit.collider.gameObject.tag == "Player" && player.isVisible) return true;
-        else
+        if (playerInVision)
         {
-            player = null;
-            return false;
+            Physics.Linecast(eyes.position, player.spiderCenter.transform.position, out RaycastHit hit, LayerMask.NameToLayer("Enemy"));
+            if (hit.collider.gameObject.tag == "Smoke") return false;
+            return (hit.collider.gameObject.tag == "Player" && player.isVisible);
         }
+            return false;
     }
 
     public void KnockOut()
