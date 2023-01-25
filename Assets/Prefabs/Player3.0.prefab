@@ -201,8 +201,8 @@ Transform:
   m_GameObject: {fileID: 100605345239028752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.25, y: 0.3, z: -0.544}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2683350034061294020}
   - {fileID: 2683350035233569022}
@@ -235,7 +235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335228178068064612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.218, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -784,8 +784,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350034061294017}
-  m_LocalRotation: {x: 0.34202015, y: -0, z: -0, w: 0.9396926}
-  m_LocalPosition: {x: 0, y: 1.1821815, z: -1.1490667}
+  m_LocalRotation: {x: 0.07845907, y: -0, z: -0, w: 0.99691737}
+  m_LocalPosition: {x: 0, y: 0.5346517, z: -1.481533}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -858,14 +858,18 @@ MonoBehaviour:
   target: {fileID: 1068354811471654119}
   distance: 1.5
   yaw: 0
-  pitch: 40
+  pitch: 9
   maxPitch: 80
   minPitch: -80
   hitLayers:
     serializedVersion: 2
     m_Bits: 247
-  cameraInput: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  sensitivity: 1
+  zoomedFOV: 20
+  zoomSpeed: 4
+  look: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  zoom: {fileID: 5077891831671390531, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  defaultSensitivity: 1
+  zoomSensivityMultiplier: 0.3
   invertX: 0
   invertY: 0
 --- !u!1 &2683350034286733024
@@ -1327,6 +1331,9 @@ MonoBehaviour:
   move: {fileID: 4184646067059678515, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   sprint: {fileID: -8714904812635025669, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   jump: {fileID: 866015529340218118, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  maxVelocity: 0.1
+  acceleration: 1
+  drag: 0.1
   clingState: {fileID: 0}
   fallState: {fileID: 0}
   jumpState: {fileID: 0}
@@ -1349,6 +1356,7 @@ MonoBehaviour:
     m_Bits: 209
   camera: {fileID: 2683350034061294020}
   icosphereDensity: 5
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2683350035233568993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1362,8 +1370,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   height: 0.23
-  maxVelocity: 0.01
-  acceleration: 1
   drag: 0.8
   sprintMultiplier: 1.5
 --- !u!114 &2683350035233568994
@@ -1378,6 +1384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96a5a2806aec5143ae6c1e43928f3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  airForce: 500
 --- !u!114 &5510854112619284885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1390,7 +1397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f22f99005ed9644384ca269fc541c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 3
+  jumpForce: 4
 --- !u!114 &797285236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1413,7 +1420,6 @@ MonoBehaviour:
   activeAbility: {fileID: 0}
   abilityIndex: 1
   isVisible: 1
-  music: {fileID: 0}
   audioManager: {fileID: 0}
   detected: 0
 --- !u!114 &797285234
