@@ -88,7 +88,12 @@ public class Enemy : MonoBehaviour
 
     public void KnockOut()
     {
+        print(gameObject.name + "I'm knocked out!");
+    }
 
+    public void Stun()
+    {
+        print(gameObject.name + "I'm stunned!");
     }
 
     public void OnDrawGizmos()
