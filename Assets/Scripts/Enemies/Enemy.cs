@@ -8,8 +8,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject lineOfSight;
     [SerializeField] Transform eyes;
 	public bool playerInVision;
+  public List<Nodes> nodes;
+  private int node_Count = 0;
 
-    [SerializeField] private float time = 1f;
+  [SerializeField] private float time = 1f;
     public float timer;
     [SerializeField] private float fullAwareDelay = 5.0f;
     public float fullAwareTimer;
@@ -72,7 +74,8 @@ public class Enemy : MonoBehaviour
             }
         }
         print(awareness);
-    }
+    MoveDrone();
+  }
 
     public bool CheckSightlines()
     {
@@ -91,7 +94,25 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void OnDrawGizmos()
+  public void MoveDrone() {
+    //Debug.Log(nodes[node_Count].transform.position.x + " " + nodes[node_Count].transform.position.y + " " + nodes[node_Count].transform.position.z);
+
+    transform.position = Vector3.MoveTowards(transform.position, nodes[node_Count].transform.position, 5 * Time.deltaTime);
+    transform.LookAt(nodes[node_Count].transform.position);
+
+    //Debug.Log("Node Number: " + node_Count);
+    //Debug.Log("Node Count: " + nodes.Count);
+    if (transform.position == nodes[node_Count].transform.position) {
+      nodes[node_Count].last_reached = true;
+      nodes[node_Count].previousNode.last_reached = false;
+      node_Count++;
+      if (node_Count >= nodes.Count) {
+        node_Count = 0;
+      }
+    }
+  }
+
+  public void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
         if(player != null) Gizmos.DrawLine(eyes.position, player.spiderCenter.transform.position);
