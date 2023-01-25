@@ -80,7 +80,7 @@ public class ClingState : MovementState
 			//if (Vector2.Dot(input, Vector2.up) > 0) { input *= movementMultiplier; }
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
 			//float  scale = Vector3.Dot(transform.forward, direction) + 1;
-			rigidbody.MovePosition(sd.velocity + transform.position);
+			//rigidbody.MovePosition(sd.velocity + transform.position);
 
 			// Rotation
 			// https://discord.com/channels/489222168727519232/885300730104250418/1063576660051501136
