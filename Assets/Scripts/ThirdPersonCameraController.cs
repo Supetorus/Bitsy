@@ -21,28 +21,42 @@ public class ThirdPersonCameraController : MonoBehaviour
 	public float minPitch = -89.9f;
 	[Tooltip("Camera won't pass through objects on these layers.")]
 	public LayerMask hitLayers;
+	[SerializeField, Tooltip("The FOV when zoomed in.")]
+	private float zoomedFOV = 20;
+	[SerializeField, Tooltip("How fast the camera zooms in."), Range(0.0001f, 10f)]
+	private float zoomSpeed = 4f;
 
 	[Header("Controls Settings")]
 	[Tooltip("Drag in the 'Look' action here.")]
-	public InputActionReference cameraInput;
+	public InputActionReference look;
+	[Tooltip("Drag in the 'Zoom' action here.")]
+	public InputActionReference zoom;
 	[Tooltip("How quickly the camera moves when you move mouse or stick.")]
-	public float sensitivity = 1;
+	public float defaultSensitivity = 1;
+	[Range(0, 1)]
+	public float zoomSensivityMultiplier = 0.3f;
 	[Tooltip("Whether or not to invert the horizontal camera movement.")]
 	public bool invertX = false;
 	[Tooltip("Whether or not to invert the vertical camera movement.")]
 	public bool invertY = false;
 
 	private new Camera camera;
-	private Vector2 input = Vector2.zero;
+	private float defaultFOV = 60;
+	private float fovLerpValue = 0;
 
 	private void Start()
 	{
-		if (cameraInput == null)
+		if (look == null)
 		{
-			Debug.LogError("You haven't set the input action for camera control.");
+			Debug.LogError("You haven't set the 'look' input action for camera control.");
+		}
+		if (zoom == null)
+		{
+			Debug.LogError("You haven't set the 'zoom' input action for camera control.");
 		}
 		camera = GetComponent<Camera>();
-		cameraInput.action.Enable();
+		look.action.Enable();
+		zoom.action.Enable();
 
 		// Capture and lock the cursor
 		Cursor.lockState = CursorLockMode.Locked;
@@ -51,7 +65,23 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 	void Update()
 	{
-		input = cameraInput.action.ReadValue<Vector2>();
+		// Zoom
+		float sensitivity = defaultSensitivity;
+		// Do zoom
+		if (zoom.action.ReadValue<float>() > 0)
+		{
+			fovLerpValue = Mathf.Clamp(fovLerpValue + zoomSpeed * Time.deltaTime, 0, 1);
+			sensitivity = defaultSensitivity * zoomSensivityMultiplier;
+		}
+		// No zoom
+		else
+		{
+			fovLerpValue = Mathf.Clamp(fovLerpValue - zoomSpeed * Time.deltaTime, 0, 1);
+		}
+		camera.fieldOfView = Mathf.Lerp(defaultFOV, zoomedFOV, fovLerpValue);
+
+		// Rotation / position
+		Vector2 input = look.action.ReadValue<Vector2>();
 		if (invertX) input *= Vector2.right * -1;
 		if (invertY) input *= Vector2.up * -1;
 		input *= sensitivity;
@@ -61,6 +91,7 @@ public class ThirdPersonCameraController : MonoBehaviour
 		Quaternion qPitch = Quaternion.AngleAxis(pitch, Vector3.right);
 		Quaternion rotation = qYaw * qPitch;
 
+		// Wall collision detection
 		Physics.SphereCast(target.position, camera.nearClipPlane, rotation * Vector3.back, out RaycastHit hit, distance, hitLayers);
 		if (hit.collider)
 		{
