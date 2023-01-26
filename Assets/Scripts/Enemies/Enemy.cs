@@ -83,11 +83,10 @@ public class Enemy : MonoBehaviour {
   }
 
   public void MoveDrone() {
-    //Debug.Log(nodes[node_Count].transform.position.x + " " + nodes[node_Count].transform.position.y + " " + nodes[node_Count].transform.position.z);
+		//Debug.Log(nodes[node_Count].transform.position.x + " " + nodes[node_Count].transform.position.y + " " + nodes[node_Count].transform.position.z);
 
-    transform.position = Vector3.MoveTowards(transform.position, nodes[node_Count].transform.position, 5 * Time.deltaTime);
+		transform.position = Vector3.MoveTowards(transform.position, nodes[node_Count].transform.position, 5 * Time.deltaTime);
     transform.LookAt(nodes[node_Count].transform.position);
-
     //Debug.Log("Node Number: " + node_Count);
     //Debug.Log("Node Count: " + nodes.Count);
     if (transform.position == nodes[node_Count].transform.position) {
