@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Alarm : MonoBehaviour
+public class SurfaceMaterial : MonoBehaviour
 {
-	[SerializeField] AudioSource audioSource;
+	public string materialType;
+
     void Start()
     {
         
@@ -14,9 +15,4 @@ public class Alarm : MonoBehaviour
     {
         
     }
-
-	public void Play()
-	{
-		if (!audioSource.isPlaying) audioSource.Play();
-	}
 }

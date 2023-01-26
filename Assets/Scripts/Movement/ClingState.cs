@@ -18,6 +18,8 @@ public class ClingState : MovementState
 
 	private float movementMultiplier;
 
+	[SerializeField] private AudioSource walking;
+
 	public override void EnterState()
 	{
 		if (c.jump == null) Debug.LogError("Jump action was not assigned.");
@@ -81,6 +83,15 @@ public class ClingState : MovementState
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
 			//float  scale = Vector3.Dot(transform.forward, direction) + 1;
 			rigidbody.MovePosition(sd.velocity + transform.position);
+
+			if (rigidbody.velocity.sqrMagnitude >= 0.01f && !walking.isPlaying) 
+			{
+				walking.Play();
+			}
+			else if (rigidbody.velocity.sqrMagnitude < 0.01f)
+			{
+				walking.Stop();
+			}
 
 			// Rotation
 			// https://discord.com/channels/489222168727519232/885300730104250418/1063576660051501136
