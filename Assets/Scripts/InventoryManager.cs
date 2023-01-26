@@ -7,7 +7,8 @@ using TMPro;
 public class InventoryManager : MonoBehaviour
 {
 	public GameData gameData;
-	[SerializeField] TextMeshProUGUI items;
+	//[SerializeField] TextMeshProUGUI items;
+	//When proper inventory is implemented, use this to display them
 
     void Start()
     {
@@ -16,6 +17,6 @@ public class InventoryManager : MonoBehaviour
 
     void Update()
     {
-		items.text = gameData.stringData.values.ToString();
+		//items.text = gameData.stringData.values.ToString();
     }
 }

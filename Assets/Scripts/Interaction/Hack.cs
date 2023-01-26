@@ -11,6 +11,9 @@ public class Hack : MonoBehaviour, IInteractable
 	[SerializeField] private string _prompt;
 	[SerializeField] private TMP_Text _promptText;
 
+	[SerializeField] private AudioClip sfx;
+	private bool hacked = false;
+
 	GameManager gm;
 	MenuManager menuManager;
 	//[SerializeField] private ObjectiveHandler objectiveHandler;
@@ -47,6 +50,13 @@ public class Hack : MonoBehaviour, IInteractable
 			panelManager.currentPanelIndex = 7;
 		}*/
 
-		return true;
+		if (!hacked)
+		{
+			hacked = true;
+			AudioSource.PlayClipAtPoint(sfx, transform.position);
+			Debug.Log(_prompt);
+			return true;
+		}
+		return false;
 	}
 }

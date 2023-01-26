@@ -79,6 +79,44 @@ public class StateData : MonoBehaviour
 		}
 		return closestPoint;
 	}
+
+	/// <summary>
+	/// Returns the closest (walkable) point to this transform.position. If there are no objects within radius then null is returned.
+	/// It will also set the audio source depending on the surface's tag.
+	/// </summary>
+	/// <param name="radius">The spherical radius to check for nearby objects.</param>
+	/// <returns></returns>
+	public Vector3? GetClosestPoint(float checkDistance, ref AudioSource audioSource)
+	{
+		if (checkDistance <= 0)
+		{
+			Debug.LogError("You cannot check for walkable objects in a radius less than or equal to zero.");
+			return null;
+		}
+		lastCheckDistance = checkDistance;
+		// Collect the list of hits.
+		List<RaycastHit> hits = new List<RaycastHit>();
+		foreach (var v in Icosphere.vertices)
+		{
+			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
+			if (hit.collider != null) hits.Add(hit);
+		}
+
+		// Calculate the closest point of those hits.
+		closestPoint = null;
+		float closestPointSqrDistance = float.MaxValue;
+		foreach (RaycastHit hit in hits)
+		{
+			Vector3 point = hit.point;
+			float distance = (transform.position - point).sqrMagnitude;
+			if (distance < closestPointSqrDistance)
+			{
+				closestPointSqrDistance = distance;
+				closestPoint = point;
+			}
+		}
+		return closestPoint;
+	}
 	#endregion
 
 	private void OnDrawGizmos()

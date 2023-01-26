@@ -61,4 +61,5 @@ public class MovementController : MonoBehaviour
 	{
 		CurrentMovementState.FixedUpdateState();
 	}
+
 }

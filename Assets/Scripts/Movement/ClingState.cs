@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Processors;
 
 public class ClingState : MovementState
 {
@@ -11,20 +10,15 @@ public class ClingState : MovementState
 		"Adjust this to make the legs line up with the ground. Must be less than the State " +
 		"Data's attachment distance."), Min(0)]
 	private float height = 0.5f;
-	[SerializeField, Tooltip("The maximum lateral speed of the spider."), Min(0)]
-	private float maxVelocity = 1;
-	[SerializeField, Tooltip("Influences how quickly the spider gets to max velocity.")]
-	private float acceleration = 1;
 	[SerializeField, Tooltip("Influences how quickly the spider slows down when input stops." +
 		" Higher numbers apply less drag."), Range(0, 1)]
 	private float drag;
 	[SerializeField, Tooltip("Multiplies with the player acceleration and maxVelocity")]
 	private float sprintMultiplier = 1.5f;
 
-	// The velocity of the spider, this is used to make the movement smoother so
-	// it accelerates and decelerates over time instead of instantly.
-	private Vector3 velocity;
 	private float movementMultiplier;
+
+	//[SerializeField] private AudioSource walking;
 
 	public override void EnterState()
 	{
@@ -36,7 +30,6 @@ public class ClingState : MovementState
 		c.move.action.Enable();
 		rigidbody.isKinematic = true;
 		rigidbody.useGravity = false;
-		velocity = Vector3.zero;
 	}
 
 	public override void ExitState()
@@ -61,33 +54,46 @@ public class ClingState : MovementState
 		}
 
 		Vector2 input = c.move.action.ReadValue<Vector2>();
-		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
-		if (input == Vector2.zero) velocity *= drag;
-		if (c.sprint.action.ReadValue<float>() > 0)
-		{
-			movementMultiplier = sprintMultiplier;
-		}
-		else
-		{
-			movementMultiplier = Mathf.Clamp(movementMultiplier * drag, 1, sprintMultiplier);
-		}
+		// Drag is only applied if there is no input.
+		if (input == Vector2.zero) sd.velocity *= c.drag;
 
+		// Sprint
+		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
+		else movementMultiplier = Mathf.Clamp(movementMultiplier, 1, sprintMultiplier);
+
+		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
 		// Near a walkable surface
 		if (closestPoint != null)
 		{
 			// Movement
-			// This is not normalized because it isn't required by the methods that use it.
+			// This is intentionally not normalized.
 			Vector3 up = transform.position - (Vector3)closestPoint;
 			// distance from the center of object to the ground.
 			float distance = up.magnitude;
 			input = Vector3.ClampMagnitude(input, 1);
 			Vector3 direction = transform.rotation * new Vector3(
-				input.x * Time.fixedDeltaTime * acceleration * movementMultiplier,
+				input.x * Time.fixedDeltaTime * c.acceleration * movementMultiplier,
 				height - distance,
-				input.y * Time.fixedDeltaTime * acceleration * movementMultiplier
-				);
-			velocity = Vector3.ClampMagnitude(velocity + direction, maxVelocity * movementMultiplier);
-			rigidbody.MovePosition(velocity + transform.position);
+				input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
+			);
+			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
+			rigidbody.MovePosition(sd.velocity + transform.position);
+
+			//if (Vector2.Dot(input, Vector2.up) > 0) { input *= movementMultiplier; }
+			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
+			//float  scale = Vector3.Dot(transform.forward, direction) + 1;
+			rigidbody.MovePosition(sd.velocity + transform.position);
+
+
+			//TODO: This should be implemented when multiple surface materials are used
+			/*if (rigidbody.velocity.sqrMagnitude >= 0.01f && !walking.isPlaying) 
+			{
+				walking.Play();
+			}
+			else if (rigidbody.velocity.sqrMagnitude < 0.01f)
+			{
+				walking.Stop();
+			}*/
 
 			// Rotation
 			// https://discord.com/channels/489222168727519232/885300730104250418/1063576660051501136
