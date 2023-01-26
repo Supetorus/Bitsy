@@ -17,10 +17,6 @@ public class Hack : MonoBehaviour, IInteractable
 
 	public string InteractPrompt => _prompt;
 
-	private void Start()
-	{
-	}
-
 	public bool Interact(Interactor interactor)
 	{
 		panelManager = FindObjectOfType<PanelManager>();
@@ -30,32 +26,27 @@ public class Hack : MonoBehaviour, IInteractable
 		questItem.gameObject.SetActive(true);
 		questItem.AnimateQuest();
 
-		new WaitForSeconds(2);
-
 		gm.hud.gameObject.SetActive(false);
 		gm.mainMenu.gameObject.SetActive(true);
 		
+		panelManager.OpenPanel(panelManager.panels[6].panelName);
+
 		//menuManager.ActivateMenu();
-		
+		gm.playCamera.SetActive(false);
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		gm.menuCamera.SetActive(true);
+
 		if (interactor.tag == "TestWin")
 		{
-			new WaitForSeconds(3);
-
-			panelManager.OpenPanel("Mission Success");
-			panelManager.ShowCurrentPanel();
-
+			//panelManager.OpenPanelByIndex(6);
+			//panelManager.ShowCurrentPanel();
 		}
 		/*if (interactor.tag == "TestLose")
 		{
 			panelManager.currentPanelIndex = 7;
 		}*/
 
-
 		return true;
-	}
-
-	public void UpdateQuest()
-	{
-
 	}
 }
