@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 			case "hud": hud = o; break;
 			case "mainmenu": mainMenu = o; break;
 			case "menucamera": menuCamera = o; break;
-			case "playCamera": playCamera = o; break;
+			case "playcamera": playCamera = o; break;
 			default:
 				Debug.LogError(o.name + " attempted to register with Game Manager, but failed to do so. Registration name given was: " + registrationName);
 				break;

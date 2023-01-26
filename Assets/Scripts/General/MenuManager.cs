@@ -5,30 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    GameObject playerHud;
-    GameObject mainMenu;
+	GameManager gm;
     //ThirdPersonCameraController playerCameraController;
 
     private void Start()
     {
-        playerHud = GameObject.FindGameObjectWithTag("HUD");
-        mainMenu = GameObject.FindGameObjectWithTag("MainMenu");
-        //playerCameraController = GameObject.FindObjectOfType<ThirdPersonCameraController>();
-        //playerCameraController.enabled = false;
-        playerHud.gameObject.SetActive(false);
-        mainMenu.gameObject.SetActive(true);
+		gm = FindObjectOfType<GameManager>();
     }
 
     public void StartGame()
     {
-       //playerCameraController.enabled = true;
-        playerHud.gameObject.SetActive(true);
-        mainMenu.gameObject.SetActive(false);
+		SceneManager.LoadScene("Objective Test", LoadSceneMode.Additive);
+		SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		gm.mainMenu.SetActive(false);
+		gm.menuCamera.SetActive(false);
+		gm.playCamera.SetActive(true);
+		gm.hud.SetActive(true);
+
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
 
     public void ActivateMenu()
     {
-        playerHud.gameObject.SetActive(false);
-        mainMenu.gameObject.SetActive(true);
+        gm.hud.gameObject.SetActive(false);
+        gm.mainMenu.gameObject.SetActive(true);
     }
 }

@@ -6,44 +6,51 @@ using Michsky.UI.Reach;
 
 public class Hack : MonoBehaviour, IInteractable
 {
-    [SerializeField] private QuestItem questItem;
-    private PanelManager panelManager;
-    [SerializeField] private string _prompt;
-    [SerializeField] private TMP_Text _promptText;
-    
+	[SerializeField] private QuestItem questItem;
+	private PanelManager panelManager;
+	[SerializeField] private string _prompt;
+	[SerializeField] private TMP_Text _promptText;
 
-    MenuManager menuManager;
-    //[SerializeField] private ObjectiveHandler objectiveHandler;
+	GameManager gm;
+	MenuManager menuManager;
+	//[SerializeField] private ObjectiveHandler objectiveHandler;
 
-    public string InteractPrompt => _prompt;
+	public string InteractPrompt => _prompt;
 
-    private void Start()
-    {
-    }
+	private void Start()
+	{
+	}
 
-    public bool Interact(Interactor interactor)
-    {
-        panelManager = FindObjectOfType<PanelManager>();
-        //_promptText.text = questItem.questText;
-        questItem.questText = "Steve";
-        questItem.gameObject.SetActive(true);
+	public bool Interact(Interactor interactor)
+	{
+		panelManager = FindObjectOfType<PanelManager>();
 
-        if (interactor.tag == "TestWin")
-        {
-            menuManager = GameObject.FindWithTag("MainMenu").GetComponent<MenuManager>();
-            menuManager.ActivateMenu();
-            panelManager.currentPanelIndex = 6;
-        }
-        if (interactor.tag == "TestLose")
-        {
-            panelManager.currentPanelIndex = 7;
-        }
+		questItem.questText = "Objective Completed";
+		questItem.gameObject.SetActive(true);
 
-        return true;
-    }
+		if (interactor.tag == "TestWin" || interactor.tag == "TestLose")
+		{
+			gm = FindObjectOfType<GameManager>();
+			gm.mainMenu.gameObject.SetActive(true);
+			gm.hud.gameObject.SetActive(false);
+			//menuManager.ActivateMenu();
+			if (interactor.tag == "TestWin")
+			{
+				panelManager.OpenPanel("Mission Success");
+				//panelManager.ShowCurrentPanel();
 
-    public void UpdateQuest()
-    {
+			}
+			/*if (interactor.tag == "TestLose")
+			{
+				panelManager.currentPanelIndex = 7;
+			}*/
+		}
 
-    }
+		return true;
+	}
+
+	public void UpdateQuest()
+	{
+
+	}
 }

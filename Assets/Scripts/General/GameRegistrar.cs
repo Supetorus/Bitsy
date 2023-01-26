@@ -7,7 +7,7 @@ public class GameRegistrar : MonoBehaviour
 	[SerializeField]
 	private string registrationName;
 
-	private void Start()
+	private void Awake()
 	{
 		FindObjectOfType<GameManager>().Register(registrationName, gameObject);
 	}
