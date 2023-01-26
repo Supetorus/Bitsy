@@ -23,7 +23,7 @@ public class AbilityController : MonoBehaviour
 	public MusicManager music;
 	public AudioManager audioManager;
 	[SerializeField] private bool detected;
-	public bool Detected { get { return detected; } set { detected = value;if(audioManager != null) audioManager.PlayerDetected = value; } }
+	public bool Detected { get { return detected; } set { detected = value;if(music != null) music.PlayerDetected = value; } }
 
 	// Start is called before the first frame update
 	void Start()
