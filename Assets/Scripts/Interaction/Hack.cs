@@ -24,27 +24,32 @@ public class Hack : MonoBehaviour, IInteractable
 	public bool Interact(Interactor interactor)
 	{
 		panelManager = FindObjectOfType<PanelManager>();
+		gm = FindObjectOfType<GameManager>();
 
 		questItem.questText = "Objective Completed";
 		questItem.gameObject.SetActive(true);
+		questItem.AnimateQuest();
 
-		if (interactor.tag == "TestWin" || interactor.tag == "TestLose")
+		new WaitForSeconds(2);
+
+		gm.hud.gameObject.SetActive(false);
+		gm.mainMenu.gameObject.SetActive(true);
+		
+		//menuManager.ActivateMenu();
+		
+		if (interactor.tag == "TestWin")
 		{
-			gm = FindObjectOfType<GameManager>();
-			gm.mainMenu.gameObject.SetActive(true);
-			gm.hud.gameObject.SetActive(false);
-			//menuManager.ActivateMenu();
-			if (interactor.tag == "TestWin")
-			{
-				panelManager.OpenPanel("Mission Success");
-				//panelManager.ShowCurrentPanel();
+			new WaitForSeconds(3);
 
-			}
-			/*if (interactor.tag == "TestLose")
-			{
-				panelManager.currentPanelIndex = 7;
-			}*/
+			panelManager.OpenPanel("Mission Success");
+			panelManager.ShowCurrentPanel();
+
 		}
+		/*if (interactor.tag == "TestLose")
+		{
+			panelManager.currentPanelIndex = 7;
+		}*/
+
 
 		return true;
 	}
