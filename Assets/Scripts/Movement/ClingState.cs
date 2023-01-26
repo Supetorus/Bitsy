@@ -82,7 +82,7 @@ public class ClingState : MovementState
 			//if (Vector2.Dot(input, Vector2.up) > 0) { input *= movementMultiplier; }
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
 			//float  scale = Vector3.Dot(transform.forward, direction) + 1;
-			rigidbody.MovePosition(sd.velocity + transform.position);
+			//rigidbody.MovePosition(sd.velocity + transform.position);
 
 			if (rigidbody.velocity.sqrMagnitude >= 0.01f && !walking.isPlaying) 
 			{
