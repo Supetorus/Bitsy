@@ -13,15 +13,18 @@ public class AbilityController : MonoBehaviour
     public Transform spiderCenter;
 
     [SerializeField] private Ability[] equippedAbilities = new Ability[3];
-    public Ability activeAbility;
+
     bool abilityActive;
     bool abilityTimerActive;
     bool cooldownActive;
-    public int abilityIndex = 1;
-    [HideInInspector] public bool isVisible = true;
+    public int abilityIndex = 0;
 
 	public MusicManager music;
+    public Ability activeAbility;
 	public AudioManager audioManager;
+
+    [HideInInspector] public bool isVisible = true;
+
 	[SerializeField] private bool detected;
 	public bool Detected { get { return detected; } set { detected = value;if(music != null) music.PlayerDetected = value; } }
 
@@ -30,14 +33,26 @@ public class AbilityController : MonoBehaviour
     {
         activeAA.action.Enable();
         cycleAbility.action.Enable();
-        activeAbility = equippedAbilities[abilityIndex];    
+        if (equippedAbilities[abilityIndex] != null)
+        {
+            activeAbility = equippedAbilities[abilityIndex];
+        } 
+        else
+        {
+            activeAbility = null;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (activeAA.action.ReadValue<float>() > 0 && !abilityActive && activeAbility.cooldownTimer <= 0)
+        if (activeAA.action.ReadValue<float>() > 0 && !abilityActive && activeAbility?.cooldownTimer <= 0 )
         {
+            if(activeAbility == null)
+            {
+                print("No Equipped Ability");
+                return;
+            }
             abilityActive = true;
             activeAbility.UseAbility();
             if (activeAbility.abilityTime != 0) {
@@ -51,14 +66,26 @@ public class AbilityController : MonoBehaviour
         }
         else if (cycleAbility.action.ReadValue<float>() > 0)
         {
-            if (abilityIndex == 0) abilityIndex = 2;
-            else abilityIndex--;
+            if (abilityIndex == 0)
+            {
+                if (equippedAbilities[2] != null) abilityIndex = 2;
+            }
+            else
+            {
+                if (equippedAbilities[abilityIndex - 1] != null) abilityIndex--;
+            }
             activeAbility = equippedAbilities[abilityIndex];
         }
         else if (cycleAbility.action.ReadValue<float>() < 0)
         {
-            if (abilityIndex == 2) abilityIndex = 0;
-            else abilityIndex++;
+            if (abilityIndex == 2)
+            {
+                if (equippedAbilities[0] != null) abilityIndex = 0;
+            }
+            else
+            {
+                if (equippedAbilities[abilityIndex + 1] != null) abilityIndex++;
+            }
             activeAbility = equippedAbilities[abilityIndex];
         }
 

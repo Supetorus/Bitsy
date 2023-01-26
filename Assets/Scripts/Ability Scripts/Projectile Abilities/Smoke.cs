@@ -16,7 +16,6 @@ public class Smoke : MonoBehaviour
     {
         if(other.gameObject.TryGetComponent<AbilityController>(out AbilityController controller))
         {
-            print("Set Invis");
             controller.isVisible = false;
         }
     }
@@ -25,7 +24,6 @@ public class Smoke : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<AbilityController>(out AbilityController controller))
         {
-            print("Set Vis");
             controller.isVisible = true;
         }
     }
