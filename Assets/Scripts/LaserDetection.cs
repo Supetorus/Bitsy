@@ -6,6 +6,8 @@ using UnityEngine;
 public class LaserDetection : MonoBehaviour
 {
 	public bool doesDamage;
+	public Transform droneSpawn;
+	public Transform droneObject;
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -23,6 +25,10 @@ public class LaserDetection : MonoBehaviour
 			{
 				//Increase the detection meter
 				other.gameObject.GetComponent<Detection>().DetectionValue = 100;
+				if(droneSpawn != null) {
+					droneObject.localScale = new Vector3(.15f, .15f, .15f);
+					Instantiate(droneObject, droneSpawn.position, droneSpawn.rotation);
+				}
 				foreach (var alarm in FindObjectsOfType<Alarm>())
 				{
 					alarm.Play();
