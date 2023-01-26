@@ -117,7 +117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949232469}
   m_LocalRotation: {x: -0.13052624, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 0.0562, z: 0.0268}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0.0268}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -896,7 +896,7 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 247
-  zoomedFOV: 20
+  zoomedFOV: 15
   zoomSpeed: 4
   look: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   zoom: {fileID: 5077891831671390531, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
@@ -1293,14 +1293,16 @@ GameObject:
   m_Component:
   - component: {fileID: 2683350035233569022}
   - component: {fileID: 2683350035233569023}
+  - component: {fileID: 797285238}
   - component: {fileID: 2683350035233568992}
   - component: {fileID: 2683350035233568995}
   - component: {fileID: 2683350035233568993}
   - component: {fileID: 2683350035233568994}
   - component: {fileID: 5510854112619284885}
+  - component: {fileID: 3680606545180593560}
   - component: {fileID: 797285236}
+  - component: {fileID: 1575622301618033860}
   - component: {fileID: 797285234}
-  - component: {fileID: 797285233}
   - component: {fileID: 797285237}
   - component: {fileID: 797285238}
   - component: {fileID: 1685213078}
@@ -1353,6 +1355,19 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!135 &797285238
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.17
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2683350035233568992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1391,7 +1406,7 @@ MonoBehaviour:
   lesserAttachmentDistance: 0.2
   walkableLayers:
     serializedVersion: 2
-    m_Bits: 209
+    m_Bits: 81
   camera: {fileID: 2683350034061294020}
   icosphereDensity: 5
   velocity: {x: 0, y: 0, z: 0}
@@ -1437,6 +1452,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 4
+--- !u!114 &3680606545180593560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57fcd8d4e3aa6634a843e19d0323905f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalRot: {x: 0, y: 0, z: 0, w: 0}
+  targetRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &797285236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1453,15 +1482,36 @@ MonoBehaviour:
   cycleAbility: {fileID: -5845073736614372765, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   spiderCenter: {fileID: 1152317632}
   equippedAbilities:
-  - {fileID: 797285234}
   - {fileID: 797285237}
-  - {fileID: 797285233}
+  - {fileID: 797285234}
+  - {fileID: 1575622301618033860}
+  abilityIndex: 0
   activeAbility: {fileID: 0}
-  abilityIndex: 1
+  audioManager: {fileID: 0}
   isVisible: 1
   music: {fileID: 2099038405072835613}
   audioManager: {fileID: 7284688453220278872}
   detected: 0
+--- !u!114 &1575622301618033860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beaccb37a09abcc409364b6ec8a6fda2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityTime: 0
+  cooldownTime: 0
+  abilityTimer: 0
+  cooldownTimer: 0
+  projectile: {fileID: 0}
+  projectileSpawn: {fileID: 1949232470}
+  speed: 5
+  mode: 1
 --- !u!114 &797285234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1482,26 +1532,6 @@ MonoBehaviour:
   projectileSpawn: {fileID: 548105288}
   speed: 1000
   mode: 5
---- !u!114 &797285233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2683350035233569020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beaccb37a09abcc409364b6ec8a6fda2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityTime: 0
-  cooldownTime: 5
-  abilityTimer: 0
-  cooldownTimer: 0
-  projectile: {fileID: 3442810844120767547, guid: c9e3fd1f9cd651a45a0598432ecc1076, type: 3}
-  projectileSpawn: {fileID: 1949232470}
-  speed: 500
-  mode: 0
 --- !u!114 &797285237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1515,7 +1545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityTime: 0
-  cooldownTime: 0
+  cooldownTime: 2
   abilityTimer: 0
   cooldownTimer: 0
 --- !u!135 &797285238
