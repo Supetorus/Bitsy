@@ -77,12 +77,12 @@ public class ClingState : MovementState
 				input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
 			);
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
-			rigidbody.MovePosition(sd.velocity + transform.position);
+			rigidbody.MovePosition(sd.velocity * Time.fixedDeltaTime + transform.position);
 
 			//if (Vector2.Dot(input, Vector2.up) > 0) { input *= movementMultiplier; }
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
 			//float  scale = Vector3.Dot(transform.forward, direction) + 1;
-			rigidbody.MovePosition(sd.velocity + transform.position);
+			rigidbody.MovePosition(sd.velocity * Time.fixedDeltaTime + transform.position);
 
 
 			//TODO: This should be implemented when multiple surface materials are used

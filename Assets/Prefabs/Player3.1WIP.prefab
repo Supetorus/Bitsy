@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 680285922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -216,8 +216,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350034061294017}
-  m_LocalRotation: {x: 0.07845892, y: -0, z: -0, w: 0.99691737}
-  m_LocalPosition: {x: 4.6899996, y: 7.1202173, z: -5.01471}
+  m_LocalRotation: {x: 0.07845908, y: -0, z: -0, w: 0.99691737}
+  m_LocalPosition: {x: -0.826, y: 0.5032172, z: 0.23315582}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -556,7 +556,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350035233569020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.6899996, y: 6.742, z: -4.520866}
+  m_LocalPosition: {x: -0.826, y: 0.125, z: 0.727}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -599,7 +599,7 @@ MonoBehaviour:
   move: {fileID: 4184646067059678515, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   sprint: {fileID: -8714904812635025669, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   jump: {fileID: 866015529340218118, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  maxVelocity: 0.1
+  maxVelocity: 0.4
   acceleration: 1
   drag: 0.1
   clingState: {fileID: 0}
@@ -617,7 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cdeacd02664f444aee0e9c7c596c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachmentDistance: 0.5
+  attachmentDistance: 0.45
   lesserAttachmentDistance: 0.2
   walkableLayers:
     serializedVersion: 2
@@ -637,10 +637,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c895a65b820ba45ac20a94c2e11122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 0.275
+  height: 0.125
   drag: 0.8
   sprintMultiplier: 1.5
-  walking: {fileID: 0}
 --- !u!114 &2683350035233568994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,7 +758,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.17
+  m_Radius: 0.125
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1685213078
 MonoBehaviour:
@@ -1103,6 +1102,18 @@ PrefabInstance:
     - target: {fileID: 2550681399653980878, guid: 679128f74841bca4b9a31e17289b65cf, type: 3}
       propertyPath: m_Name
       value: SpiderOrange
+      objectReference: {fileID: 0}
+    - target: {fileID: 2553488899277732304, guid: 679128f74841bca4b9a31e17289b65cf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2553508811355835588, guid: 679128f74841bca4b9a31e17289b65cf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2553508811355835588, guid: 679128f74841bca4b9a31e17289b65cf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0045349
       objectReference: {fileID: 0}
     - target: {fileID: 2553852398366371750, guid: 679128f74841bca4b9a31e17289b65cf, type: 3}
       propertyPath: m_RootOrder
