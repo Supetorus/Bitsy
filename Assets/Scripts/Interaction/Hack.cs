@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hack : MonoBehaviour, IInteractable
 {
 	[SerializeField] private string _prompt;
-	[SerializeField] private AudioSource sfx;
+	[SerializeField] private AudioClip sfx;
 	private bool hacked = false;
 
 	public string InteractPrompt => _prompt;
@@ -15,7 +15,7 @@ public class Hack : MonoBehaviour, IInteractable
 		if (!hacked)
 		{
 			hacked = true;
-			sfx.PlayOneShot(sfx.clip);
+			AudioSource.PlayClipAtPoint(sfx, transform.position);
 			Debug.Log(_prompt);
 			return true;
 		}
