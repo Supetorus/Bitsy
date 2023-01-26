@@ -78,19 +78,17 @@ public class Enemy : MonoBehaviour {
     return false;
   }
 
-  public void KnockOut() {
+	public void KnockOut()
+	{
+		print(gameObject.name + "I'm knocked out!");
+	}
 
-  }
-
-  public void MoveDrone() {
+	public void MoveDrone() {
     //Debug.Log(nodes[node_Count].transform.position.x + " " + nodes[node_Count].transform.position.y + " " + nodes[node_Count].transform.position.z);
 
     transform.position = Vector3.MoveTowards(transform.position, nodes[node_Count].transform.position, 5 * Time.deltaTime);
     transform.LookAt(nodes[node_Count].transform.position);
-    public void KnockOut()
-    {
-        print(gameObject.name + "I'm knocked out!");
-    }
+    
 
     //Debug.Log("Node Number: " + node_Count);
     //Debug.Log("Node Count: " + nodes.Count);
