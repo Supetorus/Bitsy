@@ -87,6 +87,10 @@ public class Enemy : MonoBehaviour {
 
     transform.position = Vector3.MoveTowards(transform.position, nodes[node_Count].transform.position, 5 * Time.deltaTime);
     transform.LookAt(nodes[node_Count].transform.position);
+    public void KnockOut()
+    {
+        print(gameObject.name + "I'm knocked out!");
+    }
 
     //Debug.Log("Node Number: " + node_Count);
     //Debug.Log("Node Count: " + nodes.Count);
@@ -99,6 +103,10 @@ public class Enemy : MonoBehaviour {
       }
     }
   }
+    public void Stun()
+    {
+        print(gameObject.name + "I'm stunned!");
+    }
 
   public void OnDrawGizmos() {
     Gizmos.color = Color.red;
