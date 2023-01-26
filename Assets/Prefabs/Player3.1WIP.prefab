@@ -340,7 +340,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 59.93994, y: -44.80005}
+  m_AnchoredPosition: {x: 59.93994, y: -44.799927}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2683350034286733027
@@ -541,7 +541,6 @@ GameObject:
   - component: {fileID: 1685213078}
   - component: {fileID: 1685213090}
   - component: {fileID: 1685213091}
-  - component: {fileID: 3680606545180593560}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -641,6 +640,7 @@ MonoBehaviour:
   height: 0.275
   drag: 0.8
   sprintMultiplier: 1.5
+  walking: {fileID: 0}
 --- !u!114 &2683350035233568994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,11 +686,11 @@ MonoBehaviour:
   - {fileID: 797285234}
   - {fileID: 797285237}
   - {fileID: 797285233}
-  abilityIndex: 1
-  music: {fileID: 2099038405072835613}
   activeAbility: {fileID: 0}
-  audioManager: {fileID: 0}
+  abilityIndex: 1
   isVisible: 1
+  music: {fileID: 2099038405072835613}
+  audioManager: {fileID: 0}
   detected: 0
 --- !u!114 &797285234
 MonoBehaviour:
@@ -745,13 +745,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityTime: 0
-  cooldownTime: 3
+  cooldownTime: 0
   abilityTimer: 0
   cooldownTimer: 0
-  maxZipDistance: 7
-  myLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!135 &797285238
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -810,20 +806,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7277cf499e6856f4cba741e77b53a009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3680606545180593560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2683350035233569020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57fcd8d4e3aa6634a843e19d0323905f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalRot: {x: 0, y: 0, z: 0, w: 0}
-  targetRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2683350035388508368
 GameObject:
   m_ObjectHideFlags: 0
