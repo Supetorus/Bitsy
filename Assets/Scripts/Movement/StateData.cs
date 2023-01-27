@@ -32,6 +32,8 @@ public class StateData : MonoBehaviour
 		}
 	}
 
+	public Vector3 velocity;
+
 	private void Start()
 	{
 		if (lesserAttachmentDistance > attachmentDistance) Debug.LogError("Lesser Attachment Distance must be less than Attachment Distance in 'State Data'");
