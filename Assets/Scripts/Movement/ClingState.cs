@@ -59,7 +59,7 @@ public class ClingState : MovementState
 
 		// Sprint
 		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
-		else movementMultiplier = Mathf.Clamp(movementMultiplier, 1, sprintMultiplier);
+		else movementMultiplier = Mathf.Clamp(movementMultiplier * drag, 1, sprintMultiplier);
 
 		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
 		// Near a walkable surface
