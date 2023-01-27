@@ -7,6 +7,7 @@ public class WebZipAbility : Ability
 {
     [SerializeField] float maxZipDistance;
     [SerializeField] LayerMask myLayerMask;
+    [SerializeField] private bool drawGizmos = false;
 
     MovementController controller;
 
@@ -18,7 +19,7 @@ public class WebZipAbility : Ability
     public void Update()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
-        Debug.DrawRay(transform.position, ray.direction);
+        if (drawGizmos) Debug.DrawRay(transform.position, ray.direction);
     }
 
     public override void DeactivateAbility()
@@ -29,7 +30,7 @@ public class WebZipAbility : Ability
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
-        Debug.DrawRay(transform.position, ray.direction);
+        if (drawGizmos) Debug.DrawRay(transform.position, ray.direction);
         Physics.Raycast(ray, out hit, maxZipDistance, myLayerMask);
         if (hit.collider)
         {

@@ -18,6 +18,12 @@ public class StateData : MonoBehaviour
 	[SerializeField, Tooltip("The density of points on the icosphere, used for calculating raycast points around the player."), Min(2)]
 	public int icosphereDensity = 2;
 
+	[Header("Gizmo settings")]
+	[SerializeField]
+	private bool drawRays = true;
+	[SerializeField]
+	private bool drawHits = true;
+
 	[HideInInspector]
 	public Vector3 velocity;
 	
@@ -165,7 +171,7 @@ public class StateData : MonoBehaviour
 	{
 		// If the program isn't running I can't get the icosphere mesh in order to calculate the raycast points,
 		// so here are some consolation spheres.
-		if (!Application.isPlaying)
+		if (!Application.isPlaying && drawRays)
 		{
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawWireSphere(transform.position, attachmentDistance);
@@ -174,15 +180,12 @@ public class StateData : MonoBehaviour
 			return;
 		}
 
-		Gizmos.color = Color.green;
-		foreach(var p in hitPoints)
+		if (drawHits)
 		{
 			Gizmos.DrawSphere(p, 0.01f);
 		}
 
-		// If the program is running you get to see where the raycasts actually are.
-		Gizmos.color = Color.yellow;
-		foreach (Vector3 v in Icosphere.vertices)
+		if (drawRays)
 		{
 			Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + v * lastCheckDistance);
 		}

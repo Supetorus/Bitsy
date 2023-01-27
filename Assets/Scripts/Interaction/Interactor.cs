@@ -19,6 +19,7 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float _interactionPointRadius = 0.5f;
     [SerializeField] private LayerMask _interactableMask;
     [SerializeField] private int _numFound;
+    [SerializeField] private bool drawInteractionArea = true;
 
     public InputActionReference interact;
 
@@ -27,11 +28,6 @@ public class Interactor : MonoBehaviour
     private void Start()
     {
         interact.action.Enable();
-    }
-
-    private void Update()
-    {
-
     }
 
     private void FixedUpdate()
@@ -58,7 +54,7 @@ public class Interactor : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(_interactionPoint.position, _interactionPointRadius);
     }
 }
