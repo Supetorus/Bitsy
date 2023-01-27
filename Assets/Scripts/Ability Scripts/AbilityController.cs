@@ -19,13 +19,14 @@ public class AbilityController : MonoBehaviour
     bool cooldownActive;
     public int abilityIndex = 0;
 
+	public MusicManager music;
     public Ability activeAbility;
 	public AudioManager audioManager;
 
     [HideInInspector] public bool isVisible = true;
 
 	[SerializeField] private bool detected;
-	public bool Detected { get { return detected; } set { detected = value; audioManager.PlayerDetected = value; } }
+	public bool Detected { get { return detected; } set { detected = value;if(music != null) music.PlayerDetected = value; } }
 
 	// Start is called before the first frame update
 	void Start()

@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hide : MonoBehaviour, IInteractable {
-  [SerializeField] private string _prompt;
+public class Hide : MonoBehaviour, IInteractable
+{
+	[SerializeField] private string _prompt;
+	[SerializeField] private AudioSource sfx;
+	[SerializeField] private AudioClip opensfx;
 
-  public string InteractPrompt => _prompt;
+	private bool hiding = false;
 
-  public bool Interact(Interactor interactor) {
-    Debug.Log(_prompt);
-    return true;
-  }
+
+	public string InteractPrompt => _prompt;
+
+	public bool Interact(Interactor interactor)
+	{
+		sfx.PlayOneShot(opensfx);
+		Debug.Log(_prompt);
+		return true;
+	}
 }

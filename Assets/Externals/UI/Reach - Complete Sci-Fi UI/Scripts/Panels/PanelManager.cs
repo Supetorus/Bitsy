@@ -61,6 +61,7 @@ namespace Michsky.UI.Reach
 
         void Awake()
         {
+            
             if (panels.Count == 0)
                 return;
 
