@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 /// <summary>
 /// This describes data useful to the current state.
@@ -84,6 +85,26 @@ public class StateData : MonoBehaviour
 		return hitPoints;
 	}
 
+	private List<Vector3> SphereRaycastNormal(float checkDistance)
+	{
+		//hitPoints.Clear();
+		hitPoints = new List<Vector3>();
+		int vCount = 0;
+		foreach (var v in icosphereVertices)
+		{
+			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
+			if (hit.collider != null)
+			{
+				hitPoints.Add(hit.normal);
+				//Debug.DrawRay(hit.point, hit.normal * 3, Color.cyan);
+			}
+
+			if (v == Vector3.up) vCount++;
+		}
+		return hitPoints;
+	}
+
+
 	/// <summary>
 	/// Uses a hemisphere of points below the player (relative to the player) to calculate an average up direction.
 	/// </summary>
@@ -91,23 +112,24 @@ public class StateData : MonoBehaviour
 	/// <returns></returns>
 	public Vector3 CalculateAverageUp(float checkDistance)
 	{
-		List<Vector3> points = SphereRaycast(checkDistance);
+		List<Vector3> points = SphereRaycastNormal(checkDistance);
 
 		List<Vector3> pointsBelowPlayer = new List<Vector3>();
 		foreach (Vector3 point in points)
 		{
-			if (Vector3.Dot(point - transform.position, -transform.up) > 0)
+			if (Vector3.Dot(point, -transform.up) > 0)
 			{
 				pointsBelowPlayer.Add(point);
 			}
 		}
 
 		Vector3 average = Vector3.zero;
-		foreach (var point in pointsBelowPlayer)
+		foreach (var point in points)
 		{
 			average += point;
 		}
-		return -average.normalized;
+		//Debug.DrawRay(transform.position, average.normalized * 5, Color.yellow);
+		return average.normalized;
 	}
 
 	#region ClosestPoint
