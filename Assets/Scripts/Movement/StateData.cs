@@ -18,6 +18,9 @@ public class StateData : MonoBehaviour
 	[SerializeField, Tooltip("The density of points on the icosphere, used for calculating raycast points around the player."), Min(2)]
 	public int icosphereDensity = 2;
 
+	[HideInInspector]
+	public Vector3 velocity;
+	
 	// An icosphere is just a geometric shape. It's being used to generate a sphere of raycasts.
 	private Mesh icosphere;
 	private Mesh Icosphere
@@ -32,8 +35,6 @@ public class StateData : MonoBehaviour
 		}
 	}
 
-	public Vector3 velocity;
-
 	private void Start()
 	{
 		if (lesserAttachmentDistance > attachmentDistance) Debug.LogError("Lesser Attachment Distance must be less than Attachment Distance in 'State Data'");
@@ -41,7 +42,52 @@ public class StateData : MonoBehaviour
 		if (camera == null) Debug.LogError("Camera is not assigned in 'State Data'");
 	}
 
+	// This is just used for the gizmo to display.
 	private float lastCheckDistance;
+
+	List<Vector3> hitPoints = new List<Vector3>();
+	/// <summary>
+	/// Returns a list of points that have been hit by SphereRaycast.
+	/// </summary>
+	/// <param name="checkDistance"></param>
+	/// <returns></returns>
+	private List<Vector3> SphereRaycast(float checkDistance)
+	{
+		//hitPoints.Clear();
+		hitPoints = new List<Vector3>();
+		foreach (var v in Icosphere.vertices)
+		{
+			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
+			if (hit.collider != null) hitPoints.Add(hit.point);
+		}
+		return hitPoints;
+	}
+
+	/// <summary>
+	/// Uses a hemisphere of points below the player (relative to the player) to calculate an average up direction.
+	/// </summary>
+	/// <param name="checkDistance"></param>
+	/// <returns></returns>
+	public Vector3 CalculateAverageUp(float checkDistance)
+	{
+		List<Vector3> points = SphereRaycast(checkDistance);
+
+		List<Vector3> pointsBelowPlayer = new List<Vector3>();
+		foreach (Vector3 point in points)
+		{
+			if (Vector3.Dot(point - transform.position, -transform.up) > 0)
+			{
+				pointsBelowPlayer.Add(point);
+			}
+		}
+
+		Vector3 average = Vector3.zero;
+		foreach(var point in pointsBelowPlayer)
+		{
+			average += point;
+		}
+		return -average.normalized;
+	}
 
 	#region ClosestPoint
 	private Vector3? closestPoint = null;
@@ -59,19 +105,13 @@ public class StateData : MonoBehaviour
 		}
 		lastCheckDistance = checkDistance;
 		// Collect the list of hits.
-		List<RaycastHit> hits = new List<RaycastHit>();
-		foreach (var v in Icosphere.vertices)
-		{
-			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
-			if (hit.collider != null) hits.Add(hit);
-		}
+		List<Vector3> hits = SphereRaycast(checkDistance);
 
 		// Calculate the closest point of those hits.
 		closestPoint = null;
 		float closestPointSqrDistance = float.MaxValue;
-		foreach (RaycastHit hit in hits)
+		foreach (Vector3 point in hits)
 		{
-			Vector3 point = hit.point;
 			float distance = (transform.position - point).sqrMagnitude;
 			if (distance < closestPointSqrDistance)
 			{
@@ -132,6 +172,12 @@ public class StateData : MonoBehaviour
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireSphere(transform.position, lesserAttachmentDistance);
 			return;
+		}
+
+		Gizmos.color = Color.green;
+		foreach(var p in hitPoints)
+		{
+			Gizmos.DrawSphere(p, 0.01f);
 		}
 
 		// If the program is running you get to see where the raycasts actually are.

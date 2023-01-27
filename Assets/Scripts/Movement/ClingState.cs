@@ -79,11 +79,8 @@ public class ClingState : MovementState
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
 			rigidbody.MovePosition(sd.velocity * Time.fixedDeltaTime + transform.position);
 
-			//if (Vector2.Dot(input, Vector2.up) > 0) { input *= movementMultiplier; }
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + direction, c.maxVelocity * movementMultiplier);
-			//float  scale = Vector3.Dot(transform.forward, direction) + 1;
 			rigidbody.MovePosition(sd.velocity * Time.fixedDeltaTime + transform.position);
-
 
 			//TODO: This should be implemented when multiple surface materials are used
 			/*if (rigidbody.velocity.sqrMagnitude >= 0.01f && !walking.isPlaying) 
@@ -98,6 +95,8 @@ public class ClingState : MovementState
 			// Rotation
 			// https://discord.com/channels/489222168727519232/885300730104250418/1063576660051501136
 			// Sets the forward direction of the spider based on camera.
+			Vector3 upDirection = sd.CalculateAverageUp(sd.attachmentDistance);
+			Debug.DrawLine(transform.position, transform.position + upDirection);
 			Vector3 forward = Vector3.ProjectOnPlane(sd.camera.forward, up);
 			Quaternion targetRotation = Quaternion.LookRotation(forward, up);
 			// Slerp is used to make the rotation more gradual so it doesn't instantly snap.
