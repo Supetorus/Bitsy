@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -26,26 +27,38 @@ public class StateData : MonoBehaviour
 
 	[HideInInspector]
 	public Vector3 velocity;
-	
+
 	// An icosphere is just a geometric shape. It's being used to generate a sphere of raycasts.
-	private Mesh icosphere;
-	private Mesh Icosphere
-	{
-		get
-		{
-			if (icosphere == null)
-			{
-				icosphere = IcosphereCreator.Create(icosphereDensity, 1);
-			}
-			return icosphere;
-		}
-	}
+	//private Mesh icosphere;
+	//private Mesh Icosphere
+	//{
+	//	get
+	//	{
+	//		if (icosphere == null)
+	//		{
+	//			icosphere = IcosphereCreator.Create(icosphereDensity, 1);
+	//		}
+	//		return icosphere;
+	//	}
+	//}
+
+	private Vector3[] icosphereVertices;
 
 	private void Start()
 	{
 		if (lesserAttachmentDistance > attachmentDistance) Debug.LogError("Lesser Attachment Distance must be less than Attachment Distance in 'State Data'");
 		if ((walkableLayers & LayerMask.GetMask("Player")) > 0) Debug.LogError("Player cannot be in the layermask for 'State Data' Walkable Layers.");
 		if (camera == null) Debug.LogError("Camera is not assigned in 'State Data'");
+
+
+
+		Mesh icosphere = IcosphereCreator.Create(icosphereDensity, 1);
+		List<Vector3> verts = new List<Vector3>();
+		foreach(var v in icosphere.vertices)
+		{
+			if (!verts.Contains(v)) verts.Add(v);
+		}
+		icosphereVertices = verts.ToArray();
 	}
 
 	// This is just used for the gizmo to display.
@@ -61,10 +74,12 @@ public class StateData : MonoBehaviour
 	{
 		//hitPoints.Clear();
 		hitPoints = new List<Vector3>();
-		foreach (var v in Icosphere.vertices)
+		int vCount = 0;
+		foreach (var v in icosphereVertices)
 		{
 			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
 			if (hit.collider != null) hitPoints.Add(hit.point);
+			if (v == Vector3.up) vCount++;
 		}
 		return hitPoints;
 	}
@@ -88,7 +103,7 @@ public class StateData : MonoBehaviour
 		}
 
 		Vector3 average = Vector3.zero;
-		foreach(var point in pointsBelowPlayer)
+		foreach (var point in pointsBelowPlayer)
 		{
 			average += point;
 		}
@@ -144,7 +159,7 @@ public class StateData : MonoBehaviour
 		lastCheckDistance = checkDistance;
 		// Collect the list of hits.
 		List<RaycastHit> hits = new List<RaycastHit>();
-		foreach (var v in Icosphere.vertices)
+		foreach (var v in icosphereVertices)
 		{
 			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
 			if (hit.collider != null) hits.Add(hit);
@@ -182,12 +197,21 @@ public class StateData : MonoBehaviour
 
 		if (drawHits)
 		{
-			Gizmos.DrawSphere(p, 0.01f);
+			Gizmos.color = Color.green;
+			foreach (var p in hitPoints)
+			{
+				Gizmos.DrawSphere(p, 0.01f);
+			}
 		}
 
 		if (drawRays)
 		{
-			Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + v * lastCheckDistance);
+			// If the program is running you get to see where the raycasts actually are.
+			Gizmos.color = Color.yellow;
+			foreach (Vector3 v in icosphereVertices)
+			{
+				Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + v * lastCheckDistance);
+			}
 		}
 
 		// This draws a line to the closest point.

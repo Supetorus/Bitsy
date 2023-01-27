@@ -96,9 +96,10 @@ public class ClingState : MovementState
 			// https://discord.com/channels/489222168727519232/885300730104250418/1063576660051501136
 			// Sets the forward direction of the spider based on camera.
 			Vector3 upDirection = sd.CalculateAverageUp(sd.attachmentDistance);
-			Debug.DrawLine(transform.position, transform.position + upDirection);
-			Vector3 forward = Vector3.ProjectOnPlane(sd.camera.forward, up);
-			Quaternion targetRotation = Quaternion.LookRotation(forward, up);
+			//print(upDirection +""+ transform.position +""+ transform.position + upDirection);
+			Debug.DrawLine(transform.position, transform.position + upDirection, Color.magenta);
+			Vector3 forward = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
+			Quaternion targetRotation = Quaternion.LookRotation(forward, upDirection);
 			// Slerp is used to make the rotation more gradual so it doesn't instantly snap.
 			rigidbody.MoveRotation(
 				Quaternion.Slerp(
