@@ -28,7 +28,7 @@ public class ClingState : MovementState
 		c.jump.action.Enable();
 		c.sprint.action.Enable();
 		c.move.action.Enable();
-		rigidbody.isKinematic = true;
+		rigidbody.isKinematic = false;
 		rigidbody.useGravity = false;
 	}
 
