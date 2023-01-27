@@ -814,8 +814,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350034061294017}
-  m_LocalRotation: {x: 0.07845908, y: -0, z: -0, w: 0.99691737}
-  m_LocalPosition: {x: 0, y: 0.7162172, z: -0.49384418}
+  m_LocalRotation: {x: 0.25881907, y: -0, z: -0, w: 0.9659259}
+  m_LocalPosition: {x: 0, y: 1.638, z: -1.7320508}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -887,16 +887,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1068354811471654119}
-  distance: 0.5
+  distance: 2
   yaw: 0
-  pitch: 9
+  pitch: 30
   maxPitch: 80
   minPitch: -80
   hitLayers:
     serializedVersion: 2
     m_Bits: 247
   cameraInput: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  sensitivity: 1
+  sensitivity: 3
   invertX: 0
   invertY: 0
 --- !u!1 &2683350034651017715
@@ -1365,6 +1365,8 @@ MonoBehaviour:
     m_Bits: 209
   camera: {fileID: 2683350034061294020}
   icosphereDensity: 5
+  drawRays: 1
+  drawHits: 1
   velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2683350035233568993
 MonoBehaviour:
@@ -1498,13 +1500,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityTime: 0
-  cooldownTime: 0
+  cooldownTime: 2
   abilityTimer: 0
   cooldownTimer: 0
-  maxZipDistance: 0
+  maxZipDistance: 10
   myLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
+  drawGizmos: 0
 --- !u!114 &1685213078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1527,6 +1530,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _numFound: 0
+  drawInteractionArea: 1
   interact: {fileID: 857090945557194352, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
 --- !u!114 &1685213090
 MonoBehaviour:
