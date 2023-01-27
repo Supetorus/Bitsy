@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-
+using Michsky.UI.Reach;
 public class Health : MonoBehaviour
 {
 	// Values
@@ -23,8 +23,12 @@ public class Health : MonoBehaviour
 	[Tooltip("This event is called when the health value changes.")]
 	public UnityEvent onValueChanged;
 	// Display
-	[Tooltip("If assigned, this slider will update as the health changes.")]
+/*	
+ 	[Tooltip("If assigned, this slider will update as the health changes.")]
 	public Slider displaySlider;
+*/
+	[Tooltip("If using ReachUI and assigned, this slider will update as the health changes.")]
+	public ProgressBar progressBar;
 
 	[SerializeField, Tooltip("For debug display only. Do not modify.")]
 	private float health;
@@ -40,7 +44,7 @@ public class Health : MonoBehaviour
 			if (value != health)
 			{
 				onValueChanged.Invoke();
-				if (displaySlider != null) UpdateDisplay(value);
+				if (progressBar != null) UpdateDisplay(value);
 			}
 			health = Mathf.Min(maxValue, Mathf.Max(value, 0));
 		}
@@ -51,11 +55,11 @@ public class Health : MonoBehaviour
 		if (maxValue == 0) maxValue = float.MaxValue;
 		if (startValue == 0) startValue = maxValue;
 		health = startValue;
-		if (displaySlider != null)
+		if (progressBar != null)
 		{
-			displaySlider.maxValue = maxValue;
-			displaySlider.minValue = 0;
-			displaySlider.value = health;
+			progressBar.maxValue = maxValue;
+			progressBar.minValue = 0;
+			progressBar.currentValue = health;
 		}
 	}
 
@@ -83,6 +87,6 @@ public class Health : MonoBehaviour
 
 	private void UpdateDisplay(float newValue)
 	{
-		displaySlider.value = newValue;
+		progressBar.currentValue = newValue;
 	}
 }
