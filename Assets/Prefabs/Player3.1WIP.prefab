@@ -297,12 +297,8 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 247
-  zoomedFOV: 20
-  zoomSpeed: 4
-  look: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  zoom: {fileID: 5077891831671390531, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  defaultSensitivity: 1
-  zoomSensivityMultiplier: 0.3
+  cameraInput: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  sensitivity: 1
   invertX: 0
   invertY: 0
 --- !u!1 &2683350034286733024
@@ -541,6 +537,7 @@ GameObject:
   - component: {fileID: 1685213078}
   - component: {fileID: 1685213090}
   - component: {fileID: 1685213091}
+  - component: {fileID: 3680606545180593560}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -624,6 +621,8 @@ MonoBehaviour:
     m_Bits: 209
   camera: {fileID: 2683350034061294020}
   icosphereDensity: 5
+  drawRays: 1
+  drawHits: 1
   velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2683350035233568993
 MonoBehaviour:
@@ -652,7 +651,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96a5a2806aec5143ae6c1e43928f3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airForce: 500
 --- !u!114 &5510854112619284885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,11 +683,11 @@ MonoBehaviour:
   - {fileID: 797285234}
   - {fileID: 797285237}
   - {fileID: 797285233}
-  activeAbility: {fileID: 0}
   abilityIndex: 1
-  isVisible: 1
   music: {fileID: 2099038405072835613}
+  activeAbility: {fileID: 0}
   audioManager: {fileID: 0}
+  isVisible: 1
   detected: 0
 --- !u!114 &797285234
 MonoBehaviour:
@@ -747,6 +745,11 @@ MonoBehaviour:
   cooldownTime: 0
   abilityTimer: 0
   cooldownTimer: 0
+  maxZipDistance: 0
+  myLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  drawGizmos: 0
 --- !u!135 &797285238
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -772,13 +775,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2221b1f550a54f647be1c22f0dc4c579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  feedNotification: {fileID: 0}
+  questItem: {fileID: 0}
   inventory: {fileID: 1685213090}
+  interactPromptLabel: {fileID: 0}
   _interactionPoint: {fileID: 680285923}
   _interactionPointRadius: 0.1
   _interactableMask:
     serializedVersion: 2
     m_Bits: 64
   _numFound: 0
+  drawInteractionArea: 1
   interact: {fileID: 857090945557194352, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
 --- !u!114 &1685213090
 MonoBehaviour:
@@ -805,6 +812,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7277cf499e6856f4cba741e77b53a009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3680606545180593560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57fcd8d4e3aa6634a843e19d0323905f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalRot: {x: 0, y: 0, z: 0, w: 0}
+  targetRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2683350035388508368
 GameObject:
   m_ObjectHideFlags: 0

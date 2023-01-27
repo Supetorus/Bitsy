@@ -61,7 +61,7 @@ public class MovementController : MonoBehaviour
 	private void Update()
 	{
 		CurrentMovementState.UpdateState();
-		debugText.text = CurrentMovementState.GetType().Name;
+		if (debugText != null) debugText.text = CurrentMovementState.GetType().Name;
 	}
 
 	private void FixedUpdate()
