@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-		SceneManager.LoadScene("Objective Test", LoadSceneMode.Additive);
+		SceneManager.LoadScene("Alpha 1.0 Tutorial Level", LoadSceneMode.Additive);
 		SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
