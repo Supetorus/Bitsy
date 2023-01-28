@@ -29,20 +29,6 @@ public class StateData : MonoBehaviour
 	[HideInInspector]
 	public Vector3 velocity;
 
-	// An icosphere is just a geometric shape. It's being used to generate a sphere of raycasts.
-	//private Mesh icosphere;
-	//private Mesh Icosphere
-	//{
-	//	get
-	//	{
-	//		if (icosphere == null)
-	//		{
-	//			icosphere = IcosphereCreator.Create(icosphereDensity, 1);
-	//		}
-	//		return icosphere;
-	//	}
-	//}
-
 	private Vector3[] icosphereVertices;
 
 	private void Start()
@@ -51,8 +37,9 @@ public class StateData : MonoBehaviour
 		if ((walkableLayers & LayerMask.GetMask("Player")) > 0) Debug.LogError("Player cannot be in the layermask for 'State Data' Walkable Layers.");
 		if (camera == null) Debug.LogError("Camera is not assigned in 'State Data'");
 
-
-
+		// For some reason I don't care to explore right now, the resulting mesh
+		// contains duplicate vertices, so I'm filtering those out so they don't
+		// interfere with calculations or take up excess memory.
 		Mesh icosphere = IcosphereCreator.Create(icosphereDensity, 1);
 		List<Vector3> verts = new List<Vector3>();
 		foreach(var v in icosphere.vertices)
@@ -64,7 +51,6 @@ public class StateData : MonoBehaviour
 
 	// This is just used for the gizmo to display.
 	private float lastCheckDistance;
-
 	List<Vector3> hitPoints = new List<Vector3>();
 	/// <summary>
 	/// Returns a list of points that have been hit by SphereRaycast.
@@ -73,8 +59,7 @@ public class StateData : MonoBehaviour
 	/// <returns></returns>
 	private List<Vector3> SphereRaycast(float checkDistance)
 	{
-		//hitPoints.Clear();
-		hitPoints = new List<Vector3>();
+		hitPoints.Clear();
 		int vCount = 0;
 		foreach (var v in icosphereVertices)
 		{
@@ -88,22 +73,18 @@ public class StateData : MonoBehaviour
 	private List<Vector3> SphereRaycastNormal(float checkDistance)
 	{
 		//hitPoints.Clear();
-		hitPoints = new List<Vector3>();
-		int vCount = 0;
+		List<Vector3> hitPoints = new List<Vector3>();
 		foreach (var v in icosphereVertices)
 		{
 			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
 			if (hit.collider != null)
 			{
 				hitPoints.Add(hit.normal);
-				//Debug.DrawRay(hit.point, hit.normal * 3, Color.cyan);
 			}
-
-			if (v == Vector3.up) vCount++;
 		}
+		this.hitPoints = hitPoints;
 		return hitPoints;
 	}
-
 
 	/// <summary>
 	/// Uses a hemisphere of points below the player (relative to the player) to calculate an average up direction.
@@ -128,7 +109,6 @@ public class StateData : MonoBehaviour
 		{
 			average += point;
 		}
-		//Debug.DrawRay(transform.position, average.normalized * 5, Color.yellow);
 		return average.normalized;
 	}
 
@@ -222,7 +202,7 @@ public class StateData : MonoBehaviour
 			Gizmos.color = Color.green;
 			foreach (var p in hitPoints)
 			{
-				Gizmos.DrawSphere(p, 0.01f);
+				Gizmos.DrawSphere(p, 0.03f);
 			}
 		}
 

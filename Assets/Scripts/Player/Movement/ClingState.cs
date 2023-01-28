@@ -10,9 +10,6 @@ public class ClingState : MovementState
 		"Adjust this to make the legs line up with the ground. Must be less than the State " +
 		"Data's attachment distance."), Min(0)]
 	private float height = 0.5f;
-	[SerializeField, Tooltip("Influences how quickly the spider slows down when input stops." +
-		" Higher numbers apply less drag."), Range(0, 1)]
-	private float drag;
 	[SerializeField, Tooltip("Multiplies with the player acceleration and maxVelocity")]
 	private float sprintMultiplier = 1.5f;
 
@@ -59,7 +56,7 @@ public class ClingState : MovementState
 
 		// Sprint
 		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
-		else movementMultiplier = Mathf.Clamp(movementMultiplier * drag, 1, sprintMultiplier);
+		else movementMultiplier = Mathf.Clamp(movementMultiplier * c.drag, 1, sprintMultiplier);
 
 		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
 		// Near a walkable surface

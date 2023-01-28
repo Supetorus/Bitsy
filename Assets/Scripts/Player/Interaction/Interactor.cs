@@ -19,9 +19,9 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float _interactionPointRadius = 0.5f;
     [SerializeField] private LayerMask _interactableMask;
     [SerializeField] private int _numFound;
-    [SerializeField] private bool drawInteractionArea = true;
-
     public InputActionReference interact;
+
+    [SerializeField] private bool drawInteractionArea = true;
 
     private readonly Collider[] _colliders = new Collider[3];
 
@@ -54,6 +54,7 @@ public class Interactor : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!drawInteractionArea) return;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(_interactionPoint.position, _interactionPointRadius);
     }
