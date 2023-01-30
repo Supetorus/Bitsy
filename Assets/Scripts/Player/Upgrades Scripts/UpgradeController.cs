@@ -54,14 +54,14 @@ public class UpgradeController : MonoBehaviour
 		PlayerPrefs.SetString("DetectiveMode", "False");
 		PlayerPrefs.SetString("Hack", "False");
 		//Abiity Upgrades
-		PlayerPrefs.SetString("SmokeBomb_Upgrade", "False");
-		PlayerPrefs.SetString("EMP_Upgrade", "False");
-		PlayerPrefs.SetString("TrojanDart_Upgrade", "False");
-		PlayerPrefs.SetString("Cloak_Upgrade", "False");
+		PlayerPrefs.SetString("SB_U", "False");
+		PlayerPrefs.SetString("EMP_U", "False");
+		PlayerPrefs.SetString("TD_U", "False");
+		PlayerPrefs.SetString("C_U", "False");
 		//Ammo Upgrades
-		PlayerPrefs.SetString("SmokeBomb_Ammo_Upgrade", "False");
-		PlayerPrefs.SetString("EMP_Ammo_Upgrade", "False");
-		PlayerPrefs.SetString("TrojanDart_Ammo_Upgrade", "False");
+		PlayerPrefs.SetString("SB_AU", "False");
+		PlayerPrefs.SetString("EMP_AU", "False");
+		PlayerPrefs.SetString("TD_AU", "False");
 
 		
 		controller = GetComponent<MovementController>();
@@ -187,28 +187,21 @@ public class UpgradeController : MonoBehaviour
 				case "Hack":
 					hack.action.Enable();
 					break;
+				case "SB_U":
+					break;
+				case "SB_AU":
+					break;
+				case "EMP_U":
+					break;
+				case "EMP_AU":
+					break;
+				case "TD_U":
+					break;
+				case "TD_AU":
+					break;
+				case "C_U":
+					break;
 			}
-		}
-	}
-
-	public void CheckUpgradeEffects(string upgrade)
-	{
-		switch (upgrade)
-		{
-			case "Lunge":
-				lunge.action.Enable();
-				
-				break;
-			case "WebZip":
-				webZip.action.Enable();
-				break;
-			case "DetectiveMode":
-				detectiveMode.action.Enable();
-				break;
-			case "":
-				break;
-			default:
-				break;
 		}
 	}
 }
