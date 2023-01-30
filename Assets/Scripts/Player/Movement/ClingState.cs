@@ -63,10 +63,7 @@ public class ClingState : MovementState
 		if (closestPoint != null)
 		{
 			// Rotation
-			// https://discord.com/channels/489222168727519232/885300730104250418/1063576660051501136
-			// Sets the forward direction of the spider based on camera.
 			Vector3 upDirection = sd.CalculateAverageUp(sd.attachmentDistance);
-			//print(upDirection +""+ transform.position +""+ transform.position + upDirection);
 			Debug.DrawLine(transform.position, transform.position + upDirection, Color.magenta);
 			Vector3 forward = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
 			Quaternion targetRotation = Quaternion.LookRotation(forward, upDirection);
@@ -75,25 +72,20 @@ public class ClingState : MovementState
 					transform.rotation,
 					targetRotation,
 					Quaternion.Angle(transform.rotation, targetRotation) / 360
-					)
-				);
+				)
+			);
+
 			// Movement
-			// This is intentionally not normalized.
-			Vector3 up = transform.position - (Vector3)closestPoint;
-			// distance from the center of object to the ground.
-			float distance = up.magnitude;
+			// distance from the center of object to the nearest walkable object.
+			float distance = (transform.position - (Vector3)closestPoint).magnitude;
 			input = Vector3.ClampMagnitude(input, 1);
 			Vector3 acceleration = new Vector3(
 				input.x * Time.fixedDeltaTime * c.acceleration * movementMultiplier,
-				//1 * Time.fixedDeltaTime * c.acceleration * movementMultiplier,
 				height - distance,
 				input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
 			);
-			print(input);
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + acceleration, c.maxVelocity * movementMultiplier);
 			Vector3 movement = targetRotation * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height-distance)));
-			//rigidbody.AddForce(acceleration);
-			//print("Acceleration: " + acceleration + " velocity: " + sd.velocity + " movement: " + movement);
 			rigidbody.MovePosition(movement + transform.position);
 
 			//TODO: This should be implemented when multiple surface materials are used
@@ -105,12 +97,6 @@ public class ClingState : MovementState
 			{
 				walking.Stop();
 			}*/
-
-
-			//rigidbody.MoveRotation(
-			//		targetRotation
-			//	);
-			//Slerp is used to make the rotation more gradual so it doesn't instantly snap.
 		}
 		// Not near any walkable surfaces.
 		else
