@@ -896,7 +896,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 247
   cameraInput: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  sensitivity: 3
+  sensitivity: 4.5
   invertX: 0
   invertY: 0
 --- !u!1 &2683350034651017715
@@ -1164,11 +1164,11 @@ GameObject:
   - component: {fileID: 797285236}
   - component: {fileID: 797285234}
   - component: {fileID: 797285233}
-  - component: {fileID: 797285237}
   - component: {fileID: 1685213078}
   - component: {fileID: 1685213090}
   - component: {fileID: 1685213091}
   - component: {fileID: 7284688453220278872}
+  - component: {fileID: 740809713}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1340,7 +1340,7 @@ MonoBehaviour:
   move: {fileID: 4184646067059678515, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   sprint: {fileID: -8714904812635025669, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   jump: {fileID: 866015529340218118, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  maxVelocity: 1
+  maxVelocity: 1.5
   acceleration: 1
   drag: 0.1
   clingState: {fileID: 0}
@@ -1439,7 +1439,7 @@ MonoBehaviour:
   spiderCenter: {fileID: 1152317632}
   equippedAbilities:
   - {fileID: 797285234}
-  - {fileID: 797285237}
+  - {fileID: 0}
   - {fileID: 797285233}
   abilityIndex: 1
   music: {fileID: 2099038405072835613}
@@ -1465,8 +1465,10 @@ MonoBehaviour:
   cooldownTimer: 0
   projectile: {fileID: 5483677028367324060, guid: f81affc9663a37d4da1e77da6bb37333, type: 3}
   projectileSpawn: {fileID: 548105288}
-  speed: 1000
   mode: 5
+  speed: 1000
+  maxAmmo: 5
+  currentAmmo: 0
 --- !u!114 &797285233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1485,29 +1487,10 @@ MonoBehaviour:
   cooldownTimer: 0
   projectile: {fileID: 3442810844120767547, guid: c9e3fd1f9cd651a45a0598432ecc1076, type: 3}
   projectileSpawn: {fileID: 1949232470}
-  speed: 500
   mode: 0
---- !u!114 &797285237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2683350035233569020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bdf120b1c8407d4f9b051a00d8018e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityTime: 0
-  cooldownTime: 2
-  abilityTimer: 0
-  cooldownTimer: 0
-  maxZipDistance: 10
-  myLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  drawGizmos: 0
+  speed: 500
+  maxAmmo: 5
+  currentAmmo: 0
 --- !u!114 &1685213078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1570,6 +1553,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 4079061226764241351}
+--- !u!114 &740809713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb1cd2ea5b5e024d8ec89c41b642a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lunge: {fileID: -7599708814833653385, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  webZip: {fileID: -7941357605142356636, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  detectiveMode: {fileID: 7966428165398738854, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  controller: {fileID: 0}
+  maxZipDistance: 10
+  myLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  canLunge: 0
+  canDetectiveMode: 0
+  canWebZip: 0
 --- !u!1 &2683350035243659259
 GameObject:
   m_ObjectHideFlags: 0
@@ -3366,6 +3372,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2302435663145958441, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302435663145958441, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302435663145958441, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302435663145958441, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -28.214
+      objectReference: {fileID: 0}
     - target: {fileID: 2302435663218835665, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3444,7 +3466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5309290299754598345, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 12.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6088843363225165615, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchorMax.y

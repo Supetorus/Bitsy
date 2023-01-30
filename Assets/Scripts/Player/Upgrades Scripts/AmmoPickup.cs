@@ -22,7 +22,7 @@ public class AmmoPickup : MonoBehaviour
 			switch(ammoType)
 			{
 				case AMMO_TYPE.DART:
-					other.gameObject.TryGetComponent<SleepDartAbility>(out SleepDartAbility dart);
+					other.gameObject.TryGetComponent<TrojanDartAbility>(out TrojanDartAbility dart);
 					dart.currentAmmo += ammoCount;
 					break;
 				case AMMO_TYPE.SMOKE:

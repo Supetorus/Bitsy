@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SleepDartAbility : Ability
+public class TrojanDartAbility : Ability
 {
     [SerializeField] GameObject projectile;
     [SerializeField] Transform projectileSpawn;
