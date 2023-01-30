@@ -5,6 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour, IInteractable
 {
 	[SerializeField] private string _prompt;
+	[SerializeField] private string feedbackText;
 	[SerializeField] private string requiredItemKey;
 	[SerializeField] private AudioSource sfx;
 	[SerializeField] private AudioClip errorsfx;
@@ -15,6 +16,9 @@ public class Door : MonoBehaviour, IInteractable
 	private bool locked = false;
 
 	public string InteractPrompt => _prompt;
+	public string FeedbackText => feedbackText;
+
+	public bool CanInteract => true;
 
 	private void Start()
 	{

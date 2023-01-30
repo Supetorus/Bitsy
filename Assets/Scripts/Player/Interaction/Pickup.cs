@@ -5,11 +5,16 @@ using UnityEngine;
 public class Pickup : MonoBehaviour, IInteractable
 {
 	[SerializeField] private string _prompt;
+	[SerializeField] private string feedbackText;
 	[SerializeField] private string itemKey;
 	[SerializeField] private AudioSource sfx;
 
 
 	public string InteractPrompt => _prompt;
+
+	public string FeedbackText => feedbackText;
+
+	public bool CanInteract => true;
 
 	public bool Interact(Interactor interactor)
 	{
