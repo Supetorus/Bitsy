@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using Michsky.UI.Reach;
 
 public class ObjectiveHandler : MonoBehaviour
 {
-    [SerializeField] TMP_Text objectiveLabel;
+    [SerializeField] QuestItem questItem;
     public List<Objective> objectives;
 
     public void DisplayObjective()
     {
-        objectiveLabel.text = objectives.ElementAt(0).objectiveLabel;
-        
+		questItem.questText = objectives.ElementAt(0).objectiveLabel;        
     } 
     public void DisplayTask()
     {
         
     }
-
-
 }

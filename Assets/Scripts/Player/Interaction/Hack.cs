@@ -9,7 +9,6 @@ public class Hack : MonoBehaviour, IInteractable
 	[SerializeField] private QuestItem questItem;
 	private PanelManager panelManager;
 	[SerializeField] private string _prompt;
-	[SerializeField] private TMP_Text _promptText;
 
 	[SerializeField] private AudioClip sfx;
 	private bool hacked = false;
@@ -26,8 +25,7 @@ public class Hack : MonoBehaviour, IInteractable
 		gm = FindObjectOfType<GameManager>();
 
 		questItem.questText = "Objective Completed";
-		questItem.gameObject.SetActive(true);
-		questItem.AnimateQuest();
+		questItem.ExpandQuest();
 
 		gm.hud.gameObject.SetActive(false);
 		gm.mainMenu.gameObject.SetActive(true);

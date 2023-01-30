@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 public class Interactor : MonoBehaviour
 {
     [SerializeField] private FeedNotification feedNotification;
-    [SerializeField] private QuestItem questItem;
 
     public InventoryManager inventory;
 
@@ -36,8 +35,8 @@ public class Interactor : MonoBehaviour
 
         if (_numFound > 0)
         {
+            feedNotification.notificationText = _colliders[0].gameObject.GetComponent<IInteractable>().InteractPrompt;
             feedNotification.ExpandNotification();
-            interactPromptLabel.text = feedNotification.notificationText;
             if (interact.action.WasPressedThisFrame())
             {
                 //Debug.Log("SOMETHING WAS HIT");
