@@ -1568,14 +1568,22 @@ MonoBehaviour:
   lunge: {fileID: -7599708814833653385, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   webZip: {fileID: -7941357605142356636, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   detectiveMode: {fileID: 7966428165398738854, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  hack: {fileID: 0}
   controller: {fileID: 0}
-  maxZipDistance: 10
-  myLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
+  WZ_MaxDist: 0
+  WZ_Cooldown: 0
+  WZ_Timer: 0
+  L_Force: 0
+  L_Cooldown: 0
+  L_Timer: 0
+  range: 0
+  DM_Cooldown: 0
+  DM_Timer: 0
+  DM_Length: 0
   canLunge: 0
   canDetectiveMode: 0
   canWebZip: 0
+  canHack: 0
 --- !u!1 &2683350035243659259
 GameObject:
   m_ObjectHideFlags: 0
@@ -3466,7 +3474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5309290299754598345, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 6088843363225165615, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchorMax.y
