@@ -10,9 +10,11 @@ public class SmokeBombAbility : Ability
     [SerializeField] float speed;
 	[SerializeField] public float maxAmmo;
 	[SerializeField] public float currentAmmo;
+	UpgradeController upgradeCont;
 
 	public void Start()
 	{
+		upgradeCont = GetComponent<UpgradeController>();
 		currentAmmo = maxAmmo;
 	}
 
