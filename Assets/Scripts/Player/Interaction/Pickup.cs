@@ -7,16 +7,17 @@ public class Pickup : MonoBehaviour, IInteractable
 	[SerializeField] private string _prompt;
 	[SerializeField] private string itemKey;
 	[SerializeField] private AudioSource sfx;
+	[SerializeField] private AudioClip pickupsfx;
 
 
 	public string InteractPrompt => _prompt;
 
 	public bool Interact(Interactor interactor)
 	{
-		sfx.PlayOneShot(sfx.clip);
+		sfx.PlayOneShot(pickupsfx);
 		interactor.inventory.gameData.Save(itemKey, itemKey);
 		Debug.Log(_prompt);
-		Destroy(gameObject, 1.0f);
+		Destroy(gameObject, 0.1f);
 		return true;
 	}
 }

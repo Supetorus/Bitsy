@@ -10,6 +10,8 @@ public class Door : MonoBehaviour, IInteractable
 	[SerializeField] private AudioClip errorsfx;
 	[SerializeField] private AudioClip opensfx;
 	[SerializeField] private AudioClip closesfx;
+	[SerializeField] private GameObject OtherDoor;
+	[SerializeField] private float MoveAmount;
 
 	private bool opened = false;
 	private bool locked = false;
@@ -37,6 +39,11 @@ public class Door : MonoBehaviour, IInteractable
 			sfx.PlayOneShot(opensfx);
 			//update to play open on open animation and close on close animation when animator is added
 			// open door
+			if(OtherDoor != null) {
+				Debug.Log(OtherDoor.transform.position);
+				OtherDoor.transform.position = new Vector3(OtherDoor.transform.position.x, OtherDoor.transform.position.y + MoveAmount, OtherDoor.transform.position.z);
+				Debug.Log(OtherDoor.transform.position);
+			}
 			return true;
 		}
 		else

@@ -75,8 +75,10 @@ public class Enemy : MonoBehaviour
 				timer = time;
 			}
 		}
-		print(awareness);
-		MoveDrone();
+		//print(awareness);
+		if(nodes.Count != 0) {
+			MoveDrone();
+		}
 	}
 
 	public bool CheckSightlines()
@@ -126,7 +128,7 @@ public class Enemy : MonoBehaviour
 
   public void OnDrawGizmos() {
     Gizmos.color = Color.red;
-    Gizmos.DrawLine(nodes[0].transform.position, nodes[nodes.Count - 1].transform.position);
+    //Gizmos.DrawLine(nodes[0].transform.position, nodes[nodes.Count - 1].transform.position);
     foreach(Nodes node in nodes)
     {
       Gizmos.DrawSphere(node.transform.position, 0.1f);
