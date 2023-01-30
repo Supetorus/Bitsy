@@ -34,6 +34,8 @@ public class AmmoPickup : MonoBehaviour
 					emp.currentAmmo += ammoCount;
 					break;
 			}
+
+			Destroy(gameObject);
 		}
 	}
 }
