@@ -6,7 +6,7 @@ using UnityEngine;
 public class WebZipAbility : Ability
 {
     [SerializeField] float maxZipDistance;
-    [SerializeField] LayerMask myLayerMask;
+    [SerializeField] LayerMask zippableLayers;
     [SerializeField] private bool drawGizmos = false;
 
     MovementController controller;
@@ -31,7 +31,7 @@ public class WebZipAbility : Ability
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
         if (drawGizmos) Debug.DrawRay(transform.position, ray.direction);
-        Physics.Raycast(ray, out hit, maxZipDistance, myLayerMask);
+        Physics.Raycast(ray, out hit, maxZipDistance, zippableLayers);
         if (hit.collider)
         {
             print(hit.collider.name);
