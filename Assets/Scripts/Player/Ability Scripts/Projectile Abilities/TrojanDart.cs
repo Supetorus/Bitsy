@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SleepDart : Projectile
+public class TrojanDart : Projectile
 {
     public override void OnCollisionEnter(Collision collision)
     {
