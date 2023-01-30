@@ -60,12 +60,10 @@ public class StateData : MonoBehaviour
 	private List<Vector3> SphereRaycast(float checkDistance)
 	{
 		hitPoints.Clear();
-		int vCount = 0;
 		foreach (var v in icosphereVertices)
 		{
 			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
 			if (hit.collider != null) hitPoints.Add(hit.point);
-			if (v == Vector3.up) vCount++;
 		}
 		return hitPoints;
 	}
@@ -73,17 +71,16 @@ public class StateData : MonoBehaviour
 	private List<Vector3> SphereRaycastNormal(float checkDistance)
 	{
 		//hitPoints.Clear();
-		List<Vector3> hitPoints = new List<Vector3>();
+		List<Vector3> points = new List<Vector3>();
 		foreach (var v in icosphereVertices)
 		{
 			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
 			if (hit.collider != null)
 			{
-				hitPoints.Add(hit.normal);
+				points.Add(hit.normal);
 			}
 		}
-		this.hitPoints = hitPoints;
-		return hitPoints;
+		return points;
 	}
 
 	/// <summary>
