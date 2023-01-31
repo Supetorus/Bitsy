@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AmmoPickup : MonoBehaviour
 {
-	[SerializeField] float ammoCount;
+	[SerializeField] int ammoCount;
 	public enum AMMO_TYPE
 	{
 		DART,
@@ -14,7 +14,6 @@ public class AmmoPickup : MonoBehaviour
 
 	[SerializeField] AMMO_TYPE ammoType;
 
-
 	public void OnTriggerEnter(Collider other)
 	{
 		if(other.gameObject.TryGetComponent<AbilityController>(out _))
@@ -23,18 +22,20 @@ public class AmmoPickup : MonoBehaviour
 			{
 				case AMMO_TYPE.DART:
 					other.gameObject.TryGetComponent<TrojanDartAbility>(out TrojanDartAbility dart);
-					dart.currentAmmo += ammoCount;
+					if (dart.currentAmmo + ammoCount < dart.maxAmmo) dart.currentAmmo += ammoCount;
+					else dart.currentAmmo = dart.maxAmmo;
 					break;
 				case AMMO_TYPE.SMOKE:
 					other.gameObject.TryGetComponent<SmokeBombAbility>(out SmokeBombAbility smoke);
-					smoke.currentAmmo += ammoCount;
+					if (smoke.currentAmmo + ammoCount < smoke.maxAmmo) smoke.currentAmmo += ammoCount;
+					else smoke.currentAmmo = smoke.maxAmmo;
 					break;
 				case AMMO_TYPE.EMP:
 					other.gameObject.TryGetComponent<EMPAbility>(out EMPAbility emp);
-					emp.currentAmmo += ammoCount;
+					if (emp.currentAmmo + ammoCount < emp.maxAmmo) emp.currentAmmo += ammoCount;
+					else emp.currentAmmo = emp.maxAmmo;
 					break;
 			}
-
 			Destroy(gameObject);
 		}
 	}

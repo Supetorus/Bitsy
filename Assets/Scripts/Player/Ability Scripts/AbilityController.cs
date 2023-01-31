@@ -55,6 +55,12 @@ public class AbilityController : MonoBehaviour
             }
             abilityActive = true;
             activeAbility.UseAbility();
+
+			if(activeAbility.GetType() == typeof(CloakAbility))
+			{
+				activeAbility.abilityTime *= PlayerPrefs.GetInt("C_DURATION");
+			}
+
             if (activeAbility.abilityTime != 0) {
                 activeAbility.abilityTimer = activeAbility.abilityTime;
                 abilityTimerActive = true;
