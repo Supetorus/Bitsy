@@ -7,6 +7,7 @@ public class LaserDetection : MonoBehaviour
 {
 	public bool doesDamage;
 	public List<GameObject> dronesToActive;
+	public List<Enemy> scriptsToActive;
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -27,7 +28,10 @@ public class LaserDetection : MonoBehaviour
 				if(dronesToActive.Count > 0) {
 					foreach(var drone in dronesToActive) {
 						drone.transform.GetChild(3).gameObject.SetActive(true);
-						//Turn on their nodes to follow
+						//Turn on their nodes to foll
+					}
+					foreach (var enemy in scriptsToActive) {
+						enemy.onHunt = true;
 					}
 				}
 				foreach (var alarm in FindObjectsOfType<Alarm>())

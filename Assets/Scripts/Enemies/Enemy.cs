@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
 	public bool playerInVision;
 	public List<Nodes> nodes;
 	private int node_Count = 0;
+	public bool onHunt;
 
 	[SerializeField] private float time = 1f;
 	public float timer;
@@ -76,7 +77,7 @@ public class Enemy : MonoBehaviour
 			}
 		}
 		//print(awareness);
-		if(nodes.Count != 0) {
+		if(nodes.Count != 0 && onHunt) {
 			MoveDrone();
 		}
 	}
