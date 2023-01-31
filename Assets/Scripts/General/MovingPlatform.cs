@@ -34,4 +34,14 @@ public class MovingPlatform : MonoBehaviour
 			}
 		}
 	}
+
+	public void OnDrawGizmos() {
+		Gizmos.color = Color.red;
+		//Gizmos.DrawLine(nodes[0].transform.position, nodes[nodes.Count - 1].transform.position);
+		foreach (Nodes node in nodes) {
+			Gizmos.DrawSphere(node.transform.position, 0.1f);
+			Gizmos.DrawLine(node.transform.position, node.nextNode.transform.position);
+		}
+		if (!Application.isPlaying) return;
+	}
 }
