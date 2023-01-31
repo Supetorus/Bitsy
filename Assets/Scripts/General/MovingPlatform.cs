@@ -29,6 +29,9 @@ public class MovingPlatform : MonoBehaviour
 				node_Count = 0;
 				delay = 4.0f;
 			}
+			if(node_Count == 6) {
+				delay = 4.0f;
+			}
 		}
 	}
 }
