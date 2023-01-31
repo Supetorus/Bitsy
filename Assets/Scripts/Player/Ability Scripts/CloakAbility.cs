@@ -46,6 +46,5 @@ public class CloakAbility : Ability
     public override void DeactivateAbility()
     {
         Uncloak();
-
     }
 }
