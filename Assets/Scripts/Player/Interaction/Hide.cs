@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hide : MonoBehaviour, IInteractable
 {
 	[SerializeField] private string _prompt;
+	[SerializeField] private string feedbackText;
 	[SerializeField] private AudioSource sfx;
 	[SerializeField] private AudioClip opensfx;
 
@@ -12,6 +13,9 @@ public class Hide : MonoBehaviour, IInteractable
 
 
 	public string InteractPrompt => _prompt;
+	public string FeedbackText => feedbackText;
+
+	public bool CanInteract => true;
 
 	public bool Interact(Interactor interactor)
 	{
