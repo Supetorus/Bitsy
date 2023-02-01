@@ -33,7 +33,7 @@ public class ZipState : MovementState
 
         targetRot = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, attachedObject.normal), attachedObject.normal);
         transform.rotation = Quaternion.Slerp(targetRot, originalRot, remainingDist / attachedObject.distance);
-        Vector3? point = sd.GetClosestPoint(sd.lesserAttachmentDistance);
+        Vector3? point = SphereRaycaster.GetClosestPoint(transform.position, sd.lesserAttachmentDistance, sd.walkableLayers);
         if (point != null)
         {
             c.CurrentMovementState = c.clingState;
