@@ -8756,6 +8756,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4053687372581398968, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: minimizeAfter
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4053687372625510687, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -8980,8 +8984,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4802479811844563686, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+--- !u!1 &743389134 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2683350035233569020, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+  m_PrefabInstance: {fileID: 743389133}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &753423143
 GameObject:
   m_ObjectHideFlags: 0
@@ -20828,6 +20838,22 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 4079061226764241351, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
   m_PrefabInstance: {fileID: 743389133}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1844559100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743389134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ef25f6467b4d3478a487f710211974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questItem: {fileID: 1451587129}
+  objectives:
+  - {fileID: 11400000, guid: be4d05d398f302348ab5f1e1276e234e, type: 2}
+  objectiveIndex: 0
 --- !u!43 &1846979029
 Mesh:
   m_ObjectHideFlags: 0

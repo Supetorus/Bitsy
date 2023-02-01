@@ -19,7 +19,7 @@ namespace Michsky.UI.Reach
         // Settings
         public bool useLocalization = true;
         [SerializeField] private bool updateOnAnimate = true;
-        [Range(0, 10)] public float minimizeAfter = 3;
+        [Range(0, 10)] public float minimizeAfter = 2;
         public DefaultState defaultState = DefaultState.Minimized;
         public AfterMinimize afterMinimize = AfterMinimize.Disable;
 
