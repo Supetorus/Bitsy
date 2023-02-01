@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1031005078
+--- !u!1 &1031005936
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1031005079}
-  - component: {fileID: 1031005080}
+  - component: {fileID: 1031005937}
+  - component: {fileID: 1031005938}
   m_Layer: 0
-  m_Name: SM_Prop_Detail_Box_01
+  m_Name: DetectivePickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1031005079
+--- !u!4 &1031005937
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031005078}
+  m_GameObject: {fileID: 1031005936}
   m_LocalRotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
   m_LocalPosition: {x: 0.000000, y: 0.000000, z: 0.000000}
   m_LocalScale: {x: 1.000000, y: 1.000000, z: 1.000000}
   m_Children: 
-  - {fileID: 1031005082}
+  - {fileID: 1031005940}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1031005080
+--- !u!64 &1031005938
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031005078}
+  m_GameObject: {fileID: 1031005936}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
     m_Enabled: 1
     serializedVersion: 3
     m_Convex: 0
     m_CookingOptions: 14
-    m_Mesh : {fileID: 4300004, guid : abc00000000003630752957345638882, type : 3}
---- !u!1 &1031005081
+    m_Mesh : {fileID: 4300004, guid : abc00000000011000674802784247846, type : 3}
+--- !u!1 &1031005939
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,37 +54,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1031005082}
-  - component: {fileID: 1031005083}
-  - component: {fileID: 1031005084}
+  - component: {fileID: 1031005940}
+  - component: {fileID: 1031005941}
+  - component: {fileID: 1031005942}
   m_Layer: 0
-  m_Name: SM_Prop_Detail_Box_01_LOD0
+  m_Name: SM_Prop_Satellite_01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1031005082
+--- !u!4 &1031005940
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031005081}
+  m_GameObject: {fileID: 1031005939}
   m_LocalRotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
   m_LocalPosition: {x: 0.000000, y: 0.000000, z: 0.000000}
   m_LocalScale: {x: 1.000000, y: 1.000000, z: 1.000000}
   m_Children: []
-  m_Father: {fileID: 1031005079}
+  m_Father: {fileID: 1031005937}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1031005083
+--- !u!23 &1031005941
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031005081}
+  m_GameObject: {fileID: 1031005939}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -119,11 +119,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1031005084
+--- !u!33 &1031005942
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031005081}
-  m_Mesh: {fileID: 4300002, guid: abc00000000003630752957345638882, type: 3}
+  m_GameObject: {fileID: 1031005939}
+  m_Mesh: {fileID: 4300002, guid: abc00000000011000674802784247846, type: 3}

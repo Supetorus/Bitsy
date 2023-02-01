@@ -37,9 +37,14 @@ public class ObjectiveHandler : MonoBehaviour
 
 	private void CompleteObjective(int o_index)
 	{
-		if (objectives[objectiveIndex].CheckCompleteObjective())
+		if (objectives[o_index].CheckCompleteObjective())
 		{
 			objectiveIndex++;
+			DisplayObjective();
+		}
+		else
+		{
+			DisplayTask();
 		}
 	}
 
