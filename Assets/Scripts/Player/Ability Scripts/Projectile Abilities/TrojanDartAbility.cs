@@ -8,15 +8,22 @@ public class TrojanDartAbility : Ability
     [SerializeField] Transform projectileSpawn;
     [SerializeField] ForceMode mode;
     [SerializeField] float speed;
-	[SerializeField] public float maxAmmo;
-	[SerializeField] public float currentAmmo;
+	[SerializeField] public int maxAmmo;
+	[SerializeField] public int currentAmmo;
+	const int DEFAULT_AMMO = 5;
 
 	public void Start()
 	{
+		UpdateAmmo();
+	}
+
+	public void UpdateAmmo()
+	{
+		maxAmmo = DEFAULT_AMMO * PlayerPrefs.GetInt("TD_AM");
 		currentAmmo = maxAmmo;
 	}
 
-    public override void UseAbility()
+	public override void UseAbility()
     {
 		if(currentAmmo > 0)
 		{

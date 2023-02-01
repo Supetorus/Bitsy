@@ -8,21 +8,28 @@ public class EMPAbility : Ability
     [SerializeField] Transform projectileSpawn;
     [SerializeField] ForceMode mode;
     [SerializeField] float speed;
-	[SerializeField] public float maxAmmo;
-	[SerializeField] public float currentAmmo { get{ return currentAmmo; } set { currentAmmo = Mathf.Clamp(value, 0, maxAmmo); } }
+	[SerializeField] public int maxAmmo;
+	[SerializeField] public int currentAmmo;
+	const int DEFAULT_AMMO = 5;
 
 	public void Start()
 	{
+		UpdateAmmo();
+	}
+
+	public void UpdateAmmo()
+	{
+		maxAmmo = DEFAULT_AMMO * PlayerPrefs.GetInt("EMP_AM");
 		currentAmmo = maxAmmo;
 	}
 
-    public override void UseAbility()
+	public override void UseAbility()
     {
 		if(currentAmmo > 0)
 		{
 			GameObject proj = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			proj.GetComponent<Rigidbody>().AddForce(proj.transform.forward * speed, mode);
-			proj.GetComponent<Bomb>().startSpeed = speed;
+			proj.GetComponent<Bomb>().isEMP = true;
 			currentAmmo--;
 		}
     }

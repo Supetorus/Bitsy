@@ -8,23 +8,28 @@ public class SmokeBombAbility : Ability
     [SerializeField] Transform projectileSpawn;
     [SerializeField] ForceMode mode;
     [SerializeField] float speed;
-	[SerializeField] public float maxAmmo;
-	[SerializeField] public float currentAmmo;
-	UpgradeController upgradeCont;
+	[SerializeField] public int maxAmmo;
+	[SerializeField] public int currentAmmo;
+	const int DEFAULT_AMMO = 5;
 
 	public void Start()
 	{
-		upgradeCont = GetComponent<UpgradeController>();
+		UpdateAmmo();
+	}
+
+	public void UpdateAmmo()
+	{
+		maxAmmo = DEFAULT_AMMO * PlayerPrefs.GetInt("SB_AM");
 		currentAmmo = maxAmmo;
 	}
 
-    public override void UseAbility()
+	public override void UseAbility()
     {
 		if(currentAmmo > 0)
 		{
 			GameObject proj = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			proj.GetComponent<Rigidbody>().AddForce(proj.transform.forward * speed, mode);
-			proj.GetComponent<Bomb>().startSpeed = speed;
+			proj.GetComponent<Bomb>().isEMP = false;
 			currentAmmo--;
 		}
     }
