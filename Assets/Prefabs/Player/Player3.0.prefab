@@ -1734,8 +1734,10 @@ MonoBehaviour:
   cooldownTimer: 0
   projectile: {fileID: 5483677028367324060, guid: f81affc9663a37d4da1e77da6bb37333, type: 3}
   projectileSpawn: {fileID: 548105288}
-  speed: 1000
   mode: 5
+  speed: 1000
+  maxAmmo: 0
+  currentAmmo: 0
 --- !u!114 &797285233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1754,8 +1756,10 @@ MonoBehaviour:
   cooldownTimer: 0
   projectile: {fileID: 3442810844120767547, guid: c9e3fd1f9cd651a45a0598432ecc1076, type: 3}
   projectileSpawn: {fileID: 1949232470}
-  speed: 500
   mode: 0
+  speed: 500
+  maxAmmo: 0
+  currentAmmo: 0
 --- !u!114 &797285237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1789,8 +1793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2221b1f550a54f647be1c22f0dc4c579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedNotification: {fileID: 0}
-  questItem: {fileID: 0}
+  feedNotification: {fileID: 7934235734248700425}
   inventory: {fileID: 1685213090}
   interactPromptLabel: {fileID: 7934235734466738153}
   _interactionPoint: {fileID: 680285923}
@@ -1799,8 +1802,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _numFound: 0
-  interact: {fileID: 857090945557194352, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   drawInteractionArea: 0
+  interact: {fileID: 857090945557194352, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
 --- !u!114 &1685213090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4866,6 +4869,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2302435662494004283, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
   m_PrefabInstance: {fileID: 2860474303518242246}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7934235734248700425 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5309290299754598351, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+  m_PrefabInstance: {fileID: 2860474303518242246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dafe903f24f9b94baf099ae852ac894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7934235734466738153 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5309290299570242095, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
