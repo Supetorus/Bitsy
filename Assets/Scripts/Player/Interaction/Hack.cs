@@ -6,16 +6,16 @@ using Michsky.UI.Reach;
 
 public class Hack : MonoBehaviour, IInteractable
 {
-	[SerializeField] private QuestItem questItem;
-	private PanelManager panelManager;
+	//[SerializeField] private QuestItem questItem;
+	//private PanelManager panelManager;
 	[SerializeField] private string _prompt;
 	[SerializeField] private string feedbackText;
 
 	[SerializeField] private AudioClip sfx;
 	private bool hacked = false;
 
-	GameManager gm;
-	MenuManager menuManager;
+	//GameManager gm;
+	//MenuManager menuManager;
 	//[SerializeField] private ObjectiveHandler objectiveHandler;
 
 	public string InteractPrompt => _prompt;
@@ -28,11 +28,13 @@ public class Hack : MonoBehaviour, IInteractable
 	{
 		if (!hacked)
 		{
-			panelManager = FindObjectOfType<PanelManager>();
-			gm = FindObjectOfType<GameManager>();
+			//panelManager = FindObjectOfType<PanelManager>();
+			//gm = FindObjectOfType<GameManager>();
 
-			questItem.questText = "Objective Completed";
-			questItem.ExpandQuest();
+			//questItem.questText = "Objective Completed";
+			//questItem.ExpandQuest();
+
+
 
 			//WIN stuff - shouldn't go here
 			/*gm.hud.gameObject.SetActive(false);
@@ -56,6 +58,11 @@ public class Hack : MonoBehaviour, IInteractable
 			{
 				panelManager.currentPanelIndex = 7;
 			}*/
+
+			if (TryGetComponent(out TaskInteract taskInteract))
+			{
+				taskInteract.Interact(interactor.gameObject);
+			}
 
 			hacked = true;
 			AudioSource.PlayClipAtPoint(sfx, transform.position);
