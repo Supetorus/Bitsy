@@ -814,8 +814,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350034061294017}
-  m_LocalRotation: {x: 0.07845908, y: -0, z: -0, w: 0.99691737}
-  m_LocalPosition: {x: 0, y: 0.7162172, z: -0.49384418}
+  m_LocalRotation: {x: 0.25881907, y: -0, z: -0, w: 0.9659259}
+  m_LocalPosition: {x: 0, y: 1.638, z: -1.7320508}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -887,16 +887,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1068354811471654119}
-  distance: 0.5
+  distance: 2
   yaw: 0
-  pitch: 9
+  pitch: 30
   maxPitch: 80
   minPitch: -80
   hitLayers:
     serializedVersion: 2
     m_Bits: 247
   cameraInput: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  sensitivity: 1
+  sensitivity: 4.5
   invertX: 0
   invertY: 0
 --- !u!1 &2683350034651017715
@@ -1164,11 +1164,12 @@ GameObject:
   - component: {fileID: 797285236}
   - component: {fileID: 797285234}
   - component: {fileID: 797285233}
-  - component: {fileID: 797285237}
+  - component: {fileID: 3192734060562400581}
   - component: {fileID: 1685213078}
   - component: {fileID: 1685213090}
   - component: {fileID: 1685213091}
   - component: {fileID: 7284688453220278872}
+  - component: {fileID: 740809713}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1340,7 +1341,7 @@ MonoBehaviour:
   move: {fileID: 4184646067059678515, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   sprint: {fileID: -8714904812635025669, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   jump: {fileID: 866015529340218118, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  maxVelocity: 1
+  maxVelocity: 1.5
   acceleration: 1
   drag: 0.1
   clingState: {fileID: 0}
@@ -1365,6 +1366,8 @@ MonoBehaviour:
     m_Bits: 209
   camera: {fileID: 2683350034061294020}
   icosphereDensity: 5
+  drawRays: 1
+  drawHits: 1
   velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2683350035233568993
 MonoBehaviour:
@@ -1437,7 +1440,7 @@ MonoBehaviour:
   spiderCenter: {fileID: 1152317632}
   equippedAbilities:
   - {fileID: 797285234}
-  - {fileID: 797285237}
+  - {fileID: 3192734060562400581}
   - {fileID: 797285233}
   abilityIndex: 1
   music: {fileID: 2099038405072835613}
@@ -1463,8 +1466,10 @@ MonoBehaviour:
   cooldownTimer: 0
   projectile: {fileID: 5483677028367324060, guid: f81affc9663a37d4da1e77da6bb37333, type: 3}
   projectileSpawn: {fileID: 548105288}
-  speed: 1000
   mode: 5
+  speed: 1000
+  maxAmmo: 5
+  currentAmmo: 0
 --- !u!114 &797285233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1483,9 +1488,11 @@ MonoBehaviour:
   cooldownTimer: 0
   projectile: {fileID: 3442810844120767547, guid: c9e3fd1f9cd651a45a0598432ecc1076, type: 3}
   projectileSpawn: {fileID: 1949232470}
-  speed: 500
   mode: 0
---- !u!114 &797285237
+  speed: 500
+  maxAmmo: 5
+  currentAmmo: 0
+--- !u!114 &3192734060562400581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1494,17 +1501,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2683350035233569020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bdf120b1c8407d4f9b051a00d8018e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 68687ffac29c8af44b1fdc337b15f14e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilityTime: 0
-  cooldownTime: 0
+  cooldownTime: 5
   abilityTimer: 0
   cooldownTimer: 0
-  maxZipDistance: 0
-  myLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  projectile: {fileID: 3180759573043981520, guid: eb0dd0ae9bd70424ea8b66099395ff09, type: 3}
+  projectileSpawn: {fileID: 1949232470}
+  mode: 0
+  speed: 500
+  maxAmmo: 5
+  currentAmmo: 0
 --- !u!114 &1685213078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1527,6 +1536,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _numFound: 0
+  drawInteractionArea: 1
   interact: {fileID: 857090945557194352, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
 --- !u!114 &1685213090
 MonoBehaviour:
@@ -1566,6 +1576,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 4079061226764241351}
+--- !u!114 &740809713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb1cd2ea5b5e024d8ec89c41b642a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lunge: {fileID: -7599708814833653385, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  webZip: {fileID: -7941357605142356636, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  detectiveMode: {fileID: 7966428165398738854, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  hack: {fileID: 1112972856028523898, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  controller: {fileID: 0}
+  WZ_MaxDist: 100
+  WZ_Cooldown: 5
+  WZ_Timer: 0
+  WZ_OnCooldown: 0
+  WZ_LayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  L_Force: 0
+  L_Cooldown: 0
+  L_Timer: 0
+  range: 0
+  DM_Cooldown: 0
+  DM_Timer: 0
+  DM_Length: 0
+  abilityController: {fileID: 0}
+  canLunge: 0
+  canDetectiveMode: 0
+  canWebZip: 0
+  canHack: 0
 --- !u!1 &2683350035243659259
 GameObject:
   m_ObjectHideFlags: 0
@@ -3361,6 +3407,22 @@ PrefabInstance:
     - target: {fileID: 2302435662709184667, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302435663145958441, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302435663145958441, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302435663145958441, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302435663145958441, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -28.214
       objectReference: {fileID: 0}
     - target: {fileID: 2302435663218835665, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchorMax.y

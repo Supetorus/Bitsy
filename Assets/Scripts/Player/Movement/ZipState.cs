@@ -11,7 +11,6 @@ public class ZipState : MovementState
 
     public override void EnterState()
     {
-        
         originalRot = transform.rotation;
         rigidbody.isKinematic = false;
         rigidbody.useGravity = false;

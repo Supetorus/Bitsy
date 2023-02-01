@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
 	public bool playerInVision;
 	public List<Nodes> nodes;
 	private int node_Count = 0;
+	public bool onHunt;
 
 	[SerializeField] private float time = 1f;
 	public float timer;
@@ -75,8 +76,10 @@ public class Enemy : MonoBehaviour
 				timer = time;
 			}
 		}
-		print(awareness);
-		MoveDrone();
+		//print(awareness);
+		if(nodes.Count != 0 && onHunt) {
+			MoveDrone();
+		}
 	}
 
 	public bool CheckSightlines()
@@ -101,13 +104,9 @@ public class Enemy : MonoBehaviour
 
 	public void MoveDrone()
 	{
-		//Debug.Log(nodes[node_Count].transform.position.x + " " + nodes[node_Count].transform.position.y + " " + nodes[node_Count].transform.position.z);
-
 		transform.position = Vector3.MoveTowards(transform.position, nodes[node_Count].transform.position, 5 * Time.deltaTime);
 		transform.LookAt(nodes[node_Count].transform.position);
 
-		//Debug.Log("Node Number: " + node_Count);
-		//Debug.Log("Node Count: " + nodes.Count);
 		if (transform.position == nodes[node_Count].transform.position)
 		{
 			nodes[node_Count].last_reached = true;
@@ -119,14 +118,14 @@ public class Enemy : MonoBehaviour
 			}
 		}
 	}
-	public void Stun()
+	public void Stun(float duration)
 	{
-		print(gameObject.name + "I'm stunned!");
+		print(gameObject.name + "I'm stunned for " + duration + " seconds!");
 	}
 
   public void OnDrawGizmos() {
     Gizmos.color = Color.red;
-    Gizmos.DrawLine(nodes[0].transform.position, nodes[nodes.Count - 1].transform.position);
+    //Gizmos.DrawLine(nodes[0].transform.position, nodes[nodes.Count - 1].transform.position);
     foreach(Nodes node in nodes)
     {
       Gizmos.DrawSphere(node.transform.position, 0.1f);

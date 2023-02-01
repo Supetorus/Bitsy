@@ -6,52 +6,64 @@ using Michsky.UI.Reach;
 
 public class Hack : MonoBehaviour, IInteractable
 {
-	[SerializeField] private QuestItem questItem;
-	private PanelManager panelManager;
+	//[SerializeField] private QuestItem questItem;
+	//private PanelManager panelManager;
 	[SerializeField] private string _prompt;
-	[SerializeField] private TMP_Text _promptText;
+	[SerializeField] private string feedbackText;
 
 	[SerializeField] private AudioClip sfx;
 	private bool hacked = false;
 
-	GameManager gm;
-	MenuManager menuManager;
+	//GameManager gm;
+	//MenuManager menuManager;
 	//[SerializeField] private ObjectiveHandler objectiveHandler;
 
 	public string InteractPrompt => _prompt;
 
+	public string FeedbackText => feedbackText;
+
+	public bool CanInteract => !hacked;
+
 	public bool Interact(Interactor interactor)
 	{
-		panelManager = FindObjectOfType<PanelManager>();
-		gm = FindObjectOfType<GameManager>();
-
-		questItem.questText = "Objective Completed";
-		questItem.gameObject.SetActive(true);
-		questItem.AnimateQuest();
-
-		gm.hud.gameObject.SetActive(false);
-		gm.mainMenu.gameObject.SetActive(true);
-		
-		panelManager.OpenPanel(panelManager.panels[6].panelName);
-
-		//menuManager.ActivateMenu();
-		gm.playCamera.SetActive(false);
-		Cursor.lockState = CursorLockMode.None;
-		Cursor.visible = true;
-		gm.menuCamera.SetActive(true);
-
-		if (interactor.tag == "TestWin")
-		{
-			//panelManager.OpenPanelByIndex(6);
-			//panelManager.ShowCurrentPanel();
-		}
-		/*if (interactor.tag == "TestLose")
-		{
-			panelManager.currentPanelIndex = 7;
-		}*/
-
 		if (!hacked)
 		{
+			//panelManager = FindObjectOfType<PanelManager>();
+			//gm = FindObjectOfType<GameManager>();
+
+			//questItem.questText = "Objective Completed";
+			//questItem.ExpandQuest();
+
+
+
+			//WIN stuff - shouldn't go here
+			/*gm.hud.gameObject.SetActive(false);
+			gm.mainMenu.gameObject.SetActive(true);
+
+
+			panelManager.OpenPanel(panelManager.panels[6].panelName);
+
+			//menuManager.ActivateMenu();
+			gm.playCamera.SetActive(false);
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+			gm.menuCamera.SetActive(true);
+
+			if (interactor.tag == "TestWin")
+			{
+				//panelManager.OpenPanelByIndex(6);
+				//panelManager.ShowCurrentPanel();
+			}
+			if (interactor.tag == "TestLose")
+			{
+				panelManager.currentPanelIndex = 7;
+			}*/
+
+			if (TryGetComponent(out TaskInteract taskInteract))
+			{
+				taskInteract.Interact(interactor.gameObject);
+			}
+
 			hacked = true;
 			AudioSource.PlayClipAtPoint(sfx, transform.position);
 			Debug.Log(_prompt);

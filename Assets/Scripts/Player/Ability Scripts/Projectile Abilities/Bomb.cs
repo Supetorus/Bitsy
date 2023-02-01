@@ -8,7 +8,7 @@ public class Bomb : Projectile
     [SerializeField] float explosionRad;
 
     bool hasExploded = false;
-    [HideInInspector]public float startSpeed = 0f;
+	[HideInInspector] public bool isEMP = false;
 
 
     public override void OnCollisionEnter(Collision collision)
@@ -16,8 +16,8 @@ public class Bomb : Projectile
         if (!hasExploded && collision.gameObject.tag == "Ground")
         {
             hasExploded = true;
-            print(collision.gameObject.name);
-            SpawnExplosion(explosionRad);
+			if(isEMP) SpawnExplosion(explosionRad * PlayerPrefs.GetInt("EMP_RADIUS"));
+            else SpawnExplosion(explosionRad);
             gameObject.GetComponent<DestroyDelay>().hasHitSometing = true;
             gameObject.GetComponent<DestroyDelay>().destroyTimer = d_Time;
         }
@@ -27,6 +27,11 @@ public class Bomb : Projectile
     {
         GameObject explode = Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
         explode.transform.localScale = Vector3.one * radius;
+		ParticleSystem explosionSystem = explode.GetComponent<ParticleSystem>();
+		explosionSystem.Stop();
+		var explosionDuration = explosionSystem.main;
+		if (!isEMP) explosionDuration.duration = PlayerPrefs.GetInt("SB_DURATION");
+		explosionSystem.Play();
         Destroy(gameObject, explode.GetComponent<ParticleSystem>().main.duration);
     }
 }
