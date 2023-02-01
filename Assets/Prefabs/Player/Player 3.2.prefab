@@ -1164,6 +1164,7 @@ GameObject:
   - component: {fileID: 797285236}
   - component: {fileID: 797285234}
   - component: {fileID: 797285233}
+  - component: {fileID: 3192734060562400581}
   - component: {fileID: 1685213078}
   - component: {fileID: 1685213090}
   - component: {fileID: 1685213091}
@@ -1439,7 +1440,7 @@ MonoBehaviour:
   spiderCenter: {fileID: 1152317632}
   equippedAbilities:
   - {fileID: 797285234}
-  - {fileID: 0}
+  - {fileID: 3192734060562400581}
   - {fileID: 797285233}
   abilityIndex: 1
   music: {fileID: 2099038405072835613}
@@ -1486,6 +1487,28 @@ MonoBehaviour:
   abilityTimer: 0
   cooldownTimer: 0
   projectile: {fileID: 3442810844120767547, guid: c9e3fd1f9cd651a45a0598432ecc1076, type: 3}
+  projectileSpawn: {fileID: 1949232470}
+  mode: 0
+  speed: 500
+  maxAmmo: 5
+  currentAmmo: 0
+--- !u!114 &3192734060562400581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68687ffac29c8af44b1fdc337b15f14e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityTime: 0
+  cooldownTime: 5
+  abilityTimer: 0
+  cooldownTimer: 0
+  projectile: {fileID: 3180759573043981520, guid: eb0dd0ae9bd70424ea8b66099395ff09, type: 3}
   projectileSpawn: {fileID: 1949232470}
   mode: 0
   speed: 500
@@ -1568,11 +1591,15 @@ MonoBehaviour:
   lunge: {fileID: -7599708814833653385, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   webZip: {fileID: -7941357605142356636, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   detectiveMode: {fileID: 7966428165398738854, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  hack: {fileID: 0}
+  hack: {fileID: 1112972856028523898, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   controller: {fileID: 0}
-  WZ_MaxDist: 0
-  WZ_Cooldown: 0
+  WZ_MaxDist: 100
+  WZ_Cooldown: 5
   WZ_Timer: 0
+  WZ_OnCooldown: 0
+  WZ_LayerMask:
+    serializedVersion: 2
+    m_Bits: 1
   L_Force: 0
   L_Cooldown: 0
   L_Timer: 0
@@ -1580,6 +1607,7 @@ MonoBehaviour:
   DM_Cooldown: 0
   DM_Timer: 0
   DM_Length: 0
+  abilityController: {fileID: 0}
   canLunge: 0
   canDetectiveMode: 0
   canWebZip: 0

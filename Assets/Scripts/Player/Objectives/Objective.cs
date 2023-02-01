@@ -3,23 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Objecive", menuName = "Objective/ObjectiveSO")]
-public class Objective: ScriptableObject
+public class Objective : ScriptableObject
 {
-    [SerializeField] private int index;
-    [SerializeField] private bool complete;
-    [SerializeField] public string objectiveLabel;
-    [SerializeField] private List<Task> tasks = new List<Task>();
+	[SerializeField] private int index;
+	[SerializeField] private bool complete;
+	[SerializeField] public string objectiveLabel;
+	[SerializeField] private List<Task> tasks;
+	public int taskIndex = 0;
 
-	public Task GetTaskAtIndex(int index)
+	public Task GetCurrentTask()
+	{
+		return tasks[taskIndex];
+	}
+
+	public Task GetTaskAtIndex(int t_index)
 	{
 		return tasks[index];
 	}
-}
 
-public class Task
-{
-    [SerializeField] private int index;
-    [SerializeField] private bool optional;
-    [SerializeField] private bool complete;
-    [SerializeField] public string taskLabel;
+	public bool CheckCompleteObjective()
+	{
+		return complete;
+	}
+
+	public void CompleteTask(int t_index)
+	{
+		if (t_index == taskIndex)
+		{
+			if (tasks[taskIndex].CompleteTask(taskIndex))
+			{
+				Debug.Log("Obective " + index + ", Task " + taskIndex + " Complete");
+				taskIndex++;
+			}
+		}
+		complete = (taskIndex == tasks.Count);
+	}
 }
