@@ -62,11 +62,11 @@ public class UpgradeController : MonoBehaviour
 		PlayerPrefs.SetString("Hack", "False");
 
 		//Abiity Upgrades
-		PlayerPrefs.SetString("SB_DU", "False");
+		PlayerPrefs.SetString("SB_U", "False");
 		PlayerPrefs.SetString("EMP_DU", "False");
 		PlayerPrefs.SetString("EMP_RU", "False");
 		PlayerPrefs.SetString("TD_U", "False");
-		PlayerPrefs.SetString("C_DU", "False");
+		PlayerPrefs.SetString("C_U", "False");
 
 		PlayerPrefs.SetInt("SB_DURATION", 1);
 		PlayerPrefs.SetInt("EMP_DURATION", 1);
@@ -195,7 +195,7 @@ public class UpgradeController : MonoBehaviour
 				case "Hack":
 					hack.action.Enable();
 					break;
-				case "SB_DU":
+				case "SB_U":
 					PlayerPrefs.SetInt("SB_DURATION", SB_UPGRADED_DURATION);
 					break;
 				case "EMP_DU":
@@ -207,33 +207,18 @@ public class UpgradeController : MonoBehaviour
 				case "TD_U":
 					PlayerPrefs.SetString("TD_PENETRATION", "True");
 					break;
-				case "C_DU":
+				case "C_U":
 					PlayerPrefs.SetInt("C_DURATION", C_UPGRADED_DURATION);
 					break;
 			}
 		}
 	}
 
-	public void ChangeAmmoMult(AmmoUpgrade.AMMO_UPGRADE ammoType, int newMult)
+	public void ChangeAmmoMult(string ammoType, int newMult)
 	{
-		if(PlayerPrefs.HasKey(ammoType.ToString()))
+		if(PlayerPrefs.HasKey(ammoType))
 		{
-			PlayerPrefs.SetInt(ammoType.ToString(), newMult);
-		}
-		switch (ammoType)
-		{
-			case AmmoUpgrade.AMMO_UPGRADE.SB_AM:
-				gameObject.TryGetComponent<SmokeBombAbility>(out SmokeBombAbility sba);
-				sba.UpdateAmmo();
-				break;
-			case AmmoUpgrade.AMMO_UPGRADE.EMP_AM:
-				gameObject.TryGetComponent<EMPAbility>(out EMPAbility empa);
-				empa.UpdateAmmo();
-				break;
-			case AmmoUpgrade.AMMO_UPGRADE.TD_AM:
-				gameObject.TryGetComponent<TrojanDartAbility>(out TrojanDartAbility tda);
-				tda.UpdateAmmo();
-				break;
+			PlayerPrefs.SetInt(ammoType, newMult);
 		}
 	}
 

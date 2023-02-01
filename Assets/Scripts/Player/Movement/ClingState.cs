@@ -58,12 +58,12 @@ public class ClingState : MovementState
 		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
 		else movementMultiplier = Mathf.Clamp(movementMultiplier * c.drag, 1, sprintMultiplier);
 
-		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(transform.position, sd.attachmentDistance, sd.walkableLayers);
+		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
 		// Near a walkable surface
 		if (closestPoint != null)
 		{
 			// Rotation
-			Vector3 upDirection = SphereRaycaster.CalculateAverageUp(transform.position, sd.attachmentDistance, sd.walkableLayers, transform.up);
+			Vector3 upDirection = sd.CalculateAverageUp(sd.attachmentDistance);
 			Debug.DrawLine(transform.position, transform.position + upDirection, Color.magenta);
 			Vector3 forward = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
 			Quaternion targetRotation = Quaternion.LookRotation(forward, upDirection);

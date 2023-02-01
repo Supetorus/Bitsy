@@ -10,7 +10,6 @@ public class Hack : MonoBehaviour, IInteractable
 	//private PanelManager panelManager;
 	[SerializeField] private string _prompt;
 	[SerializeField] private string feedbackText;
-	public GameObject exitDoor;
 
 	[SerializeField] private AudioClip sfx;
 	private bool hacked = false;
@@ -67,7 +66,6 @@ public class Hack : MonoBehaviour, IInteractable
 
 			hacked = true;
 			AudioSource.PlayClipAtPoint(sfx, transform.position);
-			exitDoor.SetActive(false);
 			Debug.Log(_prompt);
 			return true;
 		}

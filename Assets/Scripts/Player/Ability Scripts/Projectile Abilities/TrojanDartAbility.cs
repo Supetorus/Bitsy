@@ -10,20 +10,14 @@ public class TrojanDartAbility : Ability
     [SerializeField] float speed;
 	[SerializeField] public int maxAmmo;
 	[SerializeField] public int currentAmmo;
-	const int DEFAULT_AMMO = 5;
 
 	public void Start()
 	{
-		UpdateAmmo();
-	}
-
-	public void UpdateAmmo()
-	{
-		maxAmmo = DEFAULT_AMMO * PlayerPrefs.GetInt("TD_AM");
+		maxAmmo *= PlayerPrefs.GetInt("TD_AM");
 		currentAmmo = maxAmmo;
 	}
 
-	public override void UseAbility()
+    public override void UseAbility()
     {
 		if(currentAmmo > 0)
 		{

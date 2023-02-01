@@ -17,88 +17,175 @@ public class StateData : MonoBehaviour
 	public LayerMask walkableLayers;
 	[SerializeField, Tooltip("The main camera")]
 	public new Transform camera;
+	[SerializeField, Tooltip("The density of points on the icosphere, used for calculating raycast points around the player."), Min(2)]
+	public int icosphereDensity = 2;
 
 	[Header("Gizmo settings")]
 	[SerializeField]
 	private bool drawRays = true;
-	//[SerializeField]
-	//private bool drawHits = true;
+	[SerializeField]
+	private bool drawHits = true;
 
 	[HideInInspector]
 	public Vector3 velocity;
+
+	private Vector3[] icosphereVertices;
 
 	private void Start()
 	{
 		if (lesserAttachmentDistance > attachmentDistance) Debug.LogError("Lesser Attachment Distance must be less than Attachment Distance in 'State Data'");
 		if ((walkableLayers & LayerMask.GetMask("Player")) > 0) Debug.LogError("Player cannot be in the layermask for 'State Data' Walkable Layers.");
 		if (camera == null) Debug.LogError("Camera is not assigned in 'State Data'");
-		if (lesserAttachmentDistance <= GetComponent<SphereCollider>().radius) Debug.LogError("Lesser attachment distance must be greater than collider's radius.");
+
+		// For some reason I don't care to explore right now, the resulting mesh
+		// contains duplicate vertices, so I'm filtering those out so they don't
+		// interfere with calculations or take up excess memory.
+		Mesh icosphere = IcosphereCreator.Create(icosphereDensity, 1);
+		List<Vector3> verts = new List<Vector3>();
+		foreach(var v in icosphere.vertices)
+		{
+			if (!verts.Contains(v)) verts.Add(v);
+		}
+		icosphereVertices = verts.ToArray();
 	}
 
 	// This is just used for the gizmo to display.
-	//private float lastCheckDistance;
-	//List<Vector3> hitPoints = new List<Vector3>();
+	private float lastCheckDistance;
+	List<Vector3> hitPoints = new List<Vector3>();
+	/// <summary>
+	/// Returns a list of points that have been hit by SphereRaycast.
+	/// </summary>
+	/// <param name="checkDistance"></param>
+	/// <returns></returns>
+	private List<Vector3> SphereRaycast(float checkDistance)
+	{
+		hitPoints.Clear();
+		foreach (var v in icosphereVertices)
+		{
+			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
+			if (hit.collider != null) hitPoints.Add(hit.point);
+		}
+		return hitPoints;
+	}
 
-	//private List<Vector3> SphereRaycastNormal(float checkDistance)
-	//{
-	//	List<Vector3> points = new List<Vector3>();
-	//	foreach (var v in icosphereVertices)
-	//	{
-	//		Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
-	//		if (hit.collider != null)
-	//		{
-	//			points.Add(hit.normal);
-	//		}
-	//	}
-	//	return points;
-	//}
+	private List<Vector3> SphereRaycastNormal(float checkDistance)
+	{
+		//hitPoints.Clear();
+		List<Vector3> points = new List<Vector3>();
+		foreach (var v in icosphereVertices)
+		{
+			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
+			if (hit.collider != null)
+			{
+				points.Add(hit.normal);
+			}
+		}
+		return points;
+	}
+
+	/// <summary>
+	/// Uses a hemisphere of points below the player (relative to the player) to calculate an average up direction.
+	/// </summary>
+	/// <param name="checkDistance"></param>
+	/// <returns></returns>
+	public Vector3 CalculateAverageUp(float checkDistance)
+	{
+		List<Vector3> points = SphereRaycastNormal(checkDistance);
+
+		List<Vector3> pointsBelowPlayer = new List<Vector3>();
+		foreach (Vector3 point in points)
+		{
+			if (Vector3.Dot(point, -transform.up) > 0)
+			{
+				pointsBelowPlayer.Add(point);
+			}
+		}
+
+		Vector3 average = Vector3.zero;
+		foreach (var point in points)
+		{
+			average += point;
+		}
+		return average.normalized;
+	}
 
 	#region ClosestPoint
-	//private Vector3? closestPoint = null;
+	private Vector3? closestPoint = null;
+	/// <summary>
+	/// Returns the closest (walkable) point to this transform.position. If there are no objects within radius then null is returned.
+	/// </summary>
+	/// <param name="radius">The spherical radius to check for nearby objects.</param>
+	/// <returns></returns>
+	public Vector3? GetClosestPoint(float checkDistance)
+	{
+		if (checkDistance <= 0)
+		{
+			Debug.LogError("You cannot check for walkable objects in a radius less than or equal to zero.");
+			return null;
+		}
+		lastCheckDistance = checkDistance;
+		// Collect the list of hits.
+		List<Vector3> hits = SphereRaycast(checkDistance);
+
+		// Calculate the closest point of those hits.
+		closestPoint = null;
+		float closestPointSqrDistance = float.MaxValue;
+		foreach (Vector3 point in hits)
+		{
+			float distance = (transform.position - point).sqrMagnitude;
+			if (distance < closestPointSqrDistance)
+			{
+				closestPointSqrDistance = distance;
+				closestPoint = point;
+			}
+		}
+		return closestPoint;
+	}
+
 	/// <summary>
 	/// Returns the closest (walkable) point to this transform.position. If there are no objects within radius then null is returned.
 	/// It will also set the audio source depending on the surface's tag.
 	/// </summary>
 	/// <param name="radius">The spherical radius to check for nearby objects.</param>
 	/// <returns></returns>
-	//public Vector3? GetClosestPoint(float checkDistance, ref AudioSource audioSource)
-	//{
-	//	if (checkDistance <= 0)
-	//	{
-	//		Debug.LogError("You cannot check for walkable objects in a radius less than or equal to zero.");
-	//		return null;
-	//	}
-	//	lastCheckDistance = checkDistance;
-	//	// Collect the list of hits.
-	//	List<RaycastHit> hits = new List<RaycastHit>();
-	//	foreach (var v in icosphereVertices)
-	//	{
-	//		Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
-	//		if (hit.collider != null) hits.Add(hit);
-	//	}
+	public Vector3? GetClosestPoint(float checkDistance, ref AudioSource audioSource)
+	{
+		if (checkDistance <= 0)
+		{
+			Debug.LogError("You cannot check for walkable objects in a radius less than or equal to zero.");
+			return null;
+		}
+		lastCheckDistance = checkDistance;
+		// Collect the list of hits.
+		List<RaycastHit> hits = new List<RaycastHit>();
+		foreach (var v in icosphereVertices)
+		{
+			Physics.Raycast(transform.position, v, out RaycastHit hit, checkDistance, walkableLayers);
+			if (hit.collider != null) hits.Add(hit);
+		}
 
-	//	// Calculate the closest point of those hits.
-	//	closestPoint = null;
-	//	float closestPointSqrDistance = float.MaxValue;
-	//	foreach (RaycastHit hit in hits)
-	//	{
-	//		Vector3 point = hit.point;
-	//		float distance = (transform.position - point).sqrMagnitude;
-	//		if (distance < closestPointSqrDistance)
-	//		{
-	//			closestPointSqrDistance = distance;
-	//			closestPoint = point;
-	//		}
-	//	}
-	//	return closestPoint;
-	//}
+		// Calculate the closest point of those hits.
+		closestPoint = null;
+		float closestPointSqrDistance = float.MaxValue;
+		foreach (RaycastHit hit in hits)
+		{
+			Vector3 point = hit.point;
+			float distance = (transform.position - point).sqrMagnitude;
+			if (distance < closestPointSqrDistance)
+			{
+				closestPointSqrDistance = distance;
+				closestPoint = point;
+			}
+		}
+		return closestPoint;
+	}
 	#endregion
 
 	private void OnDrawGizmos()
 	{
 		// If the program isn't running I can't get the icosphere mesh in order to calculate the raycast points,
 		// so here are some consolation spheres.
-		if (drawRays)
+		if (!Application.isPlaying && drawRays)
 		{
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawWireSphere(transform.position, attachmentDistance);
@@ -107,27 +194,27 @@ public class StateData : MonoBehaviour
 			return;
 		}
 
-		//if (drawHits)
-		//{
-		//	Gizmos.color = Color.green;
-		//	foreach (var p in hitPoints)
-		//	{
-		//		Gizmos.DrawSphere(p, 0.01f);
-		//	}
-		//}
+		if (drawHits)
+		{
+			Gizmos.color = Color.green;
+			foreach (var p in hitPoints)
+			{
+				Gizmos.DrawSphere(p, 0.03f);
+			}
+		}
 
-		//if (drawRays)
-		//{
+		if (drawRays)
+		{
 			// If the program is running you get to see where the raycasts actually are.
-			//Gizmos.color = Color.yellow;
-			//foreach (Vector3 v in icosphereVertices)
-			//{
-			//	Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + v * lastCheckDistance);
-			//}
-		//}
+			Gizmos.color = Color.yellow;
+			foreach (Vector3 v in icosphereVertices)
+			{
+				Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + v * lastCheckDistance);
+			}
+		}
 
 		// This draws a line to the closest point.
-		//Gizmos.color = Color.red;
-		//Gizmos.DrawLine(transform.position, closestPoint != null ? (Vector3)closestPoint : transform.position);
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(transform.position, closestPoint != null ? (Vector3)closestPoint : transform.position);
 	}
 }
