@@ -20,8 +20,8 @@ public class UpgradeController : MonoBehaviour
 	[SerializeField] float WZ_MaxDist;
 	[SerializeField] float WZ_Cooldown;
 	[SerializeField] float WZ_Timer;
-	[HideInInspector] bool WZ_OnCooldown;
-	[HideInInspector] LayerMask WZ_LayerMask;
+	[SerializeField] bool WZ_OnCooldown;
+	[SerializeField] LayerMask WZ_LayerMask;
 
 	[Header("Lunge Settings")]
 	//Lunge Variables L_ = Lunge
@@ -38,12 +38,19 @@ public class UpgradeController : MonoBehaviour
 	[SerializeField] float DM_Length;
 	[HideInInspector] bool DM_OnCooldown;
 
-	[Header("Testing Settings")]
-	//Testing Variables
-	public bool canLunge;
-	public bool canDetectiveMode;
-	public bool canWebZip;
-	public bool canHack;
+	[Header("Upgrade Variables")]
+	private const int SB_REGULAR_DURATION = 1;
+	private const int SB_UPGRADED_DURATION = 2;
+
+	private const int C_REGULAR_DURATION = 1;
+	private const int C_UPGRADED_DURATION = 2;
+
+	private const int EMP_REGULAR_RADIUS = 1;
+	private const int EMP_UPGRADED_RADIUS = 2;
+
+	private const int EMP_REGULAR_DURATION = 1;
+	private const int EMP_UPGRADED_DURATION = 2;
+
 
 	// Start is called before the first frame update
 	void Start()
@@ -53,19 +60,27 @@ public class UpgradeController : MonoBehaviour
 		PlayerPrefs.SetString("WebZip", "False");
 		PlayerPrefs.SetString("DetectiveMode", "False");
 		PlayerPrefs.SetString("Hack", "False");
+
 		//Abiity Upgrades
 		PlayerPrefs.SetString("SB_U", "False");
-		PlayerPrefs.SetString("EMP_U", "False");
+		PlayerPrefs.SetString("EMP_DU", "False");
+		PlayerPrefs.SetString("EMP_RU", "False");
 		PlayerPrefs.SetString("TD_U", "False");
 		PlayerPrefs.SetString("C_U", "False");
-		//Ammo Upgrades
-		PlayerPrefs.SetString("SB_AU", "False");
-		PlayerPrefs.SetString("EMP_AU", "False");
-		PlayerPrefs.SetString("TD_AU", "False");
 
-		
+		PlayerPrefs.SetInt("SB_DURATION", 1);
+		PlayerPrefs.SetInt("EMP_DURATION", 1);
+		PlayerPrefs.SetInt("EMP_RADIUS", 1);
+		PlayerPrefs.SetString("TD_PENETRATION", "FALSE");
+		PlayerPrefs.SetInt("C_DURATION", 1);
+
+		//Ammo Upgrades
+		PlayerPrefs.SetInt("SB_AM", 1);
+		PlayerPrefs.SetInt("EMP_AM", 1);
+		PlayerPrefs.SetInt("TD_AM", 1);
+
 		controller = GetComponent<MovementController>();
-		WZ_LayerMask = LayerMask.NameToLayer("Default");
+		WZ_LayerMask = 3;
 
 		//Setting Timers
 		WZ_Timer = WZ_Cooldown;
@@ -75,12 +90,7 @@ public class UpgradeController : MonoBehaviour
 
 
 	public void Update()
-	{
-		if (canLunge && PlayerPrefs.GetString("Lunge") == "False") EnableUpgrade("Lunge");
-		if (canWebZip && PlayerPrefs.GetString("WebZip") == "False") EnableUpgrade("WebZip");
-		if (canDetectiveMode && PlayerPrefs.GetString("DetectiveMode") == "False") EnableUpgrade("DetectiveMode");
-		if (canHack && PlayerPrefs.GetString("Hack") == "False") EnableUpgrade("Hack");
-
+	{ 
 		if (lunge.action.ReadValue<float>() > 0 && !L_OnCooldown)
 		{
 			Lunge();
@@ -104,7 +114,7 @@ public class UpgradeController : MonoBehaviour
 	{
 		if(L_OnCooldown)
 		{
-			if (L_Timer > 0) L_Timer -= Time.deltaTime;
+			if (L_Timer >= 0) L_Timer -= Time.deltaTime;
 			else
 			{
 				L_OnCooldown = false;
@@ -113,7 +123,7 @@ public class UpgradeController : MonoBehaviour
 		}
 		if(WZ_OnCooldown)
 		{
-			if (WZ_Timer > 0) WZ_Timer -= Time.deltaTime;
+			if (WZ_Timer >= 0) WZ_Timer -= Time.deltaTime;
 			else
 			{
 				WZ_OnCooldown = false;
@@ -122,7 +132,7 @@ public class UpgradeController : MonoBehaviour
 		}
 		if(DM_OnCooldown)
 		{
-			if (DM_Timer > 0) DM_Timer -= Time.deltaTime;
+			if (DM_Timer >= 0) DM_Timer -= Time.deltaTime;
 			else
 			{
 				DM_OnCooldown = false;
@@ -133,13 +143,11 @@ public class UpgradeController : MonoBehaviour
 
 	public void WebZip()
 	{
-		WZ_OnCooldown = true;
 		Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
 		RaycastHit hit;
 		Physics.Raycast(ray, out hit, WZ_MaxDist, WZ_LayerMask);
 		if (hit.collider)
 		{
-			print(hit.collider.name);
 			ZipState zip = GetComponent<ZipState>();
 			zip.attachedObject = hit;
 			controller.CurrentMovementState = zip;
@@ -188,18 +196,65 @@ public class UpgradeController : MonoBehaviour
 					hack.action.Enable();
 					break;
 				case "SB_U":
+					PlayerPrefs.SetInt("SB_DURATION", SB_UPGRADED_DURATION);
 					break;
-				case "SB_AU":
+				case "EMP_DU":
+					PlayerPrefs.SetInt("EMP_DURATION", EMP_UPGRADED_DURATION);
 					break;
-				case "EMP_U":
-					break;
-				case "EMP_AU":
+				case "EMP_RU":
+					PlayerPrefs.SetInt("EMP_RADIUS", EMP_UPGRADED_RADIUS);
 					break;
 				case "TD_U":
-					break;
-				case "TD_AU":
+					PlayerPrefs.SetString("TD_PENETRATION", "True");
 					break;
 				case "C_U":
+					PlayerPrefs.SetInt("C_DURATION", C_UPGRADED_DURATION);
+					break;
+			}
+		}
+	}
+
+	public void ChangeAmmoMult(string ammoType, int newMult)
+	{
+		if(PlayerPrefs.HasKey(ammoType))
+		{
+			PlayerPrefs.SetInt(ammoType, newMult);
+		}
+	}
+
+	public void DisableUpgrade(string upgrade)
+	{
+		if (PlayerPrefs.HasKey(upgrade))
+		{
+			PlayerPrefs.SetString(upgrade, "False");
+			switch (upgrade)
+			{
+				case "Lunge":
+					lunge.action.Disable();
+					break;
+				case "WebZip":
+					webZip.action.Disable();
+					break;
+				case "DetectiveMode":
+					detectiveMode.action.Disable();
+					break;
+				case "Hack":
+					hack.action.Disable();
+					break;
+				case "SB_U":
+					PlayerPrefs.SetInt("SB_DURATION", SB_REGULAR_DURATION);
+					break;
+				case "EMP_DU":
+					PlayerPrefs.SetInt("EMP_DURATION", EMP_REGULAR_DURATION);
+					break;
+				case "EMP_RU":
+					PlayerPrefs.SetInt("EMP_RADIUS", EMP_REGULAR_RADIUS);
+					break;
+				case "TD_U":
+					PlayerPrefs.SetString("TD_PENETRATION", "False");
+					break;
+				case "C_U":
+					PlayerPrefs.SetInt("C_DURATION", C_REGULAR_DURATION);
 					break;
 			}
 		}
