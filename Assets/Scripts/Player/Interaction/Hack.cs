@@ -62,6 +62,7 @@ public class Hack : MonoBehaviour, IInteractable
 
 			hacked = true;
 			AudioSource.PlayClipAtPoint(sfx, transform.position);
+			exitDoor.SetActive(false);
 			Debug.Log(_prompt);
 			exitDoor.SetActive(false);
 			return true;

@@ -10,7 +10,7 @@ public class TaskTrigger : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		Debug.Log("TaskTrigger collision detected with " + other.name);
+		//Debug.Log("TaskTrigger collision detected with " + other.name);
 		if (other.CompareTag("Player") && !triggered)
 		{
 			other.GetComponent<ObjectiveHandler>().Progress(objectiveIndex, taskIndex);

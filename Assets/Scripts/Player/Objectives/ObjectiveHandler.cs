@@ -31,10 +31,12 @@ public class ObjectiveHandler : MonoBehaviour
 	{
 		questItem.questText = objectives.ElementAt(objectiveIndex).objectiveLabel;
 		questItem.AnimateQuest();
+		questItem.AnimateQuest();
 	}
 	public void DisplayTask()
 	{
 		questItem.questText = objectives.ElementAt(objectiveIndex).GetCurrentTask().taskLabel;
+		questItem.AnimateQuest();
 		questItem.AnimateQuest();
 	}
 
