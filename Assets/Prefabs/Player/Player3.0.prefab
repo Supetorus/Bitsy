@@ -814,8 +814,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350034061294017}
-  m_LocalRotation: {x: 0.07845911, y: -0, z: -0, w: 0.99691737}
-  m_LocalPosition: {x: 0, y: 0.4564345, z: -0.98768836}
+  m_LocalRotation: {x: 0.0784591, y: -0, z: -0, w: 0.99691737}
+  m_LocalPosition: {x: 0, y: 0.4564345, z: -0.9876884}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1256,7 +1256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   height: 0.275
-  sprintMultiplier: 3
+  sprintMultiplier: 2
 --- !u!114 &2683350035233568994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f22f99005ed9644384ca269fc541c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 2
+  jumpForce: 5
 --- !u!114 &3680606545180593560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1339,8 +1339,10 @@ MonoBehaviour:
   cooldownTimer: 0
   projectile: {fileID: 5483677028367324060, guid: f81affc9663a37d4da1e77da6bb37333, type: 3}
   projectileSpawn: {fileID: 548105288}
-  speed: 1000
   mode: 5
+  speed: 1000
+  maxAmmo: 0
+  currentAmmo: 0
 --- !u!114 &797285233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1359,8 +1361,10 @@ MonoBehaviour:
   cooldownTimer: 0
   projectile: {fileID: 3442810844120767547, guid: c9e3fd1f9cd651a45a0598432ecc1076, type: 3}
   projectileSpawn: {fileID: 1949232470}
-  speed: 500
   mode: 0
+  speed: 500
+  maxAmmo: 0
+  currentAmmo: 0
 --- !u!114 &797285237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1394,18 +1398,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2221b1f550a54f647be1c22f0dc4c579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedNotification: {fileID: 0}
-  questItem: {fileID: 0}
+  feedNotification: {fileID: 7934235734248700425}
   inventory: {fileID: 1685213090}
   interactPromptLabel: {fileID: 7934235734466738153}
   _interactionPoint: {fileID: 680285923}
-  _interactionPointRadius: 0.1
+  _interactionPointRadius: 0.4
   _interactableMask:
     serializedVersion: 2
     m_Bits: 64
   _numFound: 0
-  interact: {fileID: 857090945557194352, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   drawInteractionArea: 0
+  interact: {fileID: 857090945557194352, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
 --- !u!114 &1685213090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3372,6 +3375,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2302435661860641918, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: minimizeAfter
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2302435661896614398, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -3615,6 +3622,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2302435662494004283, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
   m_PrefabInstance: {fileID: 2860474303518242246}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7934235734248700425 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5309290299754598351, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+  m_PrefabInstance: {fileID: 2860474303518242246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dafe903f24f9b94baf099ae852ac894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7934235734466738153 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5309290299570242095, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
