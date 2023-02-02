@@ -11,13 +11,27 @@ public class ObjectiveHandler : MonoBehaviour
 	public List<Objective> objectives;
 	public int objectiveIndex = 0;
 
+	private void Start()
+	{
+		StopCoroutine("ShowTask");
+		StartCoroutine("ShowTask");
+	}
+
+	IEnumerator ShowTask()
+	{
+		yield return new WaitForSeconds(questItem.minimizeAfter+1);
+		DisplayTask();
+	}
+
 	public void DisplayObjective()
 	{
 		questItem.questText = objectives.ElementAt(objectiveIndex).objectiveLabel;
+		questItem.AnimateQuest();
 	}
 	public void DisplayTask()
 	{
 		questItem.questText = objectives.ElementAt(objectiveIndex).GetCurrentTask().taskLabel;
+		questItem.AnimateQuest();
 	}
 
 	public void Progress(int o_index, int t_index)
@@ -40,7 +54,7 @@ public class ObjectiveHandler : MonoBehaviour
 		if (objectives[o_index].CheckCompleteObjective())
 		{
 			objectiveIndex++;
-			DisplayObjective();
+			if (objectiveIndex != objectives.Count) DisplayObjective();
 		}
 		else
 		{
@@ -53,6 +67,7 @@ public class ObjectiveHandler : MonoBehaviour
 		if (objectiveIndex == objectives.Count)
 		{
 			//TODO complete the level
+			Debug.Log("Level Complete");
 		}
 	}
 }
