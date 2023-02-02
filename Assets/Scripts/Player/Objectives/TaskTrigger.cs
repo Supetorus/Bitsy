@@ -14,7 +14,7 @@ public class TaskTrigger : MonoBehaviour
 		if (other.CompareTag("Player") && !triggered)
 		{
 			other.GetComponent<ObjectiveHandler>().Progress(objectiveIndex, taskIndex);
-			triggered = true;
+			triggered = other.GetComponent<ObjectiveHandler>().CheckCompleteTask(objectiveIndex, taskIndex);
 		}
 	}
 }
