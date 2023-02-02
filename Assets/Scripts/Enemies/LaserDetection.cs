@@ -8,6 +8,7 @@ public class LaserDetection : MonoBehaviour
 	public bool doesDamage;
 	public List<GameObject> dronesToActive;
 	public List<Enemy> scriptsToActive;
+	public List<GameObject> alarmsLight;
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -38,6 +39,10 @@ public class LaserDetection : MonoBehaviour
 				{
 					alarm.Play();
 				} 
+				foreach(var light in alarmsLight) {
+					light.transform.GetChild(1).gameObject.SetActive(true);
+					light.transform.GetChild(2).gameObject.SetActive(true);
+				}
 				//Debug.Log("Laser: You Have Been Spotted");
 			}
 		}

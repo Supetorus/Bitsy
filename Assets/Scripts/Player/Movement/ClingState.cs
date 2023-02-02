@@ -58,12 +58,12 @@ public class ClingState : MovementState
 		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
 		else movementMultiplier = Mathf.Clamp(movementMultiplier * c.drag, 1, sprintMultiplier);
 
-		Vector3? closestPoint = sd.GetClosestPoint(sd.attachmentDistance);
+		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(transform.position, sd.attachmentDistance, sd.walkableLayers);
 		// Near a walkable surface
 		if (closestPoint != null)
 		{
 			// Rotation
-			Vector3 upDirection = sd.CalculateAverageUp(sd.attachmentDistance);
+			Vector3 upDirection = SphereRaycaster.CalculateAverageUp(transform.position, sd.attachmentDistance, sd.walkableLayers, transform.up);
 			Debug.DrawLine(transform.position, transform.position + upDirection, Color.magenta);
 			Vector3 forward = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
 			Quaternion targetRotation = Quaternion.LookRotation(forward, upDirection);
@@ -85,7 +85,8 @@ public class ClingState : MovementState
 				input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
 			);
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + acceleration, c.maxVelocity * movementMultiplier);
-			Vector3 movement = targetRotation * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height-distance)));
+			Quaternion movementRotationBasis = Quaternion.LookRotation(forward, transform.position - (Vector3)closestPoint);
+			Vector3 movement = movementRotationBasis * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height-distance)));
 			rigidbody.MovePosition(movement + transform.position);
 
 			//TODO: This should be implemented when multiple surface materials are used
