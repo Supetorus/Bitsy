@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-		SceneManager.LoadScene("Alpha 1.0 Tutorial Level", LoadSceneMode.Additive);
+		SceneManager.LoadScene("Tutorial", LoadSceneMode.Additive);
 		SceneManager.sceneLoaded += OnSceneLoaded;
     }
 

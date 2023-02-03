@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 680285922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.507}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1199,6 +1199,7 @@ GameObject:
   - component: {fileID: 2683350034061294019}
   - component: {fileID: 2683350034061294018}
   - component: {fileID: 2683350034061294021}
+  - component: {fileID: 274415619673760356}
   m_Layer: 3
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -1293,11 +1294,24 @@ MonoBehaviour:
   minPitch: -80
   hitLayers:
     serializedVersion: 2
-    m_Bits: 209
+    m_Bits: 81
   cameraInput: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   sensitivity: 1.25
   invertX: 0
   invertY: 0
+--- !u!114 &274415619673760356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350034061294017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b5c03ac07ac7149849050d89967aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  registrationName: playcamera
 --- !u!1 &2683350034651017715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,6 +1582,9 @@ GameObject:
   - component: {fileID: 4079061226764241351}
   - component: {fileID: 2683350035233569023}
   - component: {fileID: 797285238}
+  - component: {fileID: 7207286422551258117}
+  - component: {fileID: 5481248408863341317}
+  - component: {fileID: 8064130380594345402}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1650,8 +1667,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c895a65b820ba45ac20a94c2e11122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 0.1
-  sprintMultiplier: 3
+  height: 0.275
+  sprintMultiplier: 2
 --- !u!114 &2683350035233568994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1676,7 +1693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f22f99005ed9644384ca269fc541c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 2
+  jumpForce: 5
 --- !u!114 &3680606545180593560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1736,7 +1753,7 @@ MonoBehaviour:
   projectileSpawn: {fileID: 548105288}
   mode: 5
   speed: 1000
-  maxAmmo: 0
+  maxAmmo: 2
   currentAmmo: 0
 --- !u!114 &797285233
 MonoBehaviour:
@@ -1758,7 +1775,7 @@ MonoBehaviour:
   projectileSpawn: {fileID: 1949232470}
   mode: 0
   speed: 500
-  maxAmmo: 0
+  maxAmmo: 2
   currentAmmo: 0
 --- !u!114 &797285237
 MonoBehaviour:
@@ -1797,7 +1814,7 @@ MonoBehaviour:
   inventory: {fileID: 1685213090}
   interactPromptLabel: {fileID: 7934235734466738153}
   _interactionPoint: {fileID: 680285923}
-  _interactionPointRadius: 0.1
+  _interactionPointRadius: 0.4
   _interactableMask:
     serializedVersion: 2
     m_Bits: 64
@@ -1967,6 +1984,66 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.07
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7207286422551258117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ef25f6467b4d3478a487f710211974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questItem: {fileID: 4053687372581398968}
+  objectives:
+  - {fileID: 11400000, guid: be4d05d398f302348ab5f1e1276e234e, type: 2}
+  objectiveIndex: 0
+--- !u!114 &5481248408863341317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b5c03ac07ac7149849050d89967aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  registrationName: player
+--- !u!114 &8064130380594345402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb1cd2ea5b5e024d8ec89c41b642a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lunge: {fileID: -7599708814833653385, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  webZip: {fileID: -7941357605142356636, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  detectiveMode: {fileID: 7966428165398738854, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  hack: {fileID: 1112972856028523898, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  controller: {fileID: 0}
+  WZ_MaxDist: 10
+  WZ_Cooldown: 2
+  WZ_Timer: 0
+  WZ_OnCooldown: 0
+  WZ_LayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  L_Force: 0
+  L_Cooldown: 0
+  L_Timer: 0
+  range: 0
+  DM_Cooldown: 0
+  DM_Timer: 0
+  DM_Length: 0
 --- !u!1 &2683350035243659259
 GameObject:
   m_ObjectHideFlags: 0
@@ -4288,7 +4365,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 6994490987773217343, guid: fd2e95e311c5b5e4da32b572f6628427, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4864,6 +4941,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+--- !u!114 &4053687372581398968 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2302435661860641918, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+  m_PrefabInstance: {fileID: 2860474303518242246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b785238617c9389419a59f9cc5b41084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4053687374095516157 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2302435662494004283, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}

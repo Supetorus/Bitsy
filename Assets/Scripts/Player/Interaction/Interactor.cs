@@ -46,6 +46,10 @@ public class Interactor : MonoBehaviour
 					//Debug.Log("SOMETHING WAS HIT");
 					feedNotification.MinimizeNotification(); 
 					interactable.Interact(this);
+					if (_colliders[0].TryGetComponent(out TaskInteract task))
+					{
+						task.Interact();
+					}
 				}
 			}
 		}
