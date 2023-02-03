@@ -78,32 +78,25 @@ public class ObjectiveHandler : MonoBehaviour
 	{
 		if (objectiveIndex == objectives.Count)
 		{
-			//TODO complete the level
+			//complete the level
+			//Do dnot change the order to this it'll break 
 
-			panelManager = FindObjectOfType<PanelManager>();
 			gm = FindObjectOfType<GameManager>();
 
 			gm.hud.gameObject.SetActive(false);
 			gm.mainMenu.gameObject.SetActive(true);
 
+			panelManager = FindObjectOfType<PanelManager>();
 
-			panelManager.OpenPanel(panelManager.panels[6].panelName);
+			panelManager.OpenPanel(panelManager.panels[7].panelName);
 
 			//menuManager.ActivateMenu();
-			gm.playCamera.SetActive(false);
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
-			gm.menuCamera.SetActive(true);
 
-			panelManager.OpenPanelByIndex(6);
-			panelManager.ShowCurrentPanel();
-			/*if (interactor.tag == "TestWin")
-			{
-			}
-			if (interactor.tag == "TestLose")
-			{
-				panelManager.currentPanelIndex = 7;
-			}*/
+			gm.menuCamera.SetActive(true);
+			gm.playCamera.SetActive(false);
+
 			Debug.Log("Level Complete");
 		}
 	}
