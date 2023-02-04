@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &628778718 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 255644986236024998, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
-  m_PrefabInstance: {fileID: 2052267711}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 491c0a6eddecda542a6476e707dc7c7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &628778719 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 255644986692276345, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
@@ -7915,11 +7904,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3936638753170664541, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3936638753170664541, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3936638753170664541, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_SizeDelta.x
@@ -7927,7 +7916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3936638753170664541, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -553.0741
       objectReference: {fileID: 0}
     - target: {fileID: 3936638753726591138, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_SizeDelta.x
@@ -9146,11 +9135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5077092796393693694, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5077092796393693694, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5077092796393693694, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_SizeDelta.x
@@ -9158,7 +9147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5077092796393693694, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 5077092796393693694, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -9166,7 +9155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5077092796393693694, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -27.5
       objectReference: {fileID: 0}
     - target: {fileID: 5077092796911025409, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10579,14 +10568,14 @@ PrefabInstance:
     - target: {fileID: 7235466620770692408, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 628778718}
+      objectReference: {fileID: 628778719}
     - target: {fileID: 7235466620770692408, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: NextPanel
+      value: StartGame
       objectReference: {fileID: 0}
     - target: {fileID: 7235466620770692408, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Michsky.UI.Reach.PanelManager, Assembly-CSharp
+      value: MenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7353163601830988025, guid: 6b30f03a59a70e74b891781d4517d506, type: 3}
       propertyPath: m_AnchorMax.y
