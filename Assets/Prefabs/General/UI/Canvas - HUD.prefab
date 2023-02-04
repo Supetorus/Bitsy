@@ -3067,6 +3067,7 @@ GameObject:
   - component: {fileID: 2302435662494004285}
   - component: {fileID: 2302435662494004284}
   - component: {fileID: 2302435662494004287}
+  - component: {fileID: 5075028173865699132}
   m_Layer: 5
   m_Name: Canvas - HUD
   m_TagString: Untagged
@@ -3171,6 +3172,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1c16a050f9c6e43b099f695c557ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5075028173865699132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2302435662494004286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b5c03ac07ac7149849050d89967aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  registrationName: hud
 --- !u!1 &2302435662622525925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5656,16 +5670,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 675367248808306105, guid: 5d9ad786046b24d498b979ad8c25b535, type: 3}
-      propertyPath: questText
-      value: Hack Computer
-      objectReference: {fileID: 0}
-    - target: {fileID: 675367248808306105, guid: 5d9ad786046b24d498b979ad8c25b535, type: 3}
       propertyPath: defaultState
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 675367248808306105, guid: 5d9ad786046b24d498b979ad8c25b535, type: 3}
-      propertyPath: minimizeAfter
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 675367248808306105, guid: 5d9ad786046b24d498b979ad8c25b535, type: 3}
       propertyPath: localizationKey
