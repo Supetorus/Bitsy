@@ -7,12 +7,12 @@ public class TaskInteract : MonoBehaviour
 	[SerializeField] private int objectiveIndex = 0;
 	[SerializeField] private int taskIndex = 0;
 	[SerializeField] private bool triggered = false;
-	public void Interact(GameObject other)
+	public void Interact()
 	{
-		if (other.CompareTag("Player") && !triggered)
+		if (!triggered)
 		{
-			other.GetComponent<ObjectiveHandler>().Progress(objectiveIndex, taskIndex);
-			triggered = true;
+			FindObjectOfType<ObjectiveHandler>().Progress(objectiveIndex, taskIndex);
+			triggered = FindObjectOfType<ObjectiveHandler>().CheckCompleteTask(objectiveIndex, taskIndex);
 		}
 	}
 }
