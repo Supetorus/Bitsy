@@ -46,6 +46,7 @@ namespace Michsky.UI.Reach
 
         void Start()
         {
+			Time.timeScale = 1.0f;
             if (panelManager != null) { disableAfter = ReachInternalTools.GetAnimatorClipLength(panelManager.panels[panelManager.currentPanelIndex].panelObject, "MainPanel_Out"); }
             if (continueButton != null) { continueButton.onClick.AddListener(ClosePauseMenu); }
 
