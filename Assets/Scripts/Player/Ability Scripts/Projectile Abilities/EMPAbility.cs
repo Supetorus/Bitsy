@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class EMPAbility : Ability
 {
-    [SerializeField] GameObject projectile;
+	[SerializeField] List<GameObject> projectiles;
     [SerializeField] Transform projectileSpawn;
     [SerializeField] ForceMode mode;
     [SerializeField] float speed;
 	[SerializeField] public int maxAmmo;
 	[SerializeField] public int currentAmmo;
 	const int DEFAULT_AMMO = 5;
+	GameObject projectile;
 
 	public void Start()
 	{
@@ -25,6 +26,11 @@ public class EMPAbility : Ability
 
 	public override void UseAbility()
     {
+		if (PlayerPrefs.GetString("EMP_DU") == "True" && PlayerPrefs.GetString("EMP_RU") == "True") projectile = projectiles[2];
+		else if (PlayerPrefs.GetString("EMP_DU") == "True" || PlayerPrefs.GetString("EMP_RU") == "True") projectile = projectiles[1];
+		else projectile = projectiles[0];
+
+
 		if(currentAmmo > 0)
 		{
 			GameObject proj = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);

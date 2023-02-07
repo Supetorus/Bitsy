@@ -8,6 +8,7 @@ public class AbilityController : MonoBehaviour
     //Ability Actions: AA stands for Ability Action
     //The ability currently equipped
     public InputActionReference activeAA;
+
     //Switch to the ability on the left of the UI
     public InputActionReference cycleAbility;
     public Transform spiderCenter;
