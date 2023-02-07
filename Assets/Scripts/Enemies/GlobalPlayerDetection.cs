@@ -3,28 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class GlobalPlayerDetection : MonoBehaviour
 {
+	public delegate void DetectionAction();
+
+	[Tooltip("This event is called when global detection is at 0.")]
+	public static event DetectionAction onEmpty;
 	[Tooltip("This event is called when global detection is at 25.")]
-	public UnityEvent onQuarter;
+	public static event DetectionAction onQuarter;
 	[Tooltip("This event is called when global detection is at 50.")]
-	public UnityEvent onHalf;
+	public static event DetectionAction onHalf;
 	[Tooltip("This event is called when global detection is at 75.")]
-	public UnityEvent onThreeFourths;
+	public static event DetectionAction onThreeFourths;
 	[Tooltip("This event is called when global detection is at 100.")]
-	public UnityEvent onFull;
+	public static event DetectionAction onFull;
 
 	[SerializeField] float decreaseOverTime;
+	[SerializeField] float decreaseHowOften;
 	private static float previousGloabalDetectionLevel;
-	private static float CurrentGlobalDetectionLevel { get { return CurrentGlobalDetectionLevel; } set { CurrentGlobalDetectionLevel = Mathf.Clamp(value, 0, 100); } }
+	[SerializeField] float CurrentGlobalDetectionLevel { get { return CurrentGlobalDetectionLevel; } set { CurrentGlobalDetectionLevel = Mathf.Clamp(value, 0, 100); } }
 	public List<GameObject> allEnemies;
+	public bool detectionChanged = false;
     // Start is called before the first frame update
     void Start()
     {
-		allEnemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));       
+		allEnemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
     }
 
-	public static void ChangeDetection(float change, bool isIncrease)
+	public void ChangeDetection(float change, bool isIncrease)
 	{
 		previousGloabalDetectionLevel = CurrentGlobalDetectionLevel;
 		if(isIncrease){
@@ -33,11 +40,43 @@ public class GlobalPlayerDetection : MonoBehaviour
 		{
 			CurrentGlobalDetectionLevel -= change;
 		}
+		CheckEvents();
 	}
 
-	public void Update()
+	public void CheckEvents()
 	{
-		
+		if (CurrentGlobalDetectionLevel >= 95)
+		{
+			if (onFull != null) onFull();
+		}
+		else if (CurrentGlobalDetectionLevel >= 75)
+		{
+			if (onThreeFourths != null) onThreeFourths();
+		}
+		else if (CurrentGlobalDetectionLevel >= 50)
+		{
+			if (onHalf != null) onHalf();
+		}
+		else if (CurrentGlobalDetectionLevel >= 25)
+		{
+			if (onQuarter != null) onQuarter();
+		} else if(CurrentGlobalDetectionLevel == 0)
+		{
+			if (onEmpty != null) onEmpty();
+		}
+	}
+
+
+	public void Update() 
+	{
+		//if(!PlayerInSight())
+		//{
+		//	StartCoroutine(DecreaseDetection());
+		//} 
+		//else
+		//{
+		//	StopCoroutine(DecreaseDetection());
+		//}
 	}
 
 	//Returns true if any enemy can see the player.
@@ -48,5 +87,11 @@ public class GlobalPlayerDetection : MonoBehaviour
 			if (enemy.GetComponent<Enemy>().CheckSightlines())return true;
 		}
 		return false;
+	}
+
+	IEnumerator DecreaseDetection()
+	{
+		yield return new WaitForSeconds(decreaseHowOften);
+		ChangeDetection(decreaseOverTime, false);
 	}
 }
