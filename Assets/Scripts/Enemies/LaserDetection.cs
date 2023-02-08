@@ -11,7 +11,7 @@ public class LaserDetection : MonoBehaviour
 	public List<Enemy> scriptsToActive;
 	public List<GameObject> alarmsLight;
 
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerStay(Collider other)
 	{
 		//Debug.Log("Laser: Collided");
 		//Debug.Log(other.gameObject.name);
