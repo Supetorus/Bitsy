@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
 	GameManager gm;
+	private string selectedLevel = "Tutorial";
+	public int objectiveIndex;
+	[SerializeField] List<Level> levels = new List<Level>();
     //ThirdPersonCameraController playerCameraController;
 
     private void Start()
@@ -15,9 +19,19 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-		SceneManager.LoadScene("Alpha 1.0 Tutorial Level", LoadSceneMode.Additive);
+		SceneManager.LoadScene(selectedLevel, LoadSceneMode.Additive);
 		SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+	public void SetLevel(string value)
+	{
+		selectedLevel = value;
+	}
+
+	public void SetObjective(int value) 
+	{
+		objectiveIndex = value;
+	}
 
 	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
@@ -25,6 +39,9 @@ public class MenuManager : MonoBehaviour
 		gm.menuCamera.SetActive(false);
 		gm.playCamera.SetActive(true);
 		gm.hud.SetActive(true);
+
+		FindObjectOfType<ObjectiveHandler>().objectives.Clear();
+		FindObjectOfType<ObjectiveHandler>().objectives.Add(levels.Find(x => x.name == selectedLevel).objectives[objectiveIndex]);
 
 		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}

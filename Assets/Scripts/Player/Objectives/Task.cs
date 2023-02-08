@@ -15,4 +15,6 @@ public class Task : ScriptableObject
 		complete = t_index == index;
 		return complete;
 	}
+
+	public bool IsComplete() { return complete; }
 }

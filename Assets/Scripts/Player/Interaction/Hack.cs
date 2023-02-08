@@ -60,11 +60,6 @@ public class Hack : MonoBehaviour, IInteractable
 				panelManager.currentPanelIndex = 7;
 			}*/
 
-			if (TryGetComponent(out TaskInteract taskInteract))
-			{
-				taskInteract.Interact(interactor.gameObject);
-			}
-
 			hacked = true;
 			AudioSource.PlayClipAtPoint(sfx, transform.position);
 			exitDoor.SetActive(false);

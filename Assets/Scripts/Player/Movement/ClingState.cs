@@ -85,7 +85,8 @@ public class ClingState : MovementState
 				input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
 			);
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + acceleration, c.maxVelocity * movementMultiplier);
-			Vector3 movement = targetRotation * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height-distance)));
+			Quaternion movementRotationBasis = Quaternion.LookRotation(forward, transform.position - (Vector3)closestPoint);
+			Vector3 movement = movementRotationBasis * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height-distance)));
 			rigidbody.MovePosition(movement + transform.position);
 
 			//TODO: This should be implemented when multiple surface materials are used
