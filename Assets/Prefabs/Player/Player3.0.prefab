@@ -1585,6 +1585,7 @@ GameObject:
   - component: {fileID: 7207286422551258117}
   - component: {fileID: 5481248408863341317}
   - component: {fileID: 8064130380594345402}
+  - component: {fileID: 6425380656713039377}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -2046,6 +2047,37 @@ MonoBehaviour:
   DM_Cooldown: 0
   DM_Timer: 0
   DM_Length: 0
+--- !u!114 &6425380656713039377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26dab030ceaaad44935609007f72e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxValue: 100
+  startValue: 100
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onHeal:
+    m_PersistentCalls:
+      m_Calls: []
+  onMaxHealth:
+    m_PersistentCalls:
+      m_Calls: []
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  progressBar: {fileID: 0}
+  health: 0
 --- !u!1 &2683350035243659259
 GameObject:
   m_ObjectHideFlags: 0
