@@ -80,7 +80,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		}
 		legTargets[index].position = targetPoint;
 		lastLegPositions[index] = legTargets[index].position;
-		legMoving[0] = false;
+		legMoving[index] = false;
 	}
 
 	void FixedUpdate()
@@ -113,7 +113,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 			if (i != indexToMove)
 				legTargets[i].position = lastLegPositions[i];
 
-		if (indexToMove != -1 && !legMoving[0])
+		if (indexToMove != -1 && !legMoving[indexToMove])
 		{
 			Vector3 targetPoint = desiredPositions[indexToMove] + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (desiredPositions[indexToMove] - legTargets[indexToMove].position) + velocity * velocityMultiplier;
 
@@ -123,7 +123,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 					(transform.parent.up - velocity * 100).normalized
 				);
 
-			legMoving[0] = true;
+			legMoving[indexToMove] = true;
 
 			if (positionAndNormalFwd[1] == Vector3.zero)
 			{
