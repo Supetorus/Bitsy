@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 225847224109230261}
   - component: {fileID: 225847224109230262}
   - component: {fileID: 225847224109230263}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 225847224900455580}
   - component: {fileID: 225847224900455581}
   - component: {fileID: 225847224900455582}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 225847225109560776}
-  m_Layer: 0
+  - component: {fileID: 3564653603516881774}
+  m_Layer: 7
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,6 +228,26 @@ Transform:
   m_Father: {fileID: 7178526681079586048}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3564653603516881774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225847225109560777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21139b19bc576d94ea5fd61b9dd6b338, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightDist: 3
+  projectile: {fileID: 498963631173326718, guid: 0603e7a1714700c439494497a7d756e7, type: 3}
+  weapon: {fileID: 684266394119193273}
+  myMask:
+    serializedVersion: 2
+    m_Bits: 4224
+  projSpeed: 5
+  fireRate: 1
 --- !u!1 &225847225416038503
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 225847225416038502}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +298,7 @@ GameObject:
   - component: {fileID: 225847225738557890}
   - component: {fileID: 225847225738557891}
   - component: {fileID: 225847225738557900}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +395,7 @@ GameObject:
   - component: {fileID: 225847225799153382}
   - component: {fileID: 225847225799153383}
   - component: {fileID: 225847225799153376}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +492,7 @@ GameObject:
   - component: {fileID: 225847225882201138}
   - component: {fileID: 225847225882201139}
   - component: {fileID: 225847225882201148}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +588,7 @@ GameObject:
   - component: {fileID: 607655492795435371}
   - component: {fileID: 607655492794665291}
   - component: {fileID: 607655492793535371}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -650,7 +671,7 @@ GameObject:
   - component: {fileID: 684266394119193273}
   - component: {fileID: 684266394115768985}
   - component: {fileID: 684266394116898905}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -735,7 +756,7 @@ GameObject:
   - component: {fileID: 8487624129216052248}
   - component: {fileID: 7123107514202680034}
   - component: {fileID: 7821690060278490054}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BlinkyBoi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,8 +869,8 @@ GameObject:
   - component: {fileID: 7178526681079586048}
   - component: {fileID: 7178526681079586055}
   - component: {fileID: 7178526681079586054}
-  m_Layer: 0
-  m_Name: Turret
+  m_Layer: 7
+  m_Name: TurretObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,6 +907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7178526681079586054}
+  turret: {fileID: 3564653603516881774}
 --- !u!95 &7178526681079586054
 Animator:
   serializedVersion: 5
@@ -917,7 +939,7 @@ GameObject:
   - component: {fileID: 6528675307409760722}
   - component: {fileID: 6528675307409760721}
   - component: {fileID: 6528675307409760720}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SM_Bld_Floor_Small_08_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -999,7 +1021,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6528675307409760725}
   - component: {fileID: 6528675307409760724}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SM_Bld_Floor_Small_08 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1046,7 +1068,7 @@ GameObject:
   - component: {fileID: 8155550503147164867}
   - component: {fileID: 8155550503147164864}
   - component: {fileID: 8155550503147164865}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SM_Bld_Floor_Small_08_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1128,7 +1150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8155550503147164868}
   - component: {fileID: 8155550503147164869}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SM_Bld_Floor_Small_08 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
