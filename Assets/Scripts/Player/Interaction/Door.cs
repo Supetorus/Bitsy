@@ -15,6 +15,7 @@ public class Door : MonoBehaviour, IInteractable
 	[SerializeField] private GameObject OtherDoor2;
 	[SerializeField] private bool OpensOnX;
 	[SerializeField] private bool OpensOnZ;
+	[SerializeField] private bool RotateToOpen;
 	[SerializeField] private float MoveAmount;
 
 	private bool opened = false;
@@ -47,7 +48,11 @@ public class Door : MonoBehaviour, IInteractable
 			//update to play open on open animation and close on close animation when animator is added
 			// open door
 			if(OtherDoor2 == null) {
-				OtherDoor1.transform.position = new Vector3(OtherDoor1.transform.position.x, OtherDoor1.transform.position.y + MoveAmount, OtherDoor1.transform.position.z);
+				if (RotateToOpen) {
+					OtherDoor1.transform.eulerAngles = new Vector3(OtherDoor1.transform.eulerAngles.x, OtherDoor1.transform.eulerAngles.y + MoveAmount, OtherDoor1.transform.eulerAngles.x);
+				} else {
+					OtherDoor1.transform.position = new Vector3(OtherDoor1.transform.position.x, OtherDoor1.transform.position.y + MoveAmount, OtherDoor1.transform.position.z);
+				}
 			} else {
 				if (OpensOnX) {
 					OtherDoor1.transform.position = new Vector3(OtherDoor1.transform.position.x + MoveAmount, OtherDoor1.transform.position.y, OtherDoor1.transform.position.z);
