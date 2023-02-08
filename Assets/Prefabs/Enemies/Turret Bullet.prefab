@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8505412998042260039}
   - component: {fileID: 6761515505928214424}
   - component: {fileID: 2392842298985232105}
+  - component: {fileID: 2815007258907708267}
   m_Layer: 12
   m_Name: Turret Bullet
   m_TagString: Untagged
@@ -114,3 +115,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &2815007258907708267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498963631173326718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0994d0b1c8c354499a95108a4d4934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instantKill: 0
+  damagePerSecond: 1

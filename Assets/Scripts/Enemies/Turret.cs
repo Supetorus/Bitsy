@@ -29,10 +29,11 @@ public class Turret : MonoBehaviour
     {
 		Vector3 direction = (player.transform.position - transform.position).normalized;
 		Debug.DrawRay(transform.position, direction);
+
 		if (Physics.Raycast(transform.position, direction, out RaycastHit hit,  sightDist, myMask))
 		{
 			canSeePlayer = true;
-			if (hit.collider.gameObject == player)
+			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
 				turretAnimator.animator.enabled = false;
 				weapon.LookAt(player.transform);
@@ -46,9 +47,9 @@ public class Turret : MonoBehaviour
 			turretAnimator.animator.SetBool("isActive", true);
 		}
 		
-		if (fireTimer <= 0 && canSeePlayer)
+		if (fireTimer <= 0 && canSeePlayer )
 		{
-			if (hit.collider.gameObject == player)
+			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
 				GameObject bullet = Instantiate(projectile, transform.position, transform.rotation);
 				bullet.GetComponent<Rigidbody>().AddForce(direction * projSpeed);
