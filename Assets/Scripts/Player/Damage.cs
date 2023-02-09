@@ -6,6 +6,7 @@ using UnityEngine;
 public class Damage : MonoBehaviour
 {
 	[SerializeField] bool dot;
+	[SerializeField] bool destroyOnCollide;
 	public bool instantKill = false;
 	public float damage = 1;
 
@@ -17,6 +18,7 @@ public class Damage : MonoBehaviour
 			if (dot)DoDamageOverTime(health);
 			else DoDamage(health);
 		}
+		if (destroyOnCollide) Destroy(gameObject);
 	}
 
 	private void OnTriggerStay(Collider other)
@@ -36,7 +38,6 @@ public class Damage : MonoBehaviour
 			return;
 		}
 		health.TakeDamage(damage);
-		Destroy(gameObject);
 	}
 	private void DoDamageOverTime(Health health)
 	{

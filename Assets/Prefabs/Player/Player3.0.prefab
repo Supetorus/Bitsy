@@ -1214,8 +1214,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350034061294017}
-  m_LocalRotation: {x: 0.0784591, y: -0, z: -0, w: 0.99691737}
-  m_LocalPosition: {x: 0, y: 0.4564345, z: -0.9876884}
+  m_LocalRotation: {x: 0.07845911, y: -0, z: -0, w: 0.99691737}
+  m_LocalPosition: {x: 0, y: 0.4564345, z: -0.98768836}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1577,7 +1577,6 @@ GameObject:
   - component: {fileID: 5423256768897152099}
   - component: {fileID: 1685213078}
   - component: {fileID: 1685213090}
-  - component: {fileID: 1685213091}
   - component: {fileID: 7284688453220278872}
   - component: {fileID: 4079061226764241351}
   - component: {fileID: 2683350035233569023}
@@ -1586,6 +1585,7 @@ GameObject:
   - component: {fileID: 5481248408863341317}
   - component: {fileID: 8064130380594345402}
   - component: {fileID: 6425380656713039377}
+  - component: {fileID: 2259760953133817111}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1838,18 +1838,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 25fa9429c9eff6f48ab4d937744f21e1, type: 2}
---- !u!114 &1685213091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2683350035233569020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7277cf499e6856f4cba741e77b53a009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7284688453220278872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2079,6 +2067,22 @@ MonoBehaviour:
       m_Calls: []
   progressBar: {fileID: 4053687372692122536}
   health: 0
+--- !u!114 &2259760953133817111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073d680585a966c4884ae9e72c664826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decreaseOverTime: 0
+  decreaseHowOften: 0
+  allEnemies: []
+  detectionChanged: 0
 --- !u!1 &2683350035243659259
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,8 @@ public class Turret : MonoBehaviour
 	GameObject player;
 	TurretAnimator turretAnimator;
 	bool canSeePlayer;
+	private float timeToRotate = 1.5f;
+	private float rotTimer;
 
 	private int currentSpawnLocation;
 
@@ -32,18 +34,20 @@ public class Turret : MonoBehaviour
     {
 		Vector3 direction = (player.transform.position - transform.position).normalized;
 		Debug.DrawRay(transform.position, direction);
-
+		print(Mathf.Abs(rotTimer - timeToRotate));
 		if (Physics.Raycast(transform.position, direction, out RaycastHit hit,  sightDist, myMask))
 		{
 			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
+				rotTimer += Time.deltaTime;
 				canSeePlayer = true;
 				turretAnimator.animator.enabled = false;
-				weapon.LookAt(player.transform);
+				weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(direction, weapon.up), rotTimer/timeToRotate);
 			}
 		}
 		else
 		{
+			rotTimer = 0;
 			canSeePlayer = false;
 			turretAnimator.animator.enabled = true;
 			turretAnimator.animator.SetBool("isActive", true);
@@ -51,9 +55,10 @@ public class Turret : MonoBehaviour
 		
 		if (fireTimer <= 0 && canSeePlayer)
 		{
-			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
+			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible && Vector3.Dot(weapon.forward, direction) > 0.95f)
 			{
 				GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
+				bullet.transform.rotation = Quaternion.LookRotation(direction);
 				bullet.GetComponent<Rigidbody>().AddForce((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized * projSpeed);
 				Destroy(bullet, 1);
 				currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
