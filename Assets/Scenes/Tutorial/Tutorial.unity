@@ -617,6 +617,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 797285238, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: m_Radius
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 1685213078, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: drawInteractionArea
       value: 1
@@ -859,7 +863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5125073631168421113, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 12.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7319786380372986492, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_RootOrder
@@ -993,8 +997,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875e848de401f834cbbeff16a1abc2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: E to open door
-  feedbackText: E to open door
+  _prompt: Open door
+  feedbackText: Open door
   requiredItemKey: RedKeycard
   sfx: {fileID: 1403610205}
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
@@ -1626,8 +1630,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875e848de401f834cbbeff16a1abc2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: E to open door
-  feedbackText: E to open door
+  _prompt: Open door
+  feedbackText: Open door
   requiredItemKey: BlueKeycard
   sfx: {fileID: 1403610205}
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
@@ -2379,8 +2383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfcfcd2c35e21984281806642a1da364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: E Pick Up
-  feedbackText: E Pick Up
+  _prompt: Pick Up
+  feedbackText: Pick Up
   itemKey: BlueKeycard
   sfx: {fileID: 0}
   pickupsfx: {fileID: 0}
@@ -4168,8 +4172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875e848de401f834cbbeff16a1abc2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: E to open door
-  feedbackText: E to open door
+  _prompt: Open door
+  feedbackText: Open door
   requiredItemKey: BlueKeycard
   sfx: {fileID: 1403610205}
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
@@ -4719,6 +4723,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1403610205}
     - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: _prompt
+      value: Open door
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: OpensOnX
       value: 1
       objectReference: {fileID: 0}
@@ -4738,6 +4746,10 @@ PrefabInstance:
       propertyPath: OtherDoor2
       value: 
       objectReference: {fileID: 1612470649}
+    - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: feedbackText
+      value: Open door
+      objectReference: {fileID: 0}
     - target: {fileID: 353313323348578290, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -4781,6 +4793,14 @@ PrefabInstance:
     - target: {fileID: 353313323348578290, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7726132645765218876, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: _prompt
+      value: Pick Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 7726132645765218876, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: feedbackText
+      value: Pick Up
       objectReference: {fileID: 0}
     - target: {fileID: 7726132645962509560, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4868,8 +4888,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d0ab9b8b9baf347a0d16de61692c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: E Hack
-  feedbackText: E Hack
+  _prompt: Hack Mainframe
+  feedbackText: Hack Mainframe
   openDoor1: {fileID: 368351911}
   openDoor2: {fileID: 368351910}
   MoveAmount: 1.25
@@ -5095,8 +5115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875e848de401f834cbbeff16a1abc2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: E to open door
-  feedbackText: E to open door
+  _prompt: Open door
+  feedbackText: Open door
   requiredItemKey: RedKeycard
   sfx: {fileID: 1403610205}
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
@@ -6523,8 +6543,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875e848de401f834cbbeff16a1abc2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: E to open door
-  feedbackText: E to open door
+  _prompt: Open door
+  feedbackText: Open door
   requiredItemKey: RedKeycard
   sfx: {fileID: 1403610205}
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
