@@ -19,6 +19,10 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
+		if (SceneManager.GetSceneByName(selectedLevel).IsValid())
+		{
+			SceneManager.UnloadSceneAsync(selectedLevel);
+		}
 		SceneManager.LoadScene(selectedLevel, LoadSceneMode.Additive);
 		SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -35,6 +39,7 @@ public class MenuManager : MonoBehaviour
 
 	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
+		SceneManager.SetActiveScene(scene);
 		gm.mainMenu.SetActive(false);
 		gm.menuCamera.SetActive(false);
 		gm.playCamera.SetActive(true);
@@ -42,6 +47,7 @@ public class MenuManager : MonoBehaviour
 
 		FindObjectOfType<ObjectiveHandler>().objectives.Clear();
 		FindObjectOfType<ObjectiveHandler>().objectives.Add(levels.Find(x => x.name == selectedLevel).objectives[objectiveIndex]);
+		FindObjectOfType<ObjectiveHandler>().ResetObjective();
 
 		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
