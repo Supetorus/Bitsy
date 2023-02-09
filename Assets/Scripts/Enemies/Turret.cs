@@ -35,9 +35,9 @@ public class Turret : MonoBehaviour
 
 		if (Physics.Raycast(transform.position, direction, out RaycastHit hit,  sightDist, myMask))
 		{
-			canSeePlayer = true;
 			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
+				canSeePlayer = true;
 				turretAnimator.animator.enabled = false;
 				weapon.LookAt(player.transform);
 			}
@@ -45,12 +45,11 @@ public class Turret : MonoBehaviour
 		else
 		{
 			canSeePlayer = false;
-			print("Animator on");
 			turretAnimator.animator.enabled = true;
 			turretAnimator.animator.SetBool("isActive", true);
 		}
 		
-		if (fireTimer <= 0 && canSeePlayer )
+		if (fireTimer <= 0 && canSeePlayer)
 		{
 			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
@@ -69,6 +68,6 @@ public class Turret : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
-		Gizmos.DrawSphere(transform.position, sightDist);
+		//Gizmos.DrawSphere(transform.position, sightDist);
 	}
 }
