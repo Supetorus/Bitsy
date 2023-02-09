@@ -67,7 +67,7 @@ public class Interactor : MonoBehaviour
 		if (drawInteractionArea)
 		{
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireSphere(_interactionPoint.position, _interactionPointRadius);
+			Gizmos.DrawSphere(_interactionPoint.position, _interactionPointRadius);
 		}
 	}
 }
