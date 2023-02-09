@@ -42,6 +42,7 @@ public class Objective : ScriptableObject
 	public void ResetObjective()
 	{
 		complete = false;
+		taskIndex = 0;
 		foreach (var task in tasks)
 		{
 			task.ResetTask();
