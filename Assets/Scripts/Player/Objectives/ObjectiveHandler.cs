@@ -99,4 +99,13 @@ public class ObjectiveHandler : MonoBehaviour
 			Debug.Log("Level Complete");
 		}
 	}
+
+	public void ResetObjective()
+	{
+		objectiveIndex = 0;
+		foreach (var objective in objectives)
+		{
+			objective.ResetObjective();
+		}
+	}
 }

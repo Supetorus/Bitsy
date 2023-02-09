@@ -18,7 +18,7 @@ public class Objective : ScriptableObject
 
 	public Task GetTaskAtIndex(int t_index)
 	{
-		return tasks[index];
+		return tasks[t_index];
 	}
 
 	public bool CheckCompleteObjective()
@@ -37,5 +37,14 @@ public class Objective : ScriptableObject
 			}
 		}
 		complete = (taskIndex == tasks.Count);
+	}
+
+	public void ResetObjective()
+	{
+		complete = false;
+		foreach (var task in tasks)
+		{
+			task.ResetTask();
+		}
 	}
 }
