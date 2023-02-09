@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 680285922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.507}
+  m_LocalPosition: {x: 0, y: 0.104, z: 0.142}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1214,8 +1214,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350034061294017}
-  m_LocalRotation: {x: 0.078459084, y: -0, z: -0, w: 0.99691737}
-  m_LocalPosition: {x: 0, y: 0.50143445, z: -0.9876883}
+  m_LocalRotation: {x: 0.0784591, y: -0, z: -0, w: 0.99691737}
+  m_LocalPosition: {x: 0, y: 0.45643446, z: -0.9876883}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1572,9 +1572,9 @@ GameObject:
   - component: {fileID: 5510854112619284885}
   - component: {fileID: 3680606545180593560}
   - component: {fileID: 797285236}
-  - component: {fileID: 797285234}
+  - component: {fileID: 6122858834304969800}
   - component: {fileID: 797285233}
-  - component: {fileID: 797285237}
+  - component: {fileID: 5423256768897152099}
   - component: {fileID: 1685213078}
   - component: {fileID: 1685213090}
   - component: {fileID: 1685213091}
@@ -1601,7 +1601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350035233569020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.045, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1670,7 +1670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c895a65b820ba45ac20a94c2e11122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 0.275
+  height: 0.15
   sprintMultiplier: 2
 --- !u!114 &2683350035233568994
 MonoBehaviour:
@@ -1727,8 +1727,8 @@ MonoBehaviour:
   cycleAbility: {fileID: -5845073736614372765, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
   spiderCenter: {fileID: 1152317632}
   equippedAbilities:
-  - {fileID: 797285234}
-  - {fileID: 797285237}
+  - {fileID: 6122858834304969800}
+  - {fileID: 5423256768897152099}
   - {fileID: 797285233}
   abilityIndex: 1
   music: {fileID: 2099038405072835613}
@@ -1736,7 +1736,7 @@ MonoBehaviour:
   audioManager: {fileID: 7284688453220278872}
   isVisible: 1
   detected: 0
---- !u!114 &797285234
+--- !u!114 &6122858834304969800
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1745,19 +1745,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2683350035233569020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e2d12af71992024baee046a98b94271, type: 3}
+  m_Script: {fileID: 11500000, guid: d5055e65112646b4ea8d95491460f1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityTime: 0
-  cooldownTime: 3
+  abilityTime: 5
+  cooldownTime: 5
   abilityTimer: 0
   cooldownTimer: 0
-  projectile: {fileID: 5483677028367324060, guid: f81affc9663a37d4da1e77da6bb37333, type: 3}
-  projectileSpawn: {fileID: 548105288}
-  mode: 5
-  speed: 1000
-  maxAmmo: 2
-  currentAmmo: 0
+  materials:
+  - {fileID: 2100000, guid: 245116cfd38df39448eecbe9f1a189fa, type: 2}
+  - {fileID: 2100000, guid: 7d19dcd6d4dccff4c88bae8459a6c35f, type: 2}
 --- !u!114 &797285233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1780,7 +1777,7 @@ MonoBehaviour:
   speed: 500
   maxAmmo: 2
   currentAmmo: 0
---- !u!114 &797285237
+--- !u!114 &5423256768897152099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1789,18 +1786,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 2683350035233569020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bdf120b1c8407d4f9b051a00d8018e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 68687ffac29c8af44b1fdc337b15f14e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilityTime: 0
-  cooldownTime: 0
+  cooldownTime: 5
   abilityTimer: 0
   cooldownTimer: 0
-  maxZipDistance: 3
-  zippableLayers:
-    serializedVersion: 2
-    m_Bits: 65
-  drawGizmos: 0
+  projectiles:
+  - {fileID: 3180759573043981520, guid: eb0dd0ae9bd70424ea8b66099395ff09, type: 3}
+  - {fileID: 2981053761726562820, guid: 942b726b7bc69fe438a60be3f9401e17, type: 3}
+  - {fileID: 6773491881371664834, guid: 714184f071d2a34479ef57d5d72ca50c, type: 3}
+  projectileSpawn: {fileID: 1949232470}
+  mode: 0
+  speed: 500
+  maxAmmo: 2
+  currentAmmo: 0
 --- !u!114 &1685213078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3085,7 +3086,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5267679986003113166}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.121, z: 0.076}
+  m_LocalPosition: {x: 0, y: 0.148, z: 0.076}
   m_LocalScale: {x: 4.3076763, y: 4.3076763, z: 4.3076763}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4510,7 +4511,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8643860391943803940}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.118, z: 0}
+  m_LocalPosition: {x: 0, y: -0.107, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4590,7 +4591,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   raycastRange: 1.5
-  velocityMultiplier: 10
+  velocityMultiplier: 5
 --- !u!1 &8762195459633891748
 GameObject:
   m_ObjectHideFlags: 0

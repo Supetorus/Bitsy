@@ -5,8 +5,11 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
 	public List<Nodes> nodes;
+	public Nodes MiddleNode;
+	public Nodes StartNode;
 	private int node_Count = 0;
 	private float delay;
+	public float moveSpeed;
 
 	void Update()
     {
@@ -19,7 +22,7 @@ public class MovingPlatform : MonoBehaviour
 
 	public void MovePlatform() {
 
-		transform.position = Vector3.MoveTowards(transform.position, nodes[node_Count].transform.position, 2 * Time.deltaTime);
+		transform.position = Vector3.MoveTowards(transform.position, nodes[node_Count].transform.position, moveSpeed * Time.deltaTime);
 
 		if (transform.position == nodes[node_Count].transform.position) {
 			nodes[node_Count].last_reached = true;
@@ -27,9 +30,11 @@ public class MovingPlatform : MonoBehaviour
 			node_Count++;
 			if (node_Count >= nodes.Count) {
 				node_Count = 0;
+			}
+			if (nodes[node_Count].transform == MiddleNode.transform) {
 				delay = 4.0f;
 			}
-			if(node_Count == 6) {
+			if(nodes[node_Count].transform == StartNode.transform) {
 				delay = 4.0f;
 			}
 		}

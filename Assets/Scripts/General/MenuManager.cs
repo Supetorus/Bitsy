@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
 	GameManager gm;
+	[SerializeField]
 	private string selectedLevel = "Tutorial";
 	public int objectiveIndex;
 	[SerializeField] List<Level> levels = new List<Level>();
