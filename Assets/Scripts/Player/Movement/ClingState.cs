@@ -64,7 +64,7 @@ public class ClingState : MovementState
 		{
 			// Rotation
 			Vector3 upDirection = SphereRaycaster.CalculateAverageUp(transform.position, sd.attachmentDistance, sd.walkableLayers, transform.up);
-			Debug.DrawLine(transform.position, transform.position + upDirection, Color.magenta);
+			//Debug.DrawLine(transform.position, transform.position + upDirection, Color.magenta);
 			Vector3 forward = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
 			Quaternion targetRotation = Quaternion.LookRotation(forward, upDirection);
 			rigidbody.MoveRotation(
