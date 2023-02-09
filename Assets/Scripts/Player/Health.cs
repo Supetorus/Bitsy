@@ -88,6 +88,6 @@ public class Health : MonoBehaviour
 
 	private void UpdateDisplay(float newValue)
 	{
-		progressBar.currentValue = newValue;
+		progressBar.SetValue(newValue);
 	}
 }
