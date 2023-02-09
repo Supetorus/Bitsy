@@ -18,7 +18,7 @@ public class Objective : ScriptableObject
 
 	public Task GetTaskAtIndex(int t_index)
 	{
-		return tasks[index];
+		return tasks[t_index];
 	}
 
 	public bool CheckCompleteObjective()
