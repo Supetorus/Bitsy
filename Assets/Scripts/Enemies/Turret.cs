@@ -6,6 +6,7 @@ public class Turret : MonoBehaviour
 {
 	[SerializeField] float sightDist;
 	[SerializeField] GameObject projectile;
+	[SerializeField] Transform[] spawnLocations;
 	[SerializeField] Transform weapon;
 	[SerializeField] LayerMask myMask;
 	[SerializeField] float projSpeed;
@@ -15,6 +16,8 @@ public class Turret : MonoBehaviour
 	GameObject player;
 	TurretAnimator turretAnimator;
 	bool canSeePlayer;
+
+	private int currentSpawnLocation;
 
     // Start is called before the first frame update
     void Start()
@@ -51,8 +54,10 @@ public class Turret : MonoBehaviour
 		{
 			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
-				GameObject bullet = Instantiate(projectile, transform.position, transform.rotation);
-				bullet.GetComponent<Rigidbody>().AddForce(direction * projSpeed);
+				GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
+				bullet.GetComponent<Rigidbody>().AddForce((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized * projSpeed);
+				Destroy(bullet, 1);
+				currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
 				fireTimer = fireRate;
 			}
 		}
@@ -61,4 +66,9 @@ public class Turret : MonoBehaviour
 			fireTimer -= Time.deltaTime;
 		}
     }
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.DrawSphere(transform.position, sightDist);
+	}
 }
