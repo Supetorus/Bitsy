@@ -6,11 +6,12 @@ using UnityEngine;
 public class LaserDetection : MonoBehaviour
 {
 	public bool doesDamage;
+	public float dps = 1;
 	public List<GameObject> dronesToActive;
 	public List<Enemy> scriptsToActive;
 	public List<GameObject> alarmsLight;
 
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerStay(Collider other)
 	{
 		//Debug.Log("Laser: Collided");
 		//Debug.Log(other.gameObject.name);
@@ -20,7 +21,7 @@ public class LaserDetection : MonoBehaviour
 			if (doesDamage)
 			{
 				//Lower the players Health
-				Debug.Log("Laser: You have taken damage");
+				other.GetComponent<Health>().TakeDamage(dps * Time.deltaTime);
 			}
 			else
 			{

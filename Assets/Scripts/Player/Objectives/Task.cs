@@ -17,4 +17,6 @@ public class Task : ScriptableObject
 	}
 
 	public bool IsComplete() { return complete; }
+
+	public void ResetTask() { complete = false; }
 }

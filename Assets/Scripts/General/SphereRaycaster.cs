@@ -7,7 +7,7 @@ public static class SphereRaycaster
 {
 	private static Vector3[] icosphereVertices;
 	//The density of points on the icosphere, used for calculating raycast points around the player.
-	private static int icosphereDensity = 2;
+	private static int icosphereDensity = 5;
 
 	private static bool initialized = false;
 	private static void Init()

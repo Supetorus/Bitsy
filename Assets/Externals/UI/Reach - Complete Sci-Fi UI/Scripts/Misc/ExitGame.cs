@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Michsky.UI.Reach
 {
@@ -11,5 +12,10 @@ namespace Michsky.UI.Reach
             Debug.Log("<b>[Reach UI]</b> Exit function works in builds only.");
 #endif
         }
+
+		public void ExitToMainMenu()
+		{
+			SceneManager.LoadScene("Alpha 1.0 Main Menu", LoadSceneMode.Single);
+		}
     }
 }
