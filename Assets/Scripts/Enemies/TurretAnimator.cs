@@ -22,7 +22,7 @@ public class TurretAnimator : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		EnableTurret();
+		DisableTurret();
     }
 
     // Update is called once per frame
