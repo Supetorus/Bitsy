@@ -21,12 +21,14 @@ public class ThirdPersonCameraController : MonoBehaviour
 	public float minPitch = -89.9f;
 	[Tooltip("Camera won't pass through objects on these layers.")]
 	public LayerMask hitLayers;
+	[SerializeField, Tooltip("How quickly the camera adjusts to new positions")]
+	private float cameraSpeed = 10;
 
 	[Header("Controls Settings")]
 	[Tooltip("Drag in the 'Look' action here.")]
 	public InputActionReference cameraInput;
 	[Tooltip("How quickly the camera moves when you move mouse or stick.")]
-	public float sensitivity = 1;
+	public float verticalSensitivity = 1;
 	[Tooltip("Whether or not to invert the horizontal camera movement.")]
 	public bool invertX = false;
 	[Tooltip("Whether or not to invert the vertical camera movement.")]
@@ -34,6 +36,8 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 	private new Camera camera;
 	private Vector2 input = Vector2.zero;
+
+	private Vector3 velocity = Vector3.zero;
 
 	private void Start()
 	{
@@ -55,23 +59,25 @@ public class ThirdPersonCameraController : MonoBehaviour
 		input = cameraInput.action.ReadValue<Vector2>();
 		if (invertX) input *= Vector2.right * -1;
 		if (invertY) input *= Vector2.up * -1;
-		input *= sensitivity;
+		input *= verticalSensitivity;
 		//input = new Vector2(1, 1);
 		//yaw = (yaw+input.x) % 360;
 		pitch = Mathf.Clamp(pitch-input.y, minPitch, maxPitch);
 		Quaternion rotationDelta = Quaternion.Euler(pitch, 0, 0);
 		Quaternion rotation = aimTarget.rotation * rotationDelta;
 
+		Vector3 targetPosition;
 		Physics.SphereCast(aimTarget.position, camera.nearClipPlane, rotation * Vector3.back, out RaycastHit hit, distance, hitLayers);
 		if (hit.collider)
 		{
-			transform.position = hit.point + (hit.normal * camera.nearClipPlane);
+			targetPosition = hit.point + (hit.normal * camera.nearClipPlane);
 		}
 		else
 		{
 			Vector3 offset = rotation * Vector3.back * distance;
-			transform.position = aimTarget.position + offset;
+			targetPosition = aimTarget.position + offset;
 		}
+		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, cameraSpeed * Time.deltaTime);
 		transform.rotation = Quaternion.LookRotation(aimTarget.position - transform.position, aimTarget.up);
 	}
 }
