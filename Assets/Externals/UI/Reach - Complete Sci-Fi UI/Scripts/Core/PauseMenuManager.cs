@@ -58,7 +58,7 @@ namespace Michsky.UI.Reach
         {
             if (hotkey.triggered) { AnimatePauseMenu(); }
 
-			if (pauseMenuCanvas.activeSelf && (!Cursor.visible || Cursor.lockState != menuCursorState))
+			/*if (pauseMenuCanvas.activeSelf && (!Cursor.visible || Cursor.lockState != menuCursorState))
 			{
 				Cursor.lockState = menuCursorState;
 				Cursor.visible = true;
@@ -67,7 +67,7 @@ namespace Michsky.UI.Reach
 			{
 				Cursor.lockState = gameCursorState;
 				Cursor.visible = false;
-			}
+			}*/
 		}
 
         public void AnimatePauseMenu()

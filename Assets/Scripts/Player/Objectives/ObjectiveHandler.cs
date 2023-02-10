@@ -89,6 +89,8 @@ public class ObjectiveHandler : MonoBehaviour
 
 			panelManager.OpenPanel(panelManager.panels[6].panelName);
 
+			gm.UnloadCurrentScene();
+
 			//menuManager.ActivateMenu();
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;

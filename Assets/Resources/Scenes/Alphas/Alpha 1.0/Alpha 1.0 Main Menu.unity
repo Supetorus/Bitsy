@@ -4446,7 +4446,6 @@ GameObject:
   - component: {fileID: 12025074975915317}
   - component: {fileID: 12025074975915318}
   - component: {fileID: 12025074975915319}
-  - component: {fileID: 12025074975915320}
   m_Layer: 5
   m_Name: Back to Mission Select
   m_TagString: Untagged
@@ -4609,18 +4608,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
---- !u!114 &12025074975915320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12025074975915313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f79cfb6ac619b64e9d343140c82295f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &12025075022004677
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4803,9 +4790,9 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 255644987220214977}
-        m_TargetAssemblyTypeName: Michsky.UI.Reach.ExitGame, Assembly-CSharp
-        m_MethodName: ExitToMainMenu
+      - m_Target: {fileID: 255644986675439129}
+        m_TargetAssemblyTypeName: Michsky.UI.Reach.PanelManager, Assembly-CSharp
+        m_MethodName: OpenFirstPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14504,7 +14491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &255644986319834822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34132,9 +34119,9 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 255644987220214977}
-        m_TargetAssemblyTypeName: Michsky.UI.Reach.ExitGame, Assembly-CSharp
-        m_MethodName: ExitToMainMenu
+      - m_Target: {fileID: 255644986675439129}
+        m_TargetAssemblyTypeName: Michsky.UI.Reach.PanelManager, Assembly-CSharp
+        m_MethodName: OpenFirstPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -34679,7 +34666,6 @@ GameObject:
   - component: {fileID: 1209194420531508073}
   - component: {fileID: 1209194420531508074}
   - component: {fileID: 1209194420531508075}
-  - component: {fileID: 1209194420531508078}
   m_Layer: 5
   m_Name: 'BTN: Back to MIssion Select'
   m_TagString: Untagged
@@ -34687,18 +34673,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1209194420531508078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209194420531508077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f79cfb6ac619b64e9d343140c82295f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!225 &1209194420572332646
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -48535,11 +48509,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294554977183214837, guid: 5d64c67bf88a1fa44af0916c5239267d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1294554977183214837, guid: 5d64c67bf88a1fa44af0916c5239267d, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1294554977183214837, guid: 5d64c67bf88a1fa44af0916c5239267d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -48547,7 +48521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294554977183214837, guid: 5d64c67bf88a1fa44af0916c5239267d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1294554977636454055, guid: 5d64c67bf88a1fa44af0916c5239267d, type: 3}
       propertyPath: m_AnchorMax.y
