@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
 		panelManager = FindObjectOfType<PanelManager>();
 		panelManager.OpenPanel(panelManager.panels[7].panelName);
 
+		UnloadCurrentScene();
 		//menuManager.ActivateMenu();
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
