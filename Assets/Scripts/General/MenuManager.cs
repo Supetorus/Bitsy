@@ -38,6 +38,12 @@ public class MenuManager : MonoBehaviour
 	public void SetLevel(string value)
 	{
 		selectedLevel = value;
+
+		foreach (Transform child in objectivesLayoutGroup.transform)
+		{
+			Destroy(child.gameObject);
+		}
+
 		foreach (Objective objective in levels.Find(x => x.name == selectedLevel).objectives)
 		{
 			GameObject objectiveButton = Instantiate(buttonPrefab, objectivesLayoutGroup.transform);
@@ -60,8 +66,8 @@ public class MenuManager : MonoBehaviour
 		gm.playCamera.SetActive(true);
 		gm.hud.SetActive(true);
 
-		FindObjectOfType<ObjectiveHandler>().objectives.Clear();
-		FindObjectOfType<ObjectiveHandler>().objectives.Add(levels.Find(x => x.name == selectedLevel).objectives[objectiveIndex]);
+		FindObjectOfType<ObjectiveHandler>().objective = null;
+		FindObjectOfType<ObjectiveHandler>().objective = levels.Find(x => x.name == selectedLevel).objectives[objectiveIndex];
 		FindObjectOfType<ObjectiveHandler>().ResetObjective();
 
 		SceneManager.sceneLoaded -= OnSceneLoaded;

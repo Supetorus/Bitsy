@@ -7,8 +7,7 @@ using Michsky.UI.Reach;
 public class ObjectiveHandler : MonoBehaviour
 {
 	[SerializeField] QuestItem questItem;
-	public List<Objective> objectives;
-	public int objectiveIndex = 0;
+	public Objective objective;
 
 	GameManager gm;
 	MenuManager menuManager;
@@ -30,12 +29,12 @@ public class ObjectiveHandler : MonoBehaviour
 
 	public void DisplayObjective()
 	{
-		questItem.questText = objectives.ElementAt(objectiveIndex).objectiveLabel;
+		questItem.questText = objective.objectiveLabel;
 		questItem.AnimateQuest();
 	}
 	public void DisplayTask()
 	{
-		questItem.questText = objectives.ElementAt(objectiveIndex).GetCurrentTask().taskLabel;
+		questItem.questText = objective.GetCurrentTask().taskLabel;
 		questItem.AnimateQuest();
 	}
 
@@ -43,71 +42,67 @@ public class ObjectiveHandler : MonoBehaviour
 	{
 		CompleteTask(o_index, t_index);
 		CompleteObjective(o_index, t_index);
-		CheckCompleteLevel();
 	}
 
 	public bool CheckCompleteTask(int o_index, int t_index)
 	{
-		return objectives[o_index].GetTaskAtIndex(t_index).IsComplete();
+		if (objective.index != o_index) return false;
+		return objective.GetTaskAtIndex(t_index).IsComplete();
 	}
 
 	private void CompleteTask(int o_index, int t_index)
 	{
-		if (o_index == objectiveIndex)
+		if (o_index == objective.index)
 		{
-			objectives[o_index].CompleteTask(t_index);
+			objective.CompleteTask(t_index);
 		}
 	}
 	private void CompleteObjective(int o_index, int t_index)
 	{
-		if (o_index == objectiveIndex)
+		if (o_index == objective.index)
 		{
-			if (objectives[o_index].CheckCompleteObjective())
+			if (!objective.CheckCompleteObjective())
 			{
-				objectiveIndex++;
-				if (objectiveIndex != objectives.Count) DisplayObjective();
+				if (t_index == objective.taskIndex - 1)
+				{
+					DisplayTask();
+				}
+				//if (objectiveIndex != objectives.Count) DisplayObjective();
 			}
-			else if (t_index == objectives[o_index].taskIndex - 1)
+			else
 			{
-				DisplayTask();
+				CompleteLevel();
 			}
 		}
 	}
-	private void CheckCompleteLevel()
+	private void CompleteLevel()
 	{
-		if (objectiveIndex == objectives.Count)
-		{
-			//complete the level
-			//Do dnot change the order to this it'll break 
+		//complete the level
+		//Do dnot change the order to this it'll break 
 
-			gm = FindObjectOfType<GameManager>();
+		gm = FindObjectOfType<GameManager>();
 
-			gm.hud.gameObject.SetActive(false);
-			gm.mainMenu.gameObject.SetActive(true);
+		gm.hud.gameObject.SetActive(false);
+		gm.mainMenu.gameObject.SetActive(true);
 
-			panelManager = FindObjectOfType<PanelManager>();
+		panelManager = FindObjectOfType<PanelManager>();
 
-			panelManager.OpenPanel(panelManager.panels[6].panelName);
+		panelManager.OpenPanel(panelManager.panels[6].panelName);
 
-			gm.UnloadCurrentScene();
+		gm.UnloadCurrentScene();
 
-			//menuManager.ActivateMenu();
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
+		//menuManager.ActivateMenu();
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 
-			gm.menuCamera.SetActive(true);
-			gm.playCamera.SetActive(false);
+		gm.menuCamera.SetActive(true);
+		gm.playCamera.SetActive(false);
 
-			Debug.Log("Level Complete");
-		}
+		Debug.Log("Level Complete");
 	}
 
 	public void ResetObjective()
 	{
-		objectiveIndex = 0;
-		foreach (var objective in objectives)
-		{
-			objective.ResetObjective();
-		}
+		objective.ResetObjective();
 	}
 }
