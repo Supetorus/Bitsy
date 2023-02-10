@@ -1,8 +1,12 @@
+using Michsky.UI.Reach;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -10,7 +14,10 @@ public class MenuManager : MonoBehaviour
 	[SerializeField]
 	private string selectedLevel = "Tutorial";
 	public int objectiveIndex;
-	[SerializeField] List<Level> levels = new List<Level>();
+	[SerializeField] private List<Level> levels = new List<Level>();
+	[SerializeField] private GameObject objectivesLayoutGroup;
+	[SerializeField] private GameObject buttonPrefab;
+	[SerializeField] private GameObject nextParent;
     //ThirdPersonCameraController playerCameraController;
 
     private void Start()
@@ -31,6 +38,13 @@ public class MenuManager : MonoBehaviour
 	public void SetLevel(string value)
 	{
 		selectedLevel = value;
+		foreach (Objective objective in levels.Find(x => x.name == selectedLevel).objectives)
+		{
+			GameObject objectiveButton = Instantiate(buttonPrefab, objectivesLayoutGroup.transform);
+			objectiveButton.GetComponent<ButtonManager>().SetText(objective.objectiveLabel);
+			objectiveButton.GetComponent<ButtonManager>().onClick.AddListener(() => SetObjective(objective.index));
+			objectiveButton.GetComponent<ButtonManager>().onClick.AddListener(() => nextParent.GetComponent<UIPopup>().PlayIn());
+		}
 	}
 
 	public void SetObjective(int value) 
