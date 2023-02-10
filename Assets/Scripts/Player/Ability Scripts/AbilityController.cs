@@ -13,7 +13,7 @@ public class AbilityController : MonoBehaviour
     public InputActionReference cycleAbility;
     public Transform spiderCenter;
 
-    [SerializeField] private Ability[] equippedAbilities = new Ability[3];
+    private Ability[] equippedAbilities = new Ability[4];
 
     bool abilityActive;
     bool abilityTimerActive;
@@ -32,16 +32,15 @@ public class AbilityController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        activeAA.action.Enable();
+		activeAA.action.Enable();
         cycleAbility.action.Enable();
-        if (equippedAbilities[abilityIndex] != null)
-        {
-            activeAbility = equippedAbilities[abilityIndex];
-        } 
-        else
-        {
-            activeAbility = null;
-        }
+
+		equippedAbilities[0] = GetComponent<CloakAbility>();
+		equippedAbilities[1] = GetComponent<EMPAbility>();
+		equippedAbilities[2] = GetComponent<SmokeBombAbility>();
+		equippedAbilities[3] = GetComponent<TrojanDartAbility>();
+
+		activeAbility = equippedAbilities[0];
     }
 
     // Update is called once per frame
@@ -75,7 +74,7 @@ public class AbilityController : MonoBehaviour
         {
             if (abilityIndex == 0)
             {
-                if (equippedAbilities[2] != null) abilityIndex = 2;
+                abilityIndex = 3;
             }
             else
             {
@@ -85,7 +84,7 @@ public class AbilityController : MonoBehaviour
         }
         else if (cycleAbility.action.ReadValue<float>() < 0)
         {
-            if (abilityIndex == 2)
+            if (abilityIndex == 3)
             {
                 if (equippedAbilities[0] != null) abilityIndex = 0;
             }
