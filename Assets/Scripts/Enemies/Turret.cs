@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret : DetectionEnemy
 {
 	[SerializeField] float sightDist;
 	[SerializeField] GameObject projectile;
@@ -23,16 +23,22 @@ public class Turret : MonoBehaviour
 
 	private Vector3 playerDir;
 
-    // Start is called before the first frame update
-    void Start()
+	public override bool CheckSightlines()
+	{
+		return canSeePlayer;
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
 		turretAnimator = GetComponentInParent<TurretAnimator>();
 		player = GameObject.FindGameObjectWithTag("Player");
 		fireTimer = fireRate;
     }
 
-	public bool CheckSightlines()
-	{
+    // Update is called once per frame
+    void Update()
+    {
 		playerDir = (player.transform.position - transform.position).normalized;
 		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask))
 		{
@@ -42,7 +48,6 @@ public class Turret : MonoBehaviour
 				canSeePlayer = true;
 				turretAnimator.animator.enabled = false;
 				weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, weapon.up), rotTimer / timeToRotate);
-				return true;
 			}
 		}
 		else
@@ -52,15 +57,9 @@ public class Turret : MonoBehaviour
 			turretAnimator.animator.enabled = true;
 			turretAnimator.animator.SetBool("isActive", true);
 		}
-		return false;
-	}
 
-    // Update is called once per frame
-    void Update()
-    {
-		if (fireTimer <= 0 && canSeePlayer && CheckSightlines())
+		if (fireTimer <= 0 && canSeePlayer)
 		{
-			Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask);
 			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible && Vector3.Dot(weapon.forward, playerDir) > 0.95f)
 			{
 				GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
