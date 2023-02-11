@@ -6,14 +6,8 @@ using UnityEngine;
 public class LaserMovement : MonoBehaviour
 {
 	public bool isVerticalSliding;
-	private bool slidingUp = true;
-	private bool slidingDown;
 	public bool isHorizontalSlidingX;
-	private bool slidingLeftX = true;
-	private bool slidingRightX;
 	public bool isHorizontalSlidingZ;
-	private bool slidingLeftZ = true;
-	private bool slidingRightZ;
 	public float movementAmount;
 	public float laserSpeed;
 
