@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 265968560}
   - component: {fileID: 265968561}
+  - component: {fileID: 265968562}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -24,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265968559}
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0, z: 0.29900002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.313}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8784027296644200649}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &265968561
 Light:
   m_ObjectHideFlags: 0
@@ -44,19 +45,19 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.63
+  m_Intensity: 2
   m_Range: 5
-  m_SpotAngle: 60
+  m_SpotAngle: 45
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_Bias: 0
+    m_NormalBias: 0
+    m_NearPlane: 0.1
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -75,7 +76,7 @@ Light:
       e32: 0
       e33: 1
     m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 2800000, guid: 5d17176988132ff4fb580c6114abb868, type: 3}
+  m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
@@ -94,6 +95,23 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &265968562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265968559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a8872758611c4da4d5a6b79519b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightDist: 10
+  cameraLight: {fileID: 265968561}
+  myMask:
+    serializedVersion: 2
+    m_Bits: 2147483647
 --- !u!1 &8784027295652612844
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +479,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8784027296644200648}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.021, z: 0.045224667}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -484,9 +502,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae100f278d3eb841b9169b74795231b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle1: {x: 0, y: 45, z: 0}
-  angle2: {x: 0, y: -45, z: 0}
-  speed: 1
+  angle1: {x: 45, y: 45, z: 0}
+  angle2: {x: 45, y: -45, z: 0}
+  speed: 0.25
   isIdle: 0
 --- !u!1 &8784027296731171567
 GameObject:
