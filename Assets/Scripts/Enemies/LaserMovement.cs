@@ -20,7 +20,6 @@ public class LaserMovement : MonoBehaviour {
 		startingTransform.x = transform.position.x;
 		startingTransform.y = transform.position.y;
 		startingTransform.z = transform.position.z;
-		Debug.Log("Y: " + startingTransform.y);
 	}
 	void Update() {
 		if (isVerticalSliding) {
