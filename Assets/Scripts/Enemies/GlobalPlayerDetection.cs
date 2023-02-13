@@ -73,7 +73,7 @@ public class GlobalPlayerDetection : MonoBehaviour
 
 	public void Update() 
 	{
-		if (!PlayerInSight()) ChangeDetection(0.01f, false);
+		//if (!PlayerInSight()) ChangeDetection(0.01f, false);
 	}
 
 	//Returns true if any enemy can see the player.

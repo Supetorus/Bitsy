@@ -9,7 +9,6 @@ public class UpgradeController : MonoBehaviour
 	//Input Actions
 	public InputActionReference lunge;
 	public InputActionReference webZip;
-	public InputActionReference hack;
 
 	//MovementController
 	[HideInInspector]public MovementController controller;
@@ -88,10 +87,6 @@ public class UpgradeController : MonoBehaviour
 		{
 			WebZip();
 		}
-		else if (hack.action.ReadValue<float>() > 0 && LookingAtHackable())
-		{
-			Hack();
-		}
 		HandleCooldowns();
 	}
 
@@ -136,16 +131,6 @@ public class UpgradeController : MonoBehaviour
 		print("Lunge");
 	}
 
-	public void Hack()
-	{
-		print("Elite Hacker: Xx_BlackWillow69_xX@AOL.com");
-	}
-
-	public bool LookingAtHackable()
-	{
-		return false;
-	}
-
 	public void EnableUpgrade(string upgrade)
 	{
 		if(PlayerPrefs.HasKey(upgrade))
@@ -158,9 +143,6 @@ public class UpgradeController : MonoBehaviour
 					break;
 				case "WebZip":
 					webZip.action.Enable();
-					break;
-				case "Hack":
-					hack.action.Enable();
 					break;
 				case "SB_DU":
 					PlayerPrefs.SetInt("SB_DURATION", SB_UPGRADED_DURATION);
@@ -216,9 +198,6 @@ public class UpgradeController : MonoBehaviour
 					break;
 				case "WebZip":
 					webZip.action.Disable();
-					break;
-				case "Hack":
-					hack.action.Disable();
 					break;
 				case "SB_U":
 					PlayerPrefs.SetInt("SB_DURATION", SB_REGULAR_DURATION);
