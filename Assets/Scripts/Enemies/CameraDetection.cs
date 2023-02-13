@@ -30,6 +30,11 @@ public class CameraDetection : DetectionEnemy
 
 		foreach(var collision in collisions)
 		{
+			if (collision.gameObject.TryGetComponent<Smoke>(out _)) return;
+		}
+
+		foreach(var collision in collisions)
+		{
 			if (collision.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
 				canSeePlayer = true;
@@ -43,6 +48,12 @@ public class CameraDetection : DetectionEnemy
 				canSeePlayer = false;
 			}
 		}
-		print(player.GetComponent<GlobalPlayerDetection>().currentDetectionLevel);
+	}
+
+	public override void DartRespond()
+	{
+	}
+	public override void EMPRespond(float stunDuration)
+	{
 	}
 }

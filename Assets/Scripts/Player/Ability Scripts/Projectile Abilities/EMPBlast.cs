@@ -12,9 +12,9 @@ public class EMPBlast : MonoBehaviour
 
         foreach(Collider collider in collisions)
         {
-            if(collider.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
+            if(collider.gameObject.TryGetComponent<DetectionEnemy>(out DetectionEnemy enemy))
             {
-                enemy.Stun(stunDuration * PlayerPrefs.GetInt("EMP_DURATION"));
+				enemy.EMPRespond(stunDuration * PlayerPrefs.GetInt("EMP_DURATION"));
             }
         }
     }

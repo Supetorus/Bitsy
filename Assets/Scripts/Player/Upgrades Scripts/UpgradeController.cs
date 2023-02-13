@@ -217,9 +217,6 @@ public class UpgradeController : MonoBehaviour
 				case "WebZip":
 					webZip.action.Disable();
 					break;
-				case "DetectiveMode":
-					detectiveMode.action.Disable();
-					break;
 				case "Hack":
 					hack.action.Disable();
 					break;

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserDetection : MonoBehaviour
+public class LaserDetection : DetectionEnemy
 {
 	public bool doesDamage;
 	public float dps = 1;
@@ -20,6 +20,8 @@ public class LaserDetection : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
+		if (other.TryGetComponent<Smoke>(out _)) return;
+
 		if (other.gameObject == player)
 		{
 			if (doesDamage)
@@ -50,5 +52,20 @@ public class LaserDetection : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	public override bool CheckSightlines()
+	{
+		return false;
+	}
+
+	public override void DartRespond()
+	{
+		//DOES NOT RESPOND TO TROJAN DART
+	}
+
+	public override void EMPRespond(float stunDuration)
+	{
+		//IMPLEMENT LATER
 	}
 }

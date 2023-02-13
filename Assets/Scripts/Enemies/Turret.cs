@@ -28,6 +28,16 @@ public class Turret : DetectionEnemy
 		return canSeePlayer;
 	}
 
+	public override void DartRespond()
+	{
+		throw new System.NotImplementedException();
+	}
+
+	public override void EMPRespond(float stunDuration)
+	{
+		throw new System.NotImplementedException();
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -42,7 +52,7 @@ public class Turret : DetectionEnemy
 		playerDir = (player.transform.position - transform.position).normalized;
 		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask))
 		{
-			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
+			if (hit.collider.gameObject == player)
 			{
 				rotTimer += Time.deltaTime;
 				canSeePlayer = true;
@@ -60,7 +70,7 @@ public class Turret : DetectionEnemy
 
 		if (fireTimer <= 0 && canSeePlayer)
 		{
-			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible && Vector3.Dot(weapon.forward, playerDir) > 0.95f)
+			if (hit.collider.gameObject == player && Vector3.Dot(weapon.forward, playerDir) > 0.95f)
 			{
 				GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
 				bullet.transform.rotation = Quaternion.LookRotation(playerDir);
