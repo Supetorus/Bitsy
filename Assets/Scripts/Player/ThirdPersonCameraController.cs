@@ -62,7 +62,10 @@ public class ThirdPersonCameraController : MonoBehaviour
 		Quaternion rotationDelta = Quaternion.Euler(pitch, 0, 0);
 		Quaternion rotation = aimTarget.rotation * rotationDelta;
 
+		bool doQueryHitBackfaces = Physics.queriesHitBackfaces;
+		Physics.queriesHitBackfaces = true;
 		Physics.SphereCast(aimTarget.position, camera.nearClipPlane, rotation * Vector3.back, out RaycastHit hit, distance, hitLayers);
+		Physics.queriesHitBackfaces = doQueryHitBackfaces;
 		if (hit.collider)
 		{
 			transform.position = hit.point + (hit.normal * camera.nearClipPlane);
