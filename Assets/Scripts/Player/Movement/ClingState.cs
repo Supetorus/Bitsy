@@ -12,6 +12,8 @@ public class ClingState : MovementState
 	private float height = 0.5f;
 	[SerializeField, Tooltip("Multiplies with the player acceleration and maxVelocity")]
 	private float sprintMultiplier = 1.5f;
+	[Tooltip("Drag in the 'Look' action here.")]
+	public InputActionReference cameraInput;
 
 	private float movementMultiplier;
 
@@ -36,6 +38,8 @@ public class ClingState : MovementState
 		c.move.action.Disable();
 	}
 
+	float yaw = 0;
+	public float sensitivity = 50;
 	public override void FixedUpdateState()
 	{
 		if (height > sd.attachmentDistance)
@@ -62,11 +66,20 @@ public class ClingState : MovementState
 		// Near a walkable surface
 		if (closestPoint != null)
 		{
+
+			Vector2 camInput = cameraInput.action.ReadValue<Vector2>();
+			//if (invertX) input *= Vector2.right * -1;
+			camInput *= sensitivity;
+			yaw = (camInput.x) % 360;
+			//print(yaw);
+			Quaternion rotationDelta = Quaternion.Euler(0, yaw, 0);
+
 			// Rotation
 			Vector3 upDirection = SphereRaycaster.CalculateAverageUp(transform.position, sd.attachmentDistance, sd.walkableLayers, transform.up);
-			Debug.DrawLine(transform.position, transform.position + upDirection, Color.magenta);
-			Vector3 forward = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
-			Quaternion targetRotation = Quaternion.LookRotation(forward, upDirection);
+			//Debug.DrawLine(transform.position, transform.position + upDirection, Color.magenta);
+			Vector3 forwardFromCamera = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
+			Quaternion targetRotation = Quaternion.LookRotation(forwardFromCamera, upDirection);
+			if (camInput != Vector2.zero) targetRotation *= rotationDelta;
 			rigidbody.MoveRotation(
 				Quaternion.Slerp(
 					transform.rotation,
@@ -85,8 +98,8 @@ public class ClingState : MovementState
 				input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
 			);
 			sd.velocity = Vector3.ClampMagnitude(sd.velocity + acceleration, c.maxVelocity * movementMultiplier);
-			Quaternion movementRotationBasis = Quaternion.LookRotation(forward, transform.position - (Vector3)closestPoint);
-			Vector3 movement = movementRotationBasis * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height-distance)));
+			Quaternion movementRotationBasis = Quaternion.LookRotation(forwardFromCamera, transform.position - (Vector3)closestPoint);
+			Vector3 movement = movementRotationBasis * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height - distance)));
 			rigidbody.MovePosition(movement + transform.position);
 
 			//TODO: This should be implemented when multiple surface materials are used
@@ -103,6 +116,17 @@ public class ClingState : MovementState
 		else
 		{
 			c.CurrentMovementState = c.fallState;
+		}
+	}
+
+	private void OnDrawGizmos()
+	{
+		if (!Application.isPlaying) return;
+		var hits = SphereRaycaster.SphereRaycast(transform.position, sd.attachmentDistance, sd.walkableLayers);
+		Gizmos.color = Color.green;
+		foreach ( var hit in hits )
+		{
+			Gizmos.DrawSphere(hit.point, 0.01f);
 		}
 	}
 }

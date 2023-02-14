@@ -1,3 +1,4 @@
+using Michsky.UI.Reach;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,48 +20,51 @@ public class GlobalPlayerDetection : MonoBehaviour
 	[Tooltip("This event is called when global detection is at 100.")]
 	public static event DetectionAction onFull;
 
-	[SerializeField] float decreaseOverTime;
-	[SerializeField] float decreaseHowOften;
+	[SerializeField] ProgressBar detectionBar;
+
 	private static float previousGloabalDetectionLevel;
-	[SerializeField] float CurrentGlobalDetectionLevel { get { return CurrentGlobalDetectionLevel; } set { CurrentGlobalDetectionLevel = Mathf.Clamp(value, 0, 100); } }
-	public List<GameObject> allEnemies;
+	private static float detectionLevel;
+	[SerializeField] public float currentDetectionLevel { get { return detectionLevel; } set { detectionLevel = Mathf.Clamp(value, 0, 100); } }
+	public List<DetectionEnemy> allEnemies;
 	public bool detectionChanged = false;
     // Start is called before the first frame update
     void Start()
     {
-		allEnemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
+		allEnemies = new List<DetectionEnemy>(FindObjectsOfType<DetectionEnemy>());
     }
 
 	public void ChangeDetection(float change, bool isIncrease)
 	{
-		previousGloabalDetectionLevel = CurrentGlobalDetectionLevel;
+		previousGloabalDetectionLevel = currentDetectionLevel;
 		if(isIncrease){
-			CurrentGlobalDetectionLevel += change;
+			currentDetectionLevel += change;
 		} else
 		{
-			CurrentGlobalDetectionLevel -= change;
+			currentDetectionLevel -= change;
+			print("Decreased Detection");
 		}
+		detectionBar.SetValue(currentDetectionLevel);
 		CheckEvents();
 	}
 
 	public void CheckEvents()
 	{
-		if (CurrentGlobalDetectionLevel >= 95)
+		if (currentDetectionLevel >= 95)
 		{
 			if (onFull != null) onFull();
 		}
-		else if (CurrentGlobalDetectionLevel >= 75)
+		else if (currentDetectionLevel >= 75)
 		{
 			if (onThreeFourths != null) onThreeFourths();
 		}
-		else if (CurrentGlobalDetectionLevel >= 50)
+		else if (currentDetectionLevel >= 50)
 		{
 			if (onHalf != null) onHalf();
 		}
-		else if (CurrentGlobalDetectionLevel >= 25)
+		else if (currentDetectionLevel >= 25)
 		{
 			if (onQuarter != null) onQuarter();
-		} else if(CurrentGlobalDetectionLevel == 0)
+		} else if(currentDetectionLevel == 0)
 		{
 			if (onEmpty != null) onEmpty();
 		}
@@ -69,14 +73,7 @@ public class GlobalPlayerDetection : MonoBehaviour
 
 	public void Update() 
 	{
-		//if(!PlayerInSight())
-		//{
-		//	StartCoroutine(DecreaseDetection());
-		//} 
-		//else
-		//{
-		//	StopCoroutine(DecreaseDetection());
-		//}
+		if (!PlayerInSight()) ChangeDetection(0.01f, false);
 	}
 
 	//Returns true if any enemy can see the player.
@@ -84,14 +81,11 @@ public class GlobalPlayerDetection : MonoBehaviour
 	{
 		foreach(var enemy in allEnemies)
 		{
-			if (enemy.GetComponent<Enemy>().CheckSightlines())return true;
+			if (enemy.CheckSightlines())
+			{
+				return true;
+			}
 		}
 		return false;
-	}
-
-	IEnumerator DecreaseDetection()
-	{
-		yield return new WaitForSeconds(decreaseHowOften);
-		ChangeDetection(decreaseOverTime, false);
 	}
 }

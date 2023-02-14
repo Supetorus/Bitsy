@@ -19,6 +19,7 @@ public class Interactor : MonoBehaviour
 	[SerializeField] private LayerMask _interactableMask;
 	[SerializeField] private int _numFound;
 	[SerializeField] private bool drawInteractionArea = true;
+	private float pressTimer = 1;
 
 	public InputActionReference interact;
 
@@ -32,6 +33,7 @@ public class Interactor : MonoBehaviour
 	private void FixedUpdate()
 	{
 		_numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders, _interactableMask);
+		pressTimer -= Time.fixedDeltaTime;
 
 		if (_numFound > 0)
 		{
@@ -41,8 +43,9 @@ public class Interactor : MonoBehaviour
 			{
 				feedNotification.notificationText = interactable.InteractPrompt;
 				feedNotification.ExpandNotification();
-				if (interact.action.WasPressedThisFrame())
+				if (interact.action.IsPressed() && pressTimer <= 0)
 				{
+					pressTimer = 1;
 					//Debug.Log("SOMETHING WAS HIT");
 					feedNotification.MinimizeNotification(); 
 					interactable.Interact(this);
@@ -64,7 +67,7 @@ public class Interactor : MonoBehaviour
 		if (drawInteractionArea)
 		{
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireSphere(_interactionPoint.position, _interactionPointRadius);
+			Gizmos.DrawSphere(_interactionPoint.position, _interactionPointRadius);
 		}
 	}
 }

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.Controls;
 public class ThirdPersonCameraController : MonoBehaviour
 {
 	[Header("Camera Settings")]
-	public Transform target;
+	public Transform aimTarget;
 	[Min(0.01f)]
 	public float distance = 5;
 	[Range(-360, 360)]
@@ -51,17 +51,21 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 	void Update()
 	{
+		// up down controlled by mouse. left right controlled by player rotation.
 		input = cameraInput.action.ReadValue<Vector2>();
 		if (invertX) input *= Vector2.right * -1;
 		if (invertY) input *= Vector2.up * -1;
 		input *= sensitivity;
-		yaw = (yaw + input.x) % 360;
-		pitch = Mathf.Clamp(pitch - input.y, minPitch, maxPitch);
-		Quaternion qYaw = Quaternion.AngleAxis(yaw, Vector3.up);
-		Quaternion qPitch = Quaternion.AngleAxis(pitch, Vector3.right);
-		Quaternion rotation = qYaw * qPitch;
+		//input = new Vector2(1, 1);
+		//yaw = (yaw+input.x) % 360;
+		pitch = Mathf.Clamp(pitch-input.y, minPitch, maxPitch);
+		Quaternion rotationDelta = Quaternion.Euler(pitch, 0, 0);
+		Quaternion rotation = aimTarget.rotation * rotationDelta;
 
-		Physics.SphereCast(target.position, camera.nearClipPlane, rotation * Vector3.back, out RaycastHit hit, distance, hitLayers);
+		bool doQueryHitBackfaces = Physics.queriesHitBackfaces;
+		Physics.queriesHitBackfaces = true;
+		Physics.SphereCast(aimTarget.position, camera.nearClipPlane, rotation * Vector3.back, out RaycastHit hit, distance, hitLayers);
+		Physics.queriesHitBackfaces = doQueryHitBackfaces;
 		if (hit.collider)
 		{
 			transform.position = hit.point + (hit.normal * camera.nearClipPlane);
@@ -69,8 +73,8 @@ public class ThirdPersonCameraController : MonoBehaviour
 		else
 		{
 			Vector3 offset = rotation * Vector3.back * distance;
-			transform.position = target.position + offset;
+			transform.position = aimTarget.position + offset;
 		}
-		transform.rotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
+		transform.rotation = Quaternion.LookRotation(aimTarget.position - transform.position, aimTarget.up);
 	}
 }

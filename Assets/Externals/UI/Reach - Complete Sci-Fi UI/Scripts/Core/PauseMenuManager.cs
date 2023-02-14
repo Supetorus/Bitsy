@@ -17,7 +17,7 @@ namespace Michsky.UI.Reach
         // Settings
         [SerializeField] private bool setTimeScale = true;
         [Range(0, 1)] public float inputBlockDuration = 0.2f;
-        public CursorLockMode menuCursorState = CursorLockMode.None;
+        public CursorLockMode menuCursorState = CursorLockMode.Confined;
         public CursorLockMode gameCursorState = CursorLockMode.Locked;
         [SerializeField] private InputAction hotkey;
 
@@ -57,7 +57,18 @@ namespace Michsky.UI.Reach
         void Update()
         {
             if (hotkey.triggered) { AnimatePauseMenu(); }
-        }
+
+			/*if (pauseMenuCanvas.activeSelf && (!Cursor.visible || Cursor.lockState != menuCursorState))
+			{
+				Cursor.lockState = menuCursorState;
+				Cursor.visible = true;
+			}
+			if (!pauseMenuCanvas.activeSelf && (Cursor.visible || Cursor.lockState != gameCursorState))
+			{
+				Cursor.lockState = gameCursorState;
+				Cursor.visible = false;
+			}*/
+		}
 
         public void AnimatePauseMenu()
         {
@@ -84,6 +95,7 @@ namespace Michsky.UI.Reach
             onOpen.Invoke();
             FadeInBackground();
             Cursor.lockState = menuCursorState;
+			Cursor.visible = true;
 
             if (continueButton != null && Gamepad.current != null)
             {
@@ -105,6 +117,7 @@ namespace Michsky.UI.Reach
             onClose.Invoke();
             FadeOutBackground();
             Cursor.lockState = gameCursorState;
+			Cursor.visible = false;
         }
 
         public void FadeInBackground()

@@ -33,13 +33,13 @@ public class Door : MonoBehaviour, IInteractable
 
 	public bool Interact(Interactor interactor)
 	{
-		if (opened)
+		/*if (opened)
 		{
 			opened = false;
 			sfx.PlayOneShot(closesfx);
 			return true;
 		}
-		else if ((interactor.inventory.gameData.stringData.HasKey(requiredItemKey) && locked) || !locked)
+		else */if ((interactor.inventory.gameData.stringData.HasKey(requiredItemKey) && locked) || !locked)
 		{
 			locked = false;
 			opened = true;

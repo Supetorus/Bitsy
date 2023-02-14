@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Objecive", menuName = "Objective/ObjectiveSO")]
 public class Objective : ScriptableObject
 {
-	[SerializeField] private int index;
+	[SerializeField] public int index;
 	[SerializeField] private bool complete;
 	[SerializeField] public string objectiveLabel;
 	[SerializeField] private List<Task> tasks;
@@ -37,5 +37,15 @@ public class Objective : ScriptableObject
 			}
 		}
 		complete = (taskIndex == tasks.Count);
+	}
+
+	public void ResetObjective()
+	{
+		complete = false;
+		taskIndex = 0;
+		foreach (var task in tasks)
+		{
+			task.ResetTask();
+		}
 	}
 }

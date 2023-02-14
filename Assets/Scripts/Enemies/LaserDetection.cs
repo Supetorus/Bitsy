@@ -11,13 +11,17 @@ public class LaserDetection : MonoBehaviour
 	public List<Enemy> scriptsToActive;
 	public List<GameObject> alarmsLight;
 
+	GameObject player;
+
+	private void Start()
+	{
+		player = GameObject.FindGameObjectWithTag("Player");
+	}
+
 	private void OnTriggerStay(Collider other)
 	{
-		//Debug.Log("Laser: Collided");
-		//Debug.Log(other.gameObject.name);
-		if (other.gameObject.CompareTag("Player"))
+		if (other.gameObject == player)
 		{
-			//Debug.Log("Laser: Player found");
 			if (doesDamage)
 			{
 				//Lower the players Health
@@ -26,7 +30,7 @@ public class LaserDetection : MonoBehaviour
 			else
 			{
 				//Increase the detection meter
-				other.gameObject.GetComponent<Detection>().DetectionValue = 100;
+				other.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
 				if(dronesToActive.Count > 0) {
 					foreach(var drone in dronesToActive) {
 						drone.transform.GetChild(3).gameObject.SetActive(true);
@@ -44,33 +48,7 @@ public class LaserDetection : MonoBehaviour
 					light.transform.GetChild(1).gameObject.SetActive(true);
 					light.transform.GetChild(2).gameObject.SetActive(true);
 				}
-				//Debug.Log("Laser: You Have Been Spotted");
 			}
 		}
 	}
-
-	/*private void OnCollisionEnter(Collision collision)
-	{
-		Debug.Log("Laser: Collided");
-		Debug.Log()
-		if (collision.collider.gameObject.CompareTag("Player"))
-		{
-			Debug.Log("Laser: Player found");
-			if (doesDamage)
-			{
-				//Lower the players Health
-				Debug.Log("Laser: You have taken damage");
-			}
-			else
-			{
-				//Increase the detection meter
-				collision.collider.gameObject.GetComponent<Detection>().DetectionValue = 100;
-				foreach (var alarm in FindObjectsOfType<Alarm>())
-				{
-					alarm.Play();
-				}
-				Debug.Log("Laser: You Have Been Spotted");
-			}
-		}
-	}*/
 }

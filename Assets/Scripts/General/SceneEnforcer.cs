@@ -13,6 +13,4 @@ public class SceneEnforcer : MonoBehaviour
     {
         SceneManager.LoadScene(sceneToLoadName, loadType);
     }
-
-    
 }

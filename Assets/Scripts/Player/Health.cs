@@ -52,6 +52,7 @@ public class Health : MonoBehaviour
 
 	private void Start()
 	{
+		onDeath.AddListener(FindObjectOfType<GameManager>().OnFailLevel);
 		if (maxValue == 0) maxValue = float.MaxValue;
 		if (startValue == 0) startValue = maxValue;
 		health = startValue;
@@ -87,6 +88,6 @@ public class Health : MonoBehaviour
 
 	private void UpdateDisplay(float newValue)
 	{
-		progressBar.currentValue = newValue;
+		progressBar.SetValue(newValue);
 	}
 }
