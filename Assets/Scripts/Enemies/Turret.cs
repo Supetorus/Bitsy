@@ -16,21 +16,21 @@ public class Turret : MonoBehaviour
 	TurretAnimator turretAnimator;
 	bool canSeePlayer;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+	// Start is called before the first frame update
+	void Start()
+	{
 		turretAnimator = GetComponentInParent<TurretAnimator>();
 		player = GameObject.FindGameObjectWithTag("Player");
 		fireTimer = fireRate;
-    }
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
+	// Update is called once per frame
+	void Update()
+	{
 		Vector3 direction = (player.transform.position - transform.position).normalized;
 		Debug.DrawRay(transform.position, direction);
 
-		if (Physics.Raycast(transform.position, direction, out RaycastHit hit,  sightDist, myMask))
+		if (Physics.Raycast(transform.position, direction, out RaycastHit hit, sightDist, myMask))
 		{
 			canSeePlayer = true;
 			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
@@ -46,8 +46,8 @@ public class Turret : MonoBehaviour
 			turretAnimator.animator.enabled = true;
 			turretAnimator.animator.SetBool("isActive", true);
 		}
-		
-		if (fireTimer <= 0 && canSeePlayer )
+
+		if (fireTimer <= 0 && canSeePlayer)
 		{
 			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
@@ -60,5 +60,10 @@ public class Turret : MonoBehaviour
 		{
 			fireTimer -= Time.deltaTime;
 		}
-    }
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.DrawSphere(transform.position, sightDist);
+	}
 }
