@@ -32,19 +32,22 @@ public class Turret : DetectionEnemy
 	public override void DartRespond()
 	{
 		//IMPLEMENT
+		Destroy(gameObject);
 	}
 
-	public override void EMPRespond(float stunDuration)
+	public override void EMPRespond(float stunDuration, GameObject stunEffect)
 	{
-		StartCoroutine(GetStunnedIdiot(stunDuration));
+		StartCoroutine(GetStunnedIdiot(stunDuration, stunEffect));
 	}
 
-	IEnumerator GetStunnedIdiot(float stunDuration)
+	IEnumerator GetStunnedIdiot(float stunDuration, GameObject stunEffect)
 	{
+		GameObject stunParticles = Instantiate(stunEffect, transform.position, transform.rotation);
 		isStunned = true;
 		turretAnimator.animator.enabled = false;
 		yield return new WaitForSeconds(stunDuration);
 		isStunned = false;
+		Destroy(stunParticles);
 		turretAnimator.animator.enabled = true;
 	}
 

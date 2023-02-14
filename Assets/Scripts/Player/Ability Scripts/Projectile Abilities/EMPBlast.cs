@@ -5,6 +5,7 @@ using UnityEngine;
 public class EMPBlast : MonoBehaviour
 {
 	[SerializeField] float stunDuration;
+	[SerializeField] GameObject stunEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,7 @@ public class EMPBlast : MonoBehaviour
         {
             if(collider.gameObject.TryGetComponent<DetectionEnemy>(out DetectionEnemy enemy))
             {
-				enemy.EMPRespond(stunDuration * PlayerPrefs.GetInt("EMP_DURATION"));
+				enemy.EMPRespond(stunDuration, stunEffect);
             }
         }
     }

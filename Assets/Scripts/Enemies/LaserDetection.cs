@@ -58,7 +58,7 @@ public class LaserDetection : DetectionEnemy
 		//DOES NOT RESPOND TO TROJAN DART
 	}
 
-	public override void EMPRespond(float stunDuration)
+	public override void EMPRespond(float stunDuration, GameObject stunEffect)
 	{
 		StartCoroutine(GetStunnedIdiot(stunDuration));
 	}

@@ -5,10 +5,9 @@ using UnityEngine;
 public class CameraDetection : DetectionEnemy
 {
 	[SerializeField] float sightDist;
-	[SerializeField] Light cameraLight;
-	[SerializeField] LayerMask myMask;
 	GameObject player;
-	public bool canSeePlayer;
+	private bool canSeePlayer;
+	private Light cameraLight;
 
 	public override bool CheckSightlines()
 	{
@@ -53,7 +52,9 @@ public class CameraDetection : DetectionEnemy
 	public override void DartRespond()
 	{
 	}
-	public override void EMPRespond(float stunDuration)
+
+	public override void EMPRespond(float stunDuration, GameObject stunEffect)
 	{
+		throw new System.NotImplementedException();
 	}
 }
