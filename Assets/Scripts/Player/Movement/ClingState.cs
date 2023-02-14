@@ -118,4 +118,15 @@ public class ClingState : MovementState
 			c.CurrentMovementState = c.fallState;
 		}
 	}
+
+	private void OnDrawGizmos()
+	{
+		if (!Application.isPlaying) return;
+		var hits = SphereRaycaster.SphereRaycast(transform.position, sd.attachmentDistance, sd.walkableLayers);
+		Gizmos.color = Color.green;
+		foreach ( var hit in hits )
+		{
+			Gizmos.DrawSphere(hit.point, 0.01f);
+		}
+	}
 }
