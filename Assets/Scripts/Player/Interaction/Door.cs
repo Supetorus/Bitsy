@@ -18,7 +18,7 @@ public class Door : MonoBehaviour, IInteractable
 	[SerializeField] private bool RotateToOpen;
 	[SerializeField] private float MoveAmount;
 
-	private bool opened = false;
+	//private bool opened = false;
 	private bool locked = false;
 
 	public string InteractPrompt => _prompt;
@@ -42,7 +42,7 @@ public class Door : MonoBehaviour, IInteractable
 		else */if ((interactor.inventory.gameData.stringData.HasKey(requiredItemKey) && locked) || !locked)
 		{
 			locked = false;
-			opened = true;
+			//opened = true;
 			Debug.Log(_prompt);
 			sfx.PlayOneShot(opensfx);
 			//update to play open on open animation and close on close animation when animator is added
