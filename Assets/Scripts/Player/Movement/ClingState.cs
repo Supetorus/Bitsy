@@ -39,7 +39,6 @@ public class ClingState : MovementState
 	}
 
 	float yaw = 0;
-	public float sensitivity = 50;
 	public override void FixedUpdateState()
 	{
 		if (height > sd.attachmentDistance)
@@ -69,6 +68,7 @@ public class ClingState : MovementState
 
 			Vector2 camInput = cameraInput.action.ReadValue<Vector2>();
 			//if (invertX) input *= Vector2.right * -1;
+			float sensitivity = PlayerPrefs.GetFloat("Slider_CameraHorizontalSensitivity");
 			camInput *= sensitivity;
 			yaw = (camInput.x) % 360;
 			//print(yaw);
