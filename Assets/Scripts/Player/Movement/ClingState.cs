@@ -14,6 +14,8 @@ public class ClingState : MovementState
 	private float sprintMultiplier = 1.5f;
 	[Tooltip("Drag in the 'Look' action here.")]
 	public InputActionReference cameraInput;
+	[SerializeField, Range(0.1f, 4f), Tooltip("The base speed of the spider.")]
+	private float baseSpeed = 0.4f;
 
 	private float movementMultiplier;
 
@@ -59,7 +61,7 @@ public class ClingState : MovementState
 
 		// Sprint
 		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
-		else movementMultiplier = Mathf.Clamp(movementMultiplier * c.drag, 1, sprintMultiplier);
+		else movementMultiplier = Mathf.Clamp(movementMultiplier * c.drag, baseSpeed, sprintMultiplier);
 
 		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(transform.position, sd.attachmentDistance, sd.walkableLayers);
 		// Near a walkable surface
