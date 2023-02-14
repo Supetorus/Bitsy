@@ -1,70 +1,78 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class LaserMovement : MonoBehaviour {
+public class LaserMovement : MonoBehaviour
+{
 	public bool isVerticalSliding;
-	private bool slidingUp = true;
-	private bool slidingDown;
 	public bool isHorizontalSlidingX;
-	private bool slidingLeftX = true;
-	private bool slidingRightX;
 	public bool isHorizontalSlidingZ;
-	private bool slidingLeftZ = true;
-	private bool slidingRightZ;
-	private Vector3 startingTransform;
 	public float movementAmount;
 	public float laserSpeed;
 
-	private void Start() {
-		startingTransform.x = transform.position.x;
-		startingTransform.y = transform.position.y;
-		startingTransform.z = transform.position.z;
-		Debug.Log("Y: " + startingTransform.y);
+	private int direction = 1;
+	private Vector3 pos1;
+	private Vector3 pos2;
+
+	private void Start()
+	{
+		if (isVerticalSliding)
+		{
+			pos1 = new Vector3(transform.position.x, transform.position.y + movementAmount, transform.position.z);
+			pos2 = new Vector3(transform.position.x, transform.position.y - movementAmount, transform.position.z);
+		}
+		else if (isHorizontalSlidingX)
+		{
+			pos1 = new Vector3(transform.position.x + movementAmount, transform.position.y, transform.position.z);
+			pos2 = new Vector3(transform.position.x - movementAmount, transform.position.y, transform.position.z);
+		}
+		else if (isHorizontalSlidingZ)
+		{
+			pos1 = new Vector3(transform.position.x, transform.position.y, transform.position.z + movementAmount);
+			pos2 = new Vector3(transform.position.x, transform.position.y, transform.position.z - movementAmount);
+		}
+		else
+		{ Debug.LogWarning("No direction was selected for " + gameObject.name); }
 	}
-	void Update() {
-		if (isVerticalSliding) {
-			//move the laser up and down
-			if (slidingUp) {
-				transform.position = Vector3.MoveTowards(transform.position, new Vector3(startingTransform.x, startingTransform.y + movementAmount, startingTransform.z), laserSpeed * Time.deltaTime);
-			} else if (slidingDown) {
-				transform.position = Vector3.MoveTowards(transform.position, new Vector3(startingTransform.x, startingTransform.y - movementAmount, startingTransform.z), laserSpeed * Time.deltaTime);
-			}
-			if (transform.position.y.Equals(startingTransform.y + movementAmount)) {
-				slidingUp = false;
-				slidingDown = true;
-			} else if (transform.position.y.Equals(startingTransform.y - movementAmount)) {
-				slidingUp = true;
-				slidingDown = false;
-			}
-		} else if (isHorizontalSlidingX) {
-			//move the laser left and right
-			if (slidingLeftX) {
-				transform.position = Vector3.MoveTowards(transform.position, new Vector3(startingTransform.x + movementAmount, startingTransform.y, startingTransform.z), laserSpeed * Time.deltaTime);
-			} else if (slidingRightX) {
-				transform.position = Vector3.MoveTowards(transform.position, new Vector3(startingTransform.x - movementAmount, startingTransform.y, startingTransform.z), laserSpeed * Time.deltaTime);
-			}
-			if (transform.position.x.Equals(startingTransform.x + movementAmount)) {
-				slidingLeftX = false;
-				slidingRightX = true;
-			} else if (transform.position.x.Equals(startingTransform.x - movementAmount)) {
-				slidingLeftX = true;
-				slidingRightX = false;
-			}
-		} else if (isHorizontalSlidingZ) {
-			//move the laser left and right
-			if (slidingLeftZ) {
-				transform.position = Vector3.MoveTowards(transform.position, new Vector3(startingTransform.x, startingTransform.y, startingTransform.z + movementAmount), laserSpeed * Time.deltaTime);
-			} else if (slidingRightZ) {
-				transform.position = Vector3.MoveTowards(transform.position, new Vector3(startingTransform.x, startingTransform.y, startingTransform.z - movementAmount), laserSpeed * Time.deltaTime);
-			}
-			if (transform.position.z.Equals(startingTransform.z + movementAmount)) {
-				slidingLeftZ = false;
-				slidingRightZ = true;
-			} else if (transform.position.z.Equals(startingTransform.z - movementAmount)) {
-				slidingLeftZ = true;
-				slidingRightZ = false;
-			}
+	void Update()
+	{
+		if (transform.position == pos1 || transform.position == pos2) direction *= -1;
+		if (direction == 1) transform.position = Vector3.MoveTowards(transform.position, pos1, laserSpeed * Time.deltaTime);
+		else transform.position = Vector3.MoveTowards(transform.position, pos2, laserSpeed * Time.deltaTime);
+	}
+	private void OnDrawGizmosSelected()
+	{
+		if (!isVerticalSliding && !isHorizontalSlidingX && !isHorizontalSlidingZ) return;
+		Vector3 position1 = Vector3.zero;
+		Vector3 position2 = Vector3.zero;
+		if (isVerticalSliding)
+		{
+			position1 = new Vector3(transform.position.x, transform.position.y + movementAmount, transform.position.z);
+			position2 = new Vector3(transform.position.x, transform.position.y - movementAmount, transform.position.z);
+		}
+		else if (isHorizontalSlidingX)
+		{
+			position1 = new Vector3(transform.position.x + movementAmount, transform.position.y, transform.position.z);
+			position2 = new Vector3(transform.position.x - movementAmount, transform.position.y, transform.position.z);
+		}
+		else if (isHorizontalSlidingZ)
+		{
+			position1 = new Vector3(transform.position.x, transform.position.y, transform.position.z + movementAmount);
+			position2 = new Vector3(transform.position.x, transform.position.y, transform.position.z - movementAmount);
+		}
+		Gizmos.color = Color.green;
+		Gizmos.DrawSphere(transform.position, 0.1f);
+		Gizmos.color = Color.white;
+		if (Application.isPlaying)
+		{
+			Gizmos.DrawSphere(pos1, 0.1f);
+			Gizmos.DrawSphere(pos2, 0.1f);
+		}
+		else
+		{
+			Gizmos.DrawSphere(position1, 0.1f);
+			Gizmos.DrawSphere(position2, 0.1f);
 		}
 	}
 }

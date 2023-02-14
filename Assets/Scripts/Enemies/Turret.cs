@@ -34,7 +34,7 @@ public class Turret : DetectionEnemy
 		turretAnimator = GetComponentInParent<TurretAnimator>();
 		player = GameObject.FindGameObjectWithTag("Player");
 		fireTimer = fireRate;
-    }
+	}
 
     // Update is called once per frame
     void Update()
@@ -75,5 +75,10 @@ public class Turret : DetectionEnemy
 		{
 			fireTimer -= Time.deltaTime;
 		}
-    }
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.DrawSphere(transform.position, sightDist);
+	}
 }
