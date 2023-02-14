@@ -1,5 +1,133 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8827148547143832595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4170139038093696305}
+  - component: {fileID: 2724269486667970956}
+  m_Layer: 5
+  m_Name: Controller Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: 70b6ed493cdde1b4a911df2d89e1694f, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4170139038093696305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827148547143832595}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9024575370357631314}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2724269486667970956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827148547143832595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38730517d0a0b2f4f9935f5b526ee7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  presetManager: {fileID: 11400000, guid: 1c72db67c6ffd4f4c900e53b3a3be645, type: 2}
+  firstSelected: {fileID: 5192721462409272662}
+  panels: []
+  buttons: []
+  settingsElements: []
+  modeSelectors: []
+  keyboardObjects: []
+  gamepadObjects: []
+  hotkeyObjects: []
+  alwaysUpdate: 1
+  affectCursor: 0
+  gamepadHotkey:
+    m_Name: Gamepad Hotkey
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5980db5f-af95-4ab3-b228-64e69f380502
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: bdbe8fb8-11b4-4abd-9bfc-af86c107f49e
+      m_Path: <Gamepad>/buttonEast
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 3f4e41a2-917a-4a29-90ac-4febbf94bb5a
+      m_Path: <Gamepad>/buttonSouth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 5d199d66-dfc0-486d-8676-85918f1bf28e
+      m_Path: <Gamepad>/buttonNorth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 4888a5ca-aa13-4fc9-bfd8-b21df1d50224
+      m_Path: <Gamepad>/buttonWest
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: dc65bf26-ecc7-41b8-a6ee-95ff9f20eb11
+      m_Path: <Gamepad>/leftStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: be1387fb-71b4-4ee3-9498-b74edc878265
+      m_Path: <Gamepad>/dpad
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: d890de20-597d-425f-b043-2065ebfefa07
+      m_Path: <Gamepad>/rightStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    m_Flags: 0
+  currentManagerIndex: 0
+  gamepadConnected: 0
+  gamepadEnabled: 0
+  keyboardEnabled: 0
+  hAxis: 0
+  vAxis: 0
+  currentController: 
+  currentControllerPreset: {fileID: 0}
 --- !u!1 &9024575369573223525
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +410,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9024575370357631314}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9024575369866752180
 MonoBehaviour:
@@ -407,7 +535,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9024575370357631314}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9024575370165638863
 GameObject:
@@ -771,6 +899,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9024575370165638862}
+  - {fileID: 4170139038093696305}
   - {fileID: 9024575369866752171}
   - {fileID: 9024575371480185374}
   - {fileID: 9024575370058563171}
@@ -1156,7 +1285,7 @@ RectTransform:
   m_Children:
   - {fileID: 9024575370762304817}
   m_Father: {fileID: 9024575370357631314}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1390,7 +1519,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9024575370357631314}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9024575371078079719
 GameObject:
@@ -1615,7 +1744,7 @@ RectTransform:
   - {fileID: 9024575371581139231}
   - {fileID: 335781512373995166}
   m_Father: {fileID: 9024575370357631314}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1693,7 +1822,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9024575370357631314}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9024575371480185375
 MonoBehaviour:
@@ -1818,7 +1947,7 @@ RectTransform:
   m_Children:
   - {fileID: 9024575370681674611}
   m_Father: {fileID: 9024575370357631314}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3867,12 +3996,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3364934948256854533, guid: 5d64c67bf88a1fa44af0916c5239267d, type: 3}
-      propertyPath: m_Size
-      value: 0.80837214
-      objectReference: {fileID: 0}
-    - target: {fileID: 3364934948256854533, guid: 5d64c67bf88a1fa44af0916c5239267d, type: 3}
       propertyPath: m_Value
-      value: 1.0000024
+      value: 1.0000031
       objectReference: {fileID: 0}
     - target: {fileID: 3368565418062091389, guid: 5d64c67bf88a1fa44af0916c5239267d, type: 3}
       propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
