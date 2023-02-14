@@ -99,10 +99,10 @@ public class UpgradeController : MonoBehaviour
 		{
 			WebZip();
 		}
-		else if (detectiveMode.action.ReadValue<float>() > 0 && !DM_OnCooldown)
-		{
-			DetectiveMode();
-		} 
+		//else if (detectiveMode.action.ReadValue<float>() > 0 && !DM_OnCooldown)
+		//{
+		//	DetectiveMode();
+		//} 
 		else if (hack.action.ReadValue<float>() > 0 && LookingAtHackable())
 		{
 			Hack();
