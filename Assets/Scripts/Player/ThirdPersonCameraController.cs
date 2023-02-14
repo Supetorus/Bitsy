@@ -55,6 +55,7 @@ public class ThirdPersonCameraController : MonoBehaviour
 		input = cameraInput.action.ReadValue<Vector2>();
 		if (invertX) input *= Vector2.right * -1;
 		if (invertY) input *= Vector2.up * -1;
+		sensitivity = PlayerPrefs.GetFloat("Slider_CameraVerticalSensitivity") * 0.01f * 9.8f + 0.2f; // This converts the value from 0 to 100 to the range 0.2 to 10.
 		input *= sensitivity;
 		//input = new Vector2(1, 1);
 		//yaw = (yaw+input.x) % 360;
