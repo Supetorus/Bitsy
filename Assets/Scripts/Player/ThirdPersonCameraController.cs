@@ -81,7 +81,7 @@ public class ThirdPersonCameraController : MonoBehaviour
 			//Vector3 offset = rotation * Vector3.back * distance;
 			//targetPosition = aimTarget.position + offset;
 			targetPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, cameraSpeed * Time.deltaTime);
-			Vector3 direction = targetPosition - aimTarget.position;
+			Vector3 direction = (targetPosition - aimTarget.position).normalized;
 			targetPosition = aimTarget.position + (direction * distance);
 		}
 		transform.position = targetPosition;
