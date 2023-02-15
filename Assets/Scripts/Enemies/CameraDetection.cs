@@ -43,6 +43,6 @@ public class CameraDetection : DetectionEnemy
 				canSeePlayer = false;
 			}
 		}
-		print(player.GetComponent<GlobalPlayerDetection>().currentDetectionLevel);
+		//print(player.GetComponent<GlobalPlayerDetection>().currentDetectionLevel);
 	}
 }
