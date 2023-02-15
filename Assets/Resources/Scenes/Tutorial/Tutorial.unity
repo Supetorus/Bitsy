@@ -5007,6 +5007,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1717654333}
     - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 1403610205}
+    - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
       propertyPath: OtherDoor1
       value: 
       objectReference: {fileID: 369756764}
@@ -6016,10 +6020,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &756585246 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1031005579, guid: abc00000000007996885949368153630, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1031005582, guid: abc00000000007996885949368153630, type: 3}
   m_PrefabInstance: {fileID: 756585244}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &756585247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756585246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2242696dec04fec479164f686c1326d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectiveIndex: 0
+  taskIndex: 6
+  triggered: 0
+--- !u!114 &756585248
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6035,21 +6054,6 @@ MonoBehaviour:
   feedbackText: E Pick Up
   itemKey: BlueKeycard
   pickupsfx: {fileID: 0}
---- !u!114 &756585248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756585246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2242696dec04fec479164f686c1326d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectiveIndex: 0
-  taskIndex: 6
-  triggered: 0
 --- !u!134 &783878841
 PhysicMaterial:
   m_ObjectHideFlags: 0
@@ -7129,6 +7133,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.0000014603138
       objectReference: {fileID: 0}
+    - target: {fileID: 3725304172147357060, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: laserSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725304172147357060, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: movementAmount
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725304172147357060, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: isVerticalSliding
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3725304172636611002, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0000014752147
@@ -7136,6 +7152,14 @@ PrefabInstance:
     - target: {fileID: 3725304172636611002, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725304172962242087, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: laserSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725304172962242087, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: movementAmount
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3725304173279430591, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8850,6 +8874,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 1403610205}
+    - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
       propertyPath: OtherDoor1
       value: 
       objectReference: {fileID: 369756765}
@@ -9991,6 +10019,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 1403610205}
     - target: {fileID: 7333854721265833650, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
       propertyPath: m_RootOrder
       value: 9
