@@ -1838,17 +1838,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -15
       objectReference: {fileID: 0}
+    - target: {fileID: 2683350034061294019, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2683350034061294020, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.000000834465
       objectReference: {fileID: 0}
     - target: {fileID: 2683350034061294020, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4553989
+      value: 0.43866178
       objectReference: {fileID: 0}
     - target: {fileID: 2683350034061294020, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.98114777
+      value: -0.875473
       objectReference: {fileID: 0}
     - target: {fileID: 2683350034061294020, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1856,15 +1860,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2683350034061294020, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.07845925
+      value: 0.078459375
       objectReference: {fileID: 0}
     - target: {fileID: 2683350034061294020, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.000000475093
       objectReference: {fileID: 0}
     - target: {fileID: 2683350034061294020, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.00000003739076
       objectReference: {fileID: 0}
     - target: {fileID: 2683350035233568993, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: movementMultiplier
@@ -5007,6 +5011,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1717654333}
     - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 1403610205}
+    - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
       propertyPath: OtherDoor1
       value: 
       objectReference: {fileID: 369756764}
@@ -6014,42 +6022,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1031005580, guid: abc00000000007996885949368153630, type: 3}
   m_PrefabInstance: {fileID: 756585244}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &756585246 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1031005579, guid: abc00000000007996885949368153630, type: 3}
-  m_PrefabInstance: {fileID: 756585244}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &756585247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756585246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfcfcd2c35e21984281806642a1da364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prompt: E Pick Up
-  feedbackText: E Pick Up
-  itemKey: BlueKeycard
-  pickupsfx: {fileID: 0}
---- !u!114 &756585248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756585246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2242696dec04fec479164f686c1326d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectiveIndex: 0
-  taskIndex: 6
-  triggered: 0
 --- !u!134 &783878841
 PhysicMaterial:
   m_ObjectHideFlags: 0
@@ -7129,6 +7101,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.0000014603138
       objectReference: {fileID: 0}
+    - target: {fileID: 3725304172147357060, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: laserSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725304172147357060, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: movementAmount
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725304172147357060, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: isVerticalSliding
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3725304172636611002, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0000014752147
@@ -7136,6 +7120,18 @@ PrefabInstance:
     - target: {fileID: 3725304172636611002, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725304172962242087, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: laserSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725304172962242087, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: movementAmount
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725304172962242087, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: isVerticalSliding
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3725304173279430591, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8850,6 +8846,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 1403610205}
+    - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
       propertyPath: OtherDoor1
       value: 
       objectReference: {fileID: 369756765}
@@ -9296,6 +9296,42 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1745381767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1031005582, guid: abc00000000007996885949368153630, type: 3}
+  m_PrefabInstance: {fileID: 756585244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1745381772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745381767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2242696dec04fec479164f686c1326d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectiveIndex: 0
+  taskIndex: 6
+  triggered: 0
+--- !u!114 &1745381773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745381767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfcfcd2c35e21984281806642a1da364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prompt: E Pick Up
+  feedbackText: E Pick Up
+  itemKey: BlueKeycard
+  pickupsfx: {fileID: 8300000, guid: 00ff28fae86f8be49a09a9cb9c03ca9c, type: 3}
 --- !u!134 &1749986348
 PhysicMaterial:
   m_ObjectHideFlags: 0
@@ -9991,6 +10027,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 1403610205}
+    - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: OpensOnX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: OpensOnZ
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7333854721265833650, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
       propertyPath: m_RootOrder
       value: 9

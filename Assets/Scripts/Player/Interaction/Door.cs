@@ -44,7 +44,8 @@ public class Door : MonoBehaviour, IInteractable
 			locked = false;
 			//opened = true;
 			Debug.Log(_prompt);
-			sfx.PlayOneShot(opensfx);
+			if (sfx != null) sfx.PlayOneShot(opensfx);
+			else Debug.LogWarning("Sound effect source was null.");
 			//update to play open on open animation and close on close animation when animator is added
 			// open door
 			if(OtherDoor2 == null) {
