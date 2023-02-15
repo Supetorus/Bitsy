@@ -9,8 +9,6 @@ public class UpgradeController : MonoBehaviour
 	//Input Actions
 	public InputActionReference lunge;
 	public InputActionReference webZip;
-	public InputActionReference detectiveMode;
-	public InputActionReference hack;
 
 	//MovementController
 	[HideInInspector]public MovementController controller;
@@ -29,14 +27,6 @@ public class UpgradeController : MonoBehaviour
 	[SerializeField] float L_Cooldown;
 	[SerializeField] float L_Timer;
 	[HideInInspector] bool L_OnCooldown;
-
-	[Header("Detective Mode Settings")]
-	//Detective Mode Variables DM_ = DetectiveMode
-	[SerializeField] float range;
-	[SerializeField] float DM_Cooldown;
-	[SerializeField] float DM_Timer;
-	[SerializeField] float DM_Length;
-	[HideInInspector] bool DM_OnCooldown;
 
 	[Header("Upgrade Variables")]
 	private const int SB_REGULAR_DURATION = 1;
@@ -58,7 +48,6 @@ public class UpgradeController : MonoBehaviour
 		//Misc Upgrades
 		PlayerPrefs.SetString("Lunge", "False");
 		PlayerPrefs.SetString("WebZip", "False");
-		PlayerPrefs.SetString("DetectiveMode", "False");
 		PlayerPrefs.SetString("Hack", "False");
 
 		//Abiity Upgrades
@@ -85,7 +74,6 @@ public class UpgradeController : MonoBehaviour
 		//Setting Timers
 		WZ_Timer = WZ_Cooldown;
 		L_Timer = L_Cooldown;
-		DM_Timer = DM_Cooldown;
     }
 
 
@@ -98,14 +86,6 @@ public class UpgradeController : MonoBehaviour
 		else if (webZip.action.ReadValue<float>() > 0 && !WZ_OnCooldown)
 		{
 			WebZip();
-		}
-		//else if (detectiveMode.action.ReadValue<float>() > 0 && !DM_OnCooldown)
-		//{
-		//	DetectiveMode();
-		//} 
-		else if (hack.action.ReadValue<float>() > 0 && LookingAtHackable())
-		{
-			Hack();
 		}
 		HandleCooldowns();
 	}
@@ -130,15 +110,6 @@ public class UpgradeController : MonoBehaviour
 				WZ_Timer = WZ_Cooldown;
 			}
 		}
-		if(DM_OnCooldown)
-		{
-			if (DM_Timer >= 0) DM_Timer -= Time.deltaTime;
-			else
-			{
-				DM_OnCooldown = false;
-				DM_Timer = DM_Cooldown;
-			}
-		}
 	}
 
 	public void WebZip()
@@ -160,22 +131,6 @@ public class UpgradeController : MonoBehaviour
 		print("Lunge");
 	}
 
-	public void DetectiveMode()
-	{
-		DM_OnCooldown = true;
-		print("Detective Mode");
-	}
-
-	public void Hack()
-	{
-		print("Elite Hacker: Xx_BlackWillow69_xX@AOL.com");
-	}
-
-	public bool LookingAtHackable()
-	{
-		return false;
-	}
-
 	public void EnableUpgrade(string upgrade)
 	{
 		if(PlayerPrefs.HasKey(upgrade))
@@ -188,12 +143,6 @@ public class UpgradeController : MonoBehaviour
 					break;
 				case "WebZip":
 					webZip.action.Enable();
-					break;
-				case "DetectiveMode":
-					detectiveMode.action.Enable();
-					break;
-				case "Hack":
-					hack.action.Enable();
 					break;
 				case "SB_DU":
 					PlayerPrefs.SetInt("SB_DURATION", SB_UPGRADED_DURATION);
@@ -249,12 +198,6 @@ public class UpgradeController : MonoBehaviour
 					break;
 				case "WebZip":
 					webZip.action.Disable();
-					break;
-				case "DetectiveMode":
-					detectiveMode.action.Disable();
-					break;
-				case "Hack":
-					hack.action.Disable();
 					break;
 				case "SB_U":
 					PlayerPrefs.SetInt("SB_DURATION", SB_REGULAR_DURATION);

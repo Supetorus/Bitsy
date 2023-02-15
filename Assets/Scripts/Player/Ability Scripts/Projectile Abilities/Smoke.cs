@@ -5,11 +5,14 @@ using UnityEngine;
 public class Smoke : MonoBehaviour
 {
     GameObject player;
+	ParticleSystem particles;
     bool playerHasEntered;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+		particles = gameObject.GetComponent<ParticleSystem>();
+		Destroy(gameObject, particles.main.duration);
     }
 
     private void OnTriggerEnter(Collider other)
