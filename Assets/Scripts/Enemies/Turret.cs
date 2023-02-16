@@ -18,6 +18,7 @@ public class Turret : DetectionEnemy
 	bool canSeePlayer;
 	private float timeToRotate = 1.5f;
 	private float rotTimer;
+	private bool isStunned = false;
 
 	private int currentSpawnLocation;
 
@@ -28,52 +29,82 @@ public class Turret : DetectionEnemy
 		return canSeePlayer;
 	}
 
+	public override void DartRespond()
+	{
+		//IMPLEMENT
+		Destroy(gameObject);
+	}
+
+	public override void EMPRespond(float stunDuration, GameObject stunEffect)
+	{
+		StartCoroutine(GetStunnedIdiot(stunDuration, stunEffect));
+	}
+
+	IEnumerator GetStunnedIdiot(float stunDuration, GameObject stunEffect)
+	{
+		GameObject stunParticles = Instantiate(stunEffect, transform.position, transform.rotation);
+		isStunned = true;
+		turretAnimator.animator.enabled = false;
+		yield return new WaitForSeconds(stunDuration);
+		isStunned = false;
+		Destroy(stunParticles);
+		turretAnimator.animator.enabled = true;
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
 		turretAnimator = GetComponentInParent<TurretAnimator>();
 		player = GameObject.FindGameObjectWithTag("Player");
 		fireTimer = fireRate;
-    }
+	}
 
     // Update is called once per frame
     void Update()
     {
-		playerDir = (player.transform.position - transform.position).normalized;
-		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask))
+		if(!isStunned)
 		{
-			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
+			playerDir = (player.transform.position - transform.position).normalized;
+			if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask))
 			{
-				rotTimer += Time.deltaTime;
-				canSeePlayer = true;
-				turretAnimator.animator.enabled = false;
-				weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, weapon.up), rotTimer / timeToRotate);
+				if (hit.collider.gameObject == player)
+				{
+					rotTimer += Time.deltaTime;
+					canSeePlayer = true;
+					turretAnimator.animator.enabled = false;
+					weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, weapon.up), rotTimer / timeToRotate);
+				}
 			}
-		}
-		else
-		{
-			rotTimer = 0;
-			canSeePlayer = false;
-			turretAnimator.animator.enabled = true;
-			turretAnimator.animator.SetBool("isActive", true);
-		}
+			else
+			{
+				rotTimer = 0;
+				canSeePlayer = false;
+				turretAnimator.animator.enabled = true;
+				turretAnimator.animator.SetBool("isActive", true);
+			}
 
-		if (fireTimer <= 0 && canSeePlayer)
-		{
-			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible && Vector3.Dot(weapon.forward, playerDir) > 0.95f)
+			if (fireTimer <= 0 && canSeePlayer)
 			{
-				GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
-				bullet.transform.rotation = Quaternion.LookRotation(playerDir);
-				bullet.GetComponent<Rigidbody>().AddForce((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized * projSpeed);
-				Destroy(bullet, 1);
-				player.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
-				currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
-				fireTimer = fireRate;
+				if (hit.collider.gameObject == player && Vector3.Dot(weapon.forward, playerDir) > 0.95f)
+				{
+					GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
+					bullet.transform.rotation = Quaternion.LookRotation(playerDir);
+					bullet.GetComponent<Rigidbody>().AddForce((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized * projSpeed);
+					Destroy(bullet, 1);
+					player.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
+					currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
+					fireTimer = fireRate;
+				}
+			}
+			else
+			{
+				fireTimer -= Time.deltaTime;
 			}
 		}
-		else
-		{
-			fireTimer -= Time.deltaTime;
-		}
-    }
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.DrawSphere(transform.position, sightDist);
+	}
 }

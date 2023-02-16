@@ -21,12 +21,16 @@ public class ThirdPersonCameraController : MonoBehaviour
 	public float minPitch = -89.9f;
 	[Tooltip("Camera won't pass through objects on these layers.")]
 	public LayerMask hitLayers;
+	[SerializeField, Tooltip("How quickly the camera adjusts to new positions. Lower values are faster.")]
+	private float cameraSpeed = 10;
+	[SerializeField, Range(0.01f, 0.5f), Tooltip("How quickly the camera rotates to look at the player. Higher values are faster.")]
+	private float cameraRotationSpeed;
 
 	[Header("Controls Settings")]
 	[Tooltip("Drag in the 'Look' action here.")]
 	public InputActionReference cameraInput;
 	[Tooltip("How quickly the camera moves when you move mouse or stick.")]
-	public float sensitivity = 1;
+	public float verticalSensitivity = 1;
 	[Tooltip("Whether or not to invert the horizontal camera movement.")]
 	public bool invertX = false;
 	[Tooltip("Whether or not to invert the vertical camera movement.")]
@@ -34,6 +38,8 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 	private new Camera camera;
 	private Vector2 input = Vector2.zero;
+
+	private Vector3 velocity = Vector3.zero;
 
 	private void Start()
 	{
@@ -55,27 +61,35 @@ public class ThirdPersonCameraController : MonoBehaviour
 		input = cameraInput.action.ReadValue<Vector2>();
 		if (invertX) input *= Vector2.right * -1;
 		if (invertY) input *= Vector2.up * -1;
-		sensitivity = PlayerPrefs.GetFloat("Slider_CameraVerticalSensitivity") * 0.01f * 9.8f + 0.2f; // This converts the value from 0 to 100 to the range 0.2 to 10.
-		input *= sensitivity;
-		//input = new Vector2(1, 1);
-		//yaw = (yaw+input.x) % 360;
-		pitch = Mathf.Clamp(pitch-input.y, minPitch, maxPitch);
+		verticalSensitivity = PlayerPrefs.GetFloat("Slider_CameraVerticalSensitivity") * 0.01f * 9.8f + 0.2f; // This converts the value from 0 to 100 to the range 0.2 to 10.
+		input *= verticalSensitivity;
+		pitch = Mathf.Clamp(pitch - input.y, minPitch, maxPitch);
 		Quaternion rotationDelta = Quaternion.Euler(pitch, 0, 0);
 		Quaternion rotation = aimTarget.rotation * rotationDelta;
 
-		bool doQueryHitBackfaces = Physics.queriesHitBackfaces;
+		Vector3 targetPosition = aimTarget.position + rotation * (Vector3.back * distance);
+		bool hitBackfaces = Physics.queriesHitBackfaces;
 		Physics.queriesHitBackfaces = true;
-		Physics.SphereCast(aimTarget.position, camera.nearClipPlane, rotation * Vector3.back, out RaycastHit hit, distance, hitLayers);
-		Physics.queriesHitBackfaces = doQueryHitBackfaces;
+		Physics.SphereCast(aimTarget.position, camera.nearClipPlane, targetPosition - aimTarget.position, out RaycastHit hit, distance, hitLayers);
+		Physics.queriesHitBackfaces = hitBackfaces;
 		if (hit.collider)
 		{
-			transform.position = hit.point + (hit.normal * camera.nearClipPlane);
+			targetPosition = hit.point + (hit.normal * camera.nearClipPlane);
+			targetPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, cameraSpeed * Time.deltaTime);
 		}
 		else
 		{
-			Vector3 offset = rotation * Vector3.back * distance;
-			transform.position = aimTarget.position + offset;
+			//Vector3 offset = rotation * Vector3.back * distance;
+			//targetPosition = aimTarget.position + offset;
+			targetPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, cameraSpeed * Time.deltaTime);
+			Vector3 direction = (targetPosition - aimTarget.position).normalized;
+			targetPosition = aimTarget.position + (direction * distance);
 		}
-		transform.rotation = Quaternion.LookRotation(aimTarget.position - transform.position, aimTarget.up);
+		transform.position = targetPosition;
+
+
+
+		Quaternion targetRotation = Quaternion.LookRotation(aimTarget.position - transform.position, aimTarget.up);
+		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, cameraRotationSpeed);
 	}
 }
