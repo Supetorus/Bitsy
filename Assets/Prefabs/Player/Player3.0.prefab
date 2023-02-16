@@ -1183,8 +1183,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683350034061294017}
-  m_LocalRotation: {x: 0.07845911, y: -0, z: -0, w: 0.99691737}
-  m_LocalPosition: {x: 0, y: 0.4564345, z: -0.98768836}
+  m_LocalRotation: {x: 0.0784591, y: -0, z: -0, w: 0.99691737}
+  m_LocalPosition: {x: 0, y: 0.4564345, z: -0.9876884}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7348,6 +7348,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -15
       objectReference: {fileID: 0}
+    - target: {fileID: 2369595871267453192, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369595871267453192, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7593973167799316847}
+    - target: {fileID: 2369595871267453192, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369595871267453192, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Michsky.UI.Reach.PanelManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369595871267453192, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Settings
+      objectReference: {fileID: 0}
     - target: {fileID: 3031107316124785577, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -10237,6 +10257,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9024575371176695516, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024575371223271852, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
+      propertyPath: currentPanelIndex
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9024575371223271852, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
