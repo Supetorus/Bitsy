@@ -25,6 +25,8 @@ public class ThirdPersonCameraController : MonoBehaviour
 	private float zoomedFOV = 20;
 	[SerializeField, Tooltip("How fast the camera zooms in."), Range(0.0001f, 10f)]
 	private float zoomSpeed = 4f;
+	[SerializeField]
+	private GameObject reticle;
 
 	[SerializeField, Tooltip("How quickly the camera adjusts to new positions. Lower values are faster.")]
 	private float cameraSpeed = 10;
@@ -50,8 +52,9 @@ public class ThirdPersonCameraController : MonoBehaviour
 	private Vector2 input = Vector2.zero;
 	private float defaultFOV = 60;
 	private float zoomLerpValue = 0;
-
 	private Vector3 velocity = Vector3.zero;
+	[HideInInspector]
+	public bool zooming = false;
 
 	private void Start()
 	{
@@ -85,13 +88,19 @@ public class ThirdPersonCameraController : MonoBehaviour
 		}
 		camera.fieldOfView = Mathf.Lerp(defaultFOV, zoomedFOV, zoomLerpValue);
 
+		zooming = zoomLerpValue > 0;
 		// up down controlled by mouse. left right controlled by player rotation.
 		input = cameraInput.action.ReadValue<Vector2>();
 		if (invertX) input *= -Vector2.right;
 		if (invertY) input *= -Vector2.up;
-		input *= verticalSensitivity;
+		input *= sensitivity;
 		pitch = Mathf.Clamp(pitch - input.y, minPitch, maxPitch);
-		Quaternion rotationDelta = Quaternion.Euler(pitch, 0, 0);
+		if (zooming) yaw = (yaw + input.x) % 360;
+		else yaw = 0;
+		print(yaw);
+		Quaternion rotationDelta;
+		if (zooming) rotationDelta = Quaternion.Euler(pitch, yaw, 0);
+		else rotationDelta = Quaternion.Euler(pitch, 0, 0);
 		Quaternion rotation = aimTarget.rotation * rotationDelta;
 
 		Vector3 targetPosition = aimTarget.position + rotation * (Vector3.back * distance);
@@ -117,8 +126,7 @@ public class ThirdPersonCameraController : MonoBehaviour
 		//transform.position = targetPosition;
 
 		Quaternion targetRotation;
-			print(rotation);
-		if (zoomLerpValue > 0)
+		if (zooming)
 		{
 			targetRotation = rotation;
 		}
@@ -127,5 +135,7 @@ public class ThirdPersonCameraController : MonoBehaviour
 			targetRotation = Quaternion.LookRotation(aimTarget.position - transform.position, aimTarget.up);
 		}
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, cameraRotationSpeed);
+
+		reticle.SetActive(zooming);
 	}
 }
