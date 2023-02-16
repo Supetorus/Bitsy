@@ -9,7 +9,7 @@ public class Hide : MonoBehaviour, IInteractable
 	[SerializeField] private AudioSource sfx;
 	[SerializeField] private AudioClip opensfx;
 
-	private bool hiding = false;
+	//private bool hiding = false;
 
 
 	public string InteractPrompt => _prompt;

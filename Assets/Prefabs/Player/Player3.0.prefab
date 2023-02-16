@@ -1264,8 +1264,10 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 81
+  cameraSpeed: 10
+  cameraRotationSpeed: 0.2
   cameraInput: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  sensitivity: 1.25
+  verticalSensitivity: 1
   invertX: 0
   invertY: 0
 --- !u!114 &274415619673760356
@@ -1643,7 +1645,7 @@ MonoBehaviour:
   height: 0.15
   sprintMultiplier: 2
   cameraInput: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
-  sensitivity: 50
+  sensitivity: 30
 --- !u!114 &2683350035233568994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10240,7 +10242,15 @@ PrefabInstance:
     - target: {fileID: 9024575371223271852, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
       propertyPath: panels.Array.data[1].panelObject
       value: 
-      objectReference: {fileID: 1222272793735085650}
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024575371223271852, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
+      propertyPath: panels.Array.data[1].hotkeyParent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024575371223271852, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
+      propertyPath: panels.Array.data[1].firstSelected
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9024575371397875695, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -10260,6 +10270,10 @@ PrefabInstance:
     - target: {fileID: 9024575371397875695, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024575371480185375, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
+      propertyPath: languageSelector
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9024575371524270544, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
       propertyPath: m_AnchorMax.y
