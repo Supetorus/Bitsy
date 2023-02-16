@@ -21,6 +21,11 @@ public class ThirdPersonCameraController : MonoBehaviour
 	public float minPitch = -89.9f;
 	[Tooltip("Camera won't pass through objects on these layers.")]
 	public LayerMask hitLayers;
+	[SerializeField, Tooltip("The FOV when zoomed in.")]
+	private float zoomedFOV = 20;
+	[SerializeField, Tooltip("How fast the camera zooms in."), Range(0.0001f, 10f)]
+	private float zoomSpeed = 4f;
+
 	[SerializeField, Tooltip("How quickly the camera adjusts to new positions. Lower values are faster.")]
 	private float cameraSpeed = 10;
 	[SerializeField, Range(0.01f, 0.5f), Tooltip("How quickly the camera rotates to look at the player. Higher values are faster.")]
@@ -29,8 +34,13 @@ public class ThirdPersonCameraController : MonoBehaviour
 	[Header("Controls Settings")]
 	[Tooltip("Drag in the 'Look' action here.")]
 	public InputActionReference cameraInput;
+	[Tooltip("Drag in the 'Aim' action here.")]
+	public InputActionReference aimInput;
 	[Tooltip("How quickly the camera moves when you move mouse or stick.")]
 	public float verticalSensitivity = 1;
+	[Range(0, 1)]
+	public float zoomSensivityMultiplier = 0.3f;
+
 	[Tooltip("Whether or not to invert the horizontal camera movement.")]
 	public bool invertX = false;
 	[Tooltip("Whether or not to invert the vertical camera movement.")]
@@ -38,17 +48,20 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 	private new Camera camera;
 	private Vector2 input = Vector2.zero;
+	private float defaultFOV = 60;
+	private float zoomLerpValue = 0;
 
 	private Vector3 velocity = Vector3.zero;
 
 	private void Start()
 	{
-		if (cameraInput == null)
+		if (cameraInput == null || aimInput == null)
 		{
-			Debug.LogError("You haven't set the input action for camera control.");
+			Debug.LogWarning("You haven't set an input action for camera controls.");
 		}
 		camera = GetComponent<Camera>();
 		cameraInput.action.Enable();
+		aimInput.action.Enable();
 
 		// Capture and lock the cursor
 		Cursor.lockState = CursorLockMode.Locked;
@@ -57,11 +70,25 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 	void Update()
 	{
+		// Zoom
+		float sensitivity = verticalSensitivity;
+		// Do zoom
+		if (aimInput.action.ReadValue<float>() > 0)
+		{
+			zoomLerpValue = Mathf.Clamp(zoomLerpValue + zoomSpeed * Time.deltaTime, 0, 1);
+			sensitivity = verticalSensitivity * zoomSensivityMultiplier;
+		}
+		// No zoom
+		else
+		{
+			zoomLerpValue = Mathf.Clamp(zoomLerpValue - zoomSpeed * Time.deltaTime, 0, 1);
+		}
+		camera.fieldOfView = Mathf.Lerp(defaultFOV, zoomedFOV, zoomLerpValue);
+
 		// up down controlled by mouse. left right controlled by player rotation.
 		input = cameraInput.action.ReadValue<Vector2>();
-		if (invertX) input *= Vector2.right * -1;
-		if (invertY) input *= Vector2.up * -1;
-		verticalSensitivity = PlayerPrefs.GetFloat("Slider_CameraVerticalSensitivity") * 0.01f * 9.8f + 0.2f; // This converts the value from 0 to 100 to the range 0.2 to 10.
+		if (invertX) input *= -Vector2.right;
+		if (invertY) input *= -Vector2.up;
 		input *= verticalSensitivity;
 		pitch = Mathf.Clamp(pitch - input.y, minPitch, maxPitch);
 		Quaternion rotationDelta = Quaternion.Euler(pitch, 0, 0);
@@ -85,11 +112,20 @@ public class ThirdPersonCameraController : MonoBehaviour
 			Vector3 direction = (targetPosition - aimTarget.position).normalized;
 			targetPosition = aimTarget.position + (direction * distance);
 		}
-		transform.position = targetPosition;
 
+		transform.position = Vector3.Lerp(targetPosition, aimTarget.position, zoomLerpValue);
+		//transform.position = targetPosition;
 
-
-		Quaternion targetRotation = Quaternion.LookRotation(aimTarget.position - transform.position, aimTarget.up);
+		Quaternion targetRotation;
+			print(rotation);
+		if (zoomLerpValue > 0)
+		{
+			targetRotation = rotation;
+		}
+		else
+		{
+			targetRotation = Quaternion.LookRotation(aimTarget.position - transform.position, aimTarget.up);
+		}
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, cameraRotationSpeed);
 	}
 }
