@@ -97,7 +97,6 @@ public class ThirdPersonCameraController : MonoBehaviour
 		pitch = Mathf.Clamp(pitch - input.y, minPitch, maxPitch);
 		if (zooming) yaw = (yaw + input.x) % 360;
 		else yaw = 0;
-		print(yaw);
 		Quaternion rotationDelta;
 		if (zooming) rotationDelta = Quaternion.Euler(pitch, yaw, 0);
 		else rotationDelta = Quaternion.Euler(pitch, 0, 0);
