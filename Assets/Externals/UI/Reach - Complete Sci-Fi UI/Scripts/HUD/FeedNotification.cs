@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
+using System.IO;
 
 namespace Michsky.UI.Reach
 {
@@ -23,6 +24,7 @@ namespace Michsky.UI.Reach
         public bool useLocalization = true;
         [SerializeField] private bool updateOnAnimate = true;
         [Range(0, 10)] public float minimizeAfter = 3;
+		//public bool minimizeNotification = true;
         public DefaultState defaultState = DefaultState.Minimized;
         public AfterMinimize afterMinimize = AfterMinimize.Disable;
 
@@ -86,7 +88,12 @@ namespace Michsky.UI.Reach
                 {
                     StopCoroutine("MinimizeItem");
                     StartCoroutine("MinimizeItem");
-                }
+				}
+				else
+				{
+					StopCoroutine("MinimizeItem");
+					StartCoroutine("MinimizeItem");
+				}
 
                 return;
             }
@@ -143,7 +150,10 @@ namespace Michsky.UI.Reach
 
         IEnumerator MinimizeItem()
         {
-            yield return new WaitForSeconds(minimizeAfter);
+			//if (minimizeNotification)
+				yield return new WaitForSeconds(minimizeAfter);
+/*			else
+				yield return new WaitWhile(()=>minimizeNotification);*/
             MinimizeNotification();
         }
     }
