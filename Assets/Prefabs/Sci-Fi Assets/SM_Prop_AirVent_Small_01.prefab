@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1031004651}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1031004655}
@@ -44,7 +44,8 @@ GameObject:
   - component: {fileID: 1031004656}
   - component: {fileID: 1031004657}
   - component: {fileID: 4544125687623024339}
-  m_Layer: 0
+  - component: {fileID: 418817850517303898}
+  m_Layer: 13
   m_Name: SM_Prop_AirVent_Small_01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,9 +125,21 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031004654}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300004, guid: abc00000000009746185218922440756, type: 3}
+--- !u!114 &418817850517303898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031004654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0adace127674446a5e9830ce3ba6ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
