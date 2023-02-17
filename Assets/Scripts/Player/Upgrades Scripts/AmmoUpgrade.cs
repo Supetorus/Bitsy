@@ -21,7 +21,7 @@ public class AmmoUpgrade : MonoBehaviour
 			{
 				upgradeController.ChangeAmmoMult(upgrade, newValue);
 			}
-			TestEffects(other);
+			//TestEffects(other);
 			Destroy(gameObject);
 		}
 	}
@@ -34,6 +34,7 @@ public class AmmoUpgrade : MonoBehaviour
 				other.gameObject.TryGetComponent<SmokeBombAbility>(out SmokeBombAbility sba);
 				print(sba.maxAmmo);
 				print("SB AMMO MULT: " + PlayerPrefs.GetInt("SB_AM"));
+				
 				break;
 			case AMMO_UPGRADE.EMP_AM:
 				other.gameObject.TryGetComponent<EMPAbility>(out EMPAbility empa);
