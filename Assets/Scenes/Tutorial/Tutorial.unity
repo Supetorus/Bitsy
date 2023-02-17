@@ -5285,7 +5285,7 @@ MonoBehaviour:
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
   opensfx: {fileID: 8300000, guid: 803a3856a3e0b2d4c8b328646357bb67, type: 3}
   closesfx: {fileID: 8300000, guid: ee3677db39e200c47897cf53b6fd9535, type: 3}
-  RightDoor: {fileID: 1612789388}
+  RightDoor: {fileID: 0}
   LeftDoor: {fileID: 0}
   OpensOnX: 0
   OpensOnZ: 0
@@ -7111,6 +7111,10 @@ PrefabInstance:
     - target: {fileID: 3725304172962242087, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
       propertyPath: movementAmount
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725304172962242087, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
+      propertyPath: isVerticalSliding
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3725304173279430591, guid: 70cd602375ef6ed4294150c458afe3ef, type: 3}
       propertyPath: m_LocalPosition.x
