@@ -18,6 +18,11 @@ public class ClingState : MovementState
 	private float movementMultiplier;
 
 	//[SerializeField] private AudioSource walking;
+	private ThirdPersonCameraController cameraController;
+	private void Start()
+	{
+		cameraController = sd.camera.GetComponent<ThirdPersonCameraController>();
+	}
 
 	public override void EnterState()
 	{
@@ -39,7 +44,6 @@ public class ClingState : MovementState
 	}
 
 	float yaw = 0;
-	public float sensitivity = 50;
 	public override void FixedUpdateState()
 	{
 		if (height > sd.attachmentDistance)
@@ -66,19 +70,21 @@ public class ClingState : MovementState
 		// Near a walkable surface
 		if (closestPoint != null)
 		{
-
 			Vector2 camInput = cameraInput.action.ReadValue<Vector2>();
 			//if (invertX) input *= Vector2.right * -1;
+			float sensitivity = PlayerPrefs.GetFloat("Slider_CameraHorizontalSensitivity");
 			camInput *= sensitivity;
 			yaw = (camInput.x) % 360;
 			//print(yaw);
-			Quaternion rotationDelta = Quaternion.Euler(0, yaw, 0);
+			Quaternion rotationDelta;
+			if (cameraController.zooming) rotationDelta = Quaternion.identity;
+			else rotationDelta = Quaternion.Euler(0, yaw, 0);
 
 			// Rotation
 			Vector3 upDirection = SphereRaycaster.CalculateAverageUp(transform.position, sd.attachmentDistance, sd.walkableLayers, transform.up);
-			//Debug.DrawLine(transform.position, transform.position + upDirection, Color.magenta);
+
 			Vector3 forwardFromCamera = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
-			Quaternion targetRotation = Quaternion.LookRotation(forwardFromCamera, upDirection);
+			Quaternion targetRotation = Quaternion.LookRotation(Vector3.Cross(transform.right, upDirection), upDirection);
 			if (camInput != Vector2.zero) targetRotation *= rotationDelta;
 			rigidbody.MoveRotation(
 				Quaternion.Slerp(

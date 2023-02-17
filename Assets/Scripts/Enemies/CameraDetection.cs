@@ -5,10 +5,9 @@ using UnityEngine;
 public class CameraDetection : DetectionEnemy
 {
 	[SerializeField] float sightDist;
-	[SerializeField] Light cameraLight;
-	[SerializeField] LayerMask myMask;
 	GameObject player;
-	public bool canSeePlayer;
+	private bool canSeePlayer;
+	private Light cameraLight;
 
 	public override bool CheckSightlines()
 	{
@@ -30,6 +29,11 @@ public class CameraDetection : DetectionEnemy
 
 		foreach(var collision in collisions)
 		{
+			if (collision.gameObject.TryGetComponent<Smoke>(out _)) return;
+		}
+
+		foreach(var collision in collisions)
+		{
 			if (collision.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
 				canSeePlayer = true;
@@ -43,6 +47,14 @@ public class CameraDetection : DetectionEnemy
 				canSeePlayer = false;
 			}
 		}
-		print(player.GetComponent<GlobalPlayerDetection>().currentDetectionLevel);
+	}
+
+	public override void DartRespond()
+	{
+	}
+
+	public override void EMPRespond(float stunDuration, GameObject stunEffect)
+	{
+		throw new System.NotImplementedException();
 	}
 }

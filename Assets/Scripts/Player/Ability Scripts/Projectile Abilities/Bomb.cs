@@ -30,7 +30,7 @@ public class Bomb : Projectile
 		ParticleSystem explosionSystem = explode.GetComponent<ParticleSystem>();
 		explosionSystem.Stop();
 		var explosionDuration = explosionSystem.main;
-		if (!isEMP) explosionDuration.duration = PlayerPrefs.GetInt("SB_DURATION");
+		if (!isEMP) explosionDuration.duration = explosion.GetComponent<ParticleSystem>().main.duration * PlayerPrefs.GetInt("SB_DURATION");
 		explosionSystem.Play();
         Destroy(gameObject, explode.GetComponent<ParticleSystem>().main.duration);
     }
