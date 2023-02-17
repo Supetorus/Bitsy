@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraDetection : DetectionEnemy
 {
 	[SerializeField] float sightDist;
+	[SerializeField] float detectionSize;
 	GameObject player;
 	private bool canSeePlayer;
 	private Light cameraLight;
@@ -25,7 +26,12 @@ public class CameraDetection : DetectionEnemy
     void Update()
     {
 		Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, sightDist);
-		Collider[] collisions = Physics.OverlapSphere(hit.point, 1);
+		Collider[] collisions = Physics.OverlapSphere(hit.point, detectionSize);
+		Debug.DrawRay(hit.point, Vector3.up * detectionSize);
+		Debug.DrawRay(hit.point, Vector3.left * detectionSize);
+		Debug.DrawRay(hit.point, Vector3.right * detectionSize);
+		Debug.DrawRay(hit.point, Vector3.forward * detectionSize);
+		Debug.DrawRay(hit.point, Vector3.back * detectionSize);
 
 		foreach(var collision in collisions)
 		{

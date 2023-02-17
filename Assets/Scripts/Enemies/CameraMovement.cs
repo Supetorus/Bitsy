@@ -20,7 +20,7 @@ public class CameraMovement : MonoBehaviour
 			Quaternion from = Quaternion.Euler(angle1);
 			Quaternion to = Quaternion.Euler(angle2);
 
-			float lerp = 0.5F * (1.0F + Mathf.Sin(Mathf.PI * Time.realtimeSinceStartup * speed));
+			float lerp = 0.5F * (1.0F + Mathf.Sin(Mathf.PI * Time.fixedTime * speed));
 			transform.localRotation = Quaternion.Lerp(from, to, lerp);
 	}
 }
