@@ -989,6 +989,139 @@ MonoBehaviour:
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
+--- !u!1 &2561263476415378706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3090930521874165495}
+  - component: {fileID: 6282890641738593677}
+  m_Layer: 5
+  m_Name: Controller Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3090930521874165495
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2561263476415378706}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4053687374095516157}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6282890641738593677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2561263476415378706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38730517d0a0b2f4f9935f5b526ee7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  presetManager: {fileID: 11400000, guid: 1c72db67c6ffd4f4c900e53b3a3be645, type: 2}
+  firstSelected: {fileID: 0}
+  panels: []
+  buttons: []
+  settingsElements: []
+  modeSelectors: []
+  keyboardObjects: []
+  gamepadObjects: []
+  hotkeyObjects: []
+  alwaysUpdate: 1
+  affectCursor: 0
+  gamepadHotkey:
+    m_Name: Gamepad Hotkey
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5980db5f-af95-4ab3-b228-64e69f380502
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: bdbe8fb8-11b4-4abd-9bfc-af86c107f49e
+      m_Path: <Gamepad>/buttonEast
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 3f4e41a2-917a-4a29-90ac-4febbf94bb5a
+      m_Path: <Gamepad>/buttonSouth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 5d199d66-dfc0-486d-8676-85918f1bf28e
+      m_Path: <Gamepad>/buttonNorth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 4888a5ca-aa13-4fc9-bfd8-b21df1d50224
+      m_Path: <Gamepad>/buttonWest
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: dc65bf26-ecc7-41b8-a6ee-95ff9f20eb11
+      m_Path: <Gamepad>/leftStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: be1387fb-71b4-4ee3-9498-b74edc878265
+      m_Path: <Gamepad>/dpad
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: d890de20-597d-425f-b043-2065ebfefa07
+      m_Path: <Gamepad>/rightStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Gamepad Hotkey
+      m_Flags: 0
+    m_Flags: 0
+  currentManagerIndex: 0
+  gamepadConnected: 0
+  gamepadEnabled: 0
+  keyboardEnabled: 0
+  hAxis: 0
+  vAxis: 0
+  currentController: 
+  currentControllerPreset: {fileID: 0}
 --- !u!1 &2615561515573849255
 GameObject:
   m_ObjectHideFlags: 0
@@ -1609,8 +1742,8 @@ Transform:
   - {fileID: 9012123059169880732}
   - {fileID: 1068354811471654119}
   - {fileID: 5649344650968969809}
-  - {fileID: 4053687374095516157}
   - {fileID: 7593973168677704081}
+  - {fileID: 4053687374095516157}
   - {fileID: 2690440264716833434}
   - {fileID: 1776556805953825676}
   m_Father: {fileID: 7319786380372986492}
@@ -5619,7 +5752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9024575370357631314, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9024575370357631314, guid: 53e331b1901b032428392f73bc40e32d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5995,6 +6128,118 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2683350035233569022}
     m_Modifications:
+    - target: {fileID: 727352364566680404, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 825583864161726859, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: affectCursor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: firstSelected
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: presetManager
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c72db67c6ffd4f4c900e53b3a3be645, type: 2}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_Id
+      value: 5980db5f-af95-4ab3-b228-64e69f380502
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[0].m_Id
+      value: bdbe8fb8-11b4-4abd-9bfc-af86c107f49e
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[1].m_Id
+      value: 3f4e41a2-917a-4a29-90ac-4febbf94bb5a
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[2].m_Id
+      value: 5d199d66-dfc0-486d-8676-85918f1bf28e
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[3].m_Id
+      value: 4888a5ca-aa13-4fc9-bfd8-b21df1d50224
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[4].m_Id
+      value: dc65bf26-ecc7-41b8-a6ee-95ff9f20eb11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[5].m_Id
+      value: be1387fb-71b4-4ee3-9498-b74edc878265
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[6].m_Id
+      value: d890de20-597d-425f-b043-2065ebfefa07
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <Gamepad>/buttonEast
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[1].m_Path
+      value: <Gamepad>/buttonSouth
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[2].m_Path
+      value: <Gamepad>/buttonNorth
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[3].m_Path
+      value: <Gamepad>/buttonWest
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[4].m_Path
+      value: <Gamepad>/leftStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[5].m_Path
+      value: <Gamepad>/dpad
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[6].m_Path
+      value: <Gamepad>/rightStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[1].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[2].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[3].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[4].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[5].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110950434876757768, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[6].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
     - target: {fileID: 2302435661374165416, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6018,6 +6263,10 @@ PrefabInstance:
     - target: {fileID: 2302435661374165416, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302435661451760379, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2302435661763485281, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6079,6 +6328,14 @@ PrefabInstance:
       propertyPath: defaultState
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2302435661860641918, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: minimizeAfter
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302435661881236697, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2302435661896614397, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_text
       value: 100
@@ -6125,7 +6382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2302435662494004283, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2302435662494004283, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6223,6 +6480,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2302435662723354117, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2302435663078040024, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_FillAmount
       value: 1
@@ -6271,6 +6532,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2317306216636541065, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3958698181518327232, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f7897d2941b74044691f53648d9363a2, type: 3}
     - target: {fileID: 5309290299570242067, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6347,6 +6616,18 @@ PrefabInstance:
       propertyPath: icon
       value: 
       objectReference: {fileID: 21300000, guid: f7897d2941b74044691f53648d9363a2, type: 3}
+    - target: {fileID: 6966392876738914617, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: xboxIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: f680ac90b92e6c94d9fc0dc4f787c1dd, type: 3}
+    - target: {fileID: 6966392876738914617, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: keyboardIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: f7897d2941b74044691f53648d9363a2, type: 3}
+    - target: {fileID: 6966392876738914617, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: dualsenseIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: cb5f604f1ec579346bd8b7f4fa2b9b76, type: 3}
     - target: {fileID: 6966392876738914623, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6391,8 +6672,199 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: affectCursor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: firstSelected
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_Id
+      value: 5980db5f-af95-4ab3-b228-64e69f380502
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[0].m_Id
+      value: bdbe8fb8-11b4-4abd-9bfc-af86c107f49e
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[1].m_Id
+      value: 3f4e41a2-917a-4a29-90ac-4febbf94bb5a
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[2].m_Id
+      value: 5d199d66-dfc0-486d-8676-85918f1bf28e
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[3].m_Id
+      value: 4888a5ca-aa13-4fc9-bfd8-b21df1d50224
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[4].m_Id
+      value: dc65bf26-ecc7-41b8-a6ee-95ff9f20eb11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[5].m_Id
+      value: be1387fb-71b4-4ee3-9498-b74edc878265
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[6].m_Id
+      value: d890de20-597d-425f-b043-2065ebfefa07
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <Gamepad>/buttonEast
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[1].m_Path
+      value: <Gamepad>/buttonSouth
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[2].m_Path
+      value: <Gamepad>/buttonNorth
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[3].m_Path
+      value: <Gamepad>/buttonWest
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[4].m_Path
+      value: <Gamepad>/leftStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[5].m_Path
+      value: <Gamepad>/dpad
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[6].m_Path
+      value: <Gamepad>/rightStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[1].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[2].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[3].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[4].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[5].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204751731692357870, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: gamepadHotkey.m_SingletonActionBindings.Array.data[6].m_Action
+      value: Gamepad Hotkey
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+--- !u!1 &1243676554037553197 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3958698181691547115, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+  m_PrefabInstance: {fileID: 2860474303518242246}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2709108129249849186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243676554037553197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9972513674083a4e8366856a6a50999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hotkeyType: 0
+  controllerPreset: {fileID: 11400000, guid: 3df304f524da414409c38b8b47ff5249, type: 2}
+  hotkey:
+    m_Name: Hotkey
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 3ed703f5-b46e-4528-9d6f-6ccfbeee47dc
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: e21047c4-644d-4695-b6aa-89e089fc9b5f
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Hotkey
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 122ab738-2558-43b4-b647-02266c669b6e
+      m_Path: <Gamepad>/buttonWest
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Hotkey
+      m_Flags: 0
+    m_Flags: 0
+  keyID: Interact
+  hotkeyLabel: Exit
+  iconParent: {fileID: 1243676554339570106}
+  textParent: {fileID: 0}
+  iconObj: {fileID: 1243676554193799174}
+  labelObj: {fileID: 0}
+  textObj: {fileID: 0}
+  normalCG: {fileID: 3815581309097116441}
+  highlightCG: {fileID: 0}
+  audioManager: {fileID: 0}
+  controllerRoot: {fileID: 4053687374095516152}
+  useSounds: 0
+  useLocalization: 1
+  normalOpacity: 0.5
+  fadingMultiplier: 8
+  onHotkeyPress:
+    m_PersistentCalls:
+      m_Calls: []
+  showOutputOnEditor: 1
+--- !u!225 &3815581309097116441
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243676554037553197}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &1243676554193799174 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3958698181518327232, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+  m_PrefabInstance: {fileID: 2860474303518242246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1243676554339570106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3958698181389329532, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+  m_PrefabInstance: {fileID: 2860474303518242246}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4053687372581398968 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2302435661860641918, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
@@ -6415,6 +6887,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f57bb437b79d1e84f8e4d3d31a8ceea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4053687374095516152 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2302435662494004286, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+  m_PrefabInstance: {fileID: 2860474303518242246}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4053687374095516157 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2302435662494004283, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
