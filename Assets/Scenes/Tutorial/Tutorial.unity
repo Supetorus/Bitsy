@@ -1844,7 +1844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2683350034061294020, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.45539895
+      value: 0.4553989
       objectReference: {fileID: 0}
     - target: {fileID: 2683350034061294020, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4684,6 +4684,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4798f04c968a3f4c90e3778cc1d75c8, type: 3}
+--- !u!1 &224125581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7333854721043204300, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+  m_PrefabInstance: {fileID: 7333854720695749337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!134 &241657631
 PhysicMaterial:
   m_ObjectHideFlags: 0
@@ -5006,18 +5011,42 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 1717654333}
+    - target: {fileID: 1370456450990893514, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: m_Name
+      value: SM_Bld_Lift_Door_01 (Left)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370456451098375709, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: m_Name
+      value: SM_Bld_Lift_Door_02 (Left)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370456451740014247, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: m_Name
+      value: SM_Bld_Lift_Door_02 (Right)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370456452711034238, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: m_Name
+      value: SM_Bld_Lift_Door_01 (Right)
+      objectReference: {fileID: 0}
     - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
       propertyPath: sfx
       value: 
       objectReference: {fileID: 1403610205}
     - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
-      propertyPath: OtherDoor1
+      propertyPath: LeftDoor
       value: 
       objectReference: {fileID: 369756764}
     - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
-      propertyPath: OtherDoor2
+      propertyPath: RightDoor
       value: 
       objectReference: {fileID: 369756763}
+    - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: OtherDoor1
+      value: 
+      objectReference: {fileID: 369756763}
+    - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: OtherDoor2
+      value: 
+      objectReference: {fileID: 369756764}
     - target: {fileID: 5126403171933296492, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -5391,8 +5420,8 @@ MonoBehaviour:
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
   opensfx: {fileID: 8300000, guid: 803a3856a3e0b2d4c8b328646357bb67, type: 3}
   closesfx: {fileID: 8300000, guid: ee3677db39e200c47897cf53b6fd9535, type: 3}
-  OtherDoor1: {fileID: 1612789388}
-  OtherDoor2: {fileID: 0}
+  RightDoor: {fileID: 1612789388}
+  LeftDoor: {fileID: 0}
   OpensOnX: 0
   OpensOnZ: 0
   RotateToOpen: 1
@@ -6053,7 +6082,7 @@ MonoBehaviour:
   _prompt: E Pick Up
   feedbackText: E Pick Up
   itemKey: BlueKeycard
-  pickupsfx: {fileID: 0}
+  pickupsfx: {fileID: 8300000, guid: 00ff28fae86f8be49a09a9cb9c03ca9c, type: 3}
 --- !u!134 &783878841
 PhysicMaterial:
   m_ObjectHideFlags: 0
@@ -7724,8 +7753,8 @@ MonoBehaviour:
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
   opensfx: {fileID: 8300000, guid: 803a3856a3e0b2d4c8b328646357bb67, type: 3}
   closesfx: {fileID: 8300000, guid: ee3677db39e200c47897cf53b6fd9535, type: 3}
-  OtherDoor1: {fileID: 1228004060}
-  OtherDoor2: {fileID: 0}
+  RightDoor: {fileID: 1228004060}
+  LeftDoor: {fileID: 0}
   OpensOnX: 0
   OpensOnZ: 0
   RotateToOpen: 0
@@ -8194,6 +8223,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1403610205}
     - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: LeftDoor
+      value: 
+      objectReference: {fileID: 1273815049}
+    - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: OpensOnX
       value: 1
       objectReference: {fileID: 0}
@@ -8201,6 +8234,10 @@ PrefabInstance:
       propertyPath: OpensOnZ
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: RightDoor
+      value: 
+      objectReference: {fileID: 1273815048}
     - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: MoveAmount
       value: 1.5
@@ -8257,6 +8294,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7726132645323905524, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: m_Name
+      value: SM_Prop_EscapePod_Door_01 (Left)
+      objectReference: {fileID: 0}
     - target: {fileID: 7726132645843789755, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.102
@@ -8276,6 +8317,10 @@ PrefabInstance:
     - target: {fileID: 7726132645843789756, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7726132645962509556, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: m_Name
+      value: SM_Prop_EscapePod_Door_02 (Right)
       objectReference: {fileID: 0}
     - target: {fileID: 7726132645962509560, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8766,6 +8811,11 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1531230376 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7333854721275033306, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+  m_PrefabInstance: {fileID: 7333854720695749337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1543000422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8878,13 +8928,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1403610205}
     - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
-      propertyPath: OtherDoor1
+      propertyPath: LeftDoor
       value: 
       objectReference: {fileID: 369756765}
     - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
-      propertyPath: OtherDoor2
+      propertyPath: RightDoor
       value: 
       objectReference: {fileID: 369756766}
+    - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: OtherDoor1
+      value: 
+      objectReference: {fileID: 369756766}
+    - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: OtherDoor2
+      value: 
+      objectReference: {fileID: 369756765}
     - target: {fileID: 3575676760145696416, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
       propertyPath: isHorizontalSlidingX
       value: 0
@@ -10024,6 +10082,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1403610205}
     - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: LeftDoor
+      value: 
+      objectReference: {fileID: 1531230376}
+    - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
       propertyPath: OpensOnX
       value: 0
       objectReference: {fileID: 0}
@@ -10031,6 +10093,10 @@ PrefabInstance:
       propertyPath: OpensOnZ
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: RightDoor
+      value: 
+      objectReference: {fileID: 224125581}
     - target: {fileID: 7333854721265833650, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
       propertyPath: m_RootOrder
       value: 9
