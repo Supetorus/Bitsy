@@ -55,6 +55,7 @@ public class ThirdPersonCameraController : MonoBehaviour
 	private Vector3 velocity = Vector3.zero;
 	[HideInInspector]
 	public bool zooming = false;
+	[HideInInspector] public bool canZoom = true;
 
 	private void Start()
 	{
@@ -76,10 +77,14 @@ public class ThirdPersonCameraController : MonoBehaviour
 		// Zoom
 		float sensitivity = verticalSensitivity;
 		// Do zoom
-		if (aimInput.action.ReadValue<float>() > 0)
+		if (aimInput.action.ReadValue<float>() > 0 && canZoom)
 		{
 			zoomLerpValue = Mathf.Clamp(zoomLerpValue + zoomSpeed * Time.deltaTime, 0, 1);
 			sensitivity = verticalSensitivity * zoomSensivityMultiplier;
+		}
+		else if(!canZoom)
+		{
+			zoomLerpValue = 0;
 		}
 		// No zoom
 		else

@@ -26,6 +26,7 @@ public class ClingState : MovementState
 
 	public override void EnterState()
 	{
+		cameraController.canZoom = true;
 		if (c.jump == null) Debug.LogError("Jump action was not assigned.");
 		if (c.sprint == null) Debug.LogError("Sprint action was not assigned.");
 		if (c.move == null) Debug.LogError("Move action was not assigned.");
