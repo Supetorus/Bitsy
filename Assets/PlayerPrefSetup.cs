@@ -8,25 +8,25 @@ public class PlayerPrefSetup : MonoBehaviour
     void Start()
     {
 		//Misc Upgrades
-		PlayerPrefs.SetString("Lunge", "False");
-		PlayerPrefs.SetString("WebZip", "False");
+		if(!PlayerPrefs.HasKey("Lunge")) PlayerPrefs.SetString("Lunge", "False");
+		if (!PlayerPrefs.HasKey("WebZip")) PlayerPrefs.SetString("WebZip", "False");
 
 		//Abiity Upgrades
-		PlayerPrefs.SetString("SB_DU", "False");
-		PlayerPrefs.SetString("EMP_DU", "False");
-		PlayerPrefs.SetString("EMP_RU", "False");
-		PlayerPrefs.SetString("TD_U", "False");
-		PlayerPrefs.SetString("C_DU", "False");
+		if (!PlayerPrefs.HasKey("SB_DU")) PlayerPrefs.SetString("SB_DU", "False");
+		if (!PlayerPrefs.HasKey("EMP_DU")) PlayerPrefs.SetString("EMP_DU", "False");
+		if (!PlayerPrefs.HasKey("EMP_RU")) PlayerPrefs.SetString("EMP_RU", "False");
+		if (!PlayerPrefs.HasKey("TD_U")) PlayerPrefs.SetString("TD_U", "False");
+		if (!PlayerPrefs.HasKey("C_DU")) PlayerPrefs.SetString("C_DU", "False");
 
-		PlayerPrefs.SetInt("SB_DURATION", 1);
-		PlayerPrefs.SetInt("EMP_DURATION", 1);
-		PlayerPrefs.SetInt("EMP_RADIUS", 1);
-		PlayerPrefs.SetString("TD_PENETRATION", "FALSE");
-		PlayerPrefs.SetInt("C_DURATION", 1);
+		if (!PlayerPrefs.HasKey("SB_DURATION")) PlayerPrefs.SetInt("SB_DURATION", 1);
+		if (!PlayerPrefs.HasKey("EMP_DURATION")) PlayerPrefs.SetInt("EMP_DURATION", 1);
+		if (!PlayerPrefs.HasKey("EMP_RADIUS")) PlayerPrefs.SetInt("EMP_RADIUS", 1);
+		if (!PlayerPrefs.HasKey("TD_PENETRATION")) PlayerPrefs.SetString("TD_PENETRATION", "FALSE");
+		if (!PlayerPrefs.HasKey("C_DURATION")) PlayerPrefs.SetInt("C_DURATION", 1);
 
 		//Ammo Upgrades
-		PlayerPrefs.SetInt("SB_AM", 1);
-		PlayerPrefs.SetInt("EMP_AM", 1);
-		PlayerPrefs.SetInt("TD_AM", 1);
+		if (!PlayerPrefs.HasKey("SB_AM")) PlayerPrefs.SetInt("SB_AM", 1);
+		if (!PlayerPrefs.HasKey("EMP_AM")) PlayerPrefs.SetInt("EMP_AM", 1);
+		if (!PlayerPrefs.HasKey("TD_AM")) PlayerPrefs.SetInt("TD_AM", 1);
 	}
 }

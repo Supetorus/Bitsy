@@ -24,7 +24,7 @@ public class UpgradesUnlockedUI : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
 		switch (upgrade)
 		{
@@ -110,10 +110,4 @@ public class UpgradesUnlockedUI : MonoBehaviour
 				break;
 		}
 	}
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
