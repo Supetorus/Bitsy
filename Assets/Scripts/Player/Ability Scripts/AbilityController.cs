@@ -5,77 +5,115 @@ using UnityEngine.InputSystem;
 
 public class AbilityController : MonoBehaviour
 {
-    //Ability Actions: AA stands for Ability Action
-    //The ability currently equipped
+	//Ability Actions: AA stands for Ability Action
+	//The ability currently equipped
+	[Header("Input Settings")]
     public InputActionReference activeAA;
 
     //Switch to the ability on the left of the UI
     public InputActionReference cycleAbility;
-    public Transform spiderCenter;
 
-    [SerializeField] private Ability[] equippedAbilities = new Ability[3];
+	[Header("Cloak Settings")]
+	//Cloak Timers
+	[SerializeField] float C_Cooldown;
+	[HideInInspector] float C_Timer;
+	[HideInInspector] bool C_OnCooldown;
 
-    bool abilityActive;
-    bool abilityTimerActive;
-    bool cooldownActive;
-    public int abilityIndex = 0;
+	[SerializeField] float C_Duration;
+	[HideInInspector] float C_DurationTimer;
+	[HideInInspector] bool C_IsActive;
 
-	public MusicManager music;
+	[Header("Smoke Bomb Settings")]
+	//Smoke Bomb Timers
+	[SerializeField] float SB_Cooldown;
+	[HideInInspector] float SB_Timer;
+	[HideInInspector] bool SB_OnCooldown;
+
+	[Header("EMP Settings")]
+	//EMP TIMERS
+	[SerializeField] float EMP_Cooldown;
+	[HideInInspector] float EMP_Timer;
+	[HideInInspector] bool EMP_OnCooldown;
+
+	[Header("Trojan Dart Settings")]
+	//TROJAN DART TIMERS
+	[SerializeField] float TD_Cooldown;
+	[HideInInspector] float TD_Timer;
+	[HideInInspector] bool TD_OnCooldown;
+
+    private int abilityIndex = 0;
+    private Ability[] equippedAbilities = new Ability[4];
     public Ability activeAbility;
-	public AudioManager audioManager;
-
     [HideInInspector] public bool isVisible = true;
 
-	[SerializeField] private bool detected;
-	public bool Detected { get { return detected; } set { detected = value;if(music != null) music.PlayerDetected = value; } }
 
 	// Start is called before the first frame update
 	void Start()
     {
-        activeAA.action.Enable();
+		activeAA.action.Enable();
         cycleAbility.action.Enable();
-        if (equippedAbilities[abilityIndex] != null)
-        {
-            activeAbility = equippedAbilities[abilityIndex];
-        } 
-        else
-        {
-            activeAbility = null;
-        }
+
+		equippedAbilities[0] = GetComponent<CloakAbility>();
+		equippedAbilities[1] = GetComponent<EMPAbility>();
+		equippedAbilities[2] = GetComponent<SmokeBombAbility>();
+		equippedAbilities[3] = GetComponent<TrojanDartAbility>();
+
+		C_Timer = C_Cooldown;
+		C_DurationTimer = C_Duration;
+		SB_Timer = SB_Cooldown;
+		TD_Timer = TD_Cooldown;
+		EMP_Timer = EMP_Cooldown;
+
+		activeAbility = equippedAbilities[0];
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (activeAA.action.ReadValue<float>() > 0 && !abilityActive && activeAbility?.cooldownTimer <= 0 )
+        if (activeAA.action.ReadValue<float>() > 0 && !C_OnCooldown && !SB_OnCooldown && !TD_OnCooldown && !EMP_OnCooldown && !C_IsActive)
         {
-            if(activeAbility == null)
-            {
-                print("No Equipped Ability");
-                return;
-            }
-            abilityActive = true;
-            activeAbility.UseAbility();
-
-			if(activeAbility.GetType() == typeof(CloakAbility))
+			switch (abilityIndex)
 			{
-				activeAbility.abilityTime *= PlayerPrefs.GetInt("C_DURATION");
+				case 0:
+					if (!C_OnCooldown)
+					{
+						activeAbility.UseAbility();
+						C_IsActive = true;
+					} else
+					{
+						activeAbility.DeactivateAbility();
+						C_IsActive = false;
+						C_OnCooldown = true;
+					}
+					break;
+				case 1:
+					if (!EMP_OnCooldown)
+					{
+						activeAbility.UseAbility();
+						EMP_OnCooldown = true;
+					}
+					break;
+				case 2:
+					if (!SB_OnCooldown)
+					{
+						activeAbility.UseAbility();
+						SB_OnCooldown = true;
+					}
+					break;
+				case 3:
+					if (!TD_OnCooldown)
+					{
+						activeAbility.UseAbility();
+						TD_OnCooldown = true;
+					}
+					break;
 			}
-
-            if (activeAbility.abilityTime != 0) {
-                activeAbility.abilityTimer = activeAbility.abilityTime;
-                abilityTimerActive = true;
-            } else
-            {
-                activeAbility.cooldownTimer = activeAbility.cooldownTime;
-                cooldownActive = true;
-            }
         }
         else if (cycleAbility.action.ReadValue<float>() > 0)
         {
             if (abilityIndex == 0)
             {
-                if (equippedAbilities[2] != null) abilityIndex = 2;
+                abilityIndex = 3;
             }
             else
             {
@@ -85,7 +123,7 @@ public class AbilityController : MonoBehaviour
         }
         else if (cycleAbility.action.ReadValue<float>() < 0)
         {
-            if (abilityIndex == 2)
+            if (abilityIndex == 3)
             {
                 if (equippedAbilities[0] != null) abilityIndex = 0;
             }
@@ -95,31 +133,57 @@ public class AbilityController : MonoBehaviour
             }
             activeAbility = equippedAbilities[abilityIndex];
         }
-
-        if(abilityActive && activeAA.action.ReadValue<float>() == 0) abilityActive = false;
-
-        if(abilityTimerActive || cooldownActive) HandleTimers();
+		HandleTimers();
     }
 
     public void HandleTimers()
     {
-        if (abilityTimerActive)
-        {
-            activeAbility.abilityTimer -= Time.deltaTime;
-            if (activeAbility.abilityTimer <= 0)
-            {
-                abilityTimerActive = false;
-                activeAbility.DeactivateAbility();
-                cooldownActive = true;
-
-                activeAbility.cooldownTimer = activeAbility.cooldownTime;
-            }
-        }
-
-        if (cooldownActive)
-        {
-            activeAbility.cooldownTimer -= Time.deltaTime;
-            if (activeAbility.cooldownTimer <= 0) cooldownActive = false;
-        }
-    }
+		if (C_OnCooldown)
+		{
+			if (C_Timer >= 0) C_Timer -= Time.deltaTime;
+			else
+			{
+				C_OnCooldown = false;
+				C_Timer = C_Cooldown;
+			}
+		}
+		else if(C_IsActive)
+		{
+			if (C_DurationTimer >= 0) C_DurationTimer -= Time.deltaTime;
+			else
+			{
+				gameObject.GetComponent<CloakAbility>().DeactivateAbility();
+				C_DurationTimer = C_Duration;
+				C_OnCooldown = true;
+				C_IsActive = false;
+			}
+		}
+		if (SB_OnCooldown)
+		{
+			if (SB_Timer >= 0) SB_Timer -= Time.deltaTime;
+			else
+			{
+				SB_OnCooldown = false;
+				SB_Timer = SB_Cooldown;
+			}
+		}
+		if (EMP_OnCooldown)
+		{
+			if (EMP_Timer >= 0) EMP_Timer -= Time.deltaTime;
+			else
+			{
+				EMP_OnCooldown = false;
+				EMP_Timer = EMP_Cooldown;
+			}
+		}
+		if (TD_OnCooldown)
+		{
+			if (TD_Timer >= 0) TD_Timer -= Time.deltaTime;
+			else
+			{
+				TD_OnCooldown = false;
+				TD_Timer = TD_Cooldown;
+			}
+		}
+	}
 }
