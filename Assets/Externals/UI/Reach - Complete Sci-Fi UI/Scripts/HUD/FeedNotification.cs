@@ -66,7 +66,7 @@ namespace Michsky.UI.Reach
 
         public void UpdateUI()
         {
-            iconObj.sprite = icon;
+            //iconObj.sprite = icon;
             textObj.text = notificationText;
         }
 
