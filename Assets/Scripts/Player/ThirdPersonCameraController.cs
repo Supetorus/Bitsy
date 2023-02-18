@@ -67,8 +67,8 @@ public class ThirdPersonCameraController : MonoBehaviour
 		aimInput.action.Enable();
 
 		// Capture and lock the cursor
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
+		//Cursor.lockState = CursorLockMode.Locked;
+		//Cursor.visible = false;
 	}
 
 	void Update()

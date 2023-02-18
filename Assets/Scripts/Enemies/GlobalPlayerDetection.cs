@@ -41,7 +41,7 @@ public class GlobalPlayerDetection : MonoBehaviour
 		} else
 		{
 			currentDetectionLevel -= change;
-			print("Decreased Detection");
+			//print("Decreased Detection");
 		}
 		if(detectionBar)detectionBar.SetValue(currentDetectionLevel);
 		CheckEvents();

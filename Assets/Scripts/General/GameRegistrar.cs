@@ -9,6 +9,7 @@ public class GameRegistrar : MonoBehaviour
 
 	private void Awake()
 	{
-		FindObjectOfType<GameManager>().Register(registrationName, gameObject);
+		GameManager gm = FindObjectOfType<GameManager>();
+		if (gm) gm.Register(registrationName, gameObject);
 	}
 }
