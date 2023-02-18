@@ -32,6 +32,7 @@ public class MenuManager : MonoBehaviour
 			SceneManager.UnloadSceneAsync(selectedLevel);
 		}
 		SceneManager.LoadScene(selectedLevel, LoadSceneMode.Additive);
+		SceneManager.sceneLoaded += FindObjectOfType<ScreenFade>().OnSceneLoaded;
 		SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
