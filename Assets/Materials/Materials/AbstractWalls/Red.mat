@@ -7,11 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MineHologram
+  m_Name: Red
   m_Shader: {fileID: 4800000, guid: e99f8b80b1693284587af0c131f61f3d, type: 3}
   m_ValidKeywords:
   - _FRESNELFEATURE_ON
-  - _LINE1FEATURE_ON
   - _POSITIONFEATURE_Y
   - _POSITIONSPACEFEATURE_WORLD
   - _SOFTINTERSECTION1FEATURE_OFF
@@ -67,14 +66,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Mask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Mask2:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -97,7 +88,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.588
+    - _Alpha: 0.5
     - _AlphaMaskAffect: 0.5
     - _AlphaMaskFeature: 0
     - _BumpScale: 1
@@ -105,7 +96,6 @@ Material:
     - _ColorGlitchFeature: 0
     - _CullMode: 2
     - _Cutoff: 0.5
-    - _DepthFadeDistance: 0
     - _DetailNormalMapScale: 1
     - _DissolveFeature: 0
     - _DissolveHide: -1
@@ -121,7 +111,7 @@ Material:
     - _GrainAffect: 1
     - _GrainFeature: 0
     - _Line1Alpha: 0.15
-    - _Line1Feature: 1
+    - _Line1Feature: 0
     - _Line1Frequency: 100
     - _Line1Hardness: 1.45
     - _Line1InvertedThickness: 0
@@ -143,8 +133,6 @@ Material:
     - _MaskInversion: 0
     - _MaskInvesion: 0
     - _MaskLocalFeature: 0
-    - _MaskSoftness: 0
-    - _MaskSoftness2: 0
     - _Metallic: 0
     - _Mode: 0
     - _NormalAffect: 0
@@ -159,7 +147,7 @@ Material:
     - _RandomGlitchConstant: 0
     - _RandomGlitchFeature: 0
     - _RandomGlitchTiling: 2.83
-    - _RandomOffset: 0
+    - _RandomOffset: 79972.85
     - _SmoothnessTextureChannel: 0
     - _SoftIntersection1Affect: 1
     - _SoftIntersection1Distance: 0
@@ -169,7 +157,6 @@ Material:
     - _SoftIntersection2Distance: 0
     - _SoftIntersection2Feature: 0
     - _SoftIntersection2Intensity: 1
-    - _Softness: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
@@ -177,16 +164,14 @@ Material:
     - _VoxelizationAffect: 1
     - _VoxelizationFeature: 0
     - _ZWrite: 1
-    - __dirty: 1
     m_Colors:
-    - _Color: {r: 0.8962264, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveScale: {r: 0.1, g: 1.01, b: 5, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GrainScale: {r: 50, g: 50, b: 50, a: 0}
     - _GrainValues: {r: 0, g: 1, b: 0, a: 0}
     - _LineGlitchOffset: {r: 0.03, g: 0, b: 0, a: 0}
-    - _MainColor: {r: 1, g: 0.6445498, b: 0, a: 1}
-    - _Mask2Speed: {r: 0, g: 0, b: 0, a: 0}
+    - _MainColor: {r: 5.128653, g: 0, b: 0.04686129, a: 0.15686275}
     - _MaskCenter: {r: 0, g: 0, b: 0, a: 0}
     - _MaskSize: {r: 0, g: 0, b: 0, a: 0}
     - _RandomGlitchOffset: {r: -0.5, g: 0, b: 0, a: 0}

@@ -11,6 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 1408e03254b557644b24f0e24b5781de, type: 3}
   m_ValidKeywords:
   - _COLORGLITCHFEATURE_ON
+  - _FRESNELFEATURE_ON
   - _LINE2FEATURE_ON
   - _POSITIONFEATURE_Y
   - _POSITIONSPACEFEATURE_WORLD
@@ -89,11 +90,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.04
+    - _Alpha: 0.2
     - _AlphaMaskAffect: 0.5
     - _AlphaMaskFeature: 0
     - _BumpScale: 1
-    - _ColorGlitchAffect: 0.85
+    - _ColorGlitchAffect: 0.1
     - _ColorGlitchFeature: 1
     - _CullMode: 2
     - _Cutoff: 0.5
@@ -103,7 +104,7 @@ Material:
     - _DstBlend: 0
     - _FresnelAlphaPower: 2
     - _FresnelAlphaScale: 1
-    - _FresnelFeature: 0
+    - _FresnelFeature: 1
     - _FresnelPower: 1
     - _FresnelScale: 1
     - _GlossMapScale: 1
@@ -171,7 +172,7 @@ Material:
     - _GrainScale: {r: 50, g: 50, b: 50, a: 0}
     - _GrainValues: {r: 0, g: 1, b: 0, a: 0}
     - _LineGlitchOffset: {r: 0.03, g: 0, b: 0, a: 0}
-    - _MainColor: {r: 0.33117065, g: 1.319508, b: 0, a: 1}
+    - _MainColor: {r: 0.33117065, g: 1.319508, b: 0, a: 0.65882355}
     - _MaskCenter: {r: 0, g: 0, b: 0, a: 0}
     - _MaskSize: {r: 0, g: 0, b: 0, a: 0}
     - _RandomGlitchOffset: {r: -0.5, g: 0, b: 0, a: 0}
