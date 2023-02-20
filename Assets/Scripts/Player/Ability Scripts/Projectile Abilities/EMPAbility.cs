@@ -39,8 +39,4 @@ public class EMPAbility : Ability
 			currentAmmo--;
 		}
     }
-	public override void DeactivateAbility()
-    {
-
-    }
 }

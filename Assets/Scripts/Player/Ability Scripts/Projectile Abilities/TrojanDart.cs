@@ -12,9 +12,8 @@ public class TrojanDart : Projectile
 		{
 			gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
 			gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-			gameObject.GetComponent<DestroyDelay>().hasHitSometing = true;
-			gameObject.GetComponent<DestroyDelay>().destroyTimer = d_Time;
 			gameObject.GetComponent<BoxCollider>().enabled = false;
+			Destroy(gameObject, d_Time);
 		} 
 		else
 		{

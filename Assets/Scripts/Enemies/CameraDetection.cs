@@ -37,6 +37,7 @@ public class CameraDetection : DetectionEnemy
 			if (collision.gameObject.TryGetComponent<Smoke>(out _)) return;
 		}
 
+		canSeePlayer = false;
 		foreach(var collision in collisions)
 		{
 			if (collision.gameObject == player && player.GetComponent<AbilityController>().isVisible)
@@ -46,20 +47,7 @@ public class CameraDetection : DetectionEnemy
 				cameraLight.color = Color.red;
 				break;
 			}
-			else
-			{
-				cameraLight.color = Color.white;
-				canSeePlayer = false;
-			}
 		}
-	}
-
-	public override void DartRespond()
-	{
-	}
-
-	public override void EMPRespond(float stunDuration, GameObject stunEffect)
-	{
-		throw new System.NotImplementedException();
+		if (!canSeePlayer) cameraLight.color = Color.white;
 	}
 }

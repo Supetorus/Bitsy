@@ -33,8 +33,4 @@ public class SmokeBombAbility : Ability
 			currentAmmo--;
 		}
     }
-	public override void DeactivateAbility()
-    {
-
-    }
 }

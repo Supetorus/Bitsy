@@ -24,8 +24,7 @@ public class Bomb : Projectile
 			hasExploded = true;
 			if (isEMP) SpawnExplosion(explosionRad * PlayerPrefs.GetInt("EMP_RADIUS"));
 			else SpawnExplosion(explosionRad);
-			gameObject.GetComponent<DestroyDelay>().hasHitSometing = true;
-			gameObject.GetComponent<DestroyDelay>().destroyTimer = d_Time;
+			Destroy(gameObject, d_Time);
 		} 
 		else
 		{

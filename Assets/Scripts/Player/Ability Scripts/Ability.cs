@@ -6,5 +6,5 @@ public abstract class Ability : MonoBehaviour
 {
     protected AbilityController abCon;
     public abstract void UseAbility();
-    public abstract void DeactivateAbility();
+    public virtual void DeactivateAbility() { }
 }

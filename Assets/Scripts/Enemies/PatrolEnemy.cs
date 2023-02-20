@@ -33,11 +33,6 @@ public class PatrolEnemy : DetectionEnemy
 		Destroy(gameObject);
 	}
 
-	public override void EMPRespond(float stunDuration, GameObject stunEffect)
-	{
-		//DOES NOT RESPOND
-	}
-
 	// Start is called before the first frame update
 	void Start()
     {
