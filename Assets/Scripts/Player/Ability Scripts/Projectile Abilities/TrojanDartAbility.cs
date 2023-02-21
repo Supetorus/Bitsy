@@ -32,8 +32,4 @@ public class TrojanDartAbility : Ability
 			currentAmmo--;
 		}
     }
-	public override void DeactivateAbility()
-    {
-
-    }
 }

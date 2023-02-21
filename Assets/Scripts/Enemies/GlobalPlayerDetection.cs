@@ -22,7 +22,6 @@ public class GlobalPlayerDetection : MonoBehaviour
 
 	[SerializeField] ProgressBar detectionBar;
 
-	private static float previousGloabalDetectionLevel;
 	private static float detectionLevel;
 	[SerializeField] public float currentDetectionLevel { get { return detectionLevel; } set { detectionLevel = Mathf.Clamp(value, 0, 100); } }
 	public List<DetectionEnemy> allEnemies;
@@ -35,13 +34,11 @@ public class GlobalPlayerDetection : MonoBehaviour
 
 	public void ChangeDetection(float change, bool isIncrease)
 	{
-		previousGloabalDetectionLevel = currentDetectionLevel;
 		if(isIncrease){
 			currentDetectionLevel += change;
 		} else
 		{
 			currentDetectionLevel -= change;
-			//print("Decreased Detection");
 		}
 		if(detectionBar)detectionBar.SetValue(currentDetectionLevel);
 		CheckEvents();

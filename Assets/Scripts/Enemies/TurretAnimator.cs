@@ -25,12 +25,6 @@ public class TurretAnimator : MonoBehaviour
 		DisableTurret();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-	}
-
 	void EnableTurret()
 	{
 		animator.SetBool("isActive", true);
