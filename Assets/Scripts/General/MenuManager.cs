@@ -66,6 +66,9 @@ public class MenuManager : MonoBehaviour
 		gm.playCamera.SetActive(true);
 		gm.hud.SetActive(true);
 
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+
 		FindObjectOfType<ObjectiveHandler>().objective = null;
 		FindObjectOfType<ObjectiveHandler>().objective = levels.Find(x => x.name == selectedLevel).objectives[objectiveIndex];
 		FindObjectOfType<ObjectiveHandler>().ResetObjective();

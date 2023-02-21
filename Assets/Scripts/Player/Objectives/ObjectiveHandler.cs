@@ -29,6 +29,7 @@ public class ObjectiveHandler : MonoBehaviour
 
 	public void DisplayObjective()
 	{
+		if (objective == null) return; //This happens when the scene is run in testing without loading from SetupScene.
 		questItem.questText = objective.objectiveLabel;
 		questItem.AnimateQuest();
 	}
