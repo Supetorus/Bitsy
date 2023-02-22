@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(ColliderMover))]
-public class MaterialReplacerEditor : Editor
+public class ColliderMoverEditor : Editor
 {
 	public override void OnInspectorGUI()
 	{
