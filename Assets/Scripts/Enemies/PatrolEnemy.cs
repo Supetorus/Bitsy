@@ -70,7 +70,8 @@ public class PatrolEnemy : DetectionEnemy
 		if (!canSeePlayer)
 		{
 			if(agent.isStopped) agent.isStopped = false;
-			if (Vector3.Distance(feetPos, targetNode.transform.position) < 0.06f)
+			//print(Vector3.Distance(feetPos, targetNode.transform.position));
+			if (Vector3.Distance(feetPos, targetNode.transform.position) < 0.16f)
 			{
 				if (nodeIndex == nodes.Count - 1) ChangeDestination(0);
 				else ChangeDestination(++nodeIndex);
