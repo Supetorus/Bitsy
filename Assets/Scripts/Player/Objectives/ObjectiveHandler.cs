@@ -102,7 +102,7 @@ public class ObjectiveHandler : MonoBehaviour
 		gm.menuCamera.SetActive(true);
 		gm.playCamera.SetActive(false);
 
-		Debug.Log("Level Complete");
+		//Debug.Log("Level Complete");
 	}
 
 	public void ResetObjective()
