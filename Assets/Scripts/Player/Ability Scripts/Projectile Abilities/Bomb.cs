@@ -6,22 +6,31 @@ public class Bomb : Projectile
 {
     [SerializeField] GameObject explosion;
     [SerializeField] float explosionRad;
+	[SerializeField] float explosionCountdown;
+	[HideInInspector] float explosionTimer;
 
-    bool hasExploded = false;
+	private bool hasExploded = false;
 	[HideInInspector] public bool isEMP = false;
 
+	private void Start()
+	{
+		explosionTimer = explosionCountdown;
+	}
 
-    public override void OnCollisionEnter(Collision collision)
-    {
-        if (!hasExploded && collision.gameObject.tag == "Ground")
-        {
-            hasExploded = true;
-			if(isEMP) SpawnExplosion(explosionRad * PlayerPrefs.GetInt("EMP_RADIUS"));
-            else SpawnExplosion(explosionRad);
-            gameObject.GetComponent<DestroyDelay>().hasHitSometing = true;
-            gameObject.GetComponent<DestroyDelay>().destroyTimer = d_Time;
-        }
-    }
+	private void Update()
+	{
+		if(explosionTimer <= 0 && !hasExploded)
+		{
+			hasExploded = true;
+			if (isEMP) SpawnExplosion(explosionRad * PlayerPrefs.GetInt("EMP_RADIUS"));
+			else SpawnExplosion(explosionRad);
+			Destroy(gameObject, d_Time);
+		} 
+		else
+		{
+			explosionTimer -= Time.deltaTime;
+		}
+	}
 
     public void SpawnExplosion(float radius)
     {
@@ -30,7 +39,7 @@ public class Bomb : Projectile
 		ParticleSystem explosionSystem = explode.GetComponent<ParticleSystem>();
 		explosionSystem.Stop();
 		var explosionDuration = explosionSystem.main;
-		if (!isEMP) explosionDuration.duration = PlayerPrefs.GetInt("SB_DURATION");
+		if (!isEMP) explosionDuration.duration = explosion.GetComponent<ParticleSystem>().main.duration * PlayerPrefs.GetInt("SB_DURATION");
 		explosionSystem.Play();
         Destroy(gameObject, explode.GetComponent<ParticleSystem>().main.duration);
     }

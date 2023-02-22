@@ -18,9 +18,15 @@ public class ClingState : MovementState
 	private float movementMultiplier;
 
 	//[SerializeField] private AudioSource walking;
+	private ThirdPersonCameraController cameraController;
+	private void Start()
+	{
+		cameraController = sd.camera.GetComponent<ThirdPersonCameraController>();
+	}
 
 	public override void EnterState()
 	{
+		cameraController.canZoom = true;
 		if (c.jump == null) Debug.LogError("Jump action was not assigned.");
 		if (c.sprint == null) Debug.LogError("Sprint action was not assigned.");
 		if (c.move == null) Debug.LogError("Move action was not assigned.");
@@ -39,7 +45,6 @@ public class ClingState : MovementState
 	}
 
 	float yaw = 0;
-	public float sensitivity = 50;
 	public override void FixedUpdateState()
 	{
 		if (height > sd.attachmentDistance)
@@ -66,19 +71,21 @@ public class ClingState : MovementState
 		// Near a walkable surface
 		if (closestPoint != null)
 		{
-
 			Vector2 camInput = cameraInput.action.ReadValue<Vector2>();
 			//if (invertX) input *= Vector2.right * -1;
+			float sensitivity = PlayerPrefs.GetFloat("Slider_CameraHorizontalSensitivity");
 			camInput *= sensitivity;
 			yaw = (camInput.x) % 360;
 			//print(yaw);
-			Quaternion rotationDelta = Quaternion.Euler(0, yaw, 0);
+			Quaternion rotationDelta;
+			if (cameraController.zooming) rotationDelta = Quaternion.identity;
+			else rotationDelta = Quaternion.Euler(0, yaw, 0);
 
 			// Rotation
 			Vector3 upDirection = SphereRaycaster.CalculateAverageUp(transform.position, sd.attachmentDistance, sd.walkableLayers, transform.up);
-			//Debug.DrawLine(transform.position, transform.position + upDirection, Color.magenta);
+
 			Vector3 forwardFromCamera = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
-			Quaternion targetRotation = Quaternion.LookRotation(forwardFromCamera, upDirection);
+			Quaternion targetRotation = Quaternion.LookRotation(Vector3.Cross(transform.right, upDirection), upDirection);
 			if (camInput != Vector2.zero) targetRotation *= rotationDelta;
 			rigidbody.MoveRotation(
 				Quaternion.Slerp(
@@ -116,6 +123,17 @@ public class ClingState : MovementState
 		else
 		{
 			c.CurrentMovementState = c.fallState;
+		}
+	}
+
+	private void OnDrawGizmos()
+	{
+		if (!Application.isPlaying) return;
+		var hits = SphereRaycaster.SphereRaycast(transform.position, sd.attachmentDistance, sd.walkableLayers);
+		Gizmos.color = Color.green;
+		foreach ( var hit in hits )
+		{
+			Gizmos.DrawSphere(hit.point, 0.01f);
 		}
 	}
 }

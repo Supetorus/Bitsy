@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class ZipState : MovementState
 {
-    public const float ZIP_SPEED = 50f;
+    public const float ZIP_SPEED = 40f;
     [HideInInspector]public RaycastHit attachedObject;
     [HideInInspector]public Quaternion originalRot;
     [HideInInspector]public Quaternion targetRot;
 
     public override void EnterState()
     {
-        originalRot = transform.rotation;
+		GetComponent<StateData>().camera.GetComponent<ThirdPersonCameraController>().canZoom = false;
+		originalRot = transform.rotation;
         rigidbody.isKinematic = false;
         rigidbody.useGravity = false;
 
@@ -35,7 +36,7 @@ public class ZipState : MovementState
         Vector3? point = SphereRaycaster.GetClosestPoint(transform.position, sd.lesserAttachmentDistance, sd.walkableLayers);
         if (point != null)
         {
-            c.CurrentMovementState = c.clingState;
+			c.CurrentMovementState = c.clingState;
         }
     }
 }

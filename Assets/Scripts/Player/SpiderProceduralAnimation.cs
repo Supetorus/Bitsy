@@ -39,7 +39,8 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		result[1] = Vector3.zero;
 		Ray ray = new Ray(point + halfRange * up / 2f, -up);
 
-		//Debug.DrawRay(ray.origin, ray.direction);
+		bool doBackface = Physics.queriesHitBackfaces;
+		Physics.queriesHitBackfaces = true;
 		if (Physics.SphereCast(ray, sphereCastRadius, out RaycastHit hit, 2f * halfRange, walkableLayers))
 		{
 			result[0] = hit.point;
@@ -49,6 +50,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		{
 			result[0] = point;
 		}
+		Physics.queriesHitBackfaces = doBackface;
 		return result;
 	}
 

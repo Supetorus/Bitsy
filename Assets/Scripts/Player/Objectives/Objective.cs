@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Objecive", menuName = "Objective/ObjectiveSO")]
 public class Objective : ScriptableObject
 {
-	[SerializeField] private int index;
+	[SerializeField] public int index;
 	[SerializeField] private bool complete;
 	[SerializeField] public string objectiveLabel;
 	[SerializeField] private List<Task> tasks;

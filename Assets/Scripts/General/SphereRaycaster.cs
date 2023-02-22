@@ -5,6 +5,7 @@ using UnityEngine;
 
 public static class SphereRaycaster
 {
+	public static bool detectBackfaces = true;
 	private static Vector3[] icosphereVertices;
 	//The density of points on the icosphere, used for calculating raycast points around the player.
 	private static int icosphereDensity = 5;
@@ -34,12 +35,17 @@ public static class SphereRaycaster
 	public static List<RaycastHit> SphereRaycast(Vector3 position, float checkDistance, LayerMask layerMask)
 	{
 		Init();
+		bool backfaceFlip;
+		if (detectBackfaces) { Physics.queriesHitBackfaces = true; backfaceFlip = true; }
+		else { Physics.queriesHitBackfaces = false; backfaceFlip = true; }
 		List<RaycastHit> hits = new List<RaycastHit>();
+
 		foreach (var v in icosphereVertices)
 		{
 			Physics.Raycast(position, v, out RaycastHit hit, checkDistance, layerMask);
 			if (hit.collider != null) hits.Add(hit);
 		}
+		if (backfaceFlip) Physics.queriesHitBackfaces = !Physics.queriesHitBackfaces;
 		return hits;
 	}
 
@@ -50,13 +56,15 @@ public static class SphereRaycaster
 	/// <returns></returns>
 	public static Vector3 CalculateAverageUp(Vector3 position, float checkDistance, LayerMask layerMask, Vector3 up)
 	{
-		//List<Vector3> points = SphereRaycastNormal(checkDistance);
-		var hits = SphereRaycaster.SphereRaycast(position, checkDistance, layerMask);
-		List<Vector3> normals = new List<Vector3>();
-		foreach (var hit in hits) normals.Add(hit.normal);
+		var hits = SphereRaycast(position, checkDistance, layerMask);
+		List<Vector3> directions = new List<Vector3>();
+		foreach (var hit in hits)
+		{
+			directions.Add(position - hit.point);
+		}
 
 		List<Vector3> pointsBelowPlayer = new List<Vector3>();
-		foreach (Vector3 point in normals)
+		foreach (Vector3 point in directions)
 		{
 			if (Vector3.Dot(point, -up) > 0)
 			{
@@ -65,7 +73,7 @@ public static class SphereRaycaster
 		}
 
 		Vector3 average = Vector3.zero;
-		foreach (var point in normals)
+		foreach (var point in directions)
 		{
 			average += point;
 		}

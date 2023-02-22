@@ -28,6 +28,7 @@ namespace Michsky.UI.Reach
         [SerializeField] private CanvasGroup normalCG;
         [SerializeField] private CanvasGroup highlightCG;
         [SerializeField] private UIManagerAudio audioManager;
+		[SerializeField] private GameObject controllerRoot = null;
 
         // Settings
         public bool useSounds = false;
@@ -58,13 +59,37 @@ namespace Michsky.UI.Reach
             if (isInitialized == false) { Initialize(); }
             if (controllerManager == null && hotkeyType == HotkeyType.Dynamic && FindObjectsOfType(typeof(ControllerManager)).Length > 0) 
             { 
-                controllerManager = (ControllerManager)FindObjectsOfType(typeof(ControllerManager))[0];
+				if (controllerRoot != null)
+				{
+					controllerManager = controllerRoot.GetComponentInChildren<ControllerManager>();
+				}
+				else
+				{
+	                controllerManager = (ControllerManager)FindObjectsOfType(typeof(ControllerManager))[0];
+				}
                 controllerManager.hotkeyObjects.Add(this);
                 controllerPreset = controllerManager.currentControllerPreset;
             }
 
             UpdateUI();
         }
+
+		void OnStart()
+		{
+			if (controllerManager == null && hotkeyType == HotkeyType.Dynamic && FindObjectsOfType(typeof(ControllerManager)).Length > 0)
+			{
+				if (controllerRoot != null)
+				{
+					controllerManager = controllerRoot.GetComponent<ControllerManager>();
+				}
+				else
+				{
+					controllerManager = (ControllerManager)FindObjectsOfType(typeof(ControllerManager))[0];
+				}
+				controllerManager.hotkeyObjects.Add(this);
+				controllerPreset = controllerManager.currentControllerPreset;
+			}
+		}
 
         void Update()
         {
