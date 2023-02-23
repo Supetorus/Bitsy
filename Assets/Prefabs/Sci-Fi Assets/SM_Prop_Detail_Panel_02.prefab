@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 4023760050469718883}
   - component: {fileID: 4023760050469718880}
   - component: {fileID: 4023760050469718881}
-  - component: {fileID: 4023760050469718882}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6696844703827961613}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4023760050469718880
 MeshFilter:
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4023760050469718882
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4023760050469718884}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6696844703827961612
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,75 +111,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6696844703827961619}
-  - {fileID: 6696844703827961622}
   - {fileID: 6696844703827961621}
   - {fileID: 4023760050469718883}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!1 &6696844703827961617
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6696844703827961622}
-  m_Layer: 6
-  m_Name: Box1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6696844703827961622
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6696844703827961617}
-  m_LocalRotation: {x: -0.664462, y: -0.241846, z: -0.664462, w: 0.241846}
-  m_LocalPosition: {x: -0.134847, y: 0.320302, z: -0.000004}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6696844703827961613}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6696844703827961618
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6696844703827961619}
-  m_Layer: 6
-  m_Name: Box0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6696844703827961619
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6696844703827961618}
-  m_LocalRotation: {x: -0.664462, y: -0.241846, z: -0.664462, w: 0.241846}
-  m_LocalPosition: {x: 0.28108, y: 0.550718, z: -0.000002}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6696844703827961613}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6696844703827961620
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +131,7 @@ GameObject:
   - component: {fileID: 4023760048885013545}
   - component: {fileID: 4023760048857340437}
   m_Layer: 6
-  m_Name: SM_Prop_Detail_Panel_01_LOD0
+  m_Name: Keypad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +150,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6696844703827961613}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -40}
 --- !u!23 &6696844703827961626
 MeshRenderer:
@@ -299,8 +221,8 @@ MonoBehaviour:
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
   opensfx: {fileID: 8300000, guid: 803a3856a3e0b2d4c8b328646357bb67, type: 3}
   closesfx: {fileID: 8300000, guid: ee3677db39e200c47897cf53b6fd9535, type: 3}
-  OtherDoor1: {fileID: 0}
-  OtherDoor2: {fileID: 0}
+  RightDoor: {fileID: 0}
+  LeftDoor: {fileID: 0}
   OpensOnX: 1
   OpensOnZ: 0
   RotateToOpen: 0
