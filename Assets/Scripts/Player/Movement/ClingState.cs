@@ -74,19 +74,20 @@ public class ClingState : MovementState
 		if (closestPoint != null)
 		{
 			Vector2 camInput = cameraInput.action.ReadValue<Vector2>();
-			//if (invertX) input *= Vector2.right * -1;
 			float sensitivity = PlayerPrefs.GetFloat("Slider_CameraHorizontalSensitivity");
 			camInput *= sensitivity;
 			yaw = (camInput.x) % 360;
-			//print(yaw);
 			Quaternion rotationDelta;
 			if (cameraController.zooming) rotationDelta = Quaternion.identity;
 			else rotationDelta = Quaternion.Euler(0, yaw, 0);
 
 			// Rotation
-			Vector3 upDirection = SphereRaycaster.CalculateAverageUp(transform.position, sd.attachmentDistance, sd.walkableLayers, transform.up);
+			Vector3 upDirection = SphereRaycaster.CalculateAverageUp(hits, transform.position, transform.up);
+			if ((transform.position - (Vector3)closestPoint).magnitude < sd.lesserAttachmentDistance)
+			{
+				upDirection = transform.position - (Vector3)closestPoint;
+			}
 
-			Vector3 forwardFromCamera = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
 			Quaternion targetRotation = Quaternion.LookRotation(Vector3.Cross(transform.right, upDirection), upDirection);
 			if (camInput != Vector2.zero) targetRotation *= rotationDelta;
 			rigidbody.MoveRotation(
@@ -100,16 +101,24 @@ public class ClingState : MovementState
 			// Movement
 			// distance from the center of object to the nearest walkable object.
 			float distance = (transform.position - (Vector3)closestPoint).magnitude;
-			input = Vector3.ClampMagnitude(input, 1);
-			Vector3 acceleration = new Vector3(
-				input.x * Time.fixedDeltaTime * c.acceleration * movementMultiplier,
-				height - distance,
-				input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
-			);
-			sd.velocity = Vector3.ClampMagnitude(sd.velocity + acceleration, c.maxVelocity * movementMultiplier);
-			Quaternion movementRotationBasis = Quaternion.LookRotation(forwardFromCamera, transform.position - (Vector3)closestPoint);
-			Vector3 movement = movementRotationBasis * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height - distance)));
-			rigidbody.MovePosition(movement + transform.position);
+			if (distance < sd.lesserAttachmentDistance)
+			{
+				rigidbody.MovePosition(rigidbody.position + upDirection * (height - distance));
+			}
+			else
+			{
+				input = Vector3.ClampMagnitude(input, 1);
+				Vector3 acceleration = new Vector3(
+					input.x * Time.fixedDeltaTime * c.acceleration * movementMultiplier,
+					height - distance,
+					input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
+				);
+				sd.velocity = Vector3.ClampMagnitude(sd.velocity + acceleration, c.maxVelocity * movementMultiplier);
+				//Vector3 forwardFromCamera = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
+				Quaternion movementRotationBasis = Quaternion.LookRotation(transform.forward, transform.position - (Vector3)closestPoint);
+				Vector3 movement = movementRotationBasis * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height - distance)));
+				rigidbody.MovePosition(movement + transform.position);
+			}
 
 			//TODO: This should be implemented when multiple surface materials are used
 			/*if (rigidbody.velocity.sqrMagnitude >= 0.01f && !walking.isPlaying) 

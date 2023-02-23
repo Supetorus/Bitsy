@@ -1276,6 +1276,7 @@ MonoBehaviour:
   invertX: 0
   invertY: 0
   zooming: 0
+  canZoom: 1
 --- !u!114 &274415619673760356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1629,12 +1630,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentDistance: 0.35
-  lesserAttachmentDistance: 0.08
+  lesserAttachmentDistance: 0.11
   walkableLayers:
     serializedVersion: 2
     m_Bits: 81
   camera: {fileID: 2683350034061294020}
-  drawRays: 0
   velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2683350035233568993
 MonoBehaviour:
@@ -10993,6 +10993,10 @@ PrefabInstance:
     - target: {fileID: 2302435663314098477, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3251533943843724910, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3958698181518327232, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_Sprite
