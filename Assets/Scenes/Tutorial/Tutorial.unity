@@ -5170,11 +5170,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1128963790045057845, guid: 929700d72a9c8534180c27544aa7b204, type: 3}
+      propertyPath: m_Name
+      value: Right Door
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 929700d72a9c8534180c27544aa7b204, type: 3}
 --- !u!4 &368351910 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1128963789772919977, guid: 929700d72a9c8534180c27544aa7b204, type: 3}
+  m_PrefabInstance: {fileID: 368351909}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &368351911 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1128963790045057845, guid: 929700d72a9c8534180c27544aa7b204, type: 3}
   m_PrefabInstance: {fileID: 368351909}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &369756761
@@ -5332,14 +5341,38 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 1717654333}
+    - target: {fileID: 1370456450990893514, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: m_Name
+      value: Left Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370456451098375709, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: m_Name
+      value: Left Door
+      objectReference: {fileID: 0}
     - target: {fileID: 1370456451260878642, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370456451740014247, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: m_Name
+      value: Right Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370456452711034238, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: m_Name
+      value: Right Door
       objectReference: {fileID: 0}
     - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
       propertyPath: sfx
       value: 
       objectReference: {fileID: 1403610205}
+    - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: LeftDoor
+      value: 
+      objectReference: {fileID: 369756764}
+    - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: RightDoor
+      value: 
+      objectReference: {fileID: 369756763}
     - target: {fileID: 4023760049423298767, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
       propertyPath: OtherDoor1
       value: 
@@ -5399,6 +5432,14 @@ PrefabInstance:
     - target: {fileID: 6590251942743679272, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
       propertyPath: m_Name
       value: Room3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6696844704369380329, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: m_Name
+      value: Keypad
+      objectReference: {fileID: 0}
+    - target: {fileID: 6696844704369380337, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
+      propertyPath: m_Name
+      value: Keypad
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54ecdc01b5f9d1a4ea3903a66ca99eed, type: 3}
@@ -5508,7 +5549,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1031005198, guid: abc00000000001558873953440418377, type: 3}
       propertyPath: m_Name
-      value: SM_Prop_Detail_Panel_01 (4)
+      value: Keypad
       objectReference: {fileID: 0}
     - target: {fileID: 1031005198, guid: abc00000000001558873953440418377, type: 3}
       propertyPath: m_Layer
@@ -5557,6 +5598,10 @@ PrefabInstance:
     - target: {fileID: 1031005199, guid: abc00000000001558873953440418377, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1031005206, guid: abc00000000001558873953440418377, type: 3}
+      propertyPath: m_Name
+      value: Keypad
       objectReference: {fileID: 0}
     - target: {fileID: 1031005206, guid: abc00000000001558873953440418377, type: 3}
       propertyPath: m_Layer
@@ -5841,7 +5886,7 @@ MonoBehaviour:
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
   opensfx: {fileID: 8300000, guid: 803a3856a3e0b2d4c8b328646357bb67, type: 3}
   closesfx: {fileID: 8300000, guid: ee3677db39e200c47897cf53b6fd9535, type: 3}
-  RightDoor: {fileID: 0}
+  RightDoor: {fileID: 368351911}
   LeftDoor: {fileID: 0}
   OpensOnX: 0
   OpensOnZ: 0
@@ -6631,7 +6676,7 @@ MonoBehaviour:
   _prompt: E Pick Up
   feedbackText: E Pick Up
   itemKey: BlueKeycard
-  pickupsfx: {fileID: 0}
+  pickupsfx: {fileID: 8300000, guid: 00ff28fae86f8be49a09a9cb9c03ca9c, type: 3}
 --- !u!134 &783878841
 PhysicMaterial:
   m_ObjectHideFlags: 0
@@ -6763,8 +6808,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7856108349637284584, guid: 3aac13160c1a9a543b1a4f799b802483, type: 3}
+      propertyPath: m_Name
+      value: Right Door
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aac13160c1a9a543b1a4f799b802483, type: 3}
+--- !u!1 &832510968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7856108349637284584, guid: 3aac13160c1a9a543b1a4f799b802483, type: 3}
+  m_PrefabInstance: {fileID: 832510967}
+  m_PrefabAsset: {fileID: 0}
 --- !u!134 &861047743
 PhysicMaterial:
   m_ObjectHideFlags: 0
@@ -8455,7 +8509,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1031005198, guid: abc00000000001558873953440418377, type: 3}
       propertyPath: m_Name
-      value: SM_Prop_Detail_Panel_01 (3)
+      value: Keypad
       objectReference: {fileID: 0}
     - target: {fileID: 1031005198, guid: abc00000000001558873953440418377, type: 3}
       propertyPath: m_Layer
@@ -8506,6 +8560,10 @@ PrefabInstance:
       value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 1031005206, guid: abc00000000001558873953440418377, type: 3}
+      propertyPath: m_Name
+      value: Keypad
+      objectReference: {fileID: 0}
+    - target: {fileID: 1031005206, guid: abc00000000001558873953440418377, type: 3}
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
@@ -8542,7 +8600,7 @@ MonoBehaviour:
   errorsfx: {fileID: 8300000, guid: 431bb836a82fe1e4badb156d0cfe6835, type: 3}
   opensfx: {fileID: 8300000, guid: 803a3856a3e0b2d4c8b328646357bb67, type: 3}
   closesfx: {fileID: 8300000, guid: ee3677db39e200c47897cf53b6fd9535, type: 3}
-  RightDoor: {fileID: 0}
+  RightDoor: {fileID: 832510968}
   LeftDoor: {fileID: 0}
   OpensOnX: 0
   OpensOnZ: 0
@@ -9069,7 +9127,7 @@ PrefabInstance:
     - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: LeftDoor
       value: 
-      objectReference: {fileID: 1273815048}
+      objectReference: {fileID: 1273815049}
     - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: OpensOnX
       value: 1
@@ -9081,7 +9139,7 @@ PrefabInstance:
     - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: RightDoor
       value: 
-      objectReference: {fileID: 1273815049}
+      objectReference: {fileID: 1273815048}
     - target: {fileID: 1230186037, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: MoveAmount
       value: 1.5
@@ -9138,9 +9196,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7726132644349418763, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: m_Name
+      value: Keypad
+      objectReference: {fileID: 0}
+    - target: {fileID: 7726132644349418771, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: m_Name
+      value: Keypad
+      objectReference: {fileID: 0}
     - target: {fileID: 7726132644824836662, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: m_Name
       value: Interactables
+      objectReference: {fileID: 0}
+    - target: {fileID: 7726132645323905524, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: m_Name
+      value: Left Door
       objectReference: {fileID: 0}
     - target: {fileID: 7726132645843789755, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9161,6 +9231,10 @@ PrefabInstance:
     - target: {fileID: 7726132645843789756, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7726132645962509556, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
+      propertyPath: m_Name
+      value: Right Door
       objectReference: {fileID: 0}
     - target: {fileID: 7726132645962509560, guid: ed4dfe81d88bd704dbbaa449997ee5c0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9870,6 +9944,14 @@ PrefabInstance:
       propertyPath: movementAmount
       value: -0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3564472648960322849, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: m_Name
+      value: Color
+      objectReference: {fileID: 0}
+    - target: {fileID: 3564472648960322855, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3564472649495821392, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
       propertyPath: taskIndex
       value: 2
@@ -9878,6 +9960,14 @@ PrefabInstance:
       propertyPath: sfx
       value: 
       objectReference: {fileID: 1403610205}
+    - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: LeftDoor
+      value: 
+      objectReference: {fileID: 369756765}
+    - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: RightDoor
+      value: 
+      objectReference: {fileID: 369756766}
     - target: {fileID: 3564472649523722863, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
       propertyPath: OtherDoor1
       value: 
@@ -9897,6 +9987,22 @@ PrefabInstance:
     - target: {fileID: 5946347899229046004, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
       propertyPath: movementAmount
       value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507473078926754121, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: m_Name
+      value: Keypad
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507473078926754129, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: m_Name
+      value: Keypad
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507473078926754132, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507473078926754135, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7424065735803386447, guid: 7fe01bdf73a4923469b70ff58d5d1ae7, type: 3}
       propertyPath: isHorizontalSlidingX
@@ -11503,6 +11609,30 @@ PrefabInstance:
       propertyPath: sfx
       value: 
       objectReference: {fileID: 1403610205}
+    - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: LeftDoor
+      value: 
+      objectReference: {fileID: 7333854720695749338}
+    - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: OpensOnX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: OpensOnZ
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394651731767099435, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: RightDoor
+      value: 
+      objectReference: {fileID: 7333854720695749339}
+    - target: {fileID: 4910196241776294669, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: m_Name
+      value: Keypad
+      objectReference: {fileID: 0}
+    - target: {fileID: 7333854721043204300, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: m_Name
+      value: Right Door
+      objectReference: {fileID: 0}
     - target: {fileID: 7333854721265833650, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -11551,8 +11681,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room5
       objectReference: {fileID: 0}
+    - target: {fileID: 7333854721275033306, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+      propertyPath: m_Name
+      value: Left Door
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+--- !u!1 &7333854720695749338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7333854721275033306, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+  m_PrefabInstance: {fileID: 7333854720695749337}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7333854720695749339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7333854721043204300, guid: 429ca6911945f904ca507f4b4c50d31c, type: 3}
+  m_PrefabInstance: {fileID: 7333854720695749337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8792445273076298312
 PrefabInstance:
   m_ObjectHideFlags: 0
