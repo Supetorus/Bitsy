@@ -54,9 +54,9 @@ public static class SphereRaycaster
 	/// </summary>
 	/// <param name="checkDistance"></param>
 	/// <returns></returns>
-	public static Vector3 CalculateAverageUp(Vector3 position, float checkDistance, LayerMask layerMask, Vector3 up)
+	public static Vector3 CalculateAverageUp(List<RaycastHit> hits, Vector3 position, Vector3 currentUp)
 	{
-		var hits = SphereRaycast(position, checkDistance, layerMask);
+		//var hits = SphereRaycast(position, checkDistance, layerMask);
 		List<Vector3> directions = new List<Vector3>();
 		foreach (var hit in hits)
 		{
@@ -66,7 +66,7 @@ public static class SphereRaycaster
 		List<Vector3> pointsBelowPlayer = new List<Vector3>();
 		foreach (Vector3 point in directions)
 		{
-			if (Vector3.Dot(point, -up) > 0)
+			if (Vector3.Dot(point, -currentUp) > 0) // Ignore hits that are above, so the spider won't bounce between two close surfaces.
 			{
 				pointsBelowPlayer.Add(point);
 			}
@@ -85,16 +85,10 @@ public static class SphereRaycaster
 	/// </summary>
 	/// <param name="radius">The spherical radius to check for nearby objects.</param>
 	/// <returns></returns>
-	public static Vector3? GetClosestPoint(Vector3 position, float checkDistance, LayerMask layerMask)
+	public static Vector3? GetClosestPoint(List<RaycastHit> hits, Vector3 position)
 	{
-		if (checkDistance <= 0)
-		{
-			Debug.LogError("You cannot check for walkable objects in a radius less than or equal to zero.");
-			return null;
-		}
 		//lastCheckDistance = checkDistance;
 		// Collect the list of hits.
-		var hits = SphereRaycaster.SphereRaycast(position, checkDistance, layerMask);
 		List<Vector3> points = new List<Vector3>();
 		foreach (var hit in hits) points.Add(hit.point);
 

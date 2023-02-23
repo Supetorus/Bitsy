@@ -44,7 +44,8 @@ public class ClingState : MovementState
 		c.move.action.Disable();
 	}
 
-	float yaw = 0;
+	private List<RaycastHit> hits;
+	private float yaw = 0;
 	public override void FixedUpdateState()
 	{
 		if (height > sd.attachmentDistance)
@@ -67,7 +68,8 @@ public class ClingState : MovementState
 		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
 		else movementMultiplier = Mathf.Clamp(movementMultiplier * c.drag, 1, sprintMultiplier);
 
-		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(transform.position, sd.attachmentDistance, sd.walkableLayers);
+		hits = SphereRaycaster.SphereRaycast(transform.position, sd.attachmentDistance, sd.walkableLayers);
+		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(hits, transform.position);
 		// Near a walkable surface
 		if (closestPoint != null)
 		{
