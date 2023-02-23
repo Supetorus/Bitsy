@@ -6,11 +6,13 @@ using UnityEngine.AI;
 public class PatrolEnemy : DetectionEnemy
 {
 	[SerializeField] List<GameObject> nodes;
+	[SerializeField] Animator animator;
 	[SerializeField] NavMeshAgent agent;
-	[SerializeField] float sightDist;
 	[SerializeField] Transform eyes;
-	[SerializeField] float maxPlayerDist;
+	[SerializeField] Transform gun;
 	[SerializeField] GameObject projectile;
+	[SerializeField] float maxPlayerDist;
+	[SerializeField] float sightDist;
 	[SerializeField] float projSpeed;
 	[SerializeField] float fireRate;
 
@@ -57,11 +59,13 @@ public class PatrolEnemy : DetectionEnemy
 		{
 			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
+				animator.SetBool("CanSeePlayer", true);
 				canSeePlayer = true;
 				player.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
 			}
 			else
 			{
+				animator.SetBool("CanSeePlayer", false);
 				canSeePlayer = false;
 				ChangeDestination(nodeIndex);
 			}
@@ -87,7 +91,7 @@ public class PatrolEnemy : DetectionEnemy
 				agent.isStopped = true;
 				if (fireTimer <= 0)
 				{
-					GameObject bullet = Instantiate(projectile, eyes.transform.position, eyes.transform.rotation);
+					GameObject bullet = Instantiate(projectile, gun.transform.position, gun.transform.rotation);
 					bullet.transform.rotation = Quaternion.LookRotation(playerDir);
 					bullet.GetComponent<Rigidbody>().AddForce(playerDir * projSpeed);
 					
