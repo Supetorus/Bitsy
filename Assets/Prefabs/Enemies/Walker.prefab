@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224715067414942072}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6037621014172187797}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone022
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9182279291192123226}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ Transform:
   - {fileID: 5868783193676902236}
   m_Father: {fileID: 4718615440252344220}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &888603490949434444
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7257427492260636217}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,9 +122,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888603490949434444}
-  m_LocalRotation: {x: 0.00000006691659, y: 0.0000000076004945, z: 0.8532097, w: 0.52156806}
-  m_LocalPosition: {x: -110, y: 0, z: 0.00000047683716}
-  m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 0.9999999}
+  m_LocalRotation: {x: 0.00000024341784, y: -0.0000000085665794, z: 0.8532097, w: 0.521568}
+  m_LocalPosition: {x: -109.99997, y: 0.00000448195, z: -0.0000037531856}
+  m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 511123008759592973}
@@ -140,7 +140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5521542862882114503}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6921939652436066082}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.000006830189, y: 90.00001, z: 90}
+  m_LocalEulerAnglesHint: {x: 0.00001040333, y: 97.765236, z: 90}
 --- !u!1 &924692601513815504
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4718615440252344220}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924692601513815504}
-  m_LocalRotation: {x: -0.5000007, y: 0.4999993, z: 0.4999993, w: 0.5000007}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0.09981388, y: 1.3963664, z: 0}
   m_LocalScale: {x: 0.0073639057, y: 0.0073639057, z: 0.0073639057}
   m_ConstrainProportionsScale: 0
@@ -206,7 +206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1154746244879093339}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone021
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 5301344385797523483}
   - component: {fileID: 2737092834499760482}
   - component: {fileID: 1523103201979849823}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Walker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,6 +325,8 @@ MonoBehaviour:
   agent: {fileID: 2737092834499760482}
   eyes: {fileID: 6619338292632580727}
   gun: {fileID: 7270041227425464733}
+  hipsJoint: {fileID: 5278538036026420125}
+  hips: {fileID: 7818334577565568445}
   projectile: {fileID: 498963631173326718, guid: 0603e7a1714700c439494497a7d756e7, type: 3}
   maxPlayerDist: 3
   sightDist: 3
@@ -339,7 +341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1703398099267347431}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +372,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2237582888020646936}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +393,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9182279291192123226}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 2.034513, y: 23.648447, z: 0.5576572}
 --- !u!1 &1969092360718359846
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 511123008759592973}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +425,7 @@ Transform:
   - {fileID: 7270041227425464733}
   m_Father: {fileID: 7257427492260636217}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.00000037559997, y: 0.0000070053998, z: 62.87492}
+  m_LocalEulerAnglesHint: {x: 62.87499, y: -89.99992, z: -0.0000074903364}
 --- !u!1 &2039326439597489016
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7215196845135363504}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone019
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6657823578318342359}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +487,7 @@ Transform:
   m_Children:
   - {fileID: 5175665938529637015}
   m_Father: {fileID: 8992690360477457704}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.000012694126, y: 0.00000010787138, z: -122.18111}
 --- !u!1 &2635852017916852385
 GameObject:
@@ -496,7 +498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6049921595951052715}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +520,7 @@ Transform:
   - {fileID: 1703398099267347431}
   m_Father: {fileID: 8146256747683159361}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -11.863428, z: 0}
 --- !u!1 &2692168799914306475
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,7 +530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8211611389905104140}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone016
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +551,7 @@ Transform:
   m_Children:
   - {fileID: 1174027030678749921}
   m_Father: {fileID: 8992690360477457704}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -0.0000035363817, y: 0.000005637107, z: 122.10168}
 --- !u!1 &2804931273434857944
 GameObject:
@@ -560,7 +562,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4884798764088744626}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -574,9 +576,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2804931273434857944}
-  m_LocalRotation: {x: -0.00000009696969, y: -0.00000009241726, z: -0.85320973, w: 0.52156794}
-  m_LocalPosition: {x: -110, y: 0, z: 0.00000047683716}
-  m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 0.99999994}
+  m_LocalRotation: {x: -0.00000011940529, y: -0.000000115785, z: -0.85320973, w: 0.52156806}
+  m_LocalPosition: {x: -109.99997, y: 0.00000448195, z: -0.0000037531856}
+  m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1645023964325074254}
@@ -592,7 +594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6758444034555209417}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,7 +625,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6619338292632580727}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,14 +639,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4372967503974785879}
-  m_LocalRotation: {x: -0, y: -0.70710707, z: -0, w: 0.70710653}
+  m_LocalRotation: {x: -0, y: -0.00000014901158, z: -0, w: 1}
   m_LocalPosition: {x: 0.1, y: 3, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2817049259267695969}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5935989967242649377
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +656,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1645023964325074254}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +687,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7270041227425464733}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,7 +701,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6186499262667601155}
-  m_LocalRotation: {x: 0.00000025067132, y: -0.7071068, z: 0.000000047351858, w: 0.70710677}
+  m_LocalRotation: {x: 0.00000016126438, y: -0.7071064, z: -0.00000019106673, w: 0.7071072}
   m_LocalPosition: {x: -125, y: 9, z: 1.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -716,7 +718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1174027030678749921}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -748,7 +750,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8992690360477457704}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -767,9 +769,10 @@ Transform:
   m_LocalScale: {x: 1.357975, y: 1.357975, z: 1.357975}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5278538036026420125}
   - {fileID: 6657823578318342359}
   - {fileID: 8211611389905104140}
+  - {fileID: 5278538036026420125}
+  - {fileID: 7818334577565568445}
   m_Father: {fileID: 4718615440252344220}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.000010017927, y: 89.99998, z: 4.0711092e-13}
@@ -782,7 +785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3552435911358695426}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -813,7 +816,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5278538036026420125}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -827,17 +830,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6394244229701459676}
-  m_LocalRotation: {x: -0.000000043711406, y: 0.000000059603078, z: 0.00000019470718, w: 1}
-  m_LocalPosition: {x: -40, y: 0.0000047683825, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
+  m_LocalRotation: {x: -0.00000007688613, y: 0.00000011920929, z: 0.0000004320052, w: 1}
+  m_LocalPosition: {x: -40, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8085857985256815107}
   - {fileID: 7257427492260636217}
   - {fileID: 4884798764088744626}
   m_Father: {fileID: 8992690360477457704}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.000005008959, y: 0.0000068300083, z: 0.000022311797}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6538573169377297811
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,7 +850,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5868783193676902236}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -878,7 +881,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8146256747683159361}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -900,7 +903,7 @@ Transform:
   - {fileID: 6049921595951052715}
   m_Father: {fileID: 4718615440252344220}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 27.680038, z: 0}
 --- !u!1 &6991537906101721439
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,7 +913,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5808866185653894046}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -931,6 +934,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9182279291192123226}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: -1.3684531, y: -15.761134, z: 0.24313298}
+--- !u!1 &7792929904563970764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7818334577565568445}
+  m_Layer: 7
+  m_Name: Hips
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7818334577565568445
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792929904563970764}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -40, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8992690360477457704}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8276351708445089389
 GameObject:
@@ -942,7 +976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7143020243985805350}
   - component: {fileID: 791617549470629097}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: JR-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1045,7 +1079,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8085857985256815107}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1059,9 +1093,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8307377412907513549}
-  m_LocalRotation: {x: 4.5000226e-15, y: -0.000000059604638, z: 0.000000087422784, w: 1}
-  m_LocalPosition: {x: -110, y: -0.000015576978, z: -0.000009536743}
-  m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
+  m_LocalRotation: {x: -0.000000021073438, y: 0.000000029802305, z: 0.000000063220234, w: 1}
+  m_LocalPosition: {x: -109.99997, y: -0.000019359906, z: -0.000014989618}
+  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5278538036026420125}
@@ -1076,7 +1110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8086617709211609129}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1098,7 +1132,7 @@ Transform:
   - {fileID: 6921939652436066082}
   m_Father: {fileID: 4718615440252344220}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -27.680038, z: 0}
 --- !u!1 &8570026883147891392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,7 +1142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5175665938529637015}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bone017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1140,7 +1174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6921939652436066082}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1162,4 +1196,4 @@ Transform:
   - {fileID: 5521542862882114503}
   m_Father: {fileID: 8086617709211609129}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -11.863428, z: 0}
