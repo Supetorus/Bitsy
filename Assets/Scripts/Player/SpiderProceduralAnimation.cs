@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpiderProceduralAnimation : MonoBehaviour
@@ -31,10 +30,15 @@ public class SpiderProceduralAnimation : MonoBehaviour
 	/// The position of each leg at start relative to the spider.
 	/// </summary>
 	private Vector3[] defaultLegPositions;
+	private Vector3[] idealPositions;
 	/// <summary>
 	/// The last position of each leg. If a leg is in motion this is its last position before moving.
 	/// </summary>
 	private Vector3[] lastLegPositions;
+	/// <summary>
+	/// A list of the next leg positions for moving legs.
+	/// </summary>
+	private Vector3[] nextLegPositions;
 	/// <summary>
 	/// The up vector last update, used to smooth the rotation if bodyOrientation is true.
 	/// </summary>
@@ -47,7 +51,8 @@ public class SpiderProceduralAnimation : MonoBehaviour
 	/// The number of legs according to the legTargets array.
 	/// </summary>
 	private int numberOfLegs;
-	private Vector3 lastVelocity;
+	private float[] legProgression;
+	private Vector3 velocity;
 	private Vector3 lastBodyPos;
 
 	/// <summary>
@@ -62,7 +67,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		Vector3[] result = new Vector3[2];
 		result[1] = Vector3.zero;
 		Ray ray = new Ray(point + halfRange * up / 2f, -up);
-Debug.DrawRay(ray.origin, ray.direction, Color.magenta);
+		Debug.DrawRay(ray.origin, ray.direction, Color.magenta);
 		bool doBackface = Physics.queriesHitBackfaces;
 		Physics.queriesHitBackfaces = true;
 		if (Physics.SphereCast(ray, sphereCastRadius, out RaycastHit hit, 2f * halfRange, walkableLayers))
@@ -85,7 +90,10 @@ Debug.DrawRay(ray.origin, ray.direction, Color.magenta);
 		numberOfLegs = legTargets.Length;
 		defaultLegPositions = new Vector3[numberOfLegs];
 		lastLegPositions = new Vector3[numberOfLegs];
+		nextLegPositions = new Vector3[numberOfLegs];
 		legMoving = new bool[numberOfLegs];
+		legProgression = new float[numberOfLegs];
+		idealPositions = new Vector3[numberOfLegs];
 		for (int i = 0; i < numberOfLegs; ++i)
 		{
 			defaultLegPositions[i] = legTargets[i].localPosition;
@@ -112,63 +120,102 @@ Debug.DrawRay(ray.origin, ray.direction, Color.magenta);
 
 	void FixedUpdate()
 	{
-		// Check which legs should move
-		// Find targets for the legs which have just been told to move (but not the ones which are already moving)
-		// Move each leg.
+		velocity = transform.position - lastBodyPos;
 
+		if (velocity.magnitude < 0.000025f) velocity = Vector3.zero;
 
-		Vector3 velocity = transform.position - lastBodyPos;
-		velocity = (velocity + smoothness * lastVelocity) / (smoothness + 1f);
+		CalculateIdealPositions();
+		CheckWhichLegsShouldMove();
+		MoveEachLeg();
 
-		if (velocity.magnitude < 0.000025f) velocity = lastVelocity;
-		else lastVelocity = velocity;
+		CalculateBodyRotation();
+		//print($"Leg Moving:\t{legMoving[0]}\t{legMoving[1]}\t{legMoving[2]}\t{legMoving[3]}");
+		//print($"Leg progress:\t{legProgression[0]}\t{legProgression[1]}\t{legProgression[2]}\t{legProgression[3]}");
+		//print("Velocity " + velocity.magnitude);
+	}
 
-		Vector3[] desiredPositions = new Vector3[numberOfLegs];
-		int indexToMove = -1;
-		float maxDistance = stepSize;
+	private void CalculateIdealPositions()
+	{
+		for (int i = 0; i < numberOfLegs; i++)
+		{
+			idealPositions[i] = MatchToSurfaceFromAbove(transform.position + defaultLegPositions[i], raycastRange, transform.parent.up)[0];
+		}
+	}
+
+	private void CheckWhichLegsShouldMove()
+	{
 		// Check if each leg should be moved or not.
+		float maxDistance = stepSize;
+		if (velocity == Vector3.zero) maxDistance = 0.01f;
 		for (int i = 0; i < numberOfLegs; ++i)
 		{
-			desiredPositions[i] = transform.TransformPoint(defaultLegPositions[i]);
-
-			float distance = Vector3.ProjectOnPlane(desiredPositions[i] + velocity * velocityMultiplier - lastLegPositions[i], transform.up).magnitude;
+			//desiredPositions[i] = transform.TransformPoint(defaultLegPositions[i]);
+			if (legMoving[i]) continue;
+			//float distance = Vector3.ProjectOnPlane(transform.position + defaultLegPositions[i] + velocity * velocityMultiplier - lastLegPositions[i], transform.up).magnitude;
+			float distance = (idealPositions[i] - legTargets[i].position).magnitude;
 			if (distance > maxDistance)
 			{
-				maxDistance = distance;
-				indexToMove = i;
+				//maxDistance = distance;
+				legMoving[i] = true;
+				CalculateNewTarget(i);
 			}
 		}
+	}
 
-		// For non moving legs put their new position to be their old position.
-		for (int i = 0; i < numberOfLegs; ++i)
-			if (i != indexToMove)
-				legTargets[i].position = lastLegPositions[i];
+	private void CalculateNewTarget(int index)
+	{
+		//Vector3 targetPoint = transform.position + defaultLegPositions[index] + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (transform.position + defaultLegPositions[index] - legTargets[index].position) + velocity * velocityMultiplier;
+		Vector3 targetPoint = idealPositions[index] + velocity * velocityMultiplier;
 
-		if (indexToMove != -1 && !legMoving[indexToMove])
+		Vector3[] positionAndNormalFwd = MatchToSurfaceFromAbove(
+				targetPoint + velocity * velocityMultiplier,
+				raycastRange,
+				(transform.parent.up - velocity * 100).normalized
+			);
+
+		if (positionAndNormalFwd[1] == Vector3.zero)
 		{
-			Vector3 targetPoint = desiredPositions[indexToMove] + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (desiredPositions[indexToMove] - legTargets[indexToMove].position) + velocity * velocityMultiplier;
-
-			Vector3[] positionAndNormalFwd = MatchToSurfaceFromAbove(
+			Vector3[] positionAndNormalBwd = MatchToSurfaceFromAbove(
 					targetPoint + velocity * velocityMultiplier,
-					raycastRange,
-					(transform.parent.up - velocity * 100).normalized
+					raycastRange * (1f + velocity.magnitude),
+					(transform.parent.up + velocity * 75).normalized
 				);
+			nextLegPositions[index] = positionAndNormalBwd[0];
+		}
+		else
+		{
+			nextLegPositions[index] = positionAndNormalFwd[0];
+		}
+	}
 
-			if (positionAndNormalFwd[1] == Vector3.zero)
+	private void MoveEachLeg()
+	{
+		for (int i = 0; i < numberOfLegs; i++)
+		{
+			if (!legMoving[i])
 			{
-				Vector3[] positionAndNormalBwd = MatchToSurfaceFromAbove(
-						targetPoint + velocity * velocityMultiplier,
-						raycastRange * (1f + velocity.magnitude),
-						(transform.parent.up + velocity * 75).normalized
-					);
-				StartCoroutine(PerformStep(indexToMove, positionAndNormalBwd[0]));
+				legTargets[i].position = lastLegPositions[i];
+				continue;
 			}
-			else
+			Vector3 startPos = lastLegPositions[i];
+
+			legProgression[i] += 1f / smoothness;
+			legTargets[i].position = Vector3.Lerp(startPos, nextLegPositions[i], legProgression[i]);
+			legTargets[i].position += transform.up * Mathf.Sin(i / (float)(smoothness + 1f) * Mathf.PI) * stepHeight;
+			//legTargets[i].position = nextLegPositions[i];
+
+			if (legProgression[i] >= 1f)
 			{
-				StartCoroutine(PerformStep(indexToMove, positionAndNormalFwd[0]));
+				legTargets[i].position = nextLegPositions[i];
+				lastLegPositions[i] = legTargets[i].position;
+				legMoving[i] = false;
+				legProgression[i] = 0f;
 			}
 		}
+	}
 
+	private void CalculateBodyRotation()
+	{
 		lastBodyPos = transform.position;
 		if (numberOfLegs > 3 && bodyOrientation)
 		{
@@ -182,14 +229,49 @@ Debug.DrawRay(ray.origin, ray.direction, Color.magenta);
 		}
 	}
 
+	Color[] currentPositionColors =
+	{
+		new Color(1, 0, 0, 1),
+		new Color(0, 1, 0, 1),
+		new Color(0, 0, 1, 1),
+		new Color(0, 1, 1, 1),
+	};
+
+	Color[] defaultPositionColors =
+	{
+		new Color(0.2f, 0, 0, 1),
+		new Color(0, 0.2f, 0, 1),
+		new Color(0, 0, 0.2f, 1),
+		new Color(0, 0.2f, 0.2f, 1),
+	};
+
+	Color[] idealPositionColors =
+	{
+		new Color(0.6f, 0, 0, 1),
+		new Color(0, 0.6f, 0, 1),
+		new Color(0, 0, 0.6f, 1),
+		new Color(0, 0.6f, 0.6f, 1),
+	};
+
 	private void OnDrawGizmosSelected()
 	{
+		float maxDistance = stepSize;
+		if (velocity == Vector3.zero) maxDistance = 0.01f;
+
 		for (int i = 0; i < numberOfLegs; ++i)
 		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawWireSphere(legTargets[i].position, 0.05f);
-			Gizmos.color = Color.green;
-			Gizmos.DrawWireSphere(transform.TransformPoint(defaultLegPositions[i]), stepSize);
+			//Gizmos.color = currentPositionColors[i];
+			Gizmos.color = Color.white;
+			Gizmos.DrawSphere(legTargets[i].position, 0.01f);
+			Gizmos.color = defaultPositionColors[i];
+			Gizmos.DrawWireSphere(transform.TransformPoint(defaultLegPositions[i]), maxDistance);
+			Gizmos.color = idealPositionColors[i];
+			Gizmos.DrawSphere(idealPositions[i], 0.01f);
+			Gizmos.color = defaultPositionColors[i];
+			Gizmos.DrawSphere(nextLegPositions[i], 0.02f);
+			float distance = ((transform.position + defaultLegPositions[i]) - legTargets[i].position).magnitude;
+			Gizmos.color = distance > maxDistance ? Color.red : Color.green;
+			Gizmos.DrawLine(transform.position + defaultLegPositions[i], legTargets[i].position);
 		}
 	}
 }
