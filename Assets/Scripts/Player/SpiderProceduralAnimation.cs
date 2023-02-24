@@ -4,27 +4,51 @@ using UnityEngine;
 
 public class SpiderProceduralAnimation : MonoBehaviour
 {
-	public Transform[] legTargets;
-	public float stepSize = 0.15f;
-	public int smoothness = 8;
-	public float stepHeight = 0.15f;
-	public float sphereCastRadius = 0.125f;
-	public bool bodyOrientation = true;
-	[SerializeField]
+	[SerializeField, Tooltip("The ideal position for each leg.")]
+	private Transform[] legTargets;
+	[SerializeField, Tooltip("How far away the leg target needs to get from it's current position before it steps.")]
+	private float stepSize = 0.15f;
+	[SerializeField, Tooltip("Affects how smooth the leg positions are as well as the general body movement.")]
+	private int smoothness = 8;
+	[SerializeField, Tooltip("Determines the max height of a foot during a step.")]
+	private float stepHeight = 0.15f;
+	[SerializeField, Tooltip("Whether the body orientation is decided by this script, or given from the transform")]
+	private bool bodyOrientation = true;
+	[SerializeField, Tooltip("What layers the spider can walk on.")]
 	private LayerMask walkableLayers;
+	[SerializeField, Tooltip("For some reason the velocity is multiplied a bunch of times by this.")]
+	private float velocityMultiplier = 15f;
 
-	public float raycastRange = 1.5f;
+	/// <summary>
+	/// Determines the radius of the sphere shot from the sky to the ground to determine where the surface is that the player can walk on.
+	/// </summary>
+	private float sphereCastRadius = 0.125f;
+	/// <summary>
+	/// How far above the spider the raycast will start from which decends to find the ground. Half the length of the actual raycast.
+	/// </summary>
+	private float raycastRange = 1.5f;
+	/// <summary>
+	/// The position of each leg at start relative to the spider.
+	/// </summary>
 	private Vector3[] defaultLegPositions;
+	/// <summary>
+	/// The last position of each leg. If a leg is in motion this is its last position before moving.
+	/// </summary>
 	private Vector3[] lastLegPositions;
+	/// <summary>
+	/// The up vector last update, used to smooth the rotation if bodyOrientation is true.
+	/// </summary>
 	private Vector3 lastBodyUp;
-	private bool[] legMoving; // This seems like it could just be a single bool.
+	/// <summary>
+	/// Keeps track of which legs are moving at any given time.
+	/// </summary>
+	private bool[] legMoving;
+	/// <summary>
+	/// The number of legs according to the legTargets array.
+	/// </summary>
 	private int numberOfLegs;
-
 	private Vector3 lastVelocity;
 	private Vector3 lastBodyPos;
-
-	[SerializeField]
-	private float velocityMultiplier = 15f;
 
 	/// <summary>
 	/// Returns an array of two elements. The first of which is a position, and the second is a normal.
@@ -38,7 +62,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		Vector3[] result = new Vector3[2];
 		result[1] = Vector3.zero;
 		Ray ray = new Ray(point + halfRange * up / 2f, -up);
-
+Debug.DrawRay(ray.origin, ray.direction, Color.magenta);
 		bool doBackface = Physics.queriesHitBackfaces;
 		Physics.queriesHitBackfaces = true;
 		if (Physics.SphereCast(ray, sphereCastRadius, out RaycastHit hit, 2f * halfRange, walkableLayers))
@@ -73,6 +97,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 
 	IEnumerator PerformStep(int index, Vector3 targetPoint)
 	{
+		legMoving[index] = true;
 		Vector3 startPos = lastLegPositions[index];
 		for (int i = 1; i <= smoothness; ++i)
 		{
@@ -87,9 +112,13 @@ public class SpiderProceduralAnimation : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		// Check which legs should move
+		// Find targets for the legs which have just been told to move (but not the ones which are already moving)
+		// Move each leg.
+
+
 		Vector3 velocity = transform.position - lastBodyPos;
 		velocity = (velocity + smoothness * lastVelocity) / (smoothness + 1f);
-
 
 		if (velocity.magnitude < 0.000025f) velocity = lastVelocity;
 		else lastVelocity = velocity;
@@ -124,8 +153,6 @@ public class SpiderProceduralAnimation : MonoBehaviour
 					raycastRange,
 					(transform.parent.up - velocity * 100).normalized
 				);
-
-			legMoving[indexToMove] = true;
 
 			if (positionAndNormalFwd[1] == Vector3.zero)
 			{
