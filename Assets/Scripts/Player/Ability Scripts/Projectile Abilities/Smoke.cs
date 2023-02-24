@@ -17,18 +17,12 @@ public class Smoke : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.TryGetComponent<AbilityController>(out AbilityController controller))
-        {
-            controller.isVisible = false;
-        }
+        if(other.gameObject.TryGetComponent<AbilityController>(out AbilityController controller)) controller.isVisible = false;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.TryGetComponent<AbilityController>(out AbilityController controller))
-        {
-            controller.isVisible = true;
-        }
+        if (other.gameObject.TryGetComponent<AbilityController>(out AbilityController controller)) controller.isVisible = true;
     }
 
     private void OnDestroy()

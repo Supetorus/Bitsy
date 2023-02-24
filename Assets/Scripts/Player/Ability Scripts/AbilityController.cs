@@ -79,7 +79,8 @@ public class AbilityController : MonoBehaviour
 					{
 						activeAbility.UseAbility();
 						C_IsActive = true;
-					} else
+					} 
+					else
 					{
 						activeAbility.DeactivateAbility();
 						C_IsActive = false;
@@ -87,50 +88,29 @@ public class AbilityController : MonoBehaviour
 					}
 					break;
 				case 1:
-					if (!EMP_OnCooldown)
-					{
-						activeAbility.UseAbility();
-						EMP_OnCooldown = true;
-					}
+					activeAbility.UseAbility();
+					EMP_OnCooldown = true;
 					break;
 				case 2:
-					if (!SB_OnCooldown)
-					{
-						activeAbility.UseAbility();
-						SB_OnCooldown = true;
-					}
+					activeAbility.UseAbility();
+					SB_OnCooldown = true;
 					break;
 				case 3:
-					if (!TD_OnCooldown)
-					{
-						activeAbility.UseAbility();
-						TD_OnCooldown = true;
-					}
+					activeAbility.UseAbility();
+					TD_OnCooldown = true;
 					break;
 			}
         }
         else if (cycleAbility.action.ReadValue<float>() > 0)
         {
-            if (abilityIndex == 0)
-            {
-                abilityIndex = 3;
-            }
-            else
-            {
-                if (equippedAbilities[abilityIndex - 1] != null) abilityIndex--;
-            }
+            if (abilityIndex == 0) abilityIndex = 3;
+            else if (equippedAbilities[abilityIndex - 1] != null) abilityIndex--;
             activeAbility = equippedAbilities[abilityIndex];
         }
         else if (cycleAbility.action.ReadValue<float>() < 0)
         {
-            if (abilityIndex == 3)
-            {
-                if (equippedAbilities[0] != null) abilityIndex = 0;
-            }
-            else
-            {
-                if (equippedAbilities[abilityIndex + 1] != null) abilityIndex++;
-            }
+            if (abilityIndex == 3) if (equippedAbilities[0] != null) abilityIndex = 0;
+            else if (equippedAbilities[abilityIndex + 1] != null) abilityIndex++;
             activeAbility = equippedAbilities[abilityIndex];
         }
 		HandleTimers();

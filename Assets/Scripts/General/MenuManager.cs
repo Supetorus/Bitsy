@@ -31,7 +31,8 @@ public class MenuManager : MonoBehaviour
 		{
 			SceneManager.UnloadSceneAsync(selectedLevel);
 		}
-		SceneManager.LoadScene(selectedLevel, LoadSceneMode.Additive);
+		FindObjectOfType<SceneLoader>().Load(selectedLevel, LoadSceneMode.Additive);
+		SceneManager.sceneLoaded += FindObjectOfType<ScreenFade>().OnSceneLoaded;
 		SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -65,6 +66,9 @@ public class MenuManager : MonoBehaviour
 		gm.menuCamera.SetActive(false);
 		gm.playCamera.SetActive(true);
 		gm.hud.SetActive(true);
+
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 
 		FindObjectOfType<ObjectiveHandler>().objective = null;
 		FindObjectOfType<ObjectiveHandler>().objective = levels.Find(x => x.name == selectedLevel).objectives[objectiveIndex];

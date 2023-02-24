@@ -47,6 +47,7 @@ namespace Michsky.UI.Reach
 
             var hotkeyType = serializedObject.FindProperty("hotkeyType");
             var controllerPreset = serializedObject.FindProperty("controllerPreset");
+			var controllerRoot = serializedObject.FindProperty("controllerRoot");
             var hotkey = serializedObject.FindProperty("hotkey");
             var keyID = serializedObject.FindProperty("keyID");
             var hotkeyLabel = serializedObject.FindProperty("hotkeyLabel");
@@ -78,6 +79,7 @@ namespace Michsky.UI.Reach
                     { 
                         EditorGUILayout.HelpBox("Dynamic: UI will adapt itself to the current controller scheme (if available). Recommended if you want to specify the hotkey in UI.", MessageType.Info);
                         ReachEditorHandler.DrawProperty(controllerPreset, customSkin, "Default Preset");
+                        ReachEditorHandler.DrawProperty(controllerRoot, customSkin, "Controller Manager Root");
                         if (labelObj.objectReferenceValue != null) { ReachEditorHandler.DrawProperty(hotkeyLabel, customSkin, "Hotkey Label"); }
 
                         GUILayout.BeginHorizontal(EditorStyles.helpBox);

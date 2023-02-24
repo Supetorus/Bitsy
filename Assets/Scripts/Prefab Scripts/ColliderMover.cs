@@ -66,9 +66,6 @@ public class ColliderMover : MonoBehaviour
 			objectCollider.center = sphereCollider.center;
 			objectCollider.radius = sphereCollider.radius;
 		}
-
-
-
 		DestroyImmediate(colliderOnObject);
 	}
 }

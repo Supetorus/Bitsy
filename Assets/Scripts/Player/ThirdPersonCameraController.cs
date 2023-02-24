@@ -55,6 +55,7 @@ public class ThirdPersonCameraController : MonoBehaviour
 	private Vector3 velocity = Vector3.zero;
 	[HideInInspector]
 	public bool zooming = false;
+	[HideInInspector] public bool canZoom = true;
 
 	private void Start()
 	{
@@ -67,8 +68,8 @@ public class ThirdPersonCameraController : MonoBehaviour
 		aimInput.action.Enable();
 
 		// Capture and lock the cursor
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
+		//Cursor.lockState = CursorLockMode.Locked;
+		//Cursor.visible = false;
 	}
 
 	void Update()
@@ -76,10 +77,14 @@ public class ThirdPersonCameraController : MonoBehaviour
 		// Zoom
 		float sensitivity = verticalSensitivity;
 		// Do zoom
-		if (aimInput.action.ReadValue<float>() > 0)
+		if (aimInput.action.ReadValue<float>() > 0 && canZoom)
 		{
 			zoomLerpValue = Mathf.Clamp(zoomLerpValue + zoomSpeed * Time.deltaTime, 0, 1);
 			sensitivity = verticalSensitivity * zoomSensivityMultiplier;
+		}
+		else if(!canZoom)
+		{
+			zoomLerpValue = 0;
 		}
 		// No zoom
 		else
@@ -136,5 +141,13 @@ public class ThirdPersonCameraController : MonoBehaviour
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, cameraRotationSpeed);
 
 		reticle.SetActive(zooming);
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.cyan;
+		Gizmos.DrawSphere(transform.position, camera.nearClipPlane);
+		Gizmos.DrawSphere(aimTarget.position, camera.nearClipPlane);
+		Gizmos.DrawLine(transform.position, aimTarget.position);
 	}
 }

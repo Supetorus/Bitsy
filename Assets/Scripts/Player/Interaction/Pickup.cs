@@ -21,7 +21,7 @@ public class Pickup : MonoBehaviour, IInteractable
 	{
 		AudioSource.PlayClipAtPoint(pickupsfx, transform.position);
 		interactor.inventory.gameData.Save(itemKey, itemKey);
-		Debug.Log(_prompt);
+		//Debug.Log(_prompt);
 		Destroy(gameObject, 0.1f);
 		return true;
 	}

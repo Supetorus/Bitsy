@@ -20,7 +20,8 @@ public class PatrolEnemy : DetectionEnemy
 	private bool canSeePlayer;
 	private GameObject player;
 	private Vector3 playerDir;
-	private Vector3 feetPos;
+	private Vector3 feetPos { get => new Vector3(transform.position.x, transform.position.y - agent.baseOffset, transform.position.z); }
+	private float minDistanceThreshhold = 0.06f;
 
 	public override bool CheckSightlines()
 	{
@@ -31,11 +32,6 @@ public class PatrolEnemy : DetectionEnemy
 	{
 		//MUST IMPLEMENT
 		Destroy(gameObject);
-	}
-
-	public override void EMPRespond(float stunDuration, GameObject stunEffect)
-	{
-		//DOES NOT RESPOND
 	}
 
 	// Start is called before the first frame update
@@ -56,7 +52,6 @@ public class PatrolEnemy : DetectionEnemy
     // Update is called once per frame
     void Update()
     {
-		feetPos = new Vector3(transform.position.x, transform.position.y - agent.baseOffset, transform.position.z);
 		playerDir = (player.transform.position - eyes.position).normalized;
 		if (Physics.Raycast(eyes.position, playerDir, out RaycastHit hit, sightDist))
 		{
@@ -75,7 +70,7 @@ public class PatrolEnemy : DetectionEnemy
 		if (!canSeePlayer)
 		{
 			if(agent.isStopped) agent.isStopped = false;
-			if (Vector3.Distance(feetPos, targetNode.transform.position) < 0.06f)
+			if (Vector3.Distance(feetPos, targetNode.transform.position) < minDistanceThreshhold)
 			{
 				if (nodeIndex == nodes.Count - 1) ChangeDestination(0);
 				else ChangeDestination(++nodeIndex);
@@ -102,4 +97,24 @@ public class PatrolEnemy : DetectionEnemy
 			fireTimer -= Time.deltaTime;
 		}
     }
+
+	private void OnDrawGizmosSelected()
+	{
+		for (int i = 0; i < nodes.Count; i++)
+		{
+			if (i == nodeIndex)
+			{
+				Gizmos.color = Color.green;
+				Gizmos.DrawSphere(nodes[i].transform.position, minDistanceThreshhold);
+				Gizmos.DrawLine(feetPos, nodes[i].transform.position);
+			}
+			else
+			{
+				Gizmos.color = Color.red;
+				Gizmos.DrawSphere(nodes[i].transform.position, minDistanceThreshhold);
+			}
+			Gizmos.color = Color.red;
+			Gizmos.DrawLine(nodes[i].transform.position, nodes[(i + 1) % nodes.Count].transform.position);
+		}
+	}
 }
