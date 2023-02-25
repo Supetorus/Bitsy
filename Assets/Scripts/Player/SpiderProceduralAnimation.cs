@@ -138,7 +138,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 	{
 		for (int i = 0; i < numberOfLegs; i++)
 		{
-			idealPositions[i] = MatchToSurfaceFromAbove(transform.position + defaultLegPositions[i], raycastRange, transform.parent.up)[0];
+			idealPositions[i] = MatchToSurfaceFromAbove(transform.position + transform.rotation * defaultLegPositions[i], raycastRange, transform.parent.up)[0];
 		}
 	}
 
