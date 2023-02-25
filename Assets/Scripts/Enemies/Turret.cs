@@ -53,54 +53,54 @@ public class Turret : DetectionEnemy
 
 	// Start is called before the first frame update
 	void Start()
-    {
+	{
 		turretAnimator = GetComponentInParent<TurretAnimator>();
 		player = GameObject.FindGameObjectWithTag("Player");
 		fireTimer = fireRate;
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-		if(!isStunned)
-		{
-			playerDir = (player.transform.position - transform.position).normalized;
-			if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask))
-			{
-				if (hit.collider.gameObject == player)
-				{
-					rotTimer += Time.deltaTime;
-					canSeePlayer = true;
-					turretAnimator.animator.enabled = false;
-					weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, weapon.up), rotTimer / timeToRotate);
-				}
-			}
-			else
-			{
-				rotTimer = 0;
-				canSeePlayer = false;
-				turretAnimator.animator.enabled = true;
-				turretAnimator.animator.SetBool("isActive", true);
-			}
+	// Update is called once per frame
+	void Update()
+	{
+		if (isStunned) return;
 
-			if (fireTimer <= 0 && canSeePlayer)
+		playerDir = (player.transform.position - transform.position).normalized;
+		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask))
+		{
+			if (hit.collider.gameObject == player)
 			{
-				if (hit.collider.gameObject == player && Vector3.Dot(weapon.forward, playerDir) > 0.95f)
-				{
-					GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
-					bullet.transform.rotation = Quaternion.LookRotation(playerDir);
-					bullet.GetComponent<Rigidbody>().AddForce((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized * projSpeed);
-					Destroy(bullet, 1);
-					player.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
-					currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
-					fireTimer = fireRate;
-				}
-			}
-			else
-			{
-				fireTimer -= Time.deltaTime;
+				rotTimer += Time.deltaTime;
+				canSeePlayer = true;
+				turretAnimator.animator.enabled = false;
+				weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, weapon.up), rotTimer / timeToRotate);
 			}
 		}
+		else
+		{
+			rotTimer = 0;
+			canSeePlayer = false;
+			turretAnimator.animator.enabled = true;
+			turretAnimator.animator.SetBool("isActive", true);
+		}
+
+		if (fireTimer <= 0 && canSeePlayer)
+		{
+			if (hit.collider.gameObject == player && Vector3.Dot(weapon.forward, playerDir) > 0.95f)
+			{
+				GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
+				bullet.transform.rotation = Quaternion.LookRotation(playerDir);
+				bullet.GetComponent<Rigidbody>().AddForce((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized * projSpeed);
+				Destroy(bullet, 1);
+				player.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
+				currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
+				fireTimer = fireRate;
+			}
+		}
+		else
+		{
+			fireTimer -= Time.deltaTime;
+		}
+
 	}
 
 	private void OnDrawGizmosSelected()
