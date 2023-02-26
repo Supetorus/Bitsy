@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Turret : DetectionEnemy
 {
-	[SerializeField] float sightDist;
-	[SerializeField] GameObject projectile;
-	[SerializeField] Transform[] spawnLocations;
-	[SerializeField] Transform weapon;
-	[SerializeField] LayerMask myMask;
-	[SerializeField] float projSpeed;
-	[SerializeField] float fireRate;
-	[HideInInspector] float fireTimer;
+	[SerializeField] private GameObject projectile;
+	[SerializeField] private Transform[] spawnLocations;
+	[SerializeField] private Transform weapon;
+	[SerializeField] private LayerMask myMask;
+	[SerializeField] private float projSpeed;
+	[SerializeField] private float fireRate;
+	[HideInInspector] private float fireTimer;
 
 	GameObject player;
 	TurretAnimator turretAnimator;
@@ -66,7 +64,7 @@ public class Turret : DetectionEnemy
 		if (isStunned) return;
 
 		playerDir = (player.transform.position - transform.position).normalized;
-		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask) &&
+		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, myMask) &&
 			hit.collider.gameObject == player)
 		{
 			rotTimer += Time.deltaTime;
@@ -98,11 +96,5 @@ public class Turret : DetectionEnemy
 		{
 			fireTimer -= Time.deltaTime;
 		}
-	}
-
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.DrawSphere(transform.position, sightDist);
-		Gizmos.DrawLine(transform.position, player.transform.position);
 	}
 }
