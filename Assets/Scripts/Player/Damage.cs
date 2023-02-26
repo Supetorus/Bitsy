@@ -5,31 +5,45 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour
 {
-	[SerializeField] bool dot;
+	[SerializeField] bool doDamageOverTime;
 	[SerializeField] bool destroyOnCollide;
 	public bool instantKill = false;
 	public float damage = 1;
 
+	private void OnCollisionEnter(Collision collision)
+	{
+		Health health = collision.gameObject.GetComponent<Health>();
+		DoIt(health);
+	}
+
 	private void OnCollisionStay(Collision collision)
 	{
 		Health health = collision.gameObject.GetComponent<Health>();
-		if (health != null)
-		{
-			if (dot)DoDamageOverTime(health);
-			else DoDamage(health);
-		}
-		if (destroyOnCollide) Destroy(gameObject);
+		DoIt(health);
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		Health health = other.GetComponent<Health>();
+		DoIt(health);
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
 		Health health = other.GetComponent<Health>();
+		DoIt(health);
+	}
+
+	private void DoIt(Health health)
+	{
 		if (health != null)
 		{
-			if(dot) DoDamageOverTime(health);
+			if (doDamageOverTime) DoDamageOverTime(health);
 			else DoDamage(health);
 		}
+		if (destroyOnCollide) Destroy(gameObject);
 	}
+
 	private void DoDamage(Health health)
 	{
 		if (instantKill)
@@ -39,6 +53,7 @@ public class Damage : MonoBehaviour
 		}
 		health.TakeDamage(damage);
 	}
+
 	private void DoDamageOverTime(Health health)
 	{
 		health.TakeDamage(damage * Time.fixedDeltaTime);

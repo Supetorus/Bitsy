@@ -65,14 +65,14 @@ public class Turret : DetectionEnemy
 		if (isStunned) return;
 
 		playerDir = (player.transform.position - transform.position).normalized;
-		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask))
+		if ( Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask))
 		{
 			if (hit.collider.gameObject == player)
 			{
 				rotTimer += Time.deltaTime;
 				canSeePlayer = true;
 				turretAnimator.animator.enabled = false;
-				weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, weapon.up), rotTimer / timeToRotate);
+				weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, transform.up), rotTimer / timeToRotate);
 			}
 		}
 		else
@@ -90,7 +90,6 @@ public class Turret : DetectionEnemy
 				GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
 				bullet.transform.rotation = Quaternion.LookRotation(playerDir);
 				bullet.GetComponent<Rigidbody>().AddForce((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized * projSpeed);
-				Destroy(bullet, 1);
 				player.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
 				currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
 				fireTimer = fireRate;
@@ -100,7 +99,6 @@ public class Turret : DetectionEnemy
 		{
 			fireTimer -= Time.deltaTime;
 		}
-
 	}
 
 	private void OnDrawGizmosSelected()

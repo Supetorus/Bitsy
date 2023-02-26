@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8876266947192755745}
   - component: {fileID: 4738341050000051833}
   - component: {fileID: 9004176120603580332}
+  - component: {fileID: 1558293806804595401}
   m_Layer: 12
   m_Name: Bullet Mesh
   m_TagString: Untagged
@@ -161,6 +162,22 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1558293806804595401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480132669408978409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0994d0b1c8c354499a95108a4d4934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDamageOverTime: 0
+  destroyOnCollide: 1
+  instantKill: 0
+  damage: 5
 --- !u!1 &498963631173326718
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +188,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3542412068182252427}
   - component: {fileID: 2392842298985232105}
-  - component: {fileID: 2815007258907708267}
   m_Layer: 12
   m_Name: Turret Bullet
   m_TagString: Untagged
@@ -188,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 498963631173326718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4997685384915735028}
@@ -211,19 +227,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &2815007258907708267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498963631173326718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc0994d0b1c8c354499a95108a4d4934, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dot: 0
-  destroyOnCollide: 1
-  instantKill: 0
-  damage: 5
