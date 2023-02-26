@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Turret : DetectionEnemy
@@ -65,15 +66,14 @@ public class Turret : DetectionEnemy
 		if (isStunned) return;
 
 		playerDir = (player.transform.position - transform.position).normalized;
-		if ( Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask))
+		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, sightDist, myMask) &&
+			hit.collider.gameObject == player)
 		{
-			if (hit.collider.gameObject == player)
-			{
-				rotTimer += Time.deltaTime;
-				canSeePlayer = true;
-				turretAnimator.animator.enabled = false;
-				weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, transform.up), rotTimer / timeToRotate);
-			}
+			rotTimer += Time.deltaTime;
+			canSeePlayer = true;
+			player.GetComponent<GlobalPlayerDetection>().ChangeDetection(150 * Time.deltaTime);
+			turretAnimator.animator.enabled = false;
+			weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, transform.up), rotTimer / timeToRotate);
 		}
 		else
 		{
@@ -89,8 +89,7 @@ public class Turret : DetectionEnemy
 			{
 				GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
 				bullet.transform.rotation = Quaternion.LookRotation(playerDir);
-				bullet.GetComponent<Rigidbody>().AddForce((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized * projSpeed);
-				player.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
+				bullet.GetComponentInChildren<Rigidbody>().AddForce((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized * projSpeed);
 				currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
 				fireTimer = fireRate;
 			}
@@ -104,5 +103,6 @@ public class Turret : DetectionEnemy
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.DrawSphere(transform.position, sightDist);
+		Gizmos.DrawLine(transform.position, player.transform.position);
 	}
 }

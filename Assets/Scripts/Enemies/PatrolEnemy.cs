@@ -66,7 +66,7 @@ public class PatrolEnemy : DetectionEnemy
 			{
 				animator.SetBool("CanSeePlayer", true);
 				canSeePlayer = true;
-				player.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
+				player.GetComponent<GlobalPlayerDetection>().ChangeDetection(100 * Time.deltaTime);
 			}
 			else
 			{

@@ -43,7 +43,7 @@ public class CameraDetection : DetectionEnemy
 			if (collision.gameObject == player && player.GetComponent<AbilityController>().isVisible)
 			{
 				canSeePlayer = true;
-				player.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
+				player.GetComponent<GlobalPlayerDetection>().ChangeDetection(100 * Time.deltaTime);
 				cameraLight.color = Color.red;
 				break;
 			}

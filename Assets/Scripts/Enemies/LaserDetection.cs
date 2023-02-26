@@ -32,7 +32,7 @@ public class LaserDetection : DetectionEnemy
 				}
 				else
 				{
-					other.GetComponent<GlobalPlayerDetection>().ChangeDetection(dps * Time.deltaTime, true);
+					other.GetComponent<GlobalPlayerDetection>().ChangeDetection(dps * Time.deltaTime);
 				}
 			}
 		}

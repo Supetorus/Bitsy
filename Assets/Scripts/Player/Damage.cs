@@ -5,10 +5,17 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour
 {
-	[SerializeField] bool doDamageOverTime;
-	[SerializeField] bool destroyOnCollide;
-	public bool instantKill = false;
-	public float damage = 1;
+	[SerializeField]
+	bool doDamageOverTime;
+	[SerializeField]
+	private bool instantKill = false;
+	[SerializeField]
+	private float damage = 1;
+	[SerializeField, Tooltip("How long after collision the object will be destroyed. 0 for instant, negative for never.")]
+	private float destroyTime;
+	[SerializeField, Tooltip("The object that is destroyed when the timer is up. Usually the parent part of the prefab if it is a projectile.")]
+	private GameObject destroyed;
+
 
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -22,17 +29,17 @@ public class Damage : MonoBehaviour
 		DoIt(health);
 	}
 
-	private void OnTriggerEnter(Collider other)
-	{
-		Health health = other.GetComponent<Health>();
-		DoIt(health);
-	}
+	//private void OnTriggerEnter(Collider other)
+	//{
+	//	Health health = other.GetComponent<Health>();
+	//	DoIt(health);
+	//}
 
-	private void OnTriggerStay(Collider other)
-	{
-		Health health = other.GetComponent<Health>();
-		DoIt(health);
-	}
+	//private void OnTriggerStay(Collider other)
+	//{
+	//	Health health = other.GetComponent<Health>();
+	//	DoIt(health);
+	//}
 
 	private void DoIt(Health health)
 	{
@@ -41,7 +48,7 @@ public class Damage : MonoBehaviour
 			if (doDamageOverTime) DoDamageOverTime(health);
 			else DoDamage(health);
 		}
-		if (destroyOnCollide) Destroy(gameObject);
+		if (destroyTime >= 0) Destroy(destroyed != null ? destroyed : gameObject, destroyTime);
 	}
 
 	private void DoDamage(Health health)

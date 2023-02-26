@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 8876266947192755745}
   - component: {fileID: 4738341050000051833}
   - component: {fileID: 9004176120603580332}
-  - component: {fileID: 1558293806804595401}
+  - component: {fileID: 8541820127588438872}
+  - component: {fileID: 8869415164986995001}
   m_Layer: 12
   m_Name: Bullet Mesh
   m_TagString: Untagged
@@ -162,7 +163,7 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &1558293806804595401
+--- !u!114 &8541820127588438872
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,9 +176,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doDamageOverTime: 0
-  destroyOnCollide: 1
   instantKill: 0
-  damage: 5
+  damage: 25
+  destroyTime: 0
+  destroyed: {fileID: 498963631173326718}
+--- !u!54 &8869415164986995001
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480132669408978409}
+  serializedVersion: 2
+  m_Mass: 0.001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!1 &498963631173326718
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +205,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3542412068182252427}
-  - component: {fileID: 2392842298985232105}
   m_Layer: 12
   m_Name: Turret Bullet
   m_TagString: Untagged
@@ -211,19 +228,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &2392842298985232105
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498963631173326718}
-  serializedVersion: 2
-  m_Mass: 0.001
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 2
