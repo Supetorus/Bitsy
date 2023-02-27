@@ -145,9 +145,9 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
-		Gizmos.color = Color.cyan;
-		Gizmos.DrawSphere(transform.position, camera.nearClipPlane);
-		Gizmos.DrawSphere(aimTarget.position, camera.nearClipPlane);
-		Gizmos.DrawLine(transform.position, aimTarget.position);
+		//Gizmos.color = Color.cyan;
+		//Gizmos.DrawSphere(transform.position, camera.nearClipPlane);
+		//Gizmos.DrawSphere(aimTarget.position, camera.nearClipPlane);
+		//Gizmos.DrawLine(transform.position, aimTarget.position);
 	}
 }
