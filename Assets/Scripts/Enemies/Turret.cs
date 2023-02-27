@@ -57,7 +57,6 @@ public class Turret : DetectionEnemy
 		turretAnimator = GetComponentInParent<TurretAnimator>();
 		player = GameObject.FindGameObjectWithTag("Player");
 		fireTimer = fireRate;
-print("Layermask value: " + myMask.value);
 	}
 
 	// Update is called once per frame
