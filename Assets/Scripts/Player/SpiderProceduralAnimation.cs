@@ -16,8 +16,6 @@ public class SpiderProceduralAnimation : MonoBehaviour
 	private bool bodyOrientation = true;
 	[SerializeField, Tooltip("What layers the spider can walk on.")]
 	private LayerMask walkableLayers;
-	[SerializeField, Tooltip("For some reason the velocity is multiplied a bunch of times by this.")]
-	private float velocityMultiplier = 15f;
 
 	/// <summary>
 	/// Determines the radius of the sphere shot from the sky to the ground to determine where the surface is that the player can walk on.
@@ -159,7 +157,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 
 	private void CalculateNewTarget(int index)
 	{
-		Vector3 targetPoint = idealPositions[index] + velocity * velocityMultiplier;
+		Vector3 targetPoint = idealPositions[index] + velocity * smoothness;
 		Vector3 difference = new Vector3(
 			transform.eulerAngles.x - prevRotation.eulerAngles.x,
 			transform.eulerAngles.y - prevRotation.eulerAngles.y,

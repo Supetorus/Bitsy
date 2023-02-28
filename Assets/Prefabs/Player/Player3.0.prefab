@@ -1652,6 +1652,8 @@ MonoBehaviour:
   height: 0.15
   sprintMultiplier: 2
   cameraInput: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  walkForwards: 0
+  turnRight: 0
 --- !u!114 &2683350035233568994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1818,7 +1820,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _numFound: 0
-  drawInteractionArea: 0
   interact: {fileID: 857090945557194352, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
 --- !u!114 &1685213090
 MonoBehaviour:
@@ -2066,6 +2067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073d680585a966c4884ae9e72c664826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decreasePerSecond: 10
   detectionBar: {fileID: 8344493902892477158}
   allEnemies: []
   detectionChanged: 0
@@ -4777,19 +4779,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   legTargets:
   - {fileID: 5398582746807870043}
+  - {fileID: 5214733412098285238}
   - {fileID: 5471774495622337563}
   - {fileID: 294367036679554292}
-  - {fileID: 5214733412098285238}
-  stepSize: 0.05
+  stepSize: 0.3
   smoothness: 8
   stepHeight: 0.08
-  sphereCastRadius: 0.125
   bodyOrientation: 0
   walkableLayers:
     serializedVersion: 2
     m_Bits: 81
-  raycastRange: 1.5
-  velocityMultiplier: 5
 --- !u!1 &8762195459633891748
 GameObject:
   m_ObjectHideFlags: 0
