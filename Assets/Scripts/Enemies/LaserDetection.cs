@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class LaserDetection : DetectionEnemy
 {
-	public bool doesDamage;
-	public float dps = 1;
-	public bool isStunned;
+	[SerializeField, Tooltip("Whether this turret does damage or increases detection.")]
+	private bool doesDamage;
+	[SerializeField, Tooltip("How much damage is done or detection is increased per second.")]
+	private float dps = 1;
 
-	GameObject player;
+	private bool isStunned;
+	private GameObject player;
 
 	private void Start()
 	{
@@ -30,7 +32,7 @@ public class LaserDetection : DetectionEnemy
 				}
 				else
 				{
-					other.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
+					other.GetComponent<GlobalPlayerDetection>().ChangeDetection(dps * Time.deltaTime);
 				}
 			}
 		}

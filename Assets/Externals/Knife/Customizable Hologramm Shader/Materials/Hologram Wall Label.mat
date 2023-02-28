@@ -2,16 +2,27 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Hologram Wall Label
   m_Shader: {fileID: 4800000, guid: e99f8b80b1693284587af0c131f61f3d, type: 3}
-  m_ShaderKeywords: _ALPHAMASKFEATURE_ON _COLORGLITCHFEATURE_ON _GLITCHDEBUG_ON _GRAINFEATURE_ON
-    _LINE1FEATURE_ON _LINE2FEATURE_ON _LINEBOTHFEATURE_ON _POSITIONFEATURE_Y _SOFTINTERSECTION1FEATURE_COLOR
-    _SOFTINTERSECTION2FEATURE_ALPHA _SOFTINTERSECTIONFEATURE_COLOR
+  m_ValidKeywords:
+  - _ALPHAMASKFEATURE_ON
+  - _COLORGLITCHFEATURE_ON
+  - _GRAINFEATURE_ON
+  - _LINE1FEATURE_ON
+  - _LINE2FEATURE_ON
+  - _LINEBOTHFEATURE_ON
+  - _POSITIONFEATURE_Y
+  - _POSITIONSPACEFEATURE_WORLD
+  - _SOFTINTERSECTION1FEATURE_COLOR
+  - _SOFTINTERSECTION2FEATURE_ALPHA
+  m_InvalidKeywords:
+  - _GLITCHDEBUG_ON
+  - _SOFTINTERSECTIONFEATURE_COLOR
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -73,7 +84,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _Alpha: 1
     - _AlphaMaskAffect: 1
     - _AlphaMaskFeature: 1
     - _ColorGlitchAffect: 0.147
@@ -153,6 +166,8 @@ Material:
     - _LineSpeedGlitch: -0.26
     - _MaskFalloff: 0
     - _MaskFeature: 0
+    - _MaskInversion: 0
+    - _MaskLocalFeature: 0
     - _NormalAffect: 0
     - _NormalMapFeature: 0
     - _NormalScale: 1
@@ -180,6 +195,9 @@ Material:
     - _TessPhongStrength: 0.5
     - _TessValue: 1
     - _Tesselation: 0
+    - _Voxelization: 100
+    - _VoxelizationAffect: 1
+    - _VoxelizationFeature: 0
     - _ZWrite: 0
     - __dirty: 0
     m_Colors:
@@ -199,3 +217,4 @@ Material:
     - _MaskSize: {r: 0, g: 0, b: 0, a: 0}
     - _RandomGlitchOffset: {r: 0, g: 0, b: 0, a: 0}
     - _Scale: {r: 0.1, g: 1.01, b: 5, a: 0}
+  m_BuildTextureStacks: []

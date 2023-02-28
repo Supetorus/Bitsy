@@ -7,6 +7,8 @@ using UnityEngine.Events;
 
 public class GlobalPlayerDetection : MonoBehaviour
 {
+	[SerializeField]
+	private float decreasePerSecond = 10;
 	public delegate void DetectionAction();
 
 	[Tooltip("This event is called when global detection is at 0.")]
@@ -25,21 +27,16 @@ public class GlobalPlayerDetection : MonoBehaviour
 	private static float detectionLevel;
 	[SerializeField] public float currentDetectionLevel { get { return detectionLevel; } set { detectionLevel = Mathf.Clamp(value, 0, 100); } }
 	public List<DetectionEnemy> allEnemies;
-	public bool detectionChanged = false;
-    // Start is called before the first frame update
+	[HideInInspector] public bool detectionChanged = false;
+
     void Start()
     {
 		allEnemies = new List<DetectionEnemy>(FindObjectsOfType<DetectionEnemy>());
     }
 
-	public void ChangeDetection(float change, bool isIncrease)
+	public void ChangeDetection(float change)
 	{
-		if(isIncrease){
-			currentDetectionLevel += change;
-		} else
-		{
-			currentDetectionLevel -= change;
-		}
+		currentDetectionLevel += change;
 		if(detectionBar)detectionBar.SetValue(currentDetectionLevel);
 		CheckEvents();
 	}
@@ -67,10 +64,9 @@ public class GlobalPlayerDetection : MonoBehaviour
 		}
 	}
 
-
-	public void FixedUpdate() 
+	public void Update() 
 	{
-		if (!PlayerInSight()) ChangeDetection(0.01f, false);
+		if (!PlayerInSight()) ChangeDetection(-decreasePerSecond * Time.deltaTime);
 	}
 
 	//Returns true if any enemy can see the player.
