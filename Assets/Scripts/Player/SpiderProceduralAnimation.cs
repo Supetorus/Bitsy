@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpiderProceduralAnimation : MonoBehaviour
@@ -54,6 +55,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 	private float[] legProgression;
 	private Vector3 velocity;
 	private Vector3 lastBodyPos;
+	private Quaternion lastRotation;
 
 	/// <summary>
 	/// Returns an array of two elements. The first of which is a position, and the second is a normal.
@@ -67,7 +69,6 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		Vector3[] result = new Vector3[2];
 		result[1] = Vector3.zero;
 		Ray ray = new Ray(point + halfRange * up / 2f, -up);
-		Debug.DrawRay(ray.origin, ray.direction, Color.magenta);
 		bool doBackface = Physics.queriesHitBackfaces;
 		Physics.queriesHitBackfaces = true;
 		if (Physics.SphereCast(ray, sphereCastRadius, out RaycastHit hit, 2f * halfRange, walkableLayers))
@@ -129,16 +130,16 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		MoveEachLeg();
 
 		CalculateBodyRotation();
-		//print($"Leg Moving:\t{legMoving[0]}\t{legMoving[1]}\t{legMoving[2]}\t{legMoving[3]}");
-		//print($"Leg progress:\t{legProgression[0]}\t{legProgression[1]}\t{legProgression[2]}\t{legProgression[3]}");
-		//print("Velocity " + velocity.magnitude);
+		lastRotation = transform.rotation;
 	}
 
 	private void CalculateIdealPositions()
 	{
 		for (int i = 0; i < numberOfLegs; i++)
 		{
-			idealPositions[i] = MatchToSurfaceFromAbove(transform.position + transform.rotation * defaultLegPositions[i], raycastRange, transform.parent.up)[0];
+			var hits = SphereRaycaster.SphereRaycast(transform.TransformPoint(defaultLegPositions[i]), raycastRange, walkableLayers);
+			var closestPoint = SphereRaycaster.GetClosestPoint(hits, transform.TransformPoint(defaultLegPositions[i]));
+			idealPositions[i] = closestPoint != null ? (Vector3)closestPoint : transform.TransformPoint(defaultLegPositions[i]);
 		}
 	}
 
@@ -149,9 +150,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		if (velocity == Vector3.zero) maxDistance = 0.01f;
 		for (int i = 0; i < numberOfLegs; ++i)
 		{
-			//desiredPositions[i] = transform.TransformPoint(defaultLegPositions[i]);
 			if (legMoving[i]) continue;
-			//float distance = Vector3.ProjectOnPlane(transform.position + defaultLegPositions[i] + velocity * velocityMultiplier - lastLegPositions[i], transform.up).magnitude;
 			float distance = (idealPositions[i] - legTargets[i].position).magnitude;
 			if (distance > maxDistance)
 			{
@@ -164,27 +163,21 @@ public class SpiderProceduralAnimation : MonoBehaviour
 
 	private void CalculateNewTarget(int index)
 	{
-		//Vector3 targetPoint = transform.position + defaultLegPositions[index] + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (transform.position + defaultLegPositions[index] - legTargets[index].position) + velocity * velocityMultiplier;
 		Vector3 targetPoint = idealPositions[index] + velocity * velocityMultiplier;
+		//Quaternion difference;
+		//if (transform.rotation.Equals(lastRotation)) difference = Quaternion.identity;
+		//else difference = lastRotation * Quaternion.Inverse(transform.rotation);
+		//targetPoint = RotatePointAroundPivot(targetPoint, transform.position, difference * transform.rotation);
 
-		Vector3[] positionAndNormalFwd = MatchToSurfaceFromAbove(
-				targetPoint + velocity * velocityMultiplier,
-				raycastRange,
-				(transform.parent.up - velocity * 100).normalized
-			);
-
-		if (positionAndNormalFwd[1] == Vector3.zero)
+		List<RaycastHit> hits = SphereRaycaster.SphereRaycast(targetPoint + transform.up * 0.01f, stepSize, walkableLayers);
+		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(hits, targetPoint + transform.up * 0.01f);
+		if (closestPoint != null)
 		{
-			Vector3[] positionAndNormalBwd = MatchToSurfaceFromAbove(
-					targetPoint + velocity * velocityMultiplier,
-					raycastRange * (1f + velocity.magnitude),
-					(transform.parent.up + velocity * 75).normalized
-				);
-			nextLegPositions[index] = positionAndNormalBwd[0];
+			nextLegPositions[index] = closestPoint.Value;
 		}
 		else
 		{
-			nextLegPositions[index] = positionAndNormalFwd[0];
+			nextLegPositions[index] = transform.TransformPoint(defaultLegPositions[index]);
 		}
 	}
 
@@ -202,7 +195,6 @@ public class SpiderProceduralAnimation : MonoBehaviour
 			legProgression[i] += 1f / smoothness;
 			legTargets[i].position = Vector3.Lerp(startPos, nextLegPositions[i], legProgression[i]);
 			legTargets[i].position += transform.up * Mathf.Sin(i / (float)(smoothness + 1f) * Mathf.PI) * stepHeight;
-			//legTargets[i].position = nextLegPositions[i];
 
 			if (legProgression[i] >= 1f)
 			{
@@ -229,8 +221,16 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		}
 	}
 
-	Color[] currentPositionColors =
+	private Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion rotation)
 	{
+		Vector3 dir = point - pivot; // get point direction relative to pivot
+		dir = rotation * dir; // rotate it
+		point = rotation * dir + pivot; // calculate rotated point
+		return point; // return it
+	}
+
+	Color[] currentPositionColors =
+		{
 		new Color(1, 0, 0, 1),
 		new Color(0, 1, 0, 1),
 		new Color(0, 0, 1, 1),
@@ -271,7 +271,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 			Gizmos.DrawSphere(nextLegPositions[i], 0.02f);
 			float distance = ((transform.position + defaultLegPositions[i]) - legTargets[i].position).magnitude;
 			Gizmos.color = distance > maxDistance ? Color.red : Color.green;
-			Gizmos.DrawLine(transform.position + defaultLegPositions[i], legTargets[i].position);
+			Gizmos.DrawLine(transform.TransformPoint(defaultLegPositions[i]), legTargets[i].position);
 		}
 	}
 }
