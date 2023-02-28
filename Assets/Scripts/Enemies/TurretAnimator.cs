@@ -10,7 +10,8 @@ public class TurretAnimator : MonoBehaviour
 	private void OnEnable()
 	{
 		GlobalPlayerDetection.onThreeFourths += Popup;
-		GlobalPlayerDetection.onHalf += Hide;
+		GlobalPlayerDetection.onEmpty += DisableTurret;
+		GlobalPlayerDetection.onEmpty += Hide;
 	}
 
 	private void OnDisable()
