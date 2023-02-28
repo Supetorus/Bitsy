@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -64,7 +65,7 @@ public class Turret : DetectionEnemy
 		if (isStunned) return;
 
 		playerDir = (player.transform.position - transform.position).normalized;
-		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, myMask) &&
+		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, float.MaxValue, myMask) &&
 			hit.collider.gameObject == player)
 		{
 			rotTimer += Time.deltaTime;
@@ -92,9 +93,14 @@ public class Turret : DetectionEnemy
 				fireTimer = fireRate;
 			}
 		}
-		else
-		{
-			fireTimer -= Time.deltaTime;
-		}
+		fireTimer -= Time.deltaTime;
 	}
+
+	//private void OnDrawGizmosSelected()
+	//{
+	//	if (!Application.isPlaying) return;
+
+	//	Physics.Raycast(transform.position, player.transform.position - transform.position, out RaycastHit hit, float.MaxValue, myMask);
+	//	Gizmos.DrawLine(transform.position, hit.point);
+	//}
 }

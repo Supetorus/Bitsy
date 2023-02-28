@@ -64,8 +64,7 @@ public class GlobalPlayerDetection : MonoBehaviour
 		}
 	}
 
-
-	public void FixedUpdate() 
+	public void Update() 
 	{
 		if (!PlayerInSight()) ChangeDetection(-decreasePerSecond * Time.deltaTime);
 	}
