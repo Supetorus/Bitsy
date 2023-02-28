@@ -55,7 +55,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 	private float[] legProgression;
 	private Vector3 velocity;
 	private Vector3 lastBodyPos;
-	private Quaternion lastRotation;
+	private Quaternion prevRotation;
 
 	/// <summary>
 	/// Returns an array of two elements. The first of which is a position, and the second is a normal.
@@ -130,7 +130,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		MoveEachLeg();
 
 		CalculateBodyRotation();
-		lastRotation = transform.rotation;
+		prevRotation = transform.rotation;
 	}
 
 	private void CalculateIdealPositions()
@@ -164,10 +164,14 @@ public class SpiderProceduralAnimation : MonoBehaviour
 	private void CalculateNewTarget(int index)
 	{
 		Vector3 targetPoint = idealPositions[index] + velocity * velocityMultiplier;
-		//Quaternion difference;
-		//if (transform.rotation.Equals(lastRotation)) difference = Quaternion.identity;
-		//else difference = lastRotation * Quaternion.Inverse(transform.rotation);
-		//targetPoint = RotatePointAroundPivot(targetPoint, transform.position, difference * transform.rotation);
+		Vector3 difference = new Vector3(
+			transform.eulerAngles.x - prevRotation.eulerAngles.x,
+			transform.eulerAngles.y - prevRotation.eulerAngles.y,
+			transform.eulerAngles.z - prevRotation.eulerAngles.z
+		);
+		print(difference);
+		//Quaternion.AngleAxis()
+		targetPoint = RotatePointAroundPivot(targetPoint, transform.position, Quaternion.Euler( difference));
 
 		List<RaycastHit> hits = SphereRaycaster.SphereRaycast(targetPoint + transform.up * 0.01f, stepSize, walkableLayers);
 		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(hits, targetPoint + transform.up * 0.01f);
