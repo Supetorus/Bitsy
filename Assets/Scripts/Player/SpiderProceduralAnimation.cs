@@ -145,16 +145,12 @@ public class SpiderProceduralAnimation : MonoBehaviour
 
 	private void CheckWhichLegsShouldMove()
 	{
-		// Check if each leg should be moved or not.
-		float maxDistance = stepSize;
-		if (velocity == Vector3.zero) maxDistance = 0.01f;
 		for (int i = 0; i < numberOfLegs; ++i)
 		{
 			if (legMoving[i]) continue;
 			float distance = (idealPositions[i] - legTargets[i].position).magnitude;
-			if (distance > maxDistance)
+			if (distance > stepSize)
 			{
-				//maxDistance = distance;
 				legMoving[i] = true;
 				CalculateNewTarget(i);
 			}
@@ -259,23 +255,20 @@ public class SpiderProceduralAnimation : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
-		float maxDistance = stepSize;
-		if (velocity == Vector3.zero) maxDistance = 0.01f;
-
 		for (int i = 0; i < numberOfLegs; ++i)
 		{
 			//Gizmos.color = currentPositionColors[i];
 			Gizmos.color = Color.white;
 			Gizmos.DrawSphere(legTargets[i].position, 0.01f);
 			Gizmos.color = defaultPositionColors[i];
-			Gizmos.DrawWireSphere(transform.TransformPoint(defaultLegPositions[i]), maxDistance);
+			Gizmos.DrawWireSphere(transform.TransformPoint(defaultLegPositions[i]), stepSize);
 			Gizmos.color = idealPositionColors[i];
 			Gizmos.DrawSphere(idealPositions[i], 0.01f);
 			Gizmos.color = defaultPositionColors[i];
 			Gizmos.DrawSphere(nextLegPositions[i], 0.02f);
 			float distance = ((transform.position + defaultLegPositions[i]) - legTargets[i].position).magnitude;
-			Gizmos.color = distance > maxDistance ? Color.red : Color.green;
-			Gizmos.DrawLine(transform.TransformPoint(defaultLegPositions[i]), legTargets[i].position);
+			Gizmos.color = distance > stepSize ? Color.red : Color.green;
+			Gizmos.DrawLine(idealPositions[i], legTargets[i].position);
 		}
 	}
 }
