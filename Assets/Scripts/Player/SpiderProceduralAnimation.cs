@@ -147,7 +147,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 	{
 		for (int i = 0; i < numberOfLegs; ++i)
 		{
-			if (legMoving[i]) continue;
+			if (legMoving[i] || legMoving[(i + 1) % numberOfLegs]) continue;
 			float distance = (idealPositions[i] - legTargets[i].position).magnitude;
 			if (distance > stepSize)
 			{
@@ -165,9 +165,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 			transform.eulerAngles.y - prevRotation.eulerAngles.y,
 			transform.eulerAngles.z - prevRotation.eulerAngles.z
 		);
-		print(difference);
-		//Quaternion.AngleAxis()
-		targetPoint = RotatePointAroundPivot(targetPoint, transform.position, Quaternion.Euler( difference));
+		targetPoint = RotatePointAroundPivot(targetPoint, transform.position, Quaternion.Euler(difference));
 
 		List<RaycastHit> hits = SphereRaycaster.SphereRaycast(targetPoint + transform.up * 0.01f, stepSize, walkableLayers);
 		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(hits, targetPoint + transform.up * 0.01f);
