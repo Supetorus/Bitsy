@@ -15,6 +15,12 @@ public class ClingState : MovementState
 	[Tooltip("Drag in the 'Look' action here.")]
 	public InputActionReference cameraInput;
 
+	[Header("Debug tools")]
+	[SerializeField, Tooltip("Makes the player continuously walk forwards, overrides any other input.")]
+	private bool walkForwards = false;
+	[SerializeField, Tooltip("Makes the player continuously turn to the right, overrides other input")]
+	private bool turnRight = false;
+
 	private float movementMultiplier;
 
 	//[SerializeField] private AudioSource walking;
@@ -61,6 +67,7 @@ public class ClingState : MovementState
 		}
 
 		Vector2 input = c.move.action.ReadValue<Vector2>();
+		if (walkForwards) input = Vector2.up;
 		// Drag is only applied if there is no input.
 		if (input == Vector2.zero) sd.velocity *= c.drag;
 
@@ -74,6 +81,7 @@ public class ClingState : MovementState
 		if (closestPoint != null)
 		{
 			Vector2 camInput = cameraInput.action.ReadValue<Vector2>();
+			if (turnRight) camInput = Vector2.right;
 			float sensitivity = PlayerPrefs.GetFloat("Slider_CameraHorizontalSensitivity");
 			camInput *= sensitivity;
 			yaw = (camInput.x) % 360;
