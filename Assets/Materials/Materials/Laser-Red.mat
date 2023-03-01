@@ -99,9 +99,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _Alpha: 0.488
+    - _AlphaCutoff: 0.5
     - _AlphaMaskAffect: 0.5
     - _AlphaMaskFeature: 0
     - _BumpScale: 1
@@ -159,6 +172,8 @@ Material:
     - _PositionDirection: 1
     - _PositionFeature: 1
     - _PositionSpaceFeature: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RandomGlitchAmount: 0.089
     - _RandomGlitchConstant: 0
     - _RandomGlitchFeature: 0

@@ -25,6 +25,7 @@ public class GlobalPlayerDetection : MonoBehaviour
 	[SerializeField] ProgressBar detectionBar;
 
 	private static float detectionLevel;
+	private static float prevDetectionLevel;
 	[SerializeField] public float currentDetectionLevel { get { return detectionLevel; } set { detectionLevel = Mathf.Clamp(value, 0, 100); } }
 	public List<DetectionEnemy> allEnemies;
 	[HideInInspector] public bool detectionChanged = false;
@@ -36,6 +37,7 @@ public class GlobalPlayerDetection : MonoBehaviour
 
 	public void ChangeDetection(float change)
 	{
+		prevDetectionLevel = currentDetectionLevel;
 		currentDetectionLevel += change;
 		if(detectionBar)detectionBar.SetValue(currentDetectionLevel);
 		CheckEvents();
@@ -58,14 +60,13 @@ public class GlobalPlayerDetection : MonoBehaviour
 		else if (currentDetectionLevel >= 25)
 		{
 			if (onQuarter != null) onQuarter();
-		} else if(currentDetectionLevel == 0)
+		} else if(prevDetectionLevel != 0 && currentDetectionLevel == 0)
 		{
 			if (onEmpty != null) onEmpty();
 		}
 	}
 
-
-	public void FixedUpdate() 
+	public void Update() 
 	{
 		if (!PlayerInSight()) ChangeDetection(-decreasePerSecond * Time.deltaTime);
 	}
