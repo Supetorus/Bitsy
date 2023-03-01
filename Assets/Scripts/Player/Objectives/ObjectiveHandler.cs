@@ -103,14 +103,14 @@ public class ObjectiveHandler : MonoBehaviour
 					PlayerPrefs.SetString("TutorialDone", "TRUE");
 				}
 				break;
-			case "Alpha 1.0 Level 1":
+			case "Level 1":
 				if (PlayerPrefs.GetString("Level1Done") == "FALSE")
 				{
 					PlayerPrefs.SetInt("LevelLock", 2);
 					PlayerPrefs.SetString("Level1Done", "TRUE");
 				}
 				break;
-			case "Alpha 1.0 Level 2":
+			case "Level 2":
 				if (PlayerPrefs.GetString("Level2Done") == "FALSE")
 				{
 					PlayerPrefs.SetInt("LevelLock", 3);

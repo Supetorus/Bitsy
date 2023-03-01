@@ -6,7 +6,6 @@ using UnityEngine;
 public class LevelLocker : MonoBehaviour
 {
 	[SerializeField] ChapterManager manager;
-	private bool chapterChanged;
 
 	// Update is called once per frame
 	void Update()

@@ -8,7 +8,7 @@ public class PlayerPrefSetup : MonoBehaviour
     void Start()
     {
 		//Level Lock
-		if (!PlayerPrefs.HasKey("LevelLock")) PlayerPrefs.SetInt("LevelLock", 0);
+		if (!PlayerPrefs.HasKey("LevelLock")) PlayerPrefs.SetInt("LevelLock", 1);
 		if (!PlayerPrefs.HasKey("TutorialDone")) PlayerPrefs.SetString("TutorialDone", "FALSE");
 		if (!PlayerPrefs.HasKey("Level1Done")) PlayerPrefs.SetString("Level1Done", "FALSE");
 		if (!PlayerPrefs.HasKey("Level2Done")) PlayerPrefs.SetString("Level2Done", "FALSE");
