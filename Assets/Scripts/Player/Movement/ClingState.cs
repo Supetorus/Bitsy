@@ -21,7 +21,7 @@ public class ClingState : MovementState
 	[SerializeField, Tooltip("Makes the player continuously turn to the right, overrides other input")]
 	private bool turnRight = false;
 
-	private float movementMultiplier;
+	private float movementMultiplier = 1;
 
 	//[SerializeField] private AudioSource walking;
 	private ThirdPersonCameraController cameraController;
@@ -71,9 +71,13 @@ public class ClingState : MovementState
 		// Drag is only applied if there is no input.
 		if (input == Vector2.zero) sd.velocity *= c.drag;
 
+#if UNITY_EDITOR
 		// Sprint
 		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
 		else movementMultiplier = Mathf.Clamp(movementMultiplier * c.drag, 1, sprintMultiplier);
+#else
+		movementMultiplier = 1;
+#endif
 
 		hits = SphereRaycaster.SphereRaycast(transform.position, sd.attachmentDistance, sd.walkableLayers);
 		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(hits, transform.position);
@@ -147,15 +151,15 @@ public class ClingState : MovementState
 
 	private void OnDrawGizmosSelected()
 	{
-		if (!Application.isPlaying || hits == null) return;
-		Gizmos.color = Color.green;
-		foreach (var hit in hits)
-		{
-			Gizmos.DrawSphere(hit.point, 0.01f);
-		}
-		Gizmos.color = Color.red;
-		Vector3 position = (Vector3)SphereRaycaster.GetClosestPoint(hits, transform.position);
-		Gizmos.DrawSphere(position, 0.02f);
-		Gizmos.DrawLine(transform.position, position);
+		//if (!Application.isPlaying || hits == null) return;
+		//Gizmos.color = Color.green;
+		//foreach (var hit in hits)
+		//{
+		//	Gizmos.DrawSphere(hit.point, 0.01f);
+		//}
+		//Gizmos.color = Color.red;
+		//Vector3 position = (Vector3)SphereRaycaster.GetClosestPoint(hits, transform.position);
+		//Gizmos.DrawSphere(position, 0.02f);
+		//Gizmos.DrawLine(transform.position, position);
 	}
 }

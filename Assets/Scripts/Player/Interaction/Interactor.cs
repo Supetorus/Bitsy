@@ -63,7 +63,7 @@ public class Interactor : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
-		Gizmos.color = Color.yellow;
-		Gizmos.DrawSphere(_interactionPoint.position, _interactionPointRadius);
+		//Gizmos.color = Color.yellow;
+		//Gizmos.DrawSphere(_interactionPoint.position, _interactionPointRadius);
 	}
 }

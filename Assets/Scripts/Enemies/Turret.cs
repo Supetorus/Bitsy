@@ -11,6 +11,7 @@ public class Turret : DetectionEnemy
 	[SerializeField] private LayerMask myMask;
 	[SerializeField] private float projSpeed;
 	[SerializeField] private float fireRate;
+	[SerializeField] GameObject deathExplode;
 	[HideInInspector] private float fireTimer;
 
 	GameObject player;
@@ -31,8 +32,8 @@ public class Turret : DetectionEnemy
 
 	public override void DartRespond()
 	{
-		//IMPLEMENT
-		Destroy(gameObject);
+		Instantiate(deathExplode, transform.position, transform.rotation);
+		Destroy(gameObject, 0.5f);
 	}
 
 	public override void EMPRespond(float stunDuration, GameObject stunEffect)

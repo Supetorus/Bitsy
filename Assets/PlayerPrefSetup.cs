@@ -7,6 +7,12 @@ public class PlayerPrefSetup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		//Level Lock
+		if (!PlayerPrefs.HasKey("LevelLock")) PlayerPrefs.SetInt("LevelLock", 1);
+		if (!PlayerPrefs.HasKey("TutorialDone")) PlayerPrefs.SetString("TutorialDone", "FALSE");
+		if (!PlayerPrefs.HasKey("Level1Done")) PlayerPrefs.SetString("Level1Done", "FALSE");
+		if (!PlayerPrefs.HasKey("Level2Done")) PlayerPrefs.SetString("Level2Done", "FALSE");
+
 		//Misc Upgrades
 		if(!PlayerPrefs.HasKey("Lunge")) PlayerPrefs.SetString("Lunge", "False");
 		if (!PlayerPrefs.HasKey("WebZip")) PlayerPrefs.SetString("WebZip", "False");

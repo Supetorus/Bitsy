@@ -4,6 +4,8 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using Michsky.UI.Reach;
+using UnityEngine.SceneManagement;
+
 public class ObjectiveHandler : MonoBehaviour
 {
 	[SerializeField] QuestItem questItem;
@@ -90,6 +92,33 @@ public class ObjectiveHandler : MonoBehaviour
 
 		panelManager.OpenPanel(panelManager.panels[6].panelName);
 
+		var sceneName = SceneManager.GetActiveScene().name;
+		print(sceneName);
+		switch (sceneName)
+		{
+			case "Tutorial":
+				if (PlayerPrefs.GetString("TutorialDone") == "FALSE")
+				{
+					PlayerPrefs.SetInt("LevelLock", 1);
+					PlayerPrefs.SetString("TutorialDone", "TRUE");
+				}
+				break;
+			case "Level 1":
+				if (PlayerPrefs.GetString("Level1Done") == "FALSE")
+				{
+					PlayerPrefs.SetInt("LevelLock", 2);
+					PlayerPrefs.SetString("Level1Done", "TRUE");
+				}
+				break;
+			case "Level 2":
+				if (PlayerPrefs.GetString("Level2Done") == "FALSE")
+				{
+					PlayerPrefs.SetInt("LevelLock", 3);
+					PlayerPrefs.SetString("Level2Done", "TRUE");
+				}
+				break;
+		}
+
 		gm.UnloadCurrentScene();
 
 		//menuManager.ActivateMenu();
@@ -98,7 +127,8 @@ public class ObjectiveHandler : MonoBehaviour
 
 		gm.menuCamera.SetActive(true);
 		gm.playCamera.SetActive(false);
-
+		print(PlayerPrefs.GetInt("LevelLock"));
+		print(PlayerPrefs.GetString("TutorialDone"));
 		Debug.Log("Level Complete");
 	}
 

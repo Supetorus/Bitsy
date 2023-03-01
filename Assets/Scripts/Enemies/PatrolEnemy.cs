@@ -27,6 +27,7 @@ public class PatrolEnemy : DetectionEnemy
 	[Header("Animation")]
 	[SerializeField] Transform hipsJoint;
 	[SerializeField] Transform hips;
+	[SerializeField] GameObject deathExplode;
 
 	private Quaternion hipsRot;
 	private float fireTimer;
@@ -121,8 +122,8 @@ public class PatrolEnemy : DetectionEnemy
 
 	public override void DartRespond()
 	{
-		//MUST IMPLEMENT
-		Destroy(gameObject);
+		Instantiate(deathExplode, transform.position, transform.rotation);
+		Destroy(gameObject, 0.5f);
 	}
 
 	public void ChangeDestination(int nodeNum)
