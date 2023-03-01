@@ -37,9 +37,9 @@ public class CameraDetection : DetectionEnemy
 	{
 		// Detect for player.
 		canSeePlayer = ConeDetection(maxAngle, player.transform, layerMask);
-		cameraLight.color = canSeePlayer ? Color.red : Color.white;
+		if (cameraLight != null) cameraLight.color = canSeePlayer ? Color.red : Color.white;
 		if (canSeePlayer) player.GetComponent<GlobalPlayerDetection>().ChangeDetection(100 * Time.deltaTime);
-		cameraLight.spotAngle = maxAngle * 2;
+		if (cameraLight != null) cameraLight.spotAngle = maxAngle * 2;
 
 		// Draw the rays around the area of the cone.
 		DrawCone(lineCount, lines, lineRenderer, beamRotationSpeed, maxAngle);
