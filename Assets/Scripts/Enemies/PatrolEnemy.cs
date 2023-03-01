@@ -13,6 +13,7 @@ public class PatrolEnemy : DetectionEnemy
 	[SerializeField] Transform hipsJoint;
 	[SerializeField] Transform hips;
 	[SerializeField] GameObject projectile;
+	[SerializeField] GameObject deathExplode;
 	[SerializeField] float maxPlayerDist;
 	[SerializeField] float sightDist;
 	[SerializeField] float projSpeed;
@@ -35,8 +36,8 @@ public class PatrolEnemy : DetectionEnemy
 
 	public override void DartRespond()
 	{
-		//MUST IMPLEMENT
-		Destroy(gameObject);
+		Instantiate(deathExplode, transform.position, transform.rotation);
+		Destroy(gameObject, 0.5f);
 	}
 
 	// Start is called before the first frame update
