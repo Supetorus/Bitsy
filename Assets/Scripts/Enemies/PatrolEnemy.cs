@@ -5,18 +5,28 @@ using UnityEngine.AI;
 
 public class PatrolEnemy : DetectionEnemy
 {
+	[Header("Navigation")]
 	[SerializeField] List<GameObject> nodes;
-	[SerializeField] Animator animator;
 	[SerializeField] NavMeshAgent agent;
-	[SerializeField] Transform eyes;
+	[SerializeField] Animator animator;
+	[Header("Shooting")]
 	[SerializeField] Transform gun;
-	[SerializeField] Transform hipsJoint;
-	[SerializeField] Transform hips;
 	[SerializeField] GameObject projectile;
-	[SerializeField] float maxPlayerDist;
-	[SerializeField] float sightDist;
 	[SerializeField] float projSpeed;
 	[SerializeField] float fireRate;
+	[Header("Detection")]
+	[SerializeField] float maxPlayerDist;
+	[SerializeField, Range(0, 180)] private float maxAngle;
+	[SerializeField] float sightDist;
+	[SerializeField] private LayerMask layerMask;
+	[SerializeField] Transform eyes;
+	[Header("Detection Area Display")]
+	[SerializeField] private int lineCount;
+	[SerializeField] private LineRenderer lineRenderer;
+	[SerializeField] private float beamRotationSpeed;
+	[Header("Animation")]
+	[SerializeField] Transform hipsJoint;
+	[SerializeField] Transform hips;
 
 	private Quaternion hipsRot;
 	private float fireTimer;
@@ -27,66 +37,50 @@ public class PatrolEnemy : DetectionEnemy
 	private Vector3 playerDir;
 	private Vector3 feetPos { get => new Vector3(transform.position.x, transform.position.y - agent.baseOffset, transform.position.z); }
 	private float minDistanceThreshhold = 0.06f;
+	private List<LineRenderer> lines = new List<LineRenderer>();
 
-	public override bool CheckSightlines()
-	{
-		return canSeePlayer;
-	}
-
-	public override void DartRespond()
-	{
-		//MUST IMPLEMENT
-		Destroy(gameObject);
-	}
-
-	// Start is called before the first frame update
 	void Start()
-    {
+	{
 		hipsRot = hipsJoint.rotation;
 		player = GameObject.FindGameObjectWithTag("Player");
 		ChangeDestination(0);
 		fireTimer = fireRate;
 	}
 
-	public void ChangeDestination(int nodeNum)
+	void Update()
 	{
-		agent.SetDestination(nodes[nodeNum].transform.position);
-		targetNode = nodes[nodeNum];
-		nodeIndex = nodeNum;
-	}
+		canSeePlayer = ConeDetection(maxAngle, player.transform, layerMask, eyes.position);
+		animator.SetBool("CanSeePlayer", canSeePlayer);
+		if (canSeePlayer) player.GetComponent<GlobalPlayerDetection>().ChangeDetection(100 * Time.deltaTime);
 
-    // Update is called once per frame
-    void Update()
-    {
-		playerDir = (player.transform.position - eyes.position).normalized;
-		Debug.DrawRay(gun.transform.position, (player.transform.position - gun.transform.position).normalized);
-		if (Physics.Raycast(eyes.position, playerDir, out RaycastHit hit, sightDist))
-		{
-			if (hit.collider.gameObject == player && player.GetComponent<AbilityController>().isVisible)
-			{
-				animator.SetBool("CanSeePlayer", true);
-				canSeePlayer = true;
-				player.GetComponent<GlobalPlayerDetection>().ChangeDetection(100 * Time.deltaTime);
-			}
-			else
-			{
-				animator.SetBool("CanSeePlayer", false);
-				canSeePlayer = false;
-				ChangeDestination(nodeIndex);
-			}
-		}
+		DrawCone(lineCount, lines, lineRenderer, beamRotationSpeed, maxAngle, eyes.position);
+		//playerDir = (player.transform.position - eyes.position).normalized;
+		//if (Physics.Raycast(eyes.position, playerDir, out RaycastHit hit, sightDist, layerMask) &&
+		//	hit.collider.gameObject == player &&
+		//	player.GetComponent<AbilityController>().isVisible)
+		//{
+		//	animator.SetBool("CanSeePlayer", true);
+		//	canSeePlayer = true;
+		//	player.GetComponent<GlobalPlayerDetection>().ChangeDetection(100 * Time.deltaTime);
+		//}
+		//else
+		//{
+		//	animator.SetBool("CanSeePlayer", false);
+		//	canSeePlayer = false;
+		//	ChangeDestination(nodeIndex);
+		//}
 
 		if (!canSeePlayer)
 		{
-			if(agent.isStopped) agent.isStopped = false;
+			agent.isStopped = false;
 			if (Vector3.Distance(feetPos, targetNode.transform.position) < minDistanceThreshhold)
 			{
-				if (nodeIndex == nodes.Count - 1) ChangeDestination(0);
-				else ChangeDestination(++nodeIndex);
+				ChangeDestination((nodeIndex + 1) % nodes.Count);
 			}
-		} 
-		else 
-		{	if (Vector3.Distance(feetPos, player.transform.position) > maxPlayerDist)
+		}
+		else
+		{
+			if (Vector3.Distance(feetPos, player.transform.position) > maxPlayerDist)
 			{
 				hipsJoint.rotation = Quaternion.Slerp(
 				hipsJoint.rotation,
@@ -111,14 +105,32 @@ public class PatrolEnemy : DetectionEnemy
 				{
 					GameObject bullet = Instantiate(projectile, gun.transform);
 					bullet.transform.rotation = Quaternion.LookRotation((player.transform.position - gun.transform.position).normalized);
-					bullet.GetComponent<Rigidbody>().AddForce((player.transform.position - gun.transform.position).normalized * projSpeed);
-					
+					bullet.GetComponentInChildren<Rigidbody>().AddForce((player.transform.position - gun.transform.position).normalized * projSpeed);
+
 					fireTimer = fireRate;
 				}
 			}
 			fireTimer -= Time.deltaTime;
 		}
-    }
+	}
+
+	public override bool CheckSightlines()
+	{
+		return canSeePlayer;
+	}
+
+	public override void DartRespond()
+	{
+		//MUST IMPLEMENT
+		Destroy(gameObject);
+	}
+
+	public void ChangeDestination(int nodeNum)
+	{
+		agent.SetDestination(nodes[nodeNum].transform.position);
+		targetNode = nodes[nodeNum];
+		nodeIndex = nodeNum;
+	}
 
 	private void OnDrawGizmosSelected()
 	{
