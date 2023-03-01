@@ -112,7 +112,7 @@ public class PatrolEnemy : DetectionEnemy
 				{
 					GameObject bullet = Instantiate(projectile, gun.transform);
 					bullet.transform.rotation = Quaternion.LookRotation((player.transform.position - gun.transform.position).normalized);
-					bullet.GetComponent<Rigidbody>().AddForce((player.transform.position - gun.transform.position).normalized * projSpeed);
+					bullet.GetComponentInChildren<Rigidbody>().AddForce((player.transform.position - gun.transform.position).normalized * projSpeed);
 					
 					fireTimer = fireRate;
 				}
