@@ -53,17 +53,4 @@ public class CameraDetection : DetectionEnemy
 	{
 		throw new System.NotImplementedException();
 	}
-
-	private void OnDrawGizmosSelected()
-	{
-		Quaternion toEdge = Quaternion.AngleAxis(maxAngle, transform.up);
-		Quaternion aroundCircumference = Quaternion.identity;
-		Quaternion rotationIncrement = Quaternion.AngleAxis(360f / lineCount, transform.forward);
-		for (int i = 0; i < lineCount; i++)
-		{
-			Vector3 direction = aroundCircumference * toEdge * transform.forward;
-			Gizmos.DrawRay(transform.position, direction * 10);
-			aroundCircumference *= rotationIncrement;
-		}
-	}
 }
