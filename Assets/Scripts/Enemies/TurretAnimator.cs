@@ -9,37 +9,41 @@ public class TurretAnimator : MonoBehaviour
 	[SerializeField] Turret turret;
 	private void OnEnable()
 	{
-		GlobalPlayerDetection.onThreeFourths += EnableTurret;
-		GlobalPlayerDetection.onHalf += DisableTurret;
+		GlobalPlayerDetection.onThreeFourths += Popup;
+		GlobalPlayerDetection.onEmpty += DisableTurret;
+		GlobalPlayerDetection.onEmpty += Hide;
 	}
 
 	private void OnDisable()
 	{
-		GlobalPlayerDetection.onThreeFourths -= EnableTurret;
-		GlobalPlayerDetection.onHalf -= DisableTurret;
+		GlobalPlayerDetection.onThreeFourths -= Popup;
+		GlobalPlayerDetection.onHalf -= Hide;
 	}
 
 	// Start is called before the first frame update
 	void Start()
     {
+		Hide();
 		DisableTurret();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-	}
-
-	void EnableTurret()
+	void Popup()
 	{
 		animator.SetBool("isActive", true);
+	}
+
+	void Hide()
+	{
+		animator.SetBool("isActive", false);
+	}
+
+	public void EnableTurret()
+	{
 		turret.enabled = true;
 	}
 
-	void DisableTurret()
+	public void DisableTurret()
 	{
-		animator.SetBool("isActive", false);
 		turret.enabled = false;
 	}
 }

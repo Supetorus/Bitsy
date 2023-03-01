@@ -8,6 +8,7 @@ public class LaserMovement : MonoBehaviour
 	public bool isVerticalSliding;
 	public bool isHorizontalSlidingX;
 	public bool isHorizontalSlidingZ;
+	public bool flipped = false;
 	public float movementAmount;
 	public float laserSpeed;
 
@@ -34,6 +35,12 @@ public class LaserMovement : MonoBehaviour
 		}
 		else
 		{ Debug.LogWarning("No direction was selected for " + gameObject.name); }
+		if (flipped)
+		{
+			Vector3 temp = pos1;
+			pos1 = pos2;
+			pos2 = temp;
+		}
 	}
 	void Update()
 	{

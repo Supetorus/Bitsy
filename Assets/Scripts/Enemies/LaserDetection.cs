@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class LaserDetection : DetectionEnemy
 {
-	public bool doesDamage;
-	public float dps = 1;
-	public List<GameObject> alarmsLight;
-	public bool isStunned;
+	[SerializeField, Tooltip("Whether this turret does damage or increases detection.")]
+	private bool doesDamage;
+	[SerializeField, Tooltip("How much damage is done or detection is increased per second.")]
+	private float dps = 1;
 
-	GameObject player;
+	private bool isStunned;
+	private GameObject player;
 
 	private void Start()
 	{
@@ -27,22 +28,11 @@ public class LaserDetection : DetectionEnemy
 			{
 				if (doesDamage)
 				{
-					//Lower the players Health
 					other.GetComponent<Health>().TakeDamage(dps * Time.deltaTime);
 				}
 				else
 				{
-					//Increase the detection meter
-					other.GetComponent<GlobalPlayerDetection>().ChangeDetection(0.25f, true);
-					foreach (var alarm in FindObjectsOfType<Alarm>())
-					{
-						alarm.Play();
-					}
-					foreach (var light in alarmsLight)
-					{
-						light.transform.GetChild(1).gameObject.SetActive(true);
-						light.transform.GetChild(2).gameObject.SetActive(true);
-					}
+					other.GetComponent<GlobalPlayerDetection>().ChangeDetection(dps * Time.deltaTime);
 				}
 			}
 		}
@@ -51,11 +41,6 @@ public class LaserDetection : DetectionEnemy
 	public override bool CheckSightlines()
 	{
 		return false;
-	}
-
-	public override void DartRespond()
-	{
-		//DOES NOT RESPOND TO TROJAN DART
 	}
 
 	public override void EMPRespond(float stunDuration, GameObject stunEffect)

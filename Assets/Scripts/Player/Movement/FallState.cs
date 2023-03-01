@@ -15,7 +15,8 @@ public class FallState : MovementState
 		// Todo this should be a slerp from the original position to facing upright,
 		// or upright according to where they will land.
 		transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
-		Vector3? point = SphereRaycaster.GetClosestPoint(transform.position, sd.lesserAttachmentDistance, sd.walkableLayers);
+		List<RaycastHit> hits = SphereRaycaster.SphereRaycast(transform.position, sd.lesserAttachmentDistance, sd.walkableLayers);
+		Vector3? point = SphereRaycaster.GetClosestPoint(hits, transform.position);
 		if (point != null)
 		{
 			c.CurrentMovementState = c.clingState;

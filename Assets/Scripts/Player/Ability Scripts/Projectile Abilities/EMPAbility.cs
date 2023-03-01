@@ -27,7 +27,7 @@ public class EMPAbility : Ability
 	public override void UseAbility()
     {
 		if (PlayerPrefs.GetString("EMP_DU") == "True" && PlayerPrefs.GetString("EMP_RU") == "True") projectile = projectiles[2];
-		else if (PlayerPrefs.GetString("EMP_RU") == "True") projectile = projectiles[1];
+		else if (PlayerPrefs.GetString("EMP_RU") == "True" || PlayerPrefs.GetString("EMP_DU") == "True") projectile = projectiles[1];
 		else projectile = projectiles[0];
 
 
@@ -38,9 +38,5 @@ public class EMPAbility : Ability
 			proj.GetComponent<Bomb>().isEMP = true;
 			currentAmmo--;
 		}
-    }
-	public override void DeactivateAbility()
-    {
-
     }
 }
