@@ -21,7 +21,7 @@ public class ClingState : MovementState
 	[SerializeField, Tooltip("Makes the player continuously turn to the right, overrides other input")]
 	private bool turnRight = false;
 
-	private float movementMultiplier;
+	private float movementMultiplier = 1;
 
 	//[SerializeField] private AudioSource walking;
 	private ThirdPersonCameraController cameraController;
@@ -75,6 +75,8 @@ public class ClingState : MovementState
 		// Sprint
 		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
 		else movementMultiplier = Mathf.Clamp(movementMultiplier * c.drag, 1, sprintMultiplier);
+#else
+		movementMultiplier = 1;
 #endif
 
 		hits = SphereRaycaster.SphereRaycast(transform.position, sd.attachmentDistance, sd.walkableLayers);
