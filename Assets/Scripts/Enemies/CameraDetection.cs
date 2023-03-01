@@ -6,6 +6,8 @@ public class CameraDetection : DetectionEnemy
 {
 	[SerializeField, Tooltip("Distance in degrees from the center of the direction the detection cone should extend."), Range(0, 180)]
 	private float maxAngle;
+	[SerializeField, Tooltip("The layers that should interrupt raycasts searching for the player, including the player")]
+	private LayerMask layerMask;
 	[SerializeField, Tooltip("The number of lines coming out of the camera around the cone"), Range(0, 200)]
 	private int lineCount = 5;
 	[SerializeField, Tooltip("How many degrees the camera's beams rotate per second")]
@@ -34,7 +36,7 @@ public class CameraDetection : DetectionEnemy
 	void Update()
 	{
 		// Detect for player.
-		canSeePlayer = ConeDetection(maxAngle, player.transform);
+		canSeePlayer = ConeDetection(maxAngle, player.transform, layerMask);
 		cameraLight.color = canSeePlayer ? Color.red : Color.white;
 		if (canSeePlayer) player.GetComponent<GlobalPlayerDetection>().ChangeDetection(100 * Time.deltaTime);
 		cameraLight.spotAngle = maxAngle * 2;
