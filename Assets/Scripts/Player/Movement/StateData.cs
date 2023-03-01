@@ -26,7 +26,6 @@ public class StateData : MonoBehaviour
 		if (lesserAttachmentDistance > attachmentDistance) Debug.LogError("Lesser Attachment Distance must be less than Attachment Distance in 'State Data'");
 		if ((walkableLayers & LayerMask.GetMask("Player")) > 0) Debug.LogError("Player cannot be in the layermask for 'State Data' Walkable Layers.");
 		if (camera == null) Debug.LogError("Camera is not assigned in 'State Data'");
-		if (lesserAttachmentDistance <= GetComponent<SphereCollider>().radius) Debug.LogError("Lesser attachment distance must be greater than collider's radius.");
 	}
 
 	private void OnDrawGizmosSelected()
