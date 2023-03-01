@@ -13,7 +13,7 @@ public class CameraPath : MonoBehaviour
 
 	private void Start()
 	{
-		transform.rotation = Quaternion.LookRotation(lookPoints[0].position - transform.position);
+		if (lookPoints.Length > 0) transform.rotation = Quaternion.LookRotation(lookPoints[0].position - transform.position);
 	}
 
 	private void Update()
