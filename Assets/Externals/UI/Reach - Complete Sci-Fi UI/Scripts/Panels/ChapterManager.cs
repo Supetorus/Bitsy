@@ -10,7 +10,7 @@ namespace Michsky.UI.Reach
     {
         // Content
         public List<ChapterItem> chapters = new List<ChapterItem>();
-        private List<ChapterIdentifier> identifiers = new List<ChapterIdentifier>();
+        public List<ChapterIdentifier> identifiers = new List<ChapterIdentifier>();
         public int currentChapterIndex;
 
         // Resources
@@ -65,17 +65,17 @@ namespace Michsky.UI.Reach
             public UnityEvent onReplay;
         }
 
-        void Awake()
-        {
-            InitializeChapters();
-        }
+		private void Awake()
+		{
+			InitializeChapters();
+		}
 
-        void OnEnable()
-        {
-            OpenCurrentPanel();
-        }
+		private void OnEnable()
+		{
+			OpenCurrentPanel();
+		}
 
-        void OnDisable()
+		void OnDisable()
         {
             if (backgroundStretch == false)
                 return;
@@ -251,7 +251,7 @@ namespace Michsky.UI.Reach
             StartCoroutine("DisablePanels");
         }
 
-        void OpenCurrentPanel()
+        public void OpenCurrentPanel()
         {
             if (identifiers[currentChapterIndex] == null)
                 return;
