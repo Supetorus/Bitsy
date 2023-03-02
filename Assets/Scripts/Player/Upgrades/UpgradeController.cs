@@ -103,12 +103,10 @@ public class UpgradeController : MonoBehaviour
 
 	public void Lunge()
 	{
-		Vector3 lungeDir;
 		var camera = GetComponent<StateData>().camera.GetComponent<ThirdPersonCameraController>();
-		lungeDir = camera.transform.forward;
 		L_OnCooldown = true;
 		LungeState lunge = GetComponent<LungeState>();
-		lunge.lungeDirection = lungeDir;
+		lunge.lungeDirection = camera.transform.forward;
 		controller.CurrentMovementState = lunge;
 	}
 
