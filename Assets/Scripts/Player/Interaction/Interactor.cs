@@ -18,7 +18,6 @@ public class Interactor : MonoBehaviour
 	[SerializeField] private float _interactionPointRadius = 0.5f;
 	[SerializeField] private LayerMask _interactableMask;
 	[SerializeField] private int _numFound;
-	[SerializeField] private bool drawInteractionArea = true;
 	private float pressTimer = 1;
 
 	public InputActionReference interact;
@@ -47,7 +46,7 @@ public class Interactor : MonoBehaviour
 				{
 					pressTimer = 1;
 					//Debug.Log("SOMETHING WAS HIT");
-					feedNotification.MinimizeNotification(); 
+					feedNotification.MinimizeNotification();
 					interactable.Interact(this);
 					if (_colliders[0].TryGetComponent(out TaskInteract task))
 					{
@@ -62,12 +61,9 @@ public class Interactor : MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmos()
+	private void OnDrawGizmosSelected()
 	{
-		if (drawInteractionArea)
-		{
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawSphere(_interactionPoint.position, _interactionPointRadius);
-		}
+		//Gizmos.color = Color.yellow;
+		//Gizmos.DrawSphere(_interactionPoint.position, _interactionPointRadius);
 	}
 }

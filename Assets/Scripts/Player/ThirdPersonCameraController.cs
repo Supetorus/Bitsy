@@ -142,4 +142,12 @@ public class ThirdPersonCameraController : MonoBehaviour
 
 		reticle.SetActive(zooming);
 	}
+
+	private void OnDrawGizmosSelected()
+	{
+		//Gizmos.color = Color.cyan;
+		//Gizmos.DrawSphere(transform.position, camera.nearClipPlane);
+		//Gizmos.DrawSphere(aimTarget.position, camera.nearClipPlane);
+		//Gizmos.DrawLine(transform.position, aimTarget.position);
+	}
 }

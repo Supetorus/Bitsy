@@ -231,7 +231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100605345239028752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.25, y: 0.3, z: -0.544}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1283,6 +1283,7 @@ GameObject:
   - component: {fileID: 2683350034061294018}
   - component: {fileID: 2683350034061294021}
   - component: {fileID: 274415619673760356}
+  - component: {fileID: 7277607661090264549}
   m_Layer: 3
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -1404,6 +1405,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   registrationName: playcamera
+--- !u!114 &7277607661090264549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350034061294017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &2683350034651017715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,6 +1697,7 @@ GameObject:
   - component: {fileID: 2683350035233568994}
   - component: {fileID: 5510854112619284885}
   - component: {fileID: 3680606545180593560}
+  - component: {fileID: 9024221523891063854}
   - component: {fileID: 797285236}
   - component: {fileID: 6122858834304969800}
   - component: {fileID: 5423256768897152099}
@@ -1673,12 +1708,12 @@ GameObject:
   - component: {fileID: 7284688453220278872}
   - component: {fileID: 4079061226764241351}
   - component: {fileID: 2683350035233569023}
-  - component: {fileID: 797285238}
   - component: {fileID: 7207286422551258117}
   - component: {fileID: 5481248408863341317}
   - component: {fileID: 8064130380594345402}
   - component: {fileID: 6425380656713039377}
   - component: {fileID: 2259760953133817111}
+  - component: {fileID: 794718645103384902}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1744,12 +1779,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentDistance: 0.35
-  lesserAttachmentDistance: 0.08
+  lesserAttachmentDistance: 0.11
   walkableLayers:
     serializedVersion: 2
     m_Bits: 81
   camera: {fileID: 2683350034061294020}
-  drawRays: 0
   velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2683350035233568993
 MonoBehaviour:
@@ -1766,6 +1800,8 @@ MonoBehaviour:
   height: 0.15
   sprintMultiplier: 2
   cameraInput: {fileID: 3258343886368048862, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
+  walkForwards: 0
+  turnRight: 0
 --- !u!114 &2683350035233568994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1805,6 +1841,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalRot: {x: 0, y: 0, z: 0, w: 0}
   targetRot: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &9024221523891063854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e71f2f1e0ec65409b2fae2ac68be44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lungeDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &797285236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1933,7 +1982,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _numFound: 0
-  drawInteractionArea: 0
   interact: {fileID: 857090945557194352, guid: cbfb952fbb388f54589800bfa3c9e873, type: 3}
 --- !u!114 &1685213090
 MonoBehaviour:
@@ -2073,19 +2121,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!135 &797285238
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2683350035233569020}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.07
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7207286422551258117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2182,9 +2217,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073d680585a966c4884ae9e72c664826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decreasePerSecond: 10
   detectionBar: {fileID: 8344493902892477158}
   allEnemies: []
   detectionChanged: 0
+--- !u!65 &794718645103384902
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683350035233569020}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5447017, y: 0.24844351, z: 0.5467837}
+  m_Center: {x: -0.0033379197, y: 0.019461215, z: 0.0019049644}
 --- !u!1 &2683350035243659259
 GameObject:
   m_ObjectHideFlags: 0
@@ -5348,19 +5397,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   legTargets:
   - {fileID: 5398582746807870043}
+  - {fileID: 5214733412098285238}
   - {fileID: 5471774495622337563}
   - {fileID: 294367036679554292}
-  - {fileID: 5214733412098285238}
-  stepSize: 0.05
+  stepSize: 0.3
   smoothness: 8
   stepHeight: 0.08
-  sphereCastRadius: 0.125
   bodyOrientation: 0
   walkableLayers:
     serializedVersion: 2
     m_Bits: 81
-  raycastRange: 1.5
-  velocityMultiplier: 5
 --- !u!1 &8762195459633891748
 GameObject:
   m_ObjectHideFlags: 0
@@ -13139,6 +13185,10 @@ PrefabInstance:
     - target: {fileID: 2302435661881236697, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302435661860641918, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
+      propertyPath: minimizeAfter
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2302435661896614397, guid: a3029e343ea2cdd4c904b3d21e84b6cd, type: 3}
       propertyPath: m_text

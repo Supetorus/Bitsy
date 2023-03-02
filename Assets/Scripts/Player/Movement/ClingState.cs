@@ -15,7 +15,13 @@ public class ClingState : MovementState
 	[Tooltip("Drag in the 'Look' action here.")]
 	public InputActionReference cameraInput;
 
-	private float movementMultiplier;
+	[Header("Debug tools")]
+	[SerializeField, Tooltip("Makes the player continuously walk forwards, overrides any other input.")]
+	private bool walkForwards = false;
+	[SerializeField, Tooltip("Makes the player continuously turn to the right, overrides other input")]
+	private bool turnRight = false;
+
+	private float movementMultiplier = 1;
 
 	//[SerializeField] private AudioSource walking;
 	private ThirdPersonCameraController cameraController;
@@ -44,7 +50,8 @@ public class ClingState : MovementState
 		c.move.action.Disable();
 	}
 
-	float yaw = 0;
+	private List<RaycastHit> hits;
+	private float yaw = 0;
 	public override void FixedUpdateState()
 	{
 		if (height > sd.attachmentDistance)
@@ -60,31 +67,39 @@ public class ClingState : MovementState
 		}
 
 		Vector2 input = c.move.action.ReadValue<Vector2>();
+		if (walkForwards) input = Vector2.up;
 		// Drag is only applied if there is no input.
 		if (input == Vector2.zero) sd.velocity *= c.drag;
 
+#if UNITY_EDITOR
 		// Sprint
 		if (c.sprint.action.ReadValue<float>() > 0) movementMultiplier = sprintMultiplier;
 		else movementMultiplier = Mathf.Clamp(movementMultiplier * c.drag, 1, sprintMultiplier);
+#else
+		movementMultiplier = 1;
+#endif
 
-		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(transform.position, sd.attachmentDistance, sd.walkableLayers);
+		hits = SphereRaycaster.SphereRaycast(transform.position, sd.attachmentDistance, sd.walkableLayers);
+		Vector3? closestPoint = SphereRaycaster.GetClosestPoint(hits, transform.position);
 		// Near a walkable surface
 		if (closestPoint != null)
 		{
 			Vector2 camInput = cameraInput.action.ReadValue<Vector2>();
-			//if (invertX) input *= Vector2.right * -1;
+			if (turnRight) camInput = Vector2.right;
 			float sensitivity = PlayerPrefs.GetFloat("Slider_CameraHorizontalSensitivity");
 			camInput *= sensitivity;
 			yaw = (camInput.x) % 360;
-			//print(yaw);
 			Quaternion rotationDelta;
 			if (cameraController.zooming) rotationDelta = Quaternion.identity;
 			else rotationDelta = Quaternion.Euler(0, yaw, 0);
 
 			// Rotation
-			Vector3 upDirection = SphereRaycaster.CalculateAverageUp(transform.position, sd.attachmentDistance, sd.walkableLayers, transform.up);
+			Vector3 upDirection = SphereRaycaster.CalculateAverageUp(hits, transform.position, transform.up);
+			if ((transform.position - (Vector3)closestPoint).magnitude < sd.lesserAttachmentDistance)
+			{
+				upDirection = transform.position - (Vector3)closestPoint;
+			}
 
-			Vector3 forwardFromCamera = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
 			Quaternion targetRotation = Quaternion.LookRotation(Vector3.Cross(transform.right, upDirection), upDirection);
 			if (camInput != Vector2.zero) targetRotation *= rotationDelta;
 			rigidbody.MoveRotation(
@@ -98,16 +113,24 @@ public class ClingState : MovementState
 			// Movement
 			// distance from the center of object to the nearest walkable object.
 			float distance = (transform.position - (Vector3)closestPoint).magnitude;
-			input = Vector3.ClampMagnitude(input, 1);
-			Vector3 acceleration = new Vector3(
-				input.x * Time.fixedDeltaTime * c.acceleration * movementMultiplier,
-				height - distance,
-				input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
-			);
-			sd.velocity = Vector3.ClampMagnitude(sd.velocity + acceleration, c.maxVelocity * movementMultiplier);
-			Quaternion movementRotationBasis = Quaternion.LookRotation(forwardFromCamera, transform.position - (Vector3)closestPoint);
-			Vector3 movement = movementRotationBasis * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height - distance)));
-			rigidbody.MovePosition(movement + transform.position);
+			if (distance < sd.lesserAttachmentDistance)
+			{
+				rigidbody.MovePosition(rigidbody.position + upDirection * (height - distance));
+			}
+			else
+			{
+				input = Vector3.ClampMagnitude(input, 1);
+				Vector3 acceleration = new Vector3(
+					input.x * Time.fixedDeltaTime * c.acceleration * movementMultiplier,
+					height - distance,
+					input.y * Time.fixedDeltaTime * c.acceleration * movementMultiplier
+				);
+				sd.velocity = Vector3.ClampMagnitude(sd.velocity + acceleration, c.maxVelocity * movementMultiplier);
+				//Vector3 forwardFromCamera = Vector3.ProjectOnPlane(sd.camera.forward, upDirection);
+				Quaternion movementRotationBasis = Quaternion.LookRotation(transform.forward, transform.position - (Vector3)closestPoint);
+				Vector3 movement = movementRotationBasis * (sd.velocity * Time.fixedDeltaTime + (Vector3.up * (height - distance)));
+				rigidbody.MovePosition(movement + transform.position);
+			}
 
 			//TODO: This should be implemented when multiple surface materials are used
 			/*if (rigidbody.velocity.sqrMagnitude >= 0.01f && !walking.isPlaying) 
@@ -126,14 +149,17 @@ public class ClingState : MovementState
 		}
 	}
 
-	private void OnDrawGizmos()
+	private void OnDrawGizmosSelected()
 	{
-		if (!Application.isPlaying) return;
-		var hits = SphereRaycaster.SphereRaycast(transform.position, sd.attachmentDistance, sd.walkableLayers);
-		Gizmos.color = Color.green;
-		foreach ( var hit in hits )
-		{
-			Gizmos.DrawSphere(hit.point, 0.01f);
-		}
+		//if (!Application.isPlaying || hits == null) return;
+		//Gizmos.color = Color.green;
+		//foreach (var hit in hits)
+		//{
+		//	Gizmos.DrawSphere(hit.point, 0.01f);
+		//}
+		//Gizmos.color = Color.red;
+		//Vector3 position = (Vector3)SphereRaycaster.GetClosestPoint(hits, transform.position);
+		//Gizmos.DrawSphere(position, 0.02f);
+		//Gizmos.DrawLine(transform.position, position);
 	}
 }
