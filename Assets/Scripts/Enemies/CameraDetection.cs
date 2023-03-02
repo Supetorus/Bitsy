@@ -42,13 +42,4 @@ public class CameraDetection : DetectionEnemy
 		// Draw the rays around the area of the cone.
 		DrawCone(lineCount, lines, lineRenderer, beamRotationSpeed, maxAngle);
 	}
-
-	public override void DartRespond()
-	{
-	}
-
-	public override void EMPRespond(float stunDuration, GameObject stunEffect)
-	{
-		throw new System.NotImplementedException();
-	}
 }

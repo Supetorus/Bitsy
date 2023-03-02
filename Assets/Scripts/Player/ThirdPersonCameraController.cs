@@ -21,10 +21,6 @@ public class ThirdPersonCameraController : MonoBehaviour
 	public float minPitch = -89.9f;
 	[Tooltip("Camera won't pass through objects on these layers.")]
 	public LayerMask hitLayers;
-	[SerializeField, Tooltip("The FOV when zoomed in.")]
-	private float zoomedFOV = 20;
-	[SerializeField, Tooltip("How fast the camera zooms in."), Range(0.0001f, 10f)]
-	private float zoomSpeed = 4f;
 	[SerializeField]
 	private GameObject reticle;
 
@@ -48,6 +44,8 @@ public class ThirdPersonCameraController : MonoBehaviour
 	[Tooltip("Whether or not to invert the vertical camera movement.")]
 	public bool invertY = false;
 
+	private float zoomedFOV = 90;
+	private float zoomSpeed = 4f;
 	private new Camera camera;
 	private Vector2 input = Vector2.zero;
 	private float defaultFOV = 60;
