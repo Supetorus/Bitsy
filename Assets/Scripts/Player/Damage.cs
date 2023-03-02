@@ -35,13 +35,17 @@ public class Damage : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		Health health = other.GetComponent<Health>();
+		Health health;
+		if (other.CompareTag("Player")) health = Player.Health;
+		else health = other.GetComponent<Health>();
 		DoIt(health);
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
-		Health health = other.GetComponent<Health>();
+		Health health;
+		if (other.CompareTag("Player")) health = Player.Health;
+		else health = other.GetComponent<Health>();
 		DoIt(health);
 	}
 
