@@ -15,20 +15,18 @@ public class UpgradeController : MonoBehaviour
 
 	[Header("WebZip Settings")]
 	//WebZip Variables WZ_ = WebZip
-	[SerializeField] float WZ_MaxDist;
-	[SerializeField] float WZ_Cooldown;
-	[SerializeField] float WZ_Timer;
-	[SerializeField] bool WZ_OnCooldown;
+	private float WZ_MaxDist = 6.5f;
+	private float WZ_Cooldown = 3.75f;
+	private float WZ_Timer;
+	private bool WZ_OnCooldown;
 	[SerializeField] LayerMask WZ_LayerMask;
 
-	[Header("Lunge Settings")]
 	//Lunge Variables L_ = Lunge
-	[SerializeField] float L_Force;
-	[SerializeField] float L_Cooldown;
-	[SerializeField] float L_Timer;
-	[HideInInspector] bool L_OnCooldown;
+	private float L_Cooldown = 1.5f;
+	private float L_Timer;
+	private bool L_OnCooldown;
 
-	[Header("Upgrade Variables")]
+	//Upgrade Variables
 	private const int SB_REGULAR_DURATION = 1;
 	private const int SB_UPGRADED_DURATION = 2;
 
@@ -96,6 +94,7 @@ public class UpgradeController : MonoBehaviour
 		Physics.Raycast(ray, out hit, WZ_MaxDist, WZ_LayerMask);
 		if (hit.collider)
 		{
+			WZ_OnCooldown = true;
 			ZipState zip = GetComponent<ZipState>();
 			zip.attachedObject = hit;
 			controller.CurrentMovementState = zip;
