@@ -50,6 +50,9 @@ public class AbilityController : MonoBehaviour
 	private int abilityIndex = 0;
 	private Ability[] equippedAbilities = new Ability[4];
 	private List<Sprite> abilitySprites = new List<Sprite>();
+	private float[] cooldownContainer = new float[4];
+	private float[] timerContainer = new float[4];
+	private bool[] onCooldownContainer = new bool[4];
 	public Ability activeAbility;
 
 	[Header("UI Objects")]
@@ -87,9 +90,23 @@ public class AbilityController : MonoBehaviour
 		TD_Timer = TD_Cooldown;
 		EMP_Timer = EMP_Cooldown;
 
+		cooldownContainer[0] = C_Cooldown;
+		cooldownContainer[1] = EMP_Cooldown;
+		cooldownContainer[2] = SB_Cooldown;
+		cooldownContainer[3] = TD_Cooldown;
+
+		timerContainer[0] = C_Timer;
+		timerContainer[1] = EMP_Timer;
+		timerContainer[2] = SB_Timer;
+		timerContainer[3] = TD_Timer;
+
+		onCooldownContainer[0] = C_OnCooldown;
+		onCooldownContainer[1] = EMP_OnCooldown;
+		onCooldownContainer[2] = SB_OnCooldown;
+		onCooldownContainer[3] = TD_OnCooldown;
+
 		activeAbility = equippedAbilities[0];
 		currentAbilityHUD.sprite = abilitySprites[0];
-
 	}
 
 	// Update is called once per frame
@@ -97,6 +114,20 @@ public class AbilityController : MonoBehaviour
 	{
 		if (activeAA.action.ReadValue<float>() > 0 && !C_OnCooldown && !SB_OnCooldown && !TD_OnCooldown && !EMP_OnCooldown && !C_IsActive)
 		{
+			//this can potentially replace the switch statement
+			/*if (!onCooldownContainer[abilityIndex])
+			{
+				activeAbility.UseAbility();
+				if (abilityIndex == 0) { C_IsActive = true; }
+				else { onCooldownContainer[abilityIndex] = true; }
+			}
+			else if (abilityIndex == 0)
+			{
+				activeAbility.DeactivateAbility();
+				C_IsActive = false;
+				C_OnCooldown = true;
+			}*/
+
 			switch (abilityIndex)
 			{
 				case 0:
@@ -113,21 +144,33 @@ public class AbilityController : MonoBehaviour
 					}
 					break;
 				case 1:
-					activeAbility.UseAbility();
-					EMP_OnCooldown = true;
+					if (!EMP_OnCooldown)
+					{
+						activeAbility.UseAbility();
+						EMP_OnCooldown = true;
+					}
 					break;
 				case 2:
-					activeAbility.UseAbility();
-					SB_OnCooldown = true;
+					if (!SB_OnCooldown)
+					{
+						activeAbility.UseAbility();
+						SB_OnCooldown = true;
+					}
 					break;
 				case 3:
-					activeAbility.UseAbility();
-					TD_OnCooldown = true;
+					if (!TD_OnCooldown)
+					{
+						activeAbility.UseAbility();
+						TD_OnCooldown = true;
+					}
 					break;
 			}
 		}
 		else if (cycleAbility.action.ReadValue<float>() > 0)
 		{
+			//this can probably be used to simplify the integer looping
+			//abilityIndex = (int)Mathf.Repeat(abilityIndex - 1, 3);
+
 			//abilityIndex = (abilityIndex - 1) % equippedAbilities.Length;
 			if (abilityIndex == 0) abilityIndex = 3;
 			else if (equippedAbilities[abilityIndex - 1] != null) abilityIndex--;
@@ -153,6 +196,23 @@ public class AbilityController : MonoBehaviour
 		nextAmmo.text = (equippedAbilities[nextIndex].currentAmmo == 0) ? "" : equippedAbilities[nextIndex].currentAmmo.ToString();
 
 		HandleTimers();
+
+		cooldownContainer[0] = C_Cooldown;
+		cooldownContainer[1] = EMP_Cooldown;
+		cooldownContainer[2] = SB_Cooldown;
+		cooldownContainer[3] = TD_Cooldown;
+
+		timerContainer[0] = C_Timer;
+		timerContainer[1] = EMP_Timer;
+		timerContainer[2] = SB_Timer;
+		timerContainer[3] = TD_Timer;
+
+		onCooldownContainer[0] = C_OnCooldown;
+		onCooldownContainer[1] = EMP_OnCooldown;
+		onCooldownContainer[2] = SB_OnCooldown;
+		onCooldownContainer[3] = TD_OnCooldown;
+
+		DisplayAbilityCooldowns();
 	}
 
 	public void HandleTimers()
@@ -205,7 +265,7 @@ public class AbilityController : MonoBehaviour
 			}
 		}
 
-		switch (abilityIndex)
+		/*switch (abilityIndex)
 		{
 			case 0:
 				currentAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (C_OnCooldown) ? (C_Timer / C_Cooldown) * 2.5f : 0);
@@ -229,7 +289,25 @@ public class AbilityController : MonoBehaviour
 				break;
 			default:
 				break;
+		}*/
+
+	}
+
+	private void DisplayAbilityCooldowns(RectTransform.Axis axis = RectTransform.Axis.Vertical)
+	{
+		currentAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize(abilityIndex, 2.5f, 0.0f));
+		prevAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize((abilityIndex == 0) ? 3 : abilityIndex - 1, 2.5f, 0.0f));
+		nextAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize((abilityIndex == 3) ? 0 : abilityIndex + 1, 2.5f, 0.0f));
+	}
+
+	private float CalcRectAxisSize(int index, float max, float min)
+	{
+		if (index != 0 && equippedAbilities[index].currentAmmo == 0)
+		{
+			return max;
 		}
+		Debug.Log(onCooldownContainer[index] ? (timerContainer[index] / cooldownContainer[index]) * max : min);
+		return onCooldownContainer[index] ? (timerContainer[index] / cooldownContainer[index]) * max : min;
 
 	}
 }
