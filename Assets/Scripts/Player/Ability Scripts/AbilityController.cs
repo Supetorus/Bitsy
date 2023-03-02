@@ -13,39 +13,34 @@ public class AbilityController : MonoBehaviour
     //Switch to the ability on the left of the UI
     public InputActionReference cycleAbility;
 
-	[Header("Cloak Settings")]
 	//Cloak Timers
-	[SerializeField] float C_Cooldown;
-	[HideInInspector] float C_Timer;
-	[HideInInspector] bool C_OnCooldown;
+	private float C_Cooldown = 5.0f;
+	private float C_Timer;
+	private bool C_OnCooldown;
 
-	[SerializeField] float C_Duration;
-	[HideInInspector] float C_DurationTimer;
-	[HideInInspector] bool C_IsActive;
+	private float C_Duration = 5.0f;
+	private float C_DurationTimer;
+	private bool C_IsActive;
 
-	[Header("Smoke Bomb Settings")]
 	//Smoke Bomb Timers
-	[SerializeField] float SB_Cooldown;
-	[HideInInspector] float SB_Timer;
-	[HideInInspector] bool SB_OnCooldown;
+	private float SB_Cooldown = 5.0f;
+	private float SB_Timer;
+	private bool SB_OnCooldown;
 
-	[Header("EMP Settings")]
 	//EMP TIMERS
-	[SerializeField] float EMP_Cooldown;
-	[HideInInspector] float EMP_Timer;
-	[HideInInspector] bool EMP_OnCooldown;
+	private float EMP_Cooldown = 5.0f;
+	private float EMP_Timer;
+	private bool EMP_OnCooldown;
 
-	[Header("Trojan Dart Settings")]
 	//TROJAN DART TIMERS
-	[SerializeField] float TD_Cooldown;
-	[HideInInspector] float TD_Timer;
-	[HideInInspector] bool TD_OnCooldown;
+	private float TD_Cooldown = 5.0f;
+	private float TD_Timer;
+	private bool TD_OnCooldown;
 
     private int abilityIndex = 0;
     private Ability[] equippedAbilities = new Ability[4];
     public Ability activeAbility;
     [HideInInspector] public bool isVisible = true;
-
 
 	// Start is called before the first frame update
 	void Start()
