@@ -19,13 +19,17 @@ public class Damage : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		Health health = collision.gameObject.GetComponent<Health>();
+		Health health;
+		if (collision.gameObject.CompareTag("Player")) health = Player.Health;
+		else health = collision.gameObject.GetComponent<Health>();
 		DoIt(health);
 	}
 
 	private void OnCollisionStay(Collision collision)
 	{
-		Health health = collision.gameObject.GetComponent<Health>();
+		Health health;
+		if (collision.gameObject.CompareTag("Player")) health = Player.Health;
+		else health = collision.gameObject.GetComponent<Health>();
 		DoIt(health);
 	}
 

@@ -5,10 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 	private static Player instance;
-	//public static Player Instance
-	//{
-	//	get { return instance; }
-	//}
 
 	private static GlobalPlayerDetection detection;
 	public static GlobalPlayerDetection Detection
@@ -27,6 +23,16 @@ public class Player : MonoBehaviour
 		{
 			if (abilityController == null) abilityController = instance.GetComponent<AbilityController>();
 			return abilityController;
+		}
+	}
+
+	private static Health health;
+	public static Health Health
+	{
+		get
+		{
+			if (health == null) health = instance.GetComponent<Health>();
+			return health;
 		}
 	}
 
