@@ -71,7 +71,7 @@ public class Turret : DetectionEnemy
 		{
 			rotTimer += Time.deltaTime;
 			canSeePlayer = true;
-			player.GetComponent<GlobalPlayerDetection>().ChangeDetection(150 * Time.deltaTime);
+			//player.GetComponent<GlobalPlayerDetection>().ChangeDetection(150 * Time.deltaTime);
 			turretAnimator.animator.enabled = false;
 			weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, transform.up), rotTimer / timeToRotate);
 		}

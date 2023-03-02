@@ -65,7 +65,7 @@ public class PatrolEnemy : DetectionEnemy
 			{
 				animator.SetBool("CanSeePlayer", true);
 				canSeePlayer = true;
-				Player.Detection.ChangeDetection(100 * Time.deltaTime);
+				Player.Detection.ChangeDetection(75 * Time.deltaTime);
 			}
 			else
 			{
