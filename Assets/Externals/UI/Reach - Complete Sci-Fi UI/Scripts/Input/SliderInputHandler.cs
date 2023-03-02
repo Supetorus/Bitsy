@@ -52,9 +52,13 @@ namespace Michsky.UI.Reach
             indicator.SetActive(true);
 
             if (reversePosition == true && controllerManager.hAxis >= deadzone) { sliderObject.value -= (valueMultiplier / divideValue) * controllerManager.hAxis; }
-            else if (reversePosition == false && controllerManager.hAxis >= deadzone) { sliderObject.value += (valueMultiplier / divideValue) * controllerManager.hAxis; }
+            else if (reversePosition == false && controllerManager.hAxis >= deadzone) { 
+				sliderObject.value += (valueMultiplier / divideValue) * controllerManager.hAxis;
+			}
             else if (reversePosition == true && controllerManager.hAxis <= -deadzone) { sliderObject.value += (valueMultiplier / divideValue) * Mathf.Abs(controllerManager.hAxis); }
-            else if (reversePosition == false && controllerManager.hAxis <= -deadzone) { sliderObject.value -= (valueMultiplier / divideValue) * Mathf.Abs(controllerManager.hAxis); }
+            else if (reversePosition == false && controllerManager.hAxis <= -deadzone) { 
+				sliderObject.value -= (valueMultiplier / divideValue) * Mathf.Abs(controllerManager.hAxis);
+			}
         }
     }
 }
