@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Slime : MonoBehaviour
 {
-
-	[SerializeField, Tooltip("Multiply MaxVelocity by this number"), Range(0.01f, 0.99f)]
-	public float speedDecrease;
+	public float speedDecrease = 0.5f;
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.TryGetComponent<MovementController>(out MovementController player))

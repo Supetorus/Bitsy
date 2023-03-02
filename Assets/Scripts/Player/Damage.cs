@@ -29,17 +29,17 @@ public class Damage : MonoBehaviour
 		DoIt(health);
 	}
 
-	//private void OnTriggerEnter(Collider other)
-	//{
-	//	Health health = other.GetComponent<Health>();
-	//	DoIt(health);
-	//}
+	private void OnTriggerEnter(Collider other)
+	{
+		Health health = other.GetComponent<Health>();
+		DoIt(health);
+	}
 
-	//private void OnTriggerStay(Collider other)
-	//{
-	//	Health health = other.GetComponent<Health>();
-	//	DoIt(health);
-	//}
+	private void OnTriggerStay(Collider other)
+	{
+		Health health = other.GetComponent<Health>();
+		DoIt(health);
+	}
 
 	private void DoIt(Health health)
 	{
