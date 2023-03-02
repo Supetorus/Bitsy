@@ -30,17 +30,22 @@ public class GlobalPlayerDetection : MonoBehaviour
 	public List<DetectionEnemy> allEnemies;
 	[HideInInspector] public bool detectionChanged = false;
 
-    void Start()
-    {
+	[SerializeField] private bool ghostMode = false;
+
+	void Start()
+	{
 		allEnemies = new List<DetectionEnemy>(FindObjectsOfType<DetectionEnemy>());
-    }
+	}
 
 	public void ChangeDetection(float change)
 	{
-		prevDetectionLevel = currentDetectionLevel;
-		currentDetectionLevel += change;
-		if(detectionBar)detectionBar.SetValue(currentDetectionLevel);
-		CheckEvents();
+		if (!ghostMode)
+		{
+			prevDetectionLevel = currentDetectionLevel;
+			currentDetectionLevel += change;
+			if (detectionBar) detectionBar.SetValue(currentDetectionLevel);
+			CheckEvents();
+		}
 	}
 
 	public void CheckEvents()
@@ -60,13 +65,14 @@ public class GlobalPlayerDetection : MonoBehaviour
 		else if (currentDetectionLevel >= 25)
 		{
 			if (onQuarter != null) onQuarter();
-		} else if(prevDetectionLevel != 0 && currentDetectionLevel == 0)
+		}
+		else if (prevDetectionLevel != 0 && currentDetectionLevel == 0)
 		{
 			if (onEmpty != null) onEmpty();
 		}
 	}
 
-	public void Update() 
+	public void Update()
 	{
 		if (!PlayerInSight()) ChangeDetection(-decreasePerSecond * Time.deltaTime);
 	}
@@ -74,7 +80,7 @@ public class GlobalPlayerDetection : MonoBehaviour
 	//Returns true if any enemy can see the player.
 	public bool PlayerInSight()
 	{
-		foreach(var enemy in allEnemies)
+		foreach (var enemy in allEnemies)
 		{
 			if (enemy.CheckSightlines())
 			{
