@@ -11,12 +11,6 @@ public class LaserDetection : DetectionEnemy
 	private float dps = 1;
 
 	private bool isStunned;
-	private GameObject player;
-
-	private void Start()
-	{
-		player = GameObject.FindGameObjectWithTag("Player");
-	}
 
 	private void OnTriggerStay(Collider other)
 	{
@@ -24,7 +18,7 @@ public class LaserDetection : DetectionEnemy
 		{
 			if (other.TryGetComponent<Smoke>(out _)) return;
 
-			if (other.gameObject == player)
+			if (other.CompareTag("Player"))
 			{
 				if (doesDamage)
 				{
@@ -32,7 +26,7 @@ public class LaserDetection : DetectionEnemy
 				}
 				else
 				{
-					other.GetComponent<GlobalPlayerDetection>().ChangeDetection(dps * Time.deltaTime);
+					Player.Detection.ChangeDetection(dps * Time.deltaTime);
 				}
 			}
 		}

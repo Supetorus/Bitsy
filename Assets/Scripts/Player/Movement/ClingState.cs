@@ -151,15 +151,15 @@ public class ClingState : MovementState
 
 	private void OnDrawGizmosSelected()
 	{
-		//if (!Application.isPlaying || hits == null) return;
-		//Gizmos.color = Color.green;
-		//foreach (var hit in hits)
-		//{
-		//	Gizmos.DrawSphere(hit.point, 0.01f);
-		//}
-		//Gizmos.color = Color.red;
-		//Vector3 position = (Vector3)SphereRaycaster.GetClosestPoint(hits, transform.position);
-		//Gizmos.DrawSphere(position, 0.02f);
-		//Gizmos.DrawLine(transform.position, position);
+		if (!Application.isPlaying || hits == null) return;
+		Gizmos.color = Color.green;
+		foreach (var hit in hits)
+		{
+			Gizmos.DrawSphere(hit.point, 0.01f);
+		}
+		Gizmos.color = Color.red;
+		Vector3 position = (Vector3)SphereRaycaster.GetClosestPoint(hits, transform.position);
+		Gizmos.DrawSphere(position, 0.02f);
+		Gizmos.DrawLine(transform.position, position);
 	}
 }

@@ -15,7 +15,6 @@ public class CameraDetection : DetectionEnemy
 	[SerializeField, Tooltip("The prefab containing the LineRenderer used to display the cone.")]
 	private LineRenderer lineRenderer;
 
-	GameObject player;
 	private bool canSeePlayer;
 	private Light cameraLight;
 	private List<LineRenderer> lines = new List<LineRenderer>();
@@ -29,16 +28,15 @@ public class CameraDetection : DetectionEnemy
 	void Start()
 	{
 		cameraLight = GetComponent<Light>();
-		player = GameObject.FindGameObjectWithTag("Player");
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 		// Detect for player.
-		canSeePlayer = ConeDetection(maxAngle, player.transform, layerMask);
+		canSeePlayer = ConeDetection(maxAngle, Player.Transform, layerMask);
 		if (cameraLight != null) cameraLight.color = canSeePlayer ? Color.red : Color.white;
-		if (canSeePlayer) player.GetComponent<GlobalPlayerDetection>().ChangeDetection(100 * Time.deltaTime);
+		if (canSeePlayer) Player.Detection.ChangeDetection(100 * Time.deltaTime);
 		if (cameraLight != null) cameraLight.spotAngle = maxAngle * 2;
 
 		// Draw the rays around the area of the cone.
