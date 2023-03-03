@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3629383335909942225}
   - component: {fileID: 5921716123853578723}
   - component: {fileID: -1774302501432069237}
-  - component: {fileID: 3203132450278011723}
   - component: {fileID: 110172861613890675}
   m_Layer: 0
   m_Name: EMP2
@@ -116,20 +115,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3203132450278011723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2981053761726562820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a73a71b5cb45f42b2f2d0921733727, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyTimer: 0
-  hasHitSometing: 0
 --- !u!114 &110172861613890675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,5 +130,5 @@ MonoBehaviour:
   d_Time: 3
   explosion: {fileID: 1204943386680875973, guid: c0fd6e128d2b3ee4f9875c167d4afc69, type: 3}
   explosionRad: 2
-  explosionCountdown: 3
+  explosionCountdown: 1.25
   isEMP: 0

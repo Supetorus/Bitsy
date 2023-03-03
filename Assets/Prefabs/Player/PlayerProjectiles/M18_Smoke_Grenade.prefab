@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 193393197051745813}
   - component: {fileID: 3381838365508134148}
   - component: {fileID: 27416615677156522}
-  - component: {fileID: 1110419018460987725}
   - component: {fileID: 1869352487588794285}
   m_Layer: 8
   m_Name: M18_Smoke_Grenade
@@ -153,22 +152,8 @@ MonoBehaviour:
   d_Time: 1
   explosion: {fileID: 1095787749935704, guid: cc606b05b54463b41bd3f1744812102d, type: 3}
   explosionRad: 3
-  explosionCountdown: 3
+  explosionCountdown: 1.5
   isEMP: 0
---- !u!114 &1110419018460987725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3442810844120767547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a73a71b5cb45f42b2f2d0921733727, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyTimer: 0
-  hasHitSometing: 0
 --- !u!65 &1869352487588794285
 BoxCollider:
   m_ObjectHideFlags: 0

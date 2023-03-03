@@ -34,7 +34,6 @@ public class PatrolEnemy : DetectionEnemy
 	private GameObject targetNode;
 	private int nodeIndex;
 	private bool canSeePlayer;
-	private GameObject player;
 	private Vector3 playerDir;
 	private Vector3 feetPos { get => new Vector3(transform.position.x, transform.position.y - agent.baseOffset, transform.position.z); }
 	private float minDistanceThreshhold = 0.06f;
@@ -43,16 +42,15 @@ public class PatrolEnemy : DetectionEnemy
 	void Start()
 	{
 		hipsRot = hipsJoint.rotation;
-		player = GameObject.FindGameObjectWithTag("Player");
 		ChangeDestination(0);
 		fireTimer = fireRate;
 	}
 
 	void Update()
 	{
-		canSeePlayer = ConeDetection(maxAngle, player.transform, layerMask, eyes.position);
+		canSeePlayer = ConeDetection(maxAngle, Player.Transform, layerMask, eyes.position);
 		animator.SetBool("CanSeePlayer", canSeePlayer);
-		if (canSeePlayer) player.GetComponent<GlobalPlayerDetection>().ChangeDetection(100 * Time.deltaTime);
+		if (canSeePlayer) Player.Detection.ChangeDetection(100 * Time.deltaTime);
 
 		DrawCone(lineCount, lines, lineRenderer, beamRotationSpeed, maxAngle, eyes.position);
 		//playerDir = (player.transform.position - eyes.position).normalized;
@@ -78,10 +76,9 @@ public class PatrolEnemy : DetectionEnemy
 			{
 				ChangeDestination((nodeIndex + 1) % nodes.Count);
 			}
-		}
-		else
-		{
-			if (Vector3.Distance(feetPos, player.transform.position) > maxPlayerDist)
+		} 
+		else 
+		{	if (Vector3.Distance(feetPos, Player.Transform.position) > maxPlayerDist)
 			{
 				hipsJoint.rotation = Quaternion.Slerp(
 				hipsJoint.rotation,
@@ -90,11 +87,11 @@ public class PatrolEnemy : DetectionEnemy
 
 				animator.SetBool("CanSeePlayer", false);
 				agent.isStopped = false;
-				agent.SetDestination(player.transform.position);
+				agent.SetDestination(Player.Transform.position);
 			}
 			else
 			{
-				Quaternion newHips = Quaternion.LookRotation(player.transform.position - hipsJoint.position) * Quaternion.Euler(0, -90, 0) * hipsRot;
+				Quaternion newHips = Quaternion.LookRotation(Player.Transform.position - hipsJoint.position) * Quaternion.Euler(0, -90, 0) * hipsRot;
 				hipsJoint.rotation = Quaternion.Slerp(
 				hipsJoint.rotation,
 				newHips,
@@ -105,9 +102,9 @@ public class PatrolEnemy : DetectionEnemy
 				if (fireTimer <= 0 && Quaternion.Angle(hipsJoint.rotation, newHips) < 25f)
 				{
 					GameObject bullet = Instantiate(projectile, gun.transform);
-					bullet.transform.rotation = Quaternion.LookRotation((player.transform.position - gun.transform.position).normalized);
-					bullet.GetComponentInChildren<Rigidbody>().AddForce((player.transform.position - gun.transform.position).normalized * projSpeed);
-
+					bullet.transform.rotation = Quaternion.LookRotation((Player.Transform.position - gun.transform.position).normalized);
+					bullet.GetComponentInChildren<Rigidbody>().AddForce((Player.Transform.position - gun.transform.position).normalized * projSpeed);
+					
 					fireTimer = fireRate;
 				}
 			}

@@ -112,10 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0994d0b1c8c354499a95108a4d4934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dot: 1
-  destroyOnCollide: 0
+  doDamageOverTime: 1
   instantKill: 0
-  damage: 5
+  damage: 15
+  destroyTime: -1
+  destroyed: {fileID: 0}
 --- !u!198 &7102585825734432913
 ParticleSystem:
   m_ObjectHideFlags: 0

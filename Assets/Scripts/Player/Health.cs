@@ -52,7 +52,8 @@ public class Health : MonoBehaviour
 
 	private void Start()
 	{
-		onDeath.AddListener(FindObjectOfType<GameManager>().OnFailLevel);
+		GameManager gm = FindObjectOfType<GameManager>();
+		if (gm != null) onDeath.AddListener(FindObjectOfType<GameManager>().OnFailLevel);
 		if (maxValue == 0) maxValue = float.MaxValue;
 		if (startValue == 0) startValue = maxValue;
 		health = startValue;
