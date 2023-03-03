@@ -39,13 +39,11 @@ public class GlobalPlayerDetection : MonoBehaviour
 
 	public void ChangeDetection(float change)
 	{
-		if (!ghostMode)
-		{
-			prevDetectionLevel = currentDetectionLevel;
-			currentDetectionLevel += change;
-			if (detectionBar) detectionBar.SetValue(currentDetectionLevel);
-			CheckEvents();
-		}
+		if (ghostMode) return;
+		prevDetectionLevel = currentDetectionLevel;
+		currentDetectionLevel += change;
+		if (detectionBar) detectionBar.SetValue(currentDetectionLevel);
+		CheckEvents();
 	}
 
 	public void CheckEvents()
