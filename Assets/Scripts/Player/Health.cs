@@ -33,13 +33,15 @@ public class Health : MonoBehaviour
 	[SerializeField, Tooltip("For debug display only. Do not modify.")]
 	private float health;
 
+	[SerializeField] private bool godMode = false;
+
 	public float Value
 	{
 		get { return health; }
 		private set
 		{
 			value = Mathf.Min(maxValue, Mathf.Max(value, 0));
-			if (value == 0 && health != 0) onDeath.Invoke();
+			if (value == 0 && health != 0 && !godMode) onDeath.Invoke();
 			if (value == maxValue && health != maxValue) onMaxHealth.Invoke();
 			if (value != health)
 			{

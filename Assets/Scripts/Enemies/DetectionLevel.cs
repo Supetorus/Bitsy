@@ -27,19 +27,15 @@ public class DetectionLevel : MonoBehaviour
 	private static float detectionLevel;
 	private static float prevDetectionLevel;
 	[SerializeField] public float currentDetectionLevel { get { return detectionLevel; } private set { detectionLevel = Mathf.Clamp(value, 0, 100); } }
-	//public List<DetectionEnemy> allEnemies;
-	//[HideInInspector] public bool detectionChanged = false;
 
-  //  void Start()
-  //  {
-		//allEnemies = new List<DetectionEnemy>(FindObjectsOfType<DetectionEnemy>());
-  //  }
+	[SerializeField] private bool ghostMode = false;
 
 	public void ChangeDetection(float change)
 	{
+		if (ghostMode) return;
 		prevDetectionLevel = currentDetectionLevel;
 		currentDetectionLevel += change;
-		if(detectionBar)detectionBar.SetValue(currentDetectionLevel);
+		if (detectionBar) detectionBar.SetValue(currentDetectionLevel);
 		CheckEvents();
 	}
 
@@ -60,7 +56,8 @@ public class DetectionLevel : MonoBehaviour
 		else if (currentDetectionLevel >= 25)
 		{
 			if (onQuarter != null) onQuarter();
-		} else if(prevDetectionLevel != 0 && currentDetectionLevel == 0)
+		}
+		else if (prevDetectionLevel != 0 && currentDetectionLevel == 0)
 		{
 			if (onEmpty != null) onEmpty();
 		}
@@ -68,19 +65,6 @@ public class DetectionLevel : MonoBehaviour
 
 	public void Update()
 	{
-		/*if (!PlayerInSight()) */ChangeDetection(-decreasePerSecond * Time.deltaTime);
+		ChangeDetection(-decreasePerSecond * Time.deltaTime);
 	}
-
-	////Returns true if any enemy can see the player.
-	//public bool PlayerInSight()
-	//{
-	//	foreach(var enemy in allEnemies)
-	//	{
-	//		if (enemy.CheckSightlines())
-	//		{
-	//			return true;
-	//		}
-	//	}
-	//	return false;
-	//}
 }
