@@ -13,6 +13,7 @@ public class Door : MonoBehaviour, IInteractable
 	[SerializeField] private AudioClip closesfx;
 	[SerializeField] private GameObject RightDoor;
 	[SerializeField] private GameObject LeftDoor;
+	[SerializeField] private Door OtherPanel;
 	[SerializeField] private bool OpensOnX;
 	[SerializeField] private bool OpensOnZ;
 	[SerializeField] private bool RotateToOpen;
@@ -38,6 +39,10 @@ public class Door : MonoBehaviour, IInteractable
 		{
 			open = true;
 			locked = false;
+			if(OtherPanel != null) {
+				OtherPanel.open = true;
+				OtherPanel.locked = false;
+			}
 			//Debug.Log(_prompt);
 			sfx.PlayOneShot(opensfx);
 			//update to play open on open animation and close on close animation when animator is added
