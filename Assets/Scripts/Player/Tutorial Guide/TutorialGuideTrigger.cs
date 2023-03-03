@@ -6,21 +6,35 @@ using UnityEngine;
 
 public class TutorialGuideTrigger : MonoBehaviour
 {
-/*	[SerializeField] public FeedNotification feedNotification;
-	[SerializeField] public TMP_Text displayTextObject;*/
-	[SerializeField] TutorialGuide tutorialGuide;
-	[SerializeField] string guideText;
+	[SerializeField] GameObject windowToOpen;
+	[SerializeField] GameObject tutorialHUD;
+	AbilityController player;
+
+	public void Start()
+	{
+		player = GameObject.Find("Player3.0").GetComponentInChildren<AbilityController>();
+		StartCoroutine(WaitForLoad());
+	}
+
+	IEnumerator WaitForLoad()
+	{
+		GetComponent<BoxCollider>().enabled = false;
+		yield return new WaitForSeconds(1.5f);
+		GetComponent<BoxCollider>().enabled = true;
+	}
+
 	// Start is called before the first frame update
 	private void OnTriggerEnter(Collider other)
 	{
-		tutorialGuide.feedNotification.enabled = true;
-		tutorialGuide.feedNotification.ExpandNotification();
-		tutorialGuide.displayTextObject.text = guideText;
-	}
-
-	private void OnTriggerExit(Collider other)
-	{
-		tutorialGuide.displayTextObject.text = "";
-		tutorialGuide.feedNotification.MinimizeNotification();
+		if(other.CompareTag("Player"))
+		{
+			player.enabled = false;
+			Time.timeScale = 0;
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
+			tutorialHUD.SetActive(true);
+			windowToOpen.GetComponent<ModalWindowManager>().OpenWindow();
+			Destroy(gameObject);
+		}
 	}
 }
