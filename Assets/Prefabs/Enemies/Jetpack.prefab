@@ -403,7 +403,7 @@ Animator:
   m_GameObject: {fileID: 3460688405482546297}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 39f5810000e586844933ca54f65c01e9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4c2ab0444d902ce488dd2b46e841063d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -447,18 +447,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029e45758428e504080491045a7936ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detector: {fileID: 8348927683313217148}
+  detectionThreshhold: 75
+  playerCareDistance: 20
   nodes: []
-  animator: {fileID: 7554665082217298704}
   agent: {fileID: 3259987392377235079}
-  eyes: {fileID: 2903076103685308674}
+  animator: {fileID: 7554665082217298704}
+  maxPlayerDistance: 5
   gun: {fileID: 6591236734082429577}
-  hipsJoint: {fileID: 6273940928457591834}
-  hips: {fileID: 7495262036354193558}
   projectile: {fileID: 498963631173326718, guid: 0603e7a1714700c439494497a7d756e7, type: 3}
-  maxPlayerDist: 3
-  sightDist: 3
   projSpeed: 1
   fireRate: 0.5
+  hipsJoint: {fileID: 6273940928457591834}
+  defaultHips: {fileID: 0}
+  deathExplode: {fileID: 0}
 --- !u!1 &3502247507188952040
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,6 +720,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2903076103685308674}
+  - component: {fileID: 8348927683313217148}
   m_Layer: 7
   m_Name: Eyes
   m_TagString: Untagged
@@ -740,6 +743,25 @@ Transform:
   m_Father: {fileID: 458676788958025322}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8348927683313217148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5876602603936357241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a8872758611c4da4d5a6b79519b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 13769
+  maxAngle: 45
+  lineCount: 20
+  beamRotationSpeed: 90
+  lineRenderer: {fileID: 8616086341503925780, guid: b8a88696e11d5454aa31d0f8ca405bc2, type: 3}
 --- !u!1 &5912132030960125382
 GameObject:
   m_ObjectHideFlags: 0
