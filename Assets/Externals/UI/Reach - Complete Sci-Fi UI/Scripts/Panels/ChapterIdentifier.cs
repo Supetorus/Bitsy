@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static Michsky.UI.Reach.HotkeyEvent;
 
 namespace Michsky.UI.Reach
 {
     public class ChapterIdentifier : MonoBehaviour
     {
         [Header("Resources")]
+        public Image customImage;
         public Animator animator;
         [SerializeField] private RectTransform backgroundRect;
         public Image backgroundImage;
