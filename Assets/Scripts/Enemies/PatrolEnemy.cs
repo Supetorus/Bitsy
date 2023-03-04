@@ -77,7 +77,7 @@ public class PatrolEnemy : MonoBehaviour
 		}
 		else
 		{
-			animator.SetBool("ShouldWalk", nodes.Count > 0 && (nodes.Count == 1 && Vector3.Distance(feetPos, nodes[0].transform.position) > minDistanceThreshhold));
+			animator.SetBool("ShouldWalk", (nodes.Count == 1 && Vector3.Distance(feetPos, nodes[0].transform.position) > minDistanceThreshhold) || nodes.Count > 0);
 			animator.SetBool("ShouldShoot", false);
 			agent.isStopped = false;
 			if (Vector3.Distance(feetPos, targetNode.transform.position) < minDistanceThreshhold)
