@@ -151,7 +151,7 @@ public class ClingState : MovementState
 
 	private void OnDrawGizmosSelected()
 	{
-		if (!Application.isPlaying || hits == null) return;
+		if (!Application.isPlaying || hits == null || hits.Count == 0 || c.CurrentMovementState != this) return;
 		Gizmos.color = Color.green;
 		foreach (var hit in hits)
 		{

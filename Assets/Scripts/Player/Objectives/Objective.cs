@@ -34,7 +34,7 @@ public class Objective : ScriptableObject
 		{
 			if (tasks[taskIndex].CompleteTask(taskIndex))
 			{
-				Debug.Log("Obective " + index + ", Task " + taskIndex + " Complete");
+				//Debug.Log("Obective " + index + ", Task " + taskIndex + " Complete");
 				taskIndex++;
 			}
 		}

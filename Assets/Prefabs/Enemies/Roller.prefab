@@ -214,7 +214,7 @@ Animator:
   m_GameObject: {fileID: 1289256392254210271}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 763c2d1bb8e59a148a568b0d146b2deb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6dc96ee2cf111f64db7b17e56450a987, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -258,19 +258,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029e45758428e504080491045a7936ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detector: {fileID: 1177582130539656761}
+  detectionThreshhold: 75
+  playerCareDistance: 20
   nodes: []
-  animator: {fileID: 5275124475115118518}
   agent: {fileID: 8319367389617187857}
-  eyes: {fileID: 8488026180813420385}
+  animator: {fileID: 5275124475115118518}
+  maxPlayerDistance: 5
   gun: {fileID: 1749423057092317837}
-  hipsJoint: {fileID: 3218974939599926220}
-  hips: {fileID: 5324955717142297648}
   projectile: {fileID: 498963631173326718, guid: 0603e7a1714700c439494497a7d756e7, type: 3}
-  deathExplode: {fileID: 1484080174535161673, guid: 2f3f429642084e2439cee2fbd8eab3e1, type: 3}
-  maxPlayerDist: 3
-  sightDist: 3
   projSpeed: 1
   fireRate: 0.5
+  hipsJoint: {fileID: 3218974939599926220}
+  defaultHips: {fileID: 0}
+  deathExplode: {fileID: 1484080174535161673, guid: 2f3f429642084e2439cee2fbd8eab3e1, type: 3}
 --- !u!1 &1351531098890307500
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,6 +794,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8488026180813420385}
+  - component: {fileID: 1177582130539656761}
   m_Layer: 7
   m_Name: Eyes
   m_TagString: Untagged
@@ -815,6 +817,25 @@ Transform:
   m_Father: {fileID: 2864010101199483596}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1177582130539656761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6134220497693658105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a8872758611c4da4d5a6b79519b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 13769
+  maxAngle: 45
+  lineCount: 20
+  beamRotationSpeed: 90
+  lineRenderer: {fileID: 8616086341503925780, guid: b8a88696e11d5454aa31d0f8ca405bc2, type: 3}
 --- !u!1 &6205847249180066228
 GameObject:
   m_ObjectHideFlags: 0

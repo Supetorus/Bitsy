@@ -6,12 +6,12 @@ public class Player : MonoBehaviour
 {
 	private static Player instance;
 
-	private static GlobalPlayerDetection detection;
-	public static GlobalPlayerDetection Detection
+	private static DetectionLevel detection;
+	public static DetectionLevel Detection
 	{
 		get
 		{
-			if (detection == null) detection = instance.GetComponent<GlobalPlayerDetection>();
+			if (detection == null) detection = instance.GetComponent<DetectionLevel>();
 			return detection;
 		}
 	}
