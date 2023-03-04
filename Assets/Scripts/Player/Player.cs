@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+	[SerializeField] private new Camera camera;
+	public static Camera Camera
+	{
+		get
+		{
+			if (instance.camera == null) Debug.LogError("Player camera was not assigned in Player component.");
+			else return instance.camera;
+			return null;
+		}
+	}
+
 	private static Player instance;
 
 	private static DetectionLevel detection;
@@ -33,6 +44,16 @@ public class Player : MonoBehaviour
 		{
 			if (health == null) health = instance.GetComponent<Health>();
 			return health;
+		}
+	}
+
+	private static UpgradeController upgradeController;
+	public static UpgradeController UpgradeController
+	{
+		get
+		{
+			if (upgradeController == null) upgradeController = instance.GetComponent<UpgradeController>();
+			return upgradeController;
 		}
 	}
 
