@@ -11,6 +11,8 @@ public class Objective : ScriptableObject
 	[SerializeField] private List<Task> tasks;
 	public int taskIndex = 0;
 
+	[SerializeField, TextArea] public string objectiveDescription;
+
 	public Task GetCurrentTask()
 	{
 		return tasks[taskIndex];

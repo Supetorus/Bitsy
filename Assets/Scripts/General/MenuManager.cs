@@ -18,7 +18,11 @@ public class MenuManager : MonoBehaviour
 	[SerializeField] private GameObject objectivesLayoutGroup;
 	[SerializeField] private GameObject buttonPrefab;
 	[SerializeField] private GameObject nextParent;
-    //ThirdPersonCameraController playerCameraController;
+
+	[Header("Displayed Information")]
+	[SerializeField] private List<Objective> objectives;
+	[SerializeField] private TextMeshProUGUI objectiveName;
+	[SerializeField] private TextMeshProUGUI objectiveDescription;
 
     private void Start()
     {
@@ -57,6 +61,8 @@ public class MenuManager : MonoBehaviour
 	public void SetObjective(int value) 
 	{
 		objectiveIndex = value;
+		objectiveName.text = objectives[objectiveIndex].objectiveLabel;
+		objectiveDescription.text = objectives[objectiveIndex].objectiveDescription;
 	}
 
 	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
