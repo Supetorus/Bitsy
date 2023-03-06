@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpiderProceduralAnimation : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class SpiderProceduralAnimation : MonoBehaviour
 	private bool bodyOrientation = true;
 	[SerializeField, Tooltip("What layers the spider can walk on.")]
 	private LayerMask walkableLayers;
+	[SerializeField, Tooltip("This event is triggered when a foot reaches its destination.")] 
+	public UnityEvent OnStep;
 
 	/// <summary>
 	/// Determines the radius of the sphere shot from the sky to the ground to determine where the surface is that the player can walk on.
@@ -194,6 +197,7 @@ public class SpiderProceduralAnimation : MonoBehaviour
 
 			if (legProgression[i] >= 1f)
 			{
+				OnStep.Invoke();
 				legTargets[i].position = nextLegPositions[i];
 				lastLegPositions[i] = legTargets[i].position;
 				legMoving[i] = false;
