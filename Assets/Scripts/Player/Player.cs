@@ -26,6 +26,16 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	private static ObjectiveHandler objectiveHandler;
+	public static ObjectiveHandler ObjectiveHandler
+	{
+		get
+		{
+			if (objectiveHandler == null) objectiveHandler = instance.GetComponent<ObjectiveHandler>();
+			return objectiveHandler;
+		}
+	}
+
 	private static Health health;
 	public static Health Health
 	{
