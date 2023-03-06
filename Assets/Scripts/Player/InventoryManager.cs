@@ -12,7 +12,7 @@ public class InventoryManager : MonoBehaviour
 
     void Start()
     {
-        
+		gameData.stringData.Clear();
     }
 
     void Update()

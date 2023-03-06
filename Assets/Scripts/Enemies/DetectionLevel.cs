@@ -30,6 +30,11 @@ public class DetectionLevel : MonoBehaviour
 
 	[SerializeField] private bool ghostMode = false;
 
+	public void Start()
+	{
+		currentDetectionLevel = 0;
+	}
+
 	public void ChangeDetection(float change)
 	{
 		if (ghostMode) return;
