@@ -21,13 +21,13 @@ public class AbilityUpgrade : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.TryGetComponent<UpgradeController>(out UpgradeController upgradeController))
+		if (other.CompareTag("Player"))
 		{
 			if(PlayerPrefs.HasKey(upgrade.ToString()))
 			{
-				upgradeController.EnableUpgrade(upgrade.ToString());
+				Player.UpgradeController.EnableUpgrade(upgrade.ToString());
 			}
-			Destroy(gameObject);
+			Destroy(gameObject); // todo special effect and sound
 		}
 	}
 }
