@@ -11,7 +11,7 @@ public class UpgradeController : MonoBehaviour
 	public InputActionReference webZip;
 
 	//MovementController
-	[HideInInspector]public MovementController controller;
+	[HideInInspector] public MovementController controller;
 
 	[Header("WebZip Settings")]
 	//WebZip Variables WZ_ = WebZip
@@ -20,6 +20,9 @@ public class UpgradeController : MonoBehaviour
 	private float WZ_Timer;
 	private bool WZ_OnCooldown;
 	[SerializeField] LayerMask WZ_LayerMask;
+
+	[Header("Visuals")]
+	[SerializeField] LineRenderer lineRenderer;
 
 	//Lunge Variables L_ = Lunge
 	private float L_Cooldown = 1.5f;
@@ -39,26 +42,32 @@ public class UpgradeController : MonoBehaviour
 	private const int EMP_REGULAR_DURATION = 1;
 	private const int EMP_UPGRADED_DURATION = 2;
 
+	private StateData sd;
+	RaycastHit zipPoint;
 
-	// Start is called before the first frame update
 	void Start()
-    {
+	{
 		controller = GetComponent<MovementController>();
+		sd = GetComponent<StateData>();
 		WZ_LayerMask = 3;
 
 		//Setting Timers
 		WZ_Timer = WZ_Cooldown;
 		L_Timer = L_Cooldown;
-    }
-
+		lineRenderer.enabled = false;
+	}
 
 	public void Update()
-	{ 
+	{
 		if (lunge.action.ReadValue<float>() > 0 && !L_OnCooldown)
 		{
 			Lunge();
 		}
-		else if (webZip.action.ReadValue<float>() > 0 && !WZ_OnCooldown)
+		else if (webZip.action.IsPressed() && !WZ_OnCooldown)
+		{
+			DrawZipLine();
+		}
+		else if (webZip.action.WasReleasedThisFrame() && !WZ_OnCooldown)
 		{
 			WebZip();
 		}
@@ -67,7 +76,7 @@ public class UpgradeController : MonoBehaviour
 
 	public void HandleCooldowns()
 	{
-		if(L_OnCooldown)
+		if (L_OnCooldown)
 		{
 			if (L_Timer >= 0) L_Timer -= Time.deltaTime;
 			else
@@ -76,7 +85,7 @@ public class UpgradeController : MonoBehaviour
 				L_Timer = L_Cooldown;
 			}
 		}
-		if(WZ_OnCooldown)
+		if (WZ_OnCooldown)
 		{
 			if (WZ_Timer >= 0) WZ_Timer -= Time.deltaTime;
 			else
@@ -87,17 +96,30 @@ public class UpgradeController : MonoBehaviour
 		}
 	}
 
+	private void DrawZipLine()
+	{
+		if (Physics.Raycast(Player.Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out RaycastHit cameraHit, float.PositiveInfinity, GetComponent<StateData>().walkableLayers) &&
+			Physics.Raycast(transform.position, cameraHit.point - transform.position, out RaycastHit hit, WZ_MaxDist, sd.walkableLayers))
+		{
+			zipPoint = hit;
+			lineRenderer.enabled = true;
+			lineRenderer.SetPosition(0, transform.position);
+			lineRenderer.SetPosition(1, hit.point);
+		}
+		else
+		{
+			lineRenderer.enabled = false;
+		}
+	}
+
 	public void WebZip()
 	{
-		Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
-		RaycastHit hit;
-		Physics.Raycast(ray, out hit, WZ_MaxDist, WZ_LayerMask);
-		if (hit.collider)
+		lineRenderer.enabled = false;
+		if (zipPoint.collider != null)
 		{
 			WZ_OnCooldown = true;
-			ZipState zip = GetComponent<ZipState>();
-			zip.attachedObject = hit;
-			controller.CurrentMovementState = zip;
+			controller.zipState.attachedObject = zipPoint;
+			controller.CurrentMovementState = controller.zipState;
 		}
 	}
 
@@ -112,7 +134,7 @@ public class UpgradeController : MonoBehaviour
 
 	public void EnableUpgrade(string upgrade)
 	{
-		if(PlayerPrefs.HasKey(upgrade))
+		if (PlayerPrefs.HasKey(upgrade))
 		{
 			PlayerPrefs.SetString(upgrade, "True");
 			switch (upgrade)
@@ -144,7 +166,7 @@ public class UpgradeController : MonoBehaviour
 
 	public void ChangeAmmoMult(AmmoUpgrade.AMMO_UPGRADE ammoType, int newMult)
 	{
-		if(PlayerPrefs.HasKey(ammoType.ToString()))
+		if (PlayerPrefs.HasKey(ammoType.ToString()))
 		{
 			PlayerPrefs.SetInt(ammoType.ToString(), newMult);
 		}
