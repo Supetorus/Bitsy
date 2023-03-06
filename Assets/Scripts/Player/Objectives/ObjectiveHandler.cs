@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class ObjectiveHandler : MonoBehaviour
 {
 	[SerializeField] QuestItem questItem;
+	[SerializeField] TextMeshProUGUI text;
 	public Objective objective;
 
 	GameManager gm;
@@ -33,11 +34,13 @@ public class ObjectiveHandler : MonoBehaviour
 	{
 		if (objective == null) return; //This happens when the scene is run in testing without loading from SetupScene.
 		questItem.questText = objective.objectiveLabel;
+		text.text = objective.objectiveLabel;
 		questItem.AnimateQuest();
 	}
 	public void DisplayTask()
 	{
 		questItem.questText = objective.GetCurrentTask().taskLabel;
+		text.text = objective.GetCurrentTask().taskLabel;
 		questItem.AnimateQuest();
 	}
 
@@ -129,7 +132,7 @@ public class ObjectiveHandler : MonoBehaviour
 		gm.playCamera.SetActive(false);
 		print(PlayerPrefs.GetInt("LevelLock"));
 		print(PlayerPrefs.GetString("TutorialDone"));
-		Debug.Log("Level Complete");
+		//Debug.Log("Level Complete");
 	}
 
 	public void ResetObjective()

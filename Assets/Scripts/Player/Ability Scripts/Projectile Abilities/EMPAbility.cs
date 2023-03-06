@@ -9,7 +9,7 @@ public class EMPAbility : Ability
     [SerializeField] ForceMode mode;
     [SerializeField] float speed;
 	[SerializeField] public int maxAmmo;
-	[SerializeField] public int currentAmmo;
+	//[SerializeField] public int currentAmmo;
 	const int DEFAULT_AMMO = 5;
 	GameObject projectile;
 	private ThirdPersonCameraController myCamera;
