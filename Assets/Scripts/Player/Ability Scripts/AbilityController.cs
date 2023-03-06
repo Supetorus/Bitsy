@@ -306,7 +306,6 @@ public class AbilityController : MonoBehaviour
 		{
 			return max;
 		}
-		//Debug.Log(onCooldownContainer[index] ? (timerContainer[index] / cooldownContainer[index]) * max : min);
 		return onCooldownContainer[index] ? (timerContainer[index] / cooldownContainer[index]) * max : min;
 
 	}
