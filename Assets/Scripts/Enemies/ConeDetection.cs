@@ -83,15 +83,6 @@ public class ConeDetection : DetectionEnemy
 		}
 	}
 
-	public override void DartRespond()
-	{
-	}
-
-	public override void EMPRespond(float stunDuration, GameObject stunEffect)
-	{
-		throw new System.NotImplementedException();
-	}
-
 	private void OnDrawGizmosSelected()
 	{
 		Quaternion toEdge = Quaternion.AngleAxis(maxAngle, transform.up);

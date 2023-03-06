@@ -10,6 +10,7 @@ public class TurretAnimator : MonoBehaviour
 	private void OnEnable()
 	{
 		DetectionLevel.onThreeFourths += Popup;
+		DetectionLevel.onThreeFourths += EnableTurret;
 		DetectionLevel.onEmpty += DisableTurret;
 		DetectionLevel.onEmpty += Hide;
 	}
@@ -17,7 +18,9 @@ public class TurretAnimator : MonoBehaviour
 	private void OnDisable()
 	{
 		DetectionLevel.onThreeFourths -= Popup;
-		DetectionLevel.onHalf -= Hide;
+		DetectionLevel.onThreeFourths -= EnableTurret;
+		DetectionLevel.onEmpty -= DisableTurret;
+		DetectionLevel.onEmpty -= Hide;
 	}
 
 	// Start is called before the first frame update
