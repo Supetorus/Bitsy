@@ -19,27 +19,35 @@ public class Damage : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		Health health = collision.gameObject.GetComponent<Health>();
+		Health health;
+		if (collision.gameObject.CompareTag("Player")) health = Player.Health;
+		else health = collision.gameObject.GetComponent<Health>();
 		DoIt(health);
 	}
 
 	private void OnCollisionStay(Collision collision)
 	{
-		Health health = collision.gameObject.GetComponent<Health>();
+		Health health;
+		if (collision.gameObject.CompareTag("Player")) health = Player.Health;
+		else health = collision.gameObject.GetComponent<Health>();
 		DoIt(health);
 	}
 
-	//private void OnTriggerEnter(Collider other)
-	//{
-	//	Health health = other.GetComponent<Health>();
-	//	DoIt(health);
-	//}
+	private void OnTriggerEnter(Collider other)
+	{
+		Health health;
+		if (other.CompareTag("Player")) health = Player.Health;
+		else health = other.GetComponent<Health>();
+		DoIt(health);
+	}
 
-	//private void OnTriggerStay(Collider other)
-	//{
-	//	Health health = other.GetComponent<Health>();
-	//	DoIt(health);
-	//}
+	private void OnTriggerStay(Collider other)
+	{
+		Health health;
+		if (other.CompareTag("Player")) health = Player.Health;
+		else health = other.GetComponent<Health>();
+		DoIt(health);
+	}
 
 	private void DoIt(Health health)
 	{

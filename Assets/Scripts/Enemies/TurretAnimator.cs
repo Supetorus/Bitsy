@@ -9,15 +9,18 @@ public class TurretAnimator : MonoBehaviour
 	[SerializeField] Turret turret;
 	private void OnEnable()
 	{
-		GlobalPlayerDetection.onThreeFourths += Popup;
-		GlobalPlayerDetection.onEmpty += DisableTurret;
-		GlobalPlayerDetection.onEmpty += Hide;
+		DetectionLevel.onThreeFourths += Popup;
+		DetectionLevel.onThreeFourths += EnableTurret;
+		DetectionLevel.onEmpty += DisableTurret;
+		DetectionLevel.onEmpty += Hide;
 	}
 
 	private void OnDisable()
 	{
-		GlobalPlayerDetection.onThreeFourths -= Popup;
-		GlobalPlayerDetection.onHalf -= Hide;
+		DetectionLevel.onThreeFourths -= Popup;
+		DetectionLevel.onThreeFourths -= EnableTurret;
+		DetectionLevel.onEmpty -= DisableTurret;
+		DetectionLevel.onEmpty -= Hide;
 	}
 
 	// Start is called before the first frame update

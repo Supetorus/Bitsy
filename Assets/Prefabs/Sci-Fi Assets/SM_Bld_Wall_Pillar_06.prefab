@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 1031007736}
   - component: {fileID: 1031007737}
   - component: {fileID: 1031007738}
-  - component: {fileID: 5522118737614892917}
+  - component: {fileID: 5269163404790504397}
   m_Layer: 0
   m_Name: SM_Bld_Wall_Pillar_06_LOD0
   m_TagString: Untagged
@@ -116,8 +116,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031007735}
   m_Mesh: {fileID: 4300002, guid: abc00000000007134525156354599951, type: 3}
---- !u!65 &5522118737614892917
-BoxCollider:
+--- !u!64 &5269163404790504397
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -126,6 +126,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.750785, y: 5.090878, z: 0.573123}
-  m_Center: {x: 0.376004, y: 1.508533, z: -0.000007}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: abc00000000007134525156354599951, type: 3}
