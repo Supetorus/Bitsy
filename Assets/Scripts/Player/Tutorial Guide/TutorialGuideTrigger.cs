@@ -33,6 +33,7 @@ public class TutorialGuideTrigger : MonoBehaviour
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
 			tutorialHUD.SetActive(true);
+			//windowToOpen.SetActive(true);
 			windowToOpen.GetComponent<ModalWindowManager>().OpenWindow();
 			Destroy(gameObject);
 		}

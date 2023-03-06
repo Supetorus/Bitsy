@@ -10,7 +10,7 @@ public class TrojanDartAbility : Ability
     [SerializeField] float speed;
 	[SerializeField] public int maxAmmo;
 	//[SerializeField] public int currentAmmo;
-	const int DEFAULT_AMMO = 5;
+	const int DEFAULT_AMMO = 3;
 	private ThirdPersonCameraController myCamera;
 
 	public void Start()
