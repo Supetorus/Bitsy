@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ZipState : MovementState
 {
-    public const float ZIP_SPEED = 40f;
+    public const float ZIP_SPEED = 20f;
     [HideInInspector]public RaycastHit attachedObject;
     [HideInInspector]public Quaternion originalRot;
     [HideInInspector]public Quaternion targetRot;
 
     public override void EnterState()
     {
-		GetComponent<StateData>().camera.GetComponent<ThirdPersonCameraController>().canZoom = false;
+		Player.Camera.GetComponent<ThirdPersonCameraController>().canZoom = false;
 		originalRot = transform.rotation;
         rigidbody.isKinematic = false;
         rigidbody.useGravity = false;
@@ -30,6 +30,7 @@ public class ZipState : MovementState
 
         //RemainingDist
         float remainingDist = (attachedObject.point - transform.position).magnitude;
+        if (remainingDist < 1) rigidbody.useGravity = true;
 
         targetRot = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, attachedObject.normal), attachedObject.normal);
         transform.rotation = Quaternion.Slerp(targetRot, originalRot, remainingDist / attachedObject.distance);

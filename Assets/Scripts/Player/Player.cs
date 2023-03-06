@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-	private static Player instance;
-
-	private static GlobalPlayerDetection detection;
-	public static GlobalPlayerDetection Detection
+	[SerializeField] private new Camera camera;
+	public static Camera Camera
 	{
 		get
 		{
-			if (detection == null) detection = instance.GetComponent<GlobalPlayerDetection>();
+			if (instance.camera == null) Debug.LogError("Player camera was not assigned in Player component.");
+			else return instance.camera;
+			return null;
+		}
+	}
+
+	private static Player instance;
+
+	private static DetectionLevel detection;
+	public static DetectionLevel Detection
+	{
+		get
+		{
+			if (detection == null) detection = instance.GetComponent<DetectionLevel>();
 			return detection;
 		}
 	}
@@ -26,6 +37,16 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	private static ObjectiveHandler objectiveHandler;
+	public static ObjectiveHandler ObjectiveHandler
+	{
+		get
+		{
+			if (objectiveHandler == null) objectiveHandler = instance.GetComponent<ObjectiveHandler>();
+			return objectiveHandler;
+		}
+	}
+
 	private static Health health;
 	public static Health Health
 	{
@@ -33,6 +54,16 @@ public class Player : MonoBehaviour
 		{
 			if (health == null) health = instance.GetComponent<Health>();
 			return health;
+		}
+	}
+
+	private static UpgradeController upgradeController;
+	public static UpgradeController UpgradeController
+	{
+		get
+		{
+			if (upgradeController == null) upgradeController = instance.GetComponent<UpgradeController>();
+			return upgradeController;
 		}
 	}
 

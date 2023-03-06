@@ -5,46 +5,116 @@ using UnityEngine.AI;
 
 public class PatrolEnemy : DetectionEnemy
 {
+	[SerializeField] private DetectionEnemy detector;
+	[SerializeField] private float detectionThreshhold = 75;
+	[SerializeField, Tooltip("How close the player has to be before this enemy cares and will try to find them")]
+	private float playerCareDistance = 20;
+	[Header("Navigation")]
 	[SerializeField] List<GameObject> nodes;
-	[SerializeField] Animator animator;
 	[SerializeField] NavMeshAgent agent;
-	[SerializeField] Transform eyes;
+	[SerializeField] Animator animator;
+	[SerializeField] float maxPlayerDistance;
+	[Header("Shooting")]
 	[SerializeField] Transform gun;
-	[SerializeField] Transform hipsJoint;
-	[SerializeField] Transform hips;
 	[SerializeField] GameObject projectile;
-	[SerializeField] GameObject deathExplode;
-	[SerializeField] float maxPlayerDist;
-	[SerializeField] float sightDist;
 	[SerializeField] float projSpeed;
 	[SerializeField] float fireRate;
+	[Header("Animation")]
+	[SerializeField] Transform hipsJoint;
+	[SerializeField] Transform defaultHips;
+	[SerializeField] GameObject deathExplode;
 
 	private Quaternion hipsRot;
+	private bool isStunned;
 	private float fireTimer;
 	private GameObject targetNode;
 	private int nodeIndex;
-	private bool canSeePlayer;
-	private Vector3 playerDir;
 	private Vector3 feetPos { get => new Vector3(transform.position.x, transform.position.y - agent.baseOffset, transform.position.z); }
-	private float minDistanceThreshhold = 0.06f;
+	private float minDistanceThreshhold = 0.1f;
 
-	public override bool CheckSightlines()
+	void Start()
 	{
-		return canSeePlayer;
+		animator.SetBool("ShouldWalk", nodes.Count > 0 && (nodes.Count == 1 && Vector3.Distance(feetPos, nodes[0].transform.position) > minDistanceThreshhold));
+		hipsRot = hipsJoint.rotation;
+		ChangeDestination(0);
+		fireTimer = fireRate;
 	}
 
+	void Update()
+	{
+		if(!isStunned)
+		{
+		if (Vector3.Distance(Player.Transform.position, feetPos) < playerCareDistance &&  Player.Detection.currentDetectionLevel > detectionThreshhold)
+		{
+			Physics.Raycast(detector.transform.position, Player.Transform.position - detector.transform.position, out RaycastHit hit, float.PositiveInfinity);
+			if (Vector3.Distance(gun.position, Player.Transform.position) > maxPlayerDistance || !hit.collider.CompareTag("Player"))
+			{
+				//hipsJoint.rotation = Quaternion.Slerp(
+				//	hipsJoint.rotation,
+				//	defaultHips.rotation,
+				//	Quaternion.Angle(hipsJoint.rotation, defaultHips.rotation) / 420);
+				animator.SetBool("ShouldWalk", true);
+				animator.SetBool("ShouldShoot", false);
+				agent.isStopped = false;
+				agent.SetDestination(Player.Transform.position);
+			}
+			else
+			{
+				//Quaternion newHips = Quaternion.LookRotation(Player.Transform.position - hipsJoint.position) * Quaternion.Euler(0, -90, 0) * hipsRot;
+				//hipsJoint.rotation = Quaternion.Slerp(
+				//	hipsJoint.rotation,
+				//	newHips,
+				//	Quaternion.Angle(hipsJoint.rotation, newHips) / 420);
+
+				animator.SetBool("ShouldWalk", false);
+				animator.SetBool("ShouldShoot", true);
+				agent.isStopped = true;
+				if (fireTimer <= 0 /*&& Quaternion.Angle(hipsJoint.rotation, newHips) < 25f*/)
+				{
+					GameObject bullet = Instantiate(projectile, gun.transform.position, Quaternion.LookRotation(Player.Transform.position - gun.transform.position));
+					bullet.GetComponentInChildren<Rigidbody>().AddForce((Player.Transform.position - gun.transform.position).normalized * projSpeed);
+
+					fireTimer = fireRate;
+				}
+			}
+		}
+		else
+		{
+			animator.SetBool("ShouldWalk", (nodes.Count == 1 && Vector3.Distance(feetPos, nodes[0].transform.position) > minDistanceThreshhold) || nodes.Count > 0);
+			animator.SetBool("ShouldShoot", false);
+			agent.isStopped = false;
+			if (Vector3.Distance(feetPos, targetNode.transform.position) < minDistanceThreshhold)
+			{
+				ChangeDestination((nodeIndex + 1) % nodes.Count);
+			}
+			else
+			{
+				agent.SetDestination(nodes[nodeIndex].transform.position);
+			}
+		}
+		}
+		fireTimer -= Time.deltaTime;
+	}
 	public override void DartRespond()
 	{
 		Instantiate(deathExplode, transform.position, transform.rotation);
 		Destroy(gameObject, 0.5f);
 	}
 
-	// Start is called before the first frame update
-	void Start()
-    {
-		hipsRot = hipsJoint.rotation;
-		ChangeDestination(0);
-		fireTimer = fireRate;
+	public override void EMPRespond(float stunDuration, GameObject stunEffect)
+	{
+		StartCoroutine(GetStunnedIdiot(stunDuration, stunEffect));
+	}
+
+	IEnumerator GetStunnedIdiot(float stunDuration, GameObject stunEffect)
+	{
+		GameObject stunParticles = Instantiate(stunEffect, transform.position, transform.rotation);
+		agent.isStopped = true;
+		isStunned = true;
+		yield return new WaitForSeconds(stunDuration);
+		isStunned = false;
+		agent.isStopped = false;
+		Destroy(stunParticles);
 	}
 
 	public void ChangeDestination(int nodeNum)
@@ -54,73 +124,12 @@ public class PatrolEnemy : DetectionEnemy
 		nodeIndex = nodeNum;
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-		playerDir = (Player.Transform.position - eyes.position).normalized;
-		Debug.DrawRay(gun.transform.position, (Player.Transform.position - gun.transform.position).normalized);
-		if (Physics.Raycast(eyes.position, playerDir, out RaycastHit hit, sightDist))
-		{
-			if (hit.collider.CompareTag("Player") && Player.AbilityController.isVisible)
-			{
-				animator.SetBool("CanSeePlayer", true);
-				canSeePlayer = true;
-				Player.Detection.ChangeDetection(100 * Time.deltaTime);
-			}
-			else
-			{
-				animator.SetBool("CanSeePlayer", false);
-				canSeePlayer = false;
-				ChangeDestination(nodeIndex);
-			}
-		}
-
-		if (!canSeePlayer)
-		{
-			if(agent.isStopped) agent.isStopped = false;
-			if (Vector3.Distance(feetPos, targetNode.transform.position) < minDistanceThreshhold)
-			{
-				if (nodeIndex == nodes.Count - 1) ChangeDestination(0);
-				else ChangeDestination(++nodeIndex);
-			}
-		} 
-		else 
-		{	if (Vector3.Distance(feetPos, Player.Transform.position) > maxPlayerDist)
-			{
-				hipsJoint.rotation = Quaternion.Slerp(
-				hipsJoint.rotation,
-				hips.rotation,
-				Quaternion.Angle(hipsJoint.rotation, hips.rotation) / 420);
-
-				animator.SetBool("CanSeePlayer", false);
-				agent.isStopped = false;
-				agent.SetDestination(Player.Transform.position);
-			}
-			else
-			{
-				Quaternion newHips = Quaternion.LookRotation(Player.Transform.position - hipsJoint.position) * Quaternion.Euler(0, -90, 0) * hipsRot;
-				hipsJoint.rotation = Quaternion.Slerp(
-				hipsJoint.rotation,
-				newHips,
-				Quaternion.Angle(hipsJoint.rotation, newHips) / 420);
-
-				animator.SetBool("CanSeePlayer", true);
-				agent.isStopped = true;
-				if (fireTimer <= 0 && Quaternion.Angle(hipsJoint.rotation, newHips) < 25f)
-				{
-					GameObject bullet = Instantiate(projectile, gun.transform);
-					bullet.transform.rotation = Quaternion.LookRotation((Player.Transform.position - gun.transform.position).normalized);
-					bullet.GetComponentInChildren<Rigidbody>().AddForce((Player.Transform.position - gun.transform.position).normalized * projSpeed);
-					
-					fireTimer = fireRate;
-				}
-			}
-			fireTimer -= Time.deltaTime;
-		}
-    }
-
 	private void OnDrawGizmosSelected()
 	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(feetPos, maxPlayerDistance);
+		Gizmos.color = new Color(0.95f, 0.65f, 0.25f);
+		Gizmos.DrawWireSphere(feetPos, playerCareDistance);
 		for (int i = 0; i < nodes.Count; i++)
 		{
 			if (i == nodeIndex)
@@ -137,5 +146,10 @@ public class PatrolEnemy : DetectionEnemy
 			Gizmos.color = Color.red;
 			Gizmos.DrawLine(nodes[i].transform.position, nodes[(i + 1) % nodes.Count].transform.position);
 		}
+	}
+
+	public override bool CheckSightlines()
+	{
+		return detector.CanSeePlayer;
 	}
 }
