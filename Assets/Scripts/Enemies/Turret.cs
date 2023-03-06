@@ -16,7 +16,6 @@ public class Turret : DetectionEnemy
 
 	GameObject player;
 	TurretAnimator turretAnimator;
-	bool canSeePlayer;
 	private float timeToRotate = 1.5f;
 	private float rotTimer;
 	private bool isStunned = false;
@@ -27,7 +26,7 @@ public class Turret : DetectionEnemy
 
 	public override bool CheckSightlines()
 	{
-		return canSeePlayer;
+		return CanSeePlayer;
 	}
 
 	public override void DartRespond()
@@ -70,20 +69,20 @@ public class Turret : DetectionEnemy
 			hit.collider.gameObject == player)
 		{
 			rotTimer += Time.deltaTime;
-			canSeePlayer = true;
-			//player.GetComponent<GlobalPlayerDetection>().ChangeDetection(150 * Time.deltaTime);
+			CanSeePlayer = true;
+			player.GetComponent<DetectionLevel>().ChangeDetection(150 * Time.deltaTime);
 			turretAnimator.animator.enabled = false;
 			weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, transform.up), rotTimer / timeToRotate);
 		}
 		else
 		{
 			rotTimer = 0;
-			canSeePlayer = false;
+			CanSeePlayer = false;
 			turretAnimator.animator.enabled = true;
 			turretAnimator.animator.SetBool("isActive", true);
 		}
 
-		if (fireTimer <= 0 && canSeePlayer)
+		if (fireTimer <= 0 && CanSeePlayer)
 		{
 			if (hit.collider.gameObject == player && Vector3.Dot(weapon.forward, playerDir) > 0.95f)
 			{

@@ -22,7 +22,7 @@ public class LaserDetection : DetectionEnemy
 			{
 				if (doesDamage)
 				{
-					other.GetComponent<Health>().TakeDamage(dps * Time.deltaTime);
+					Player.Health.TakeDamage(dps * Time.deltaTime);
 				}
 				else
 				{
