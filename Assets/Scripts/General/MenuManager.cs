@@ -21,7 +21,7 @@ public class MenuManager : MonoBehaviour
 	[SerializeField] private GameObject nextParent;
 
 	[Header("Displayed Information")]
-	[SerializeField] private List<Objective> objectives;
+	private List<Objective> objectives;
 	[SerializeField] private TextMeshProUGUI objectiveName;
 	[SerializeField] private TextMeshProUGUI objectiveDescription;
 
@@ -50,7 +50,9 @@ public class MenuManager : MonoBehaviour
 			Destroy(child.gameObject);
 		}
 
-		foreach (Objective objective in levels.Find(x => x.name == selectedLevel).objectives)
+		objectives = levels.Find(x => x.name == selectedLevel).objectives;
+
+		foreach (Objective objective in objectives)
 		{
 			GameObject objectiveButton = Instantiate(buttonPrefab, objectivesLayoutGroup.transform);
 			objectiveButton.GetComponent<ButtonManager>().SetText(objective.objectiveLabel);
@@ -62,8 +64,9 @@ public class MenuManager : MonoBehaviour
 	public void SetObjective(int value) 
 	{
 		objectiveIndex = value;
-		objectiveName.text = objectives[objectiveIndex].objectiveLabel;
-		objectiveDescription.text = objectives[objectiveIndex].objectiveDescription;
+
+		objectiveName.text = objectives[value].objectiveLabel;
+		objectiveDescription.text = objectives[value].objectiveDescription;
 	}
 
 	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
