@@ -130,8 +130,8 @@ public class ObjectiveHandler : MonoBehaviour
 
 		gm.menuCamera.SetActive(true);
 		gm.playCamera.SetActive(false);
-		print(PlayerPrefs.GetInt("LevelLock"));
-		print(PlayerPrefs.GetString("TutorialDone"));
+		//print(PlayerPrefs.GetInt("LevelLock"));
+		//print(PlayerPrefs.GetString("TutorialDone"));
 		//Debug.Log("Level Complete");
 	}
 

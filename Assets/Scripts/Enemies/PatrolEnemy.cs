@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PatrolEnemy : MonoBehaviour
+public class PatrolEnemy : DetectionEnemy
 {
 	[SerializeField] private DetectionEnemy detector;
 	[SerializeField] private float detectionThreshhold = 75;
@@ -25,6 +25,7 @@ public class PatrolEnemy : MonoBehaviour
 	[SerializeField] GameObject deathExplode;
 
 	private Quaternion hipsRot;
+	private bool isStunned;
 	private float fireTimer;
 	private GameObject targetNode;
 	private int nodeIndex;
@@ -41,6 +42,8 @@ public class PatrolEnemy : MonoBehaviour
 
 	void Update()
 	{
+		if(!isStunned)
+		{
 		if (Vector3.Distance(Player.Transform.position, feetPos) < playerCareDistance &&  Player.Detection.currentDetectionLevel > detectionThreshhold)
 		{
 			Physics.Raycast(detector.transform.position, Player.Transform.position - detector.transform.position, out RaycastHit hit, float.PositiveInfinity);
@@ -89,9 +92,30 @@ public class PatrolEnemy : MonoBehaviour
 				agent.SetDestination(nodes[nodeIndex].transform.position);
 			}
 		}
+		}
 		fireTimer -= Time.deltaTime;
 	}
+	public override void DartRespond()
+	{
+		Instantiate(deathExplode, transform.position, transform.rotation);
+		Destroy(gameObject, 0.5f);
+	}
 
+	public override void EMPRespond(float stunDuration, GameObject stunEffect)
+	{
+		StartCoroutine(GetStunnedIdiot(stunDuration, stunEffect));
+	}
+
+	IEnumerator GetStunnedIdiot(float stunDuration, GameObject stunEffect)
+	{
+		GameObject stunParticles = Instantiate(stunEffect, transform.position, transform.rotation);
+		agent.isStopped = true;
+		isStunned = true;
+		yield return new WaitForSeconds(stunDuration);
+		isStunned = false;
+		agent.isStopped = false;
+		Destroy(stunParticles);
+	}
 
 	public void ChangeDestination(int nodeNum)
 	{
@@ -122,5 +146,10 @@ public class PatrolEnemy : MonoBehaviour
 			Gizmos.color = Color.red;
 			Gizmos.DrawLine(nodes[i].transform.position, nodes[(i + 1) % nodes.Count].transform.position);
 		}
+	}
+
+	public override bool CheckSightlines()
+	{
+		return detector.CanSeePlayer;
 	}
 }

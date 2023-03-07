@@ -95,12 +95,4 @@ public class Turret : DetectionEnemy
 		}
 		fireTimer -= Time.deltaTime;
 	}
-
-	//private void OnDrawGizmosSelected()
-	//{
-	//	if (!Application.isPlaying) return;
-
-	//	Physics.Raycast(transform.position, player.transform.position - transform.position, out RaycastHit hit, float.MaxValue, myMask);
-	//	Gizmos.DrawLine(transform.position, hit.point);
-	//}
 }
