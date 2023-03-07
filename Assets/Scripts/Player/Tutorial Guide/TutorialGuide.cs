@@ -7,6 +7,5 @@ using UnityEngine;
 
 public class TutorialGuide : MonoBehaviour
 {
-	[SerializeField]public FeedNotification feedNotification;
-	[SerializeField] public TMP_Text displayTextObject;
+	[SerializeField] GameObject tuorialHUD;
 }

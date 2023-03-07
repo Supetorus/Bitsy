@@ -38,7 +38,6 @@ public class ConeDetection : DetectionEnemy
 		CanSeePlayer = detection != 0;
 		if (cameraLight != null) cameraLight.color = CanSeePlayer ? Color.red : Color.white;
 		if (CanSeePlayer) Player.Detection.ChangeDetection(detection * 100 * Time.deltaTime);
-		print("Detection: " + detection);
 		if (cameraLight != null) cameraLight.spotAngle = maxAngle * 2;
 
 		// Draw the rays around the area of the cone.

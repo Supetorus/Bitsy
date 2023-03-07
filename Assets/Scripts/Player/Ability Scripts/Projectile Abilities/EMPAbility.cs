@@ -10,11 +10,13 @@ public class EMPAbility : Ability
     [SerializeField] float speed;
 	[SerializeField] public int maxAmmo;
 	//[SerializeField] public int currentAmmo;
-	const int DEFAULT_AMMO = 5;
+	const int DEFAULT_AMMO = 2;
 	GameObject projectile;
+	private ThirdPersonCameraController myCamera;
 
 	public void Start()
 	{
+		myCamera = GetComponent<StateData>().camera.GetComponent<ThirdPersonCameraController>();
 		UpdateAmmo();
 	}
 
@@ -33,7 +35,7 @@ public class EMPAbility : Ability
 
 		if(currentAmmo > 0)
 		{
-			GameObject proj = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+			GameObject proj = Instantiate(projectile, projectileSpawn.position, myCamera.transform.rotation);
 			proj.GetComponent<Rigidbody>().AddForce(proj.transform.forward * speed, mode);
 			proj.GetComponent<Bomb>().isEMP = true;
 			currentAmmo--;

@@ -52,6 +52,7 @@ namespace Michsky.UI.Reach
             public string chapterID;
             public string title;
             public Sprite background;
+            public Sprite customImage;
             [TextArea] public string description;
             public ChapterState defaultState;
 
@@ -65,17 +66,17 @@ namespace Michsky.UI.Reach
             public UnityEvent onReplay;
         }
 
-		private void Awake()
-		{
-			InitializeChapters();
-		}
+        void Awake()
+        {
+            InitializeChapters();
+        }
 
-		private void OnEnable()
-		{
-			OpenCurrentPanel();
-		}
+        void OnEnable()
+        {
+            OpenCurrentPanel();
+        }
 
-		void OnDisable()
+        void OnDisable()
         {
             if (backgroundStretch == false)
                 return;
@@ -86,7 +87,7 @@ namespace Michsky.UI.Reach
 
         public void DoStretch()
         {
-            if (backgroundStretch == false || currentBackgroundRect == null)
+            if (backgroundStretch == false || currentBackgroundRect == null || gameObject.activeInHierarchy == false)
                 return;
 
             float calcSize = 1 + (maxStretch / 960);
@@ -107,6 +108,8 @@ namespace Michsky.UI.Reach
                 if (localizedObject == null || localizedObject.CheckLocalizationStatus() == false) { useLocalization = false; }
             }
 
+            identifiers.Clear();
+
             foreach (Transform child in chapterParent) { Destroy(child.gameObject); }
             for (int i = 0; i < chapters.Count; ++i)
             {
@@ -123,6 +126,12 @@ namespace Michsky.UI.Reach
                 // Background
                 item.backgroundImage.sprite = chapters[i].background;
                 item.UpdateBackgroundRect();
+
+                // Custom Image
+                if (item.customImage != null)
+                {
+                    item.customImage.sprite = chapters[i].customImage;
+                }
 
                 // Title
                 if (useLocalization == false || string.IsNullOrEmpty(chapters[i].titleKey)) { item.titleObject.text = chapters[i].title; }
@@ -251,7 +260,7 @@ namespace Michsky.UI.Reach
             StartCoroutine("DisablePanels");
         }
 
-        public void OpenCurrentPanel()
+        void OpenCurrentPanel()
         {
             if (identifiers[currentChapterIndex] == null)
                 return;
@@ -277,7 +286,7 @@ namespace Michsky.UI.Reach
                 nextButton.UpdateUI();
             }
 
-            if (progressFill != null) 
+            if (progressFill != null && gameObject.activeInHierarchy == true)
             { 
                 StopCoroutine("PlayProgressFill"); 
                 StartCoroutine("PlayProgressFill"); 
