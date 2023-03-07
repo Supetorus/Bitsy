@@ -80,6 +80,9 @@ public class UpgradeController : MonoBehaviour
 
 		onCooldownContainer[0] = WZ_OnCooldown;
 		onCooldownContainer[1] = L_OnCooldown;
+
+		webzipHUD.sprite = WZ_Sprite;
+		lungeHUD.sprite = L_Sprite;
 	}
 
 	public void Update()
