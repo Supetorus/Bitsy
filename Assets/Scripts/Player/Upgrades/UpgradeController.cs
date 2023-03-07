@@ -43,7 +43,7 @@ public class UpgradeController : MonoBehaviour
 	private const int EMP_UPGRADED_DURATION = 2;
 
 	private StateData sd;
-	RaycastHit zipPoint;
+	RaycastHit? zipPoint;
 
 	void Start()
 	{
@@ -55,6 +55,8 @@ public class UpgradeController : MonoBehaviour
 		WZ_Timer = WZ_Cooldown;
 		L_Timer = L_Cooldown;
 		lineRenderer.enabled = false;
+		if (PlayerPrefs.GetString("WebZip") == "True") webZip.action.Enable();
+		if (PlayerPrefs.GetString("Lunge") == "True") lunge.action.Enable();
 	}
 
 	public void Update()
@@ -109,28 +111,27 @@ public class UpgradeController : MonoBehaviour
 		else
 		{
 			lineRenderer.enabled = false;
+			zipPoint = null;
 		}
 	}
 
 	public void WebZip()
 	{
 		lineRenderer.enabled = false;
-		if (zipPoint.collider != null)
+		if (zipPoint != null)
 		{
 			WZ_OnCooldown = true;
-			controller.zipState.attachedObject = zipPoint;
+			controller.zipState.attachedObject = zipPoint.Value;
 			controller.CurrentMovementState = controller.zipState;
 		}
 	}
 
 	public void Lunge()
 	{
-		Vector3 lungeDir;
 		var camera = GetComponent<StateData>().camera.GetComponent<ThirdPersonCameraController>();
-		lungeDir = camera.transform.forward;
 		L_OnCooldown = true;
 		LungeState lunge = GetComponent<LungeState>();
-		lunge.lungeDirection = lungeDir;
+		lunge.lungeDirection = camera.transform.forward;
 		controller.CurrentMovementState = lunge;
 	}
 

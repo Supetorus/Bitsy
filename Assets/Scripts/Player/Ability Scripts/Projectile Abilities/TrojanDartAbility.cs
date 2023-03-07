@@ -10,10 +10,12 @@ public class TrojanDartAbility : Ability
     [SerializeField] float speed;
 	[SerializeField] public int maxAmmo;
 	//[SerializeField] public int currentAmmo;
-	const int DEFAULT_AMMO = 5;
+	const int DEFAULT_AMMO = 3;
+	private ThirdPersonCameraController myCamera;
 
 	public void Start()
 	{
+		myCamera = GetComponent<StateData>().camera.GetComponent<ThirdPersonCameraController>();
 		UpdateAmmo();
 	}
 
@@ -27,7 +29,7 @@ public class TrojanDartAbility : Ability
     {
 		if(currentAmmo > 0)
 		{
-			GameObject proj = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation * Quaternion.AngleAxis(-90, transform.up));
+			GameObject proj = Instantiate(projectile, projectileSpawn.position, myCamera.transform.rotation * Quaternion.AngleAxis(-90, transform.up));
 			proj.GetComponent<Rigidbody>().AddForce(proj.transform.right * speed, mode);
 			currentAmmo--;
 		}
