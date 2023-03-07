@@ -20,7 +20,12 @@ public class ZipState : MovementState
         GetComponent<Rigidbody>().AddForce(direction * ZIP_SPEED, ForceMode.VelocityChange);
     }
 
-    public override void UpdateState()
+	public override void ExitState()
+	{
+		
+	}
+
+	public override void UpdateState()
     {
         // Todo this should be a slerp from the original position to facing upright,
         // or upright according to where they will land.
