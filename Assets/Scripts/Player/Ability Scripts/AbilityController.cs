@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class AbilityController : MonoBehaviour
 {
@@ -62,6 +63,9 @@ public class AbilityController : MonoBehaviour
 	[SerializeField] GameObject currentAbilityCD;
 	[SerializeField] GameObject prevAbilityCD;
 	[SerializeField] GameObject nextAbilityCD;
+	[SerializeField] GameObject currentAbilityDuration;
+	[SerializeField] GameObject prevAbilityDuration;
+	[SerializeField] GameObject nextAbilityDuration;
 	[SerializeField] TextMeshProUGUI currentAmmo;
 	[SerializeField] TextMeshProUGUI prevAmmo;
 	[SerializeField] TextMeshProUGUI nextAmmo;
@@ -212,6 +216,7 @@ public class AbilityController : MonoBehaviour
 		onCooldownContainer[2] = SB_OnCooldown;
 		onCooldownContainer[3] = TD_OnCooldown;
 
+		DisplayAbilityDuration();
 		DisplayAbilityCooldowns();
 	}
 
@@ -293,6 +298,14 @@ public class AbilityController : MonoBehaviour
 
 	}
 
+	private void DisplayAbilityDuration(RectTransform.Axis axis = RectTransform.Axis.Vertical)
+	{
+		float duration = (C_IsActive) ? C_DurationTimer / C_Duration * 2.5f : 0.0f;
+		currentAbilityDuration.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, duration);
+		prevAbilityDuration.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, duration);
+		nextAbilityDuration.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, duration);
+	}
+
 	private void DisplayAbilityCooldowns(RectTransform.Axis axis = RectTransform.Axis.Vertical)
 	{
 		float cooldown = Mathf.Max(CalcRectAxisSize(0, 2.5f, 0.0f), CalcRectAxisSize(1, 2.5f, 0.0f));
@@ -309,7 +322,7 @@ public class AbilityController : MonoBehaviour
 		{
 			return max;
 		}
-		return onCooldownContainer[index] ? (timerContainer[index] / cooldownContainer[index]) * max : min;
+		return (onCooldownContainer[index] || C_IsActive) ? (timerContainer[index] / cooldownContainer[index]) * max : min;
 
 	}
 }
