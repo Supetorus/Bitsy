@@ -51,7 +51,7 @@ public class UpgradeController : MonoBehaviour
 	private const int EMP_UPGRADED_DURATION = 2;
 
 	private StateData sd;
-	RaycastHit zipPoint;
+	RaycastHit? zipPoint;
 
 	[SerializeField] Image webzipHUD;
 	[SerializeField] Image lungeHUD;
@@ -80,6 +80,12 @@ public class UpgradeController : MonoBehaviour
 
 		onCooldownContainer[0] = WZ_OnCooldown;
 		onCooldownContainer[1] = L_OnCooldown;
+
+		webzipHUD.sprite = WZ_Sprite;
+		lungeHUD.sprite = L_Sprite;
+
+		if (PlayerPrefs.GetString("WebZip") == "True") webZip.action.Enable();
+		if (PlayerPrefs.GetString("Lunge") == "True") lunge.action.Enable();
 	}
 
 	public void Update()
@@ -145,16 +151,17 @@ public class UpgradeController : MonoBehaviour
 		else
 		{
 			lineRenderer.enabled = false;
+			zipPoint= null;
 		}
 	}
 
 	public void WebZip()
 	{
 		lineRenderer.enabled = false;
-		if (zipPoint.collider != null)
+		if (zipPoint != null)
 		{
 			WZ_OnCooldown = true;
-			controller.zipState.attachedObject = zipPoint;
+			controller.zipState.attachedObject = zipPoint.Value;
 			controller.CurrentMovementState = controller.zipState;
 		}
 	}
