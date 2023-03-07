@@ -422,7 +422,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3460688405482546297}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 0.9
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -447,8 +447,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029e45758428e504080491045a7936ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   detector: {fileID: 8348927683313217148}
   detectionThreshhold: 75
+  canSeePlayer: 0
   playerCareDistance: 20
   nodes: []
   agent: {fileID: 3259987392377235079}
