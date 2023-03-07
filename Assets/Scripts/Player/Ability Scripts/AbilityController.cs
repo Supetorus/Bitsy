@@ -295,9 +295,12 @@ public class AbilityController : MonoBehaviour
 
 	private void DisplayAbilityCooldowns(RectTransform.Axis axis = RectTransform.Axis.Vertical)
 	{
-		currentAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize(abilityIndex, 2.5f, 0.0f));
-		prevAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize((abilityIndex == 0) ? 3 : abilityIndex - 1, 2.5f, 0.0f));
-		nextAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize((abilityIndex == 3) ? 0 : abilityIndex + 1, 2.5f, 0.0f));
+		float cooldown = Mathf.Max(CalcRectAxisSize(0, 2.5f, 0.0f), CalcRectAxisSize(1, 2.5f, 0.0f));
+		cooldown = Mathf.Max(cooldown, CalcRectAxisSize(2, 2.5f, 0.0f));
+		cooldown = Mathf.Max(cooldown, CalcRectAxisSize(3, 2.5f, 0.0f));
+		currentAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, cooldown);
+		prevAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, cooldown);
+		nextAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, cooldown);
 	}
 
 	private float CalcRectAxisSize(int index, float max, float min)

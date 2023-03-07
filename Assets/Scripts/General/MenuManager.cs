@@ -1,6 +1,7 @@
 using Michsky.UI.Reach;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -18,7 +19,11 @@ public class MenuManager : MonoBehaviour
 	[SerializeField] private GameObject objectivesLayoutGroup;
 	[SerializeField] private GameObject buttonPrefab;
 	[SerializeField] private GameObject nextParent;
-    //ThirdPersonCameraController playerCameraController;
+
+	[Header("Displayed Information")]
+	private List<Objective> objectives;
+	[SerializeField] private TextMeshProUGUI objectiveName;
+	[SerializeField] private TextMeshProUGUI objectiveDescription;
 
     private void Start()
     {
@@ -45,7 +50,9 @@ public class MenuManager : MonoBehaviour
 			Destroy(child.gameObject);
 		}
 
-		foreach (Objective objective in levels.Find(x => x.name == selectedLevel).objectives)
+		objectives = levels.Find(x => x.name == selectedLevel).objectives;
+
+		foreach (Objective objective in objectives)
 		{
 			GameObject objectiveButton = Instantiate(buttonPrefab, objectivesLayoutGroup.transform);
 			objectiveButton.GetComponent<ButtonManager>().SetText(objective.objectiveLabel);
@@ -57,6 +64,9 @@ public class MenuManager : MonoBehaviour
 	public void SetObjective(int value) 
 	{
 		objectiveIndex = value;
+
+		objectiveName.text = objectives[value].objectiveLabel;
+		objectiveDescription.text = objectives[value].objectiveDescription;
 	}
 
 	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
