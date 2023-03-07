@@ -24,7 +24,7 @@ public class LaserDetection : DetectionEnemy
 				{
 					Player.Health.TakeDamage(dps * Time.deltaTime);
 				}
-				else
+				else if (Player.AbilityController.isVisible)
 				{
 					Player.Detection.ChangeDetection(dps * Time.deltaTime);
 				}
