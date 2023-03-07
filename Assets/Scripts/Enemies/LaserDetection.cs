@@ -9,6 +9,7 @@ public class LaserDetection : DetectionEnemy
 	private bool doesDamage;
 	[SerializeField, Tooltip("How much damage is done or detection is increased per second.")]
 	private float dps = 1;
+	[SerializeField] private GameObject SparkVFX;
 
 	private bool isStunned;
 
@@ -22,11 +23,26 @@ public class LaserDetection : DetectionEnemy
 			{
 				if (doesDamage)
 				{
+					SparkVFX.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z);
+					SparkVFX.active = true;
 					Player.Health.TakeDamage(dps * Time.deltaTime);
 				}
 				else
 				{
 					Player.Detection.ChangeDetection(dps * Time.deltaTime);
+				}
+			}
+		}
+	}
+
+	private void OnTriggerExit(Collider other) {
+		if (!isStunned) {
+			if (other.TryGetComponent<Smoke>(out _)) return;
+
+			if (other.CompareTag("Player")) {
+				if (doesDamage) {
+					SparkVFX.active = false;
+					Debug.Log("Exiting");
 				}
 			}
 		}
