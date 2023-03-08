@@ -29,8 +29,8 @@ public class TrojanDartAbility : Ability
     {
 		if(currentAmmo > 0)
 		{
-			GameObject proj = Instantiate(projectile, projectileSpawn.position, myCamera.transform.rotation * Quaternion.AngleAxis(-90, transform.up));
-			proj.GetComponent<Rigidbody>().AddForce(proj.transform.right * speed, mode);
+			GameObject dart = Instantiate(projectile, projectileSpawn.position, Quaternion.LookRotation(Player.Camera.transform.forward) * Quaternion.Euler(0, -90, 0));
+			dart.GetComponent<Rigidbody>().AddForce(Player.Camera.transform.forward * speed, mode);
 			currentAmmo--;
 		}
     }
