@@ -24,7 +24,7 @@ public class LaserDetection : DetectionEnemy
 				if (doesDamage)
 				{
 					SparkVFX.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z);
-					SparkVFX.active = true;
+					SparkVFX.SetActive(true);
 					Player.Health.TakeDamage(dps * Time.deltaTime);
 				}
 				else if (Player.AbilityController.isVisible)
