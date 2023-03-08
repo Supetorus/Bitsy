@@ -18,7 +18,6 @@ public class LaserDetection : DetectionEnemy
 		if(!isStunned)
 		{
 			if (other.TryGetComponent<Smoke>(out _)) return;
-
 			if (other.CompareTag("Player"))
 			{
 				if (doesDamage)
@@ -27,7 +26,7 @@ public class LaserDetection : DetectionEnemy
 					SparkVFX.SetActive(true);
 					Player.Health.TakeDamage(dps * Time.deltaTime);
 				}
-				else if (Player.AbilityController.isVisible)
+				else if (Player.AbilityController.isHiding != true)
 				{
 					Player.Detection.ChangeDetection(dps * Time.deltaTime);
 				}

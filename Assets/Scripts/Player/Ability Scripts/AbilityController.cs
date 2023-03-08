@@ -70,6 +70,7 @@ public class AbilityController : MonoBehaviour
 	[SerializeField] TextMeshProUGUI prevAmmo;
 	[SerializeField] TextMeshProUGUI nextAmmo;
 	[HideInInspector] public bool isVisible = true;
+	 public bool isHiding = false;
 
 
 	// Start is called before the first frame update
