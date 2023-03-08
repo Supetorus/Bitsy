@@ -20,7 +20,6 @@ public class Hide : MonoBehaviour, IInteractable
 	public bool Interact(Interactor interactor)
 	{
 		sfx.PlayOneShot(opensfx);
-		Debug.Log(_prompt);
 		return true;
 	}
 }

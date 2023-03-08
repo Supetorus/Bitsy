@@ -96,7 +96,6 @@ public class ObjectiveHandler : MonoBehaviour
 		panelManager.OpenPanel(panelManager.panels[6].panelName);
 
 		var sceneName = SceneManager.GetActiveScene().name;
-		print(sceneName);
 		switch (sceneName)
 		{
 			case "Tutorial":
@@ -130,9 +129,6 @@ public class ObjectiveHandler : MonoBehaviour
 
 		gm.menuCamera.SetActive(true);
 		gm.playCamera.SetActive(false);
-		//print(PlayerPrefs.GetInt("LevelLock"));
-		//print(PlayerPrefs.GetString("TutorialDone"));
-		//Debug.Log("Level Complete");
 	}
 
 	public void ResetObjective()

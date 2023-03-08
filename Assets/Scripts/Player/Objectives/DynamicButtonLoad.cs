@@ -55,9 +55,6 @@ public class DynamicButtonLoad : MonoBehaviour
 
     public void OptionSelected(int selection)
     {
-        print(selection);
-		print(currentActiveButtons.Count);
-		Debug.Log(currentActiveButtons.ElementAt(selection).name);
     }
 
     public void RemoveActiveDialogue()

@@ -56,7 +56,7 @@ public class ClingState : MovementState
 	{
 		if (height > sd.attachmentDistance)
 		{
-			Debug.Log("Cling State height cannot be greater than State Data's attachment distance.");
+			Debug.LogWarning("Cling State height cannot be greater than State Data's attachment distance.");
 			return;
 		}
 
