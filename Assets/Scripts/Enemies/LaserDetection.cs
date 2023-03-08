@@ -41,8 +41,7 @@ public class LaserDetection : DetectionEnemy
 
 			if (other.CompareTag("Player")) {
 				if (doesDamage) {
-					SparkVFX.active = false;
-					Debug.Log("Exiting");
+					SparkVFX.SetActive(false);
 				}
 			}
 		}
