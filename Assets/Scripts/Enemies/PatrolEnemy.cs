@@ -7,7 +7,6 @@ public class PatrolEnemy : DetectionEnemy
 {
 	[SerializeField] private DetectionEnemy detector;
 	[SerializeField] private float detectionThreshhold = 75;
-	[SerializeField] private bool canSeePlayer;
 	[SerializeField, Tooltip("How close the player has to be before this enemy cares and will try to find them")]
 	private float playerCareDistance = 20;
 	[Header("Navigation")]
@@ -50,7 +49,6 @@ public class PatrolEnemy : DetectionEnemy
 	{
 		if (Vector3.Distance(Player.Transform.position, feetPos) < playerCareDistance &&  Player.Detection.currentDetectionLevel > detectionThreshhold)
 		{
-			canSeePlayer = true;
 			Physics.Raycast(detector.transform.position, Player.Transform.position - detector.transform.position, out RaycastHit hit, float.PositiveInfinity);
 			if (Vector3.Distance(gun.position, Player.Transform.position) > maxPlayerDistance || !hit.collider.CompareTag("Player"))
 			{
@@ -85,7 +83,6 @@ public class PatrolEnemy : DetectionEnemy
 		}
 		else
 		{
-			canSeePlayer = false;
 			animator.SetBool("ShouldWalk", (nodes.Count == 1 && Vector3.Distance(feetPos, nodes[0].transform.position) > minDistanceThreshhold) || nodes.Count > 0);
 			animator.SetBool("ShouldShoot", false);
 			agent.isStopped = false;
@@ -135,7 +132,7 @@ public class PatrolEnemy : DetectionEnemy
 
 	public override bool CheckSightlines()
 	{
-		return canSeePlayer;
+		return detector.CanSeePlayer;
 	}
 
 	public override void EMPRespond(float stunDuration, GameObject stunEffect)

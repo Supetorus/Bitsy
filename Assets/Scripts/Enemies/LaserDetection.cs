@@ -60,7 +60,6 @@ public class LaserDetection : DetectionEnemy
 
 	IEnumerator GetStunnedIdiot(float stunDuration, GameObject stunEffect)
 	{
-		GameObject stunParticles = Instantiate(stunEffect, transform.position, transform.rotation);
 		isStunned = true;
 		gameObject.GetComponent<MeshRenderer>().enabled = false;
 		yield return new WaitForSeconds(stunDuration);
