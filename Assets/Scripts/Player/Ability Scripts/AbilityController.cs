@@ -113,6 +113,8 @@ public class AbilityController : MonoBehaviour
 		currentAbilityHUD.sprite = abilitySprites[0];
 	}
 
+	private bool cycleWasIncreased = false;
+	private bool cycleWasDecreased = false;
 	// Update is called once per frame
 	void Update()
 	{
@@ -170,7 +172,7 @@ public class AbilityController : MonoBehaviour
 					break;
 			}
 		}
-		else if (cycleAbility.action.ReadValue<float>() > 0)
+		else if (cycleAbility.action.ReadValue<float>() > 0 && !cycleWasIncreased)
 		{
 			//this can probably be used to simplify the integer looping
 			//abilityIndex = (int)Mathf.Repeat(abilityIndex - 1, 3);
@@ -179,7 +181,7 @@ public class AbilityController : MonoBehaviour
 			if (abilityIndex == 0) abilityIndex = 3;
 			else if (equippedAbilities[abilityIndex - 1] != null) abilityIndex--;
 		}
-		else if (cycleAbility.action.ReadValue<float>() < 0)
+		else if (cycleAbility.action.ReadValue<float>() < 0 && !cycleWasDecreased)
 		{
 			//abilityIndex = (abilityIndex + 1) % equippedAbilities.Length;
 			if (abilityIndex == 3 && equippedAbilities[0] != null) abilityIndex = 0;
@@ -218,6 +220,9 @@ public class AbilityController : MonoBehaviour
 
 		DisplayAbilityDuration();
 		DisplayAbilityCooldowns();
+
+		cycleWasIncreased = cycleAbility.action.ReadValue<float>() > 0;
+		cycleWasDecreased = cycleAbility.action.ReadValue<float>() < 0;
 	}
 
 	public void HandleTimers()
