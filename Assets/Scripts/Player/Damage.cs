@@ -15,13 +15,17 @@ public class Damage : MonoBehaviour
 	private float destroyTime;
 	[SerializeField, Tooltip("The object that is destroyed when the timer is up. Usually the parent part of the prefab if it is a projectile.")]
 	private GameObject destroyed;
+	[SerializeField] private GameObject SparkVFX;
 
 
 	private void OnCollisionEnter(Collision collision)
 	{
 		Health health;
-		if (collision.gameObject.CompareTag("Player")) health = Player.Health;
-		else health = collision.gameObject.GetComponent<Health>();
+		if (collision.gameObject.CompareTag("Player")) {
+			health = Player.Health;
+			GameObject spark = Instantiate(SparkVFX, collision.gameObject.transform.position, Quaternion.identity);
+			Destroy(spark, spark.GetComponent<ParticleSystem>().main.duration);
+		} else health = collision.gameObject.GetComponent<Health>();
 		DoIt(health);
 	}
 
