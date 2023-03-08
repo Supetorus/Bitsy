@@ -24,7 +24,7 @@ public class LaserDetection : DetectionEnemy
 				if (doesDamage)
 				{
 					SparkVFX.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z);
-					SparkVFX.active = true;
+					SparkVFX.SetActive(true);
 					Player.Health.TakeDamage(dps * Time.deltaTime);
 				}
 				else if (Player.AbilityController.isVisible)
@@ -41,8 +41,7 @@ public class LaserDetection : DetectionEnemy
 
 			if (other.CompareTag("Player")) {
 				if (doesDamage) {
-					SparkVFX.active = false;
-					Debug.Log("Exiting");
+					SparkVFX.SetActive(false);
 				}
 			}
 		}
@@ -60,7 +59,6 @@ public class LaserDetection : DetectionEnemy
 
 	IEnumerator GetStunnedIdiot(float stunDuration, GameObject stunEffect)
 	{
-		GameObject stunParticles = Instantiate(stunEffect, transform.position, transform.rotation);
 		isStunned = true;
 		gameObject.GetComponent<MeshRenderer>().enabled = false;
 		yield return new WaitForSeconds(stunDuration);
