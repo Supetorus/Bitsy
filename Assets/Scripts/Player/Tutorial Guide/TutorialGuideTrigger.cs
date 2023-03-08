@@ -19,7 +19,7 @@ public class TutorialGuideTrigger : MonoBehaviour
 	IEnumerator WaitForLoad()
 	{
 		GetComponent<BoxCollider>().enabled = false;
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1.0f);
 		GetComponent<BoxCollider>().enabled = true;
 	}
 
