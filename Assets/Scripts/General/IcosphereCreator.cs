@@ -286,7 +286,6 @@ public static class IcosphereCreator
 	{
 		int tri = n * n;        // devided triangle count (1,4,9...)
 		int uvLimit = tri * 6;  // range of wrap UV.x 
-		//Debug.Log("tri " + tri + " uvLimit " + uvLimit);
 
 		for (int i = 0; i < vertices.Length; i++)
 		{

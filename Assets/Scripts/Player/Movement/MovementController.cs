@@ -22,7 +22,6 @@ public class MovementController : MonoBehaviour
 			}
 			if (value != null && value != currentMovementState)
 			{
-				//print(CurrentMState + " : " + newState);
 				currentMovementState?.ExitState();
 				currentMovementState = value;
 				currentMovementState.EnterState();

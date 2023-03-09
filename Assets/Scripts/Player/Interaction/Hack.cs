@@ -65,7 +65,6 @@ public class Hack : MonoBehaviour, IInteractable
 			hacked = true;
 			AudioSource.PlayClipAtPoint(sfx, transform.position);
 
-			Debug.Log("HACKED");
 			if (openDoor1 != null) openDoor1.transform.position = new Vector3(openDoor1.transform.position.x, openDoor1.transform.position.y, openDoor1.transform.position.z + MoveAmount);
 			if (openDoor2 != null) openDoor2.transform.position = new Vector3(openDoor2.transform.position.x, openDoor2.transform.position.y, openDoor2.transform.position.z - MoveAmount);
 

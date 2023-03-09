@@ -56,8 +56,6 @@ public class GameManager : MonoBehaviour
 
 		menuCamera.SetActive(true);
 		playCamera.SetActive(false);
-
-		Debug.Log("Level Failed");
 	}
 
 	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)

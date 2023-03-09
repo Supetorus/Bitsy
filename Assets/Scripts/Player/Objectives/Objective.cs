@@ -32,11 +32,7 @@ public class Objective : ScriptableObject
 	{
 		if (t_index == taskIndex)
 		{
-			if (tasks[taskIndex].CompleteTask(taskIndex))
-			{
-				//Debug.Log("Obective " + index + ", Task " + taskIndex + " Complete");
-				taskIndex++;
-			}
+			if (tasks[taskIndex].CompleteTask(taskIndex)) taskIndex++;
 		}
 		complete = (taskIndex == tasks.Count);
 	}
