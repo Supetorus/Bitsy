@@ -58,7 +58,8 @@ public class Turret : DetectionEnemy
 	void Start()
 	{
 		turretAnimator = GetComponentInParent<TurretAnimator>();
-		player = GameObject.FindGameObjectWithTag("Player");
+		player = GameObject.FindObjectOfType<Player>().gameObject;
+		//player = GameObject.FindGameObjectWithTag("Player");
 		fireTimer = fireRate;
 	}
 
