@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 7554665082217298704}
   - component: {fileID: 3259987392377235079}
   - component: {fileID: 4733750617790925471}
+  - component: {fileID: 8022444741976149048}
   m_Layer: 7
   m_Name: Jetpack
   m_TagString: Untagged
@@ -422,7 +423,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3460688405482546297}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 0.9
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -447,8 +448,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029e45758428e504080491045a7936ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   detector: {fileID: 8348927683313217148}
   detectionThreshhold: 75
+  canSeePlayer: 0
   playerCareDistance: 20
   nodes: []
   agent: {fileID: 3259987392377235079}
@@ -461,6 +466,19 @@ MonoBehaviour:
   hipsJoint: {fileID: 6273940928457591834}
   defaultHips: {fileID: 0}
   deathExplode: {fileID: 1484080174535161673, guid: 2f3f429642084e2439cee2fbd8eab3e1, type: 3}
+--- !u!65 &8022444741976149048
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3460688405482546297}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.75, y: 3.25, z: 1.75}
+  m_Center: {x: 0, y: 1.9, z: 0}
 --- !u!1 &3502247507188952040
 GameObject:
   m_ObjectHideFlags: 0

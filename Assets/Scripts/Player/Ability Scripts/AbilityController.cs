@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class AbilityController : MonoBehaviour
 {
@@ -62,10 +63,14 @@ public class AbilityController : MonoBehaviour
 	[SerializeField] GameObject currentAbilityCD;
 	[SerializeField] GameObject prevAbilityCD;
 	[SerializeField] GameObject nextAbilityCD;
+	[SerializeField] GameObject currentAbilityDuration;
+	[SerializeField] GameObject prevAbilityDuration;
+	[SerializeField] GameObject nextAbilityDuration;
 	[SerializeField] TextMeshProUGUI currentAmmo;
 	[SerializeField] TextMeshProUGUI prevAmmo;
 	[SerializeField] TextMeshProUGUI nextAmmo;
 	[HideInInspector] public bool isVisible = true;
+	 public bool isHiding = false;
 
 
 	// Start is called before the first frame update
@@ -109,6 +114,8 @@ public class AbilityController : MonoBehaviour
 		currentAbilityHUD.sprite = abilitySprites[0];
 	}
 
+	private bool cycleWasIncreased = false;
+	private bool cycleWasDecreased = false;
 	// Update is called once per frame
 	void Update()
 	{
@@ -166,7 +173,7 @@ public class AbilityController : MonoBehaviour
 					break;
 			}
 		}
-		else if (cycleAbility.action.ReadValue<float>() > 0)
+		else if (cycleAbility.action.ReadValue<float>() > 0 && !cycleWasIncreased)
 		{
 			//this can probably be used to simplify the integer looping
 			//abilityIndex = (int)Mathf.Repeat(abilityIndex - 1, 3);
@@ -175,7 +182,7 @@ public class AbilityController : MonoBehaviour
 			if (abilityIndex == 0) abilityIndex = 3;
 			else if (equippedAbilities[abilityIndex - 1] != null) abilityIndex--;
 		}
-		else if (cycleAbility.action.ReadValue<float>() < 0)
+		else if (cycleAbility.action.ReadValue<float>() < 0 && !cycleWasDecreased)
 		{
 			//abilityIndex = (abilityIndex + 1) % equippedAbilities.Length;
 			if (abilityIndex == 3 && equippedAbilities[0] != null) abilityIndex = 0;
@@ -212,7 +219,11 @@ public class AbilityController : MonoBehaviour
 		onCooldownContainer[2] = SB_OnCooldown;
 		onCooldownContainer[3] = TD_OnCooldown;
 
+		DisplayAbilityDuration();
 		DisplayAbilityCooldowns();
+
+		cycleWasIncreased = cycleAbility.action.ReadValue<float>() > 0;
+		cycleWasDecreased = cycleAbility.action.ReadValue<float>() < 0;
 	}
 
 	public void HandleTimers()
@@ -293,11 +304,22 @@ public class AbilityController : MonoBehaviour
 
 	}
 
+	private void DisplayAbilityDuration(RectTransform.Axis axis = RectTransform.Axis.Vertical)
+	{
+		float duration = (C_IsActive) ? C_DurationTimer / C_Duration * 2.5f : 0.0f;
+		currentAbilityDuration.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, duration);
+		prevAbilityDuration.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, duration);
+		nextAbilityDuration.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, duration);
+	}
+
 	private void DisplayAbilityCooldowns(RectTransform.Axis axis = RectTransform.Axis.Vertical)
 	{
-		currentAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize(abilityIndex, 2.5f, 0.0f));
-		prevAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize((abilityIndex == 0) ? 3 : abilityIndex - 1, 2.5f, 0.0f));
-		nextAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize((abilityIndex == 3) ? 0 : abilityIndex + 1, 2.5f, 0.0f));
+		float cooldown = Mathf.Max(CalcRectAxisSize(0, 2.5f, 0.0f), CalcRectAxisSize(1, 2.5f, 0.0f));
+		cooldown = Mathf.Max(cooldown, CalcRectAxisSize(2, 2.5f, 0.0f));
+		cooldown = Mathf.Max(cooldown, CalcRectAxisSize(3, 2.5f, 0.0f));
+		currentAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, cooldown);
+		prevAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, cooldown);
+		nextAbilityCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, cooldown);
 	}
 
 	private float CalcRectAxisSize(int index, float max, float min)
@@ -306,7 +328,7 @@ public class AbilityController : MonoBehaviour
 		{
 			return max;
 		}
-		return onCooldownContainer[index] ? (timerContainer[index] / cooldownContainer[index]) * max : min;
+		return (onCooldownContainer[index] || C_IsActive) ? (timerContainer[index] / cooldownContainer[index]) * max : min;
 
 	}
 }

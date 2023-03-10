@@ -11,6 +11,8 @@ public class Objective : ScriptableObject
 	[SerializeField] private List<Task> tasks;
 	public int taskIndex = 0;
 
+	[SerializeField, TextArea] public string objectiveDescription;
+
 	public Task GetCurrentTask()
 	{
 		return tasks[taskIndex];
@@ -30,11 +32,7 @@ public class Objective : ScriptableObject
 	{
 		if (t_index == taskIndex)
 		{
-			if (tasks[taskIndex].CompleteTask(taskIndex))
-			{
-				//Debug.Log("Obective " + index + ", Task " + taskIndex + " Complete");
-				taskIndex++;
-			}
+			if (tasks[taskIndex].CompleteTask(taskIndex)) taskIndex++;
 		}
 		complete = (taskIndex == tasks.Count);
 	}

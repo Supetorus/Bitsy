@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -84,11 +83,12 @@ public class Turret : DetectionEnemy
 
 		if (fireTimer <= 0 && CanSeePlayer)
 		{
-			if (hit.collider.gameObject == player && Vector3.Dot(weapon.forward, playerDir) > 0.95f)
+			if (hit.collider.CompareTag("Player") && Vector3.Dot(weapon.forward, playerDir) > 0.95f)
 			{
+				Vector3 randomOffset = Random.insideUnitSphere * 0.01f;
 				GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
 				bullet.transform.rotation = Quaternion.LookRotation(playerDir);
-				bullet.GetComponentInChildren<Rigidbody>().AddForce((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized * projSpeed);
+				bullet.GetComponentInChildren<Rigidbody>().AddForce(((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized + randomOffset) * projSpeed);
 				currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
 				fireTimer = fireRate;
 			}

@@ -43,7 +43,6 @@ public class Door : MonoBehaviour, IInteractable
 				OtherPanel.open = true;
 				OtherPanel.locked = false;
 			}
-			//Debug.Log(_prompt);
 			sfx.PlayOneShot(opensfx);
 			//update to play open on open animation and close on close animation when animator is added
 			// open door
@@ -74,7 +73,6 @@ public class Door : MonoBehaviour, IInteractable
 		else
 		{
 			sfx.PlayOneShot(errorsfx);
-			Debug.Log("I can't open that.");
 			return false;
 		}
 	}

@@ -24,35 +24,35 @@ public class PatrolEnemy : DetectionEnemy
 	[SerializeField] Transform defaultHips;
 	[SerializeField] GameObject deathExplode;
 
-	private Quaternion hipsRot;
-	private bool isStunned;
 	private float fireTimer;
 	private GameObject targetNode;
 	private int nodeIndex;
 	private Vector3 feetPos { get => new Vector3(transform.position.x, transform.position.y - agent.baseOffset, transform.position.z); }
 	private float minDistanceThreshhold = 0.1f;
 
+	public override void DartRespond()
+	{
+		Instantiate(deathExplode, transform.position, transform.rotation);
+		Destroy(gameObject, 0.5f);
+	}
+
 	void Start()
 	{
 		animator.SetBool("ShouldWalk", nodes.Count > 0 && (nodes.Count == 1 && Vector3.Distance(feetPos, nodes[0].transform.position) > minDistanceThreshhold));
-		hipsRot = hipsJoint.rotation;
 		ChangeDestination(0);
 		fireTimer = fireRate;
 	}
 
+	bool wasSeekingPlayer = false;
 	void Update()
 	{
-		if(!isStunned)
-		{
-		if (Vector3.Distance(Player.Transform.position, feetPos) < playerCareDistance &&  Player.Detection.currentDetectionLevel > detectionThreshhold)
+		bool seekPlayer = Player.Detection.currentDetectionLevel > detectionThreshhold || (wasSeekingPlayer && Player.Detection.currentDetectionLevel > 0);
+		wasSeekingPlayer = seekPlayer;
+		if (Vector3.Distance(Player.Transform.position, feetPos) < playerCareDistance && seekPlayer)
 		{
 			Physics.Raycast(detector.transform.position, Player.Transform.position - detector.transform.position, out RaycastHit hit, float.PositiveInfinity);
 			if (Vector3.Distance(gun.position, Player.Transform.position) > maxPlayerDistance || !hit.collider.CompareTag("Player"))
 			{
-				//hipsJoint.rotation = Quaternion.Slerp(
-				//	hipsJoint.rotation,
-				//	defaultHips.rotation,
-				//	Quaternion.Angle(hipsJoint.rotation, defaultHips.rotation) / 420);
 				animator.SetBool("ShouldWalk", true);
 				animator.SetBool("ShouldShoot", false);
 				agent.isStopped = false;
@@ -60,16 +60,10 @@ public class PatrolEnemy : DetectionEnemy
 			}
 			else
 			{
-				//Quaternion newHips = Quaternion.LookRotation(Player.Transform.position - hipsJoint.position) * Quaternion.Euler(0, -90, 0) * hipsRot;
-				//hipsJoint.rotation = Quaternion.Slerp(
-				//	hipsJoint.rotation,
-				//	newHips,
-				//	Quaternion.Angle(hipsJoint.rotation, newHips) / 420);
-
 				animator.SetBool("ShouldWalk", false);
 				animator.SetBool("ShouldShoot", true);
 				agent.isStopped = true;
-				if (fireTimer <= 0 /*&& Quaternion.Angle(hipsJoint.rotation, newHips) < 25f*/)
+				if (fireTimer <= 0)
 				{
 					GameObject bullet = Instantiate(projectile, gun.transform.position, Quaternion.LookRotation(Player.Transform.position - gun.transform.position));
 					bullet.GetComponentInChildren<Rigidbody>().AddForce((Player.Transform.position - gun.transform.position).normalized * projSpeed);
@@ -92,29 +86,7 @@ public class PatrolEnemy : DetectionEnemy
 				agent.SetDestination(nodes[nodeIndex].transform.position);
 			}
 		}
-		}
 		fireTimer -= Time.deltaTime;
-	}
-	public override void DartRespond()
-	{
-		Instantiate(deathExplode, transform.position, transform.rotation);
-		Destroy(gameObject, 0.5f);
-	}
-
-	public override void EMPRespond(float stunDuration, GameObject stunEffect)
-	{
-		StartCoroutine(GetStunnedIdiot(stunDuration, stunEffect));
-	}
-
-	IEnumerator GetStunnedIdiot(float stunDuration, GameObject stunEffect)
-	{
-		GameObject stunParticles = Instantiate(stunEffect, transform.position, transform.rotation);
-		agent.isStopped = true;
-		isStunned = true;
-		yield return new WaitForSeconds(stunDuration);
-		isStunned = false;
-		agent.isStopped = false;
-		Destroy(stunParticles);
 	}
 
 	public void ChangeDestination(int nodeNum)
@@ -151,5 +123,17 @@ public class PatrolEnemy : DetectionEnemy
 	public override bool CheckSightlines()
 	{
 		return detector.CanSeePlayer;
+	}
+
+	public override void EMPRespond(float stunDuration, GameObject stunEffect)
+	{
+		StartCoroutine(GetStunnedIdiot(stunDuration, stunEffect));
+	}
+
+	IEnumerator GetStunnedIdiot(float stunDuration, GameObject stunEffect)
+	{
+		agent.isStopped = true;
+		yield return new WaitForSeconds(stunDuration);
+		agent.isStopped = false;
 	}
 }

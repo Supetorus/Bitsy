@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class UpgradeController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class UpgradeController : MonoBehaviour
 	[HideInInspector] public MovementController controller;
 
 	[Header("WebZip Settings")]
+	[SerializeField] Sprite WZ_Sprite;
 	//WebZip Variables WZ_ = WebZip
 	private float WZ_MaxDist = 6.5f;
 	private float WZ_Cooldown = 3.75f;
@@ -24,10 +26,16 @@ public class UpgradeController : MonoBehaviour
 	[Header("Visuals")]
 	[SerializeField] LineRenderer lineRenderer;
 
+	[SerializeField] Sprite L_Sprite;
 	//Lunge Variables L_ = Lunge
 	private float L_Cooldown = 1.5f;
 	private float L_Timer;
 	private bool L_OnCooldown;
+
+	private List<Sprite> upgradeSprites = new List<Sprite>();
+	private float[] cooldownContainer = new float[2];
+	private float[] timerContainer = new float[2];
+	private bool[] onCooldownContainer = new bool[2];
 
 	//Upgrade Variables
 	private const int SB_REGULAR_DURATION = 1;
@@ -43,7 +51,12 @@ public class UpgradeController : MonoBehaviour
 	private const int EMP_UPGRADED_DURATION = 2;
 
 	private StateData sd;
-	RaycastHit zipPoint;
+	RaycastHit? zipPoint;
+
+	[SerializeField] Image webzipHUD;
+	[SerializeField] Image lungeHUD;
+	[SerializeField] GameObject webzipCD;
+	[SerializeField] GameObject lungeCD;
 
 	void Start()
 	{
@@ -55,6 +68,24 @@ public class UpgradeController : MonoBehaviour
 		WZ_Timer = WZ_Cooldown;
 		L_Timer = L_Cooldown;
 		lineRenderer.enabled = false;
+
+		upgradeSprites.Add(WZ_Sprite);
+		upgradeSprites.Add(L_Sprite);
+
+		cooldownContainer[0] = WZ_Cooldown;
+		cooldownContainer[1] = L_Cooldown;
+
+		timerContainer[0] = WZ_Timer;
+		timerContainer[1] = L_Timer;
+
+		onCooldownContainer[0] = WZ_OnCooldown;
+		onCooldownContainer[1] = L_OnCooldown;
+
+		webzipHUD.sprite = WZ_Sprite;
+		lungeHUD.sprite = L_Sprite;
+
+		if (PlayerPrefs.GetString("WebZip") == "True") webZip.action.Enable();
+		if (PlayerPrefs.GetString("Lunge") == "True") lunge.action.Enable();
 	}
 
 	public void Update()
@@ -72,6 +103,17 @@ public class UpgradeController : MonoBehaviour
 			WebZip();
 		}
 		HandleCooldowns();
+
+		cooldownContainer[0] = WZ_Cooldown;
+		cooldownContainer[1] = L_Cooldown;
+
+		timerContainer[0] = WZ_Timer;
+		timerContainer[1] = L_Timer;
+
+		onCooldownContainer[0] = WZ_OnCooldown;
+		onCooldownContainer[1] = L_OnCooldown;
+
+		DisplayUpgradeCooldowns();
 	}
 
 	public void HandleCooldowns()
@@ -109,16 +151,17 @@ public class UpgradeController : MonoBehaviour
 		else
 		{
 			lineRenderer.enabled = false;
+			zipPoint= null;
 		}
 	}
 
 	public void WebZip()
 	{
 		lineRenderer.enabled = false;
-		if (zipPoint.collider != null)
+		if (zipPoint != null)
 		{
 			WZ_OnCooldown = true;
-			controller.zipState.attachedObject = zipPoint;
+			controller.zipState.attachedObject = zipPoint.Value;
 			controller.CurrentMovementState = controller.zipState;
 		}
 	}
@@ -219,5 +262,16 @@ public class UpgradeController : MonoBehaviour
 					break;
 			}
 		}
+	}
+
+	private void DisplayUpgradeCooldowns(RectTransform.Axis axis = RectTransform.Axis.Vertical)
+	{
+		webzipCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize(0, 2.5f, 0.0f));
+		lungeCD.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CalcRectAxisSize(1, 2.5f, 0.0f));
+	}
+
+	private float CalcRectAxisSize(int index, float max, float min)
+	{
+		return onCooldownContainer[index] ? (timerContainer[index] / cooldownContainer[index]) * max : min;
 	}
 }

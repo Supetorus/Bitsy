@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 5275124475115118518}
   - component: {fileID: 8319367389617187857}
   - component: {fileID: 1010303832972754437}
+  - component: {fileID: 764884141003853778}
   m_Layer: 7
   m_Name: Roller
   m_TagString: Untagged
@@ -234,7 +235,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 1
+  m_Speed: 0.9
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -258,8 +259,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029e45758428e504080491045a7936ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   detector: {fileID: 1177582130539656761}
   detectionThreshhold: 75
+  canSeePlayer: 0
   playerCareDistance: 20
   nodes: []
   agent: {fileID: 8319367389617187857}
@@ -272,6 +277,19 @@ MonoBehaviour:
   hipsJoint: {fileID: 3218974939599926220}
   defaultHips: {fileID: 0}
   deathExplode: {fileID: 1484080174535161673, guid: 2f3f429642084e2439cee2fbd8eab3e1, type: 3}
+--- !u!65 &764884141003853778
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289256392254210271}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.75, y: 3, z: 1.75}
+  m_Center: {x: 0, y: 1.66, z: 0}
 --- !u!1 &1351531098890307500
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,6 +854,7 @@ MonoBehaviour:
   lineCount: 20
   beamRotationSpeed: 90
   lineRenderer: {fileID: 8616086341503925780, guid: b8a88696e11d5454aa31d0f8ca405bc2, type: 3}
+  maxDistance: 20
 --- !u!1 &6205847249180066228
 GameObject:
   m_ObjectHideFlags: 0

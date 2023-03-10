@@ -9,6 +9,7 @@ public class LaserDetection : DetectionEnemy
 	private bool doesDamage;
 	[SerializeField, Tooltip("How much damage is done or detection is increased per second.")]
 	private float dps = 1;
+	[SerializeField] private GameObject SparkVFX;
 
 	private bool isStunned;
 
@@ -17,16 +18,29 @@ public class LaserDetection : DetectionEnemy
 		if(!isStunned)
 		{
 			if (other.TryGetComponent<Smoke>(out _)) return;
-
 			if (other.CompareTag("Player"))
 			{
 				if (doesDamage)
 				{
+					SparkVFX.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z);
+					SparkVFX.SetActive(true);
 					Player.Health.TakeDamage(dps * Time.deltaTime);
 				}
-				else
+				else if (Player.AbilityController.isHiding != true)
 				{
 					Player.Detection.ChangeDetection(dps * Time.deltaTime);
+				}
+			}
+		}
+	}
+
+	private void OnTriggerExit(Collider other) {
+		if (!isStunned) {
+			if (other.TryGetComponent<Smoke>(out _)) return;
+
+			if (other.CompareTag("Player")) {
+				if (doesDamage) {
+					SparkVFX.SetActive(false);
 				}
 			}
 		}
@@ -39,10 +53,10 @@ public class LaserDetection : DetectionEnemy
 
 	public override void EMPRespond(float stunDuration, GameObject stunEffect)
 	{
-		StartCoroutine(GetStunnedIdiot(stunDuration));
+		StartCoroutine(GetStunnedIdiot(stunDuration, stunEffect));
 	}
 
-	IEnumerator GetStunnedIdiot(float stunDuration)
+	IEnumerator GetStunnedIdiot(float stunDuration, GameObject stunEffect)
 	{
 		isStunned = true;
 		gameObject.GetComponent<MeshRenderer>().enabled = false;

@@ -45,7 +45,6 @@ public class Interactor : MonoBehaviour
 				if (interact.action.IsPressed() && pressTimer <= 0)
 				{
 					pressTimer = 1;
-					//Debug.Log("SOMETHING WAS HIT");
 					feedNotification.MinimizeNotification();
 					interactable.Interact(this);
 					if (_colliders[0].TryGetComponent(out TaskInteract task))
