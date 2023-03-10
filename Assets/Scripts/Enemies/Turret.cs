@@ -17,7 +17,6 @@ public class Turret : DetectionEnemy
 
 	public UnityEvent onShoot;
 
-	GameObject player;
 	TurretAnimator turretAnimator;
 	private float timeToRotate = 1.5f;
 	private float rotTimer;
@@ -54,27 +53,22 @@ public class Turret : DetectionEnemy
 		turretAnimator.animator.enabled = true;
 	}
 
-	// Start is called before the first frame update
 	void Start()
 	{
 		turretAnimator = GetComponentInParent<TurretAnimator>();
-		player = GameObject.FindObjectOfType<Player>().gameObject;
-		//player = GameObject.FindGameObjectWithTag("Player");
 		fireTimer = fireRate;
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		if (isStunned) return;
-
-		playerDir = (player.transform.position - transform.position).normalized;
+		playerDir = (Player.Transform.position - transform.position).normalized;
 		if (Physics.Raycast(transform.position, playerDir, out RaycastHit hit, float.MaxValue, myMask) &&
-			hit.collider.gameObject == player)
+			hit.collider.CompareTag("Player"))
 		{
 			rotTimer += Time.deltaTime;
 			CanSeePlayer = true;
-			player.GetComponent<DetectionLevel>().ChangeDetection(150 * Time.deltaTime);
+			Player.Detection.ChangeDetection(150 * Time.deltaTime);
 			turretAnimator.animator.enabled = false;
 			weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, transform.up), rotTimer / timeToRotate);
 			//if (!moveSFXSource.isPlaying) moveSFXSource.Play();
@@ -95,7 +89,7 @@ public class Turret : DetectionEnemy
 				Vector3 randomOffset = Random.insideUnitSphere * 0.01f;
 				GameObject bullet = Instantiate(projectile, spawnLocations[currentSpawnLocation].position, transform.rotation);
 				bullet.transform.rotation = Quaternion.LookRotation(playerDir);
-				bullet.GetComponentInChildren<Rigidbody>().AddForce(((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized + randomOffset) * projSpeed);
+				bullet.GetComponentInChildren<Rigidbody>().AddForce(((Player.Transform.position - spawnLocations[currentSpawnLocation].position).normalized + randomOffset) * projSpeed);
 				currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
 				fireTimer = fireRate;
 				onShoot.Invoke();
