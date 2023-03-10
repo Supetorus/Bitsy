@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LaserDetection : DetectionEnemy
 {
@@ -10,6 +11,7 @@ public class LaserDetection : DetectionEnemy
 	[SerializeField, Tooltip("How much damage is done or detection is increased per second.")]
 	private float dps = 1;
 	[SerializeField] private GameObject SparkVFX;
+	public UnityEvent onHit;
 
 	private bool isStunned;
 
@@ -20,11 +22,13 @@ public class LaserDetection : DetectionEnemy
 			if (other.TryGetComponent<Smoke>(out _)) return;
 			if (other.CompareTag("Player"))
 			{
+				onHit.Invoke();
 				if (doesDamage)
 				{
 					SparkVFX.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z);
 					SparkVFX.SetActive(true);
 					Player.Health.TakeDamage(dps * Time.deltaTime);
+
 				}
 				else if (Player.AbilityController.isHiding != true)
 				{

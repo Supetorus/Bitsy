@@ -17,8 +17,9 @@ public class SpiderProceduralAnimation : MonoBehaviour
 	private bool bodyOrientation = true;
 	[SerializeField, Tooltip("What layers the spider can walk on.")]
 	private LayerMask walkableLayers;
-	[SerializeField, Tooltip("This event is triggered when a foot reaches its destination.")] 
+	[SerializeField, Tooltip("This event is triggered when a foot reaches its destination.")]
 	public UnityEvent OnStep;
+	[SerializeField] private AudioSource stepSFX;
 
 	/// <summary>
 	/// Determines the radius of the sphere shot from the sky to the ground to determine where the surface is that the player can walk on.
@@ -83,6 +84,12 @@ public class SpiderProceduralAnimation : MonoBehaviour
 		}
 		Physics.queriesHitBackfaces = doBackface;
 		return result;
+	}
+
+	public void StepSFX()
+	{
+		stepSFX.pitch = 0.8f + Random.Range(0.0f, 0.2f);
+		stepSFX.Play();
 	}
 
 	void Start()

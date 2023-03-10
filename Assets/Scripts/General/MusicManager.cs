@@ -24,20 +24,32 @@ public class MusicManager : MonoBehaviour
 				playerDetected = value;
 				if (value)
 				{
-					PlayDetected();
+					//PlayDetected();
 				}
 				else
 				{
-					PlayStealth();
+					//PlayStealth();
 				}
 			}
 		}
 	}
 
+	private void OnEnable()
+	{
+		DetectionLevel.onFull += PlayDetected;
+		//DetectionLevel.onEmpty += PlayStealth;
+	}
+
+	private void OnDisable()
+	{
+		DetectionLevel.onFull -= PlayDetected;
+		DetectionLevel.onEmpty -= PlayStealth;
+	}
 
 	void Start()
 	{
-
+		detectedIndex = Random.Range(0,detectedClips.Count);
+		stealthIndex = Random.Range(0,stealthClips.Count);
 	}
 
 	void Update()
@@ -46,27 +58,34 @@ public class MusicManager : MonoBehaviour
 		{
 			if (PlayerDetected)
 			{
-				detectedIndex = detectedIndex++ % detectedClips.Count;
 				PlayDetected();
+				detectedIndex = (int)Mathf.Repeat(detectedIndex + 1, detectedClips.Count - 1);
 			}
 			else
 			{
-				stealthIndex = stealthIndex++ % stealthClips.Count;
 				PlayStealth();
+				stealthIndex = (int)Mathf.Repeat(stealthIndex + 1, stealthClips.Count - 1);
 			}
 		}
 	}
 
 	void PlayStealth()
 	{
-		playerAudio.Stop();
+		stealthIndex = Random.Range(0, stealthClips.Count);
+		if (playerAudio.clip == stealthClips[stealthIndex] && playerAudio.isPlaying) return;
+		DetectionLevel.onFull += PlayDetected;
+		DetectionLevel.onEmpty -= PlayStealth;
+		//playerAudio.Stop();
 		playerAudio.clip = stealthClips[stealthIndex];
 		playerAudio.Play();
 	}
 
 	void PlayDetected()
 	{
-		playerAudio.Stop();
+		if (playerAudio.clip == detectedClips[detectedIndex] && playerAudio.isPlaying) return;
+		DetectionLevel.onFull -= PlayDetected;
+		DetectionLevel.onEmpty += PlayStealth;
+		//playerAudio.Stop();
 		playerAudio.clip = detectedClips[detectedIndex];
 		playerAudio.Play();
 	}

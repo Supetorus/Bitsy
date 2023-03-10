@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Profiling.LowLevel;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Damage : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class Damage : MonoBehaviour
 	[SerializeField, Tooltip("The object that is destroyed when the timer is up. Usually the parent part of the prefab if it is a projectile.")]
 	private GameObject destroyed;
 	[SerializeField] private GameObject SparkVFX;
+
+	public UnityEvent onDamage;
+	public UnityEvent onDOT;
 
 
 	private void OnCollisionEnter(Collision collision)
@@ -70,11 +74,13 @@ public class Damage : MonoBehaviour
 			health.InstantKill();
 			return;
 		}
+		onDamage.Invoke();
 		health.TakeDamage(damage);
 	}
 
 	private void DoDamageOverTime(Health health)
 	{
+		onDOT.Invoke();
 		health.TakeDamage(damage * Time.fixedDeltaTime);
 	}
 }

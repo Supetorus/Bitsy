@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class TurretAnimator : MonoBehaviour
 {
 	[SerializeField] public Animator animator;
 	[SerializeField] Turret turret;
+
+	public UnityEvent onDeploy;
+	public UnityEvent onStow;
+
 	private void OnEnable()
 	{
 		DetectionLevel.onThreeFourths += Popup;
@@ -33,11 +38,15 @@ public class TurretAnimator : MonoBehaviour
 	void Popup()
 	{
 		animator.SetBool("isActive", true);
+		onDeploy.Invoke();
+		turret.moveSFXSource.Play();
 	}
 
 	void Hide()
 	{
 		animator.SetBool("isActive", false);
+		onStow.Invoke();
+		turret.moveSFXSource.Stop();
 	}
 
 	public void EnableTurret()

@@ -56,6 +56,7 @@ public class PatrolEnemy : DetectionEnemy
 				animator.SetBool("ShouldWalk", true);
 				animator.SetBool("ShouldShoot", false);
 				agent.isStopped = false;
+				GetComponent<AudioSource>().UnPause();
 				agent.SetDestination(Player.Transform.position);
 			}
 			else
@@ -63,6 +64,7 @@ public class PatrolEnemy : DetectionEnemy
 				animator.SetBool("ShouldWalk", false);
 				animator.SetBool("ShouldShoot", true);
 				agent.isStopped = true;
+				GetComponent<AudioSource>().Pause();
 				if (fireTimer <= 0)
 				{
 					GameObject bullet = Instantiate(projectile, gun.transform.position, Quaternion.LookRotation(Player.Transform.position - gun.transform.position));
@@ -77,6 +79,7 @@ public class PatrolEnemy : DetectionEnemy
 			animator.SetBool("ShouldWalk", (nodes.Count == 1 && Vector3.Distance(feetPos, nodes[0].transform.position) > minDistanceThreshhold) || nodes.Count > 0);
 			animator.SetBool("ShouldShoot", false);
 			agent.isStopped = false;
+			GetComponent<AudioSource>().UnPause();
 			if (Vector3.Distance(feetPos, targetNode.transform.position) < minDistanceThreshhold)
 			{
 				ChangeDestination((nodeIndex + 1) % nodes.Count);

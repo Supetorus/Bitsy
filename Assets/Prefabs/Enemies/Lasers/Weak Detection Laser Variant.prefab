@@ -7,9 +7,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4192036727974267231, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1449193981872707326, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
       propertyPath: dps
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449193981872707326, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449193981872707326, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449193981872707326, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3927682857057689355}
+    - target: {fileID: 1449193981872707326, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayOneShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449193981872707326, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449193981872707326, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8300000, guid: 1507911302b2aae44b3ca06ba1554d05, type: 3}
+    - target: {fileID: 1449193981872707326, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.AudioClip, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1537167887518880286, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
       propertyPath: laserSpeed
@@ -77,3 +109,8 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0cece4394db12d44193c863a3354a20e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
+--- !u!82 &3927682857057689355 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: -4192036727974267231, guid: d11a91757dde7b44cbe8914508e3503e, type: 3}
+  m_PrefabInstance: {fileID: 8309997221280180650}
+  m_PrefabAsset: {fileID: 0}

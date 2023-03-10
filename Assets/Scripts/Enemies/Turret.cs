@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Turret : DetectionEnemy
 {
@@ -11,7 +12,10 @@ public class Turret : DetectionEnemy
 	[SerializeField] private float projSpeed;
 	[SerializeField] private float fireRate;
 	[SerializeField] GameObject deathExplode;
+	public AudioSource moveSFXSource;
 	[HideInInspector] private float fireTimer;
+
+	public UnityEvent onShoot;
 
 	GameObject player;
 	TurretAnimator turretAnimator;
@@ -72,6 +76,7 @@ public class Turret : DetectionEnemy
 			player.GetComponent<DetectionLevel>().ChangeDetection(150 * Time.deltaTime);
 			turretAnimator.animator.enabled = false;
 			weapon.rotation = Quaternion.Slerp(weapon.rotation, Quaternion.LookRotation(playerDir, transform.up), rotTimer / timeToRotate);
+			//if (!moveSFXSource.isPlaying) moveSFXSource.Play();
 		}
 		else
 		{
@@ -79,6 +84,7 @@ public class Turret : DetectionEnemy
 			CanSeePlayer = false;
 			turretAnimator.animator.enabled = true;
 			turretAnimator.animator.SetBool("isActive", true);
+			//moveSFXSource.Stop();
 		}
 
 		if (fireTimer <= 0 && CanSeePlayer)
@@ -91,6 +97,7 @@ public class Turret : DetectionEnemy
 				bullet.GetComponentInChildren<Rigidbody>().AddForce(((player.transform.position - spawnLocations[currentSpawnLocation].position).normalized + randomOffset) * projSpeed);
 				currentSpawnLocation = (currentSpawnLocation + 1) % spawnLocations.Length;
 				fireTimer = fireRate;
+				onShoot.Invoke();
 			}
 		}
 		fireTimer -= Time.deltaTime;
